@@ -2,22 +2,21 @@
 module Busty
   CONFIG = {
     "Hilstara" => {
-      bust_offset_x: -70,
-      face_offset_x: 65,
-      face_offset_y: 40,
+      bust_offset_x: -10,
+      face_offset_x: +15,
     },
     "Orilise" => {
-      face_offset_x: 63,
-      face_offset_y: 39,
+      face_offset_x: +13,
+      face_offset_y: -1,
     },
     "Nalili" => {
       bust_offset_y: 50,
-      face_offset_x: 60,
-      face_offset_y: 30,
+      face_offset_x: +10,
+      face_offset_y: -10,
     },
     "Varia" => {
-      face_offset_x: 62,
-      face_offset_y: 48,
+      face_offset_x: +12,
+      face_offset_y: +8,
     },
   }
 end
@@ -120,19 +119,19 @@ class Window_Message < Window_Base
   end
 
   def bust_offset_x
-    bust_config[:bust_offset_x] || -60
+    -60 + (bust_config[:bust_offset_x] || 0)
   end
 
   def bust_offset_y
-    bust_config[:bust_offset_y] || 0
+    0 + (bust_config[:bust_offset_y] || 0)
   end
 
   def face_offset_x
-    bust_config[:face_offset_x] || 50
+    50 + (bust_config[:face_offset_x] || 0)
   end
 
   def face_offset_y
-    bust_config[:face_offset_y] || 40
+    40 + (bust_config[:face_offset_y] || 0)
   end
 
   def bust_config
