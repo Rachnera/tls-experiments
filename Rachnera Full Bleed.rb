@@ -1,4 +1,26 @@
 # Inspired by https://forums.rpgmakerweb.com/index.php?threads/simple-message-busts.45897/
+module Busty
+  CONFIG = {
+    "Hilstara" => {
+      bust_offset_x: -70,
+      face_offset_x: 65,
+      face_offset_y: 40,
+    },
+    "Orilise" => {
+      face_offset_x: 63,
+      face_offset_y: 39,
+    },
+    "Nalili" => {
+      bust_offset_y: 50,
+      face_offset_x: 60,
+      face_offset_y: 30,
+    },
+    "Varia" => {
+      face_offset_x: 62,
+      face_offset_y: 48,
+    },
+  }
+end
 class Window_Message < Window_Base
   alias hmb_window_message_create_back_bitmap create_back_bitmap
   def create_back_bitmap
@@ -36,16 +58,16 @@ class Window_Message < Window_Base
   def update_bust
     if has_bust?
       @bust.bitmap = rescale_bitmap(Cache.picture(bust_name), 204, 216)
-      @bust.x = bust_offset
-      @bust.y = Graphics.height - @bust.height
+      @bust.x = bust_offset_x
+      @bust.y = Graphics.height - @bust.height + bust_offset_y
 
       bitmap = Cache.face($game_message.face_name)
       rect = Rect.new($game_message.face_index % 4 * 96, $game_message.face_index / 4 * 96, 96, 96)
       face_bitmap = Bitmap.new(96, 96)
       face_bitmap.blt(0, 0, bitmap, rect)
       @bust_face.bitmap = face_bitmap
-      @bust_face.x = bust_offset + 62
-      @bust_face.y = @bust.y + 48
+      @bust_face.x = @bust.x + face_offset_x
+      @bust_face.y = @bust.y + face_offset_y
     else
       @bust.bitmap = nil
       @bust_face.bitmap = nil
@@ -97,7 +119,23 @@ class Window_Message < Window_Base
     125
   end
 
-  def bust_offset
-    -60
+  def bust_offset_x
+    bust_config[:bust_offset_x] || -60
+  end
+
+  def bust_offset_y
+    bust_config[:bust_offset_y] || 0
+  end
+
+  def face_offset_x
+    bust_config[:face_offset_x] || 50
+  end
+
+  def face_offset_y
+    bust_config[:face_offset_y] || 40
+  end
+
+  def bust_config
+    Busty::CONFIG[bust_name] || {}
   end
 end
