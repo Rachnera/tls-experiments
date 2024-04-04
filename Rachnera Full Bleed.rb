@@ -75,7 +75,7 @@ class Window_Message < Window_Base
 
   def update_bust
     if has_bust?
-      @bust.bitmap = rescale_bitmap(Cache.picture(bust_name), bust_scale)
+      @bust.bitmap = bust_bitmap
       @bust.x = bust_offset_x
       @bust.y = Graphics.height - @bust.height + bust_offset_y
 
@@ -104,15 +104,28 @@ class Window_Message < Window_Base
   def has_bust?
     return false if $game_message.face_name.empty?
 
-    begin
-      Cache.picture(bust_name)
-      return true
-    rescue
-      return false
-    end
+    !!bust_bitmap
   end
 
-  def bust_name
+  def bust_bitmap
+    #TODO Very basic pseudo cache, can likely be improved (or at least cleaned up)
+    @busts = {} if @busts.nil?
+    return @busts[character_name] if @busts.has_key?(character_name)
+
+    begin
+      @busts[character_name] = Cache.picture(character_name + ' bust')
+    rescue
+      begin
+        @busts[character_name] = rescale_bitmap(Cache.picture(character_name), bust_scale)
+      rescue
+        @busts[character_name] = nil
+      end
+    end
+
+    @busts[character_name]
+  end
+
+  def character_name
     # TODO Deal with non standard names
     $game_message.face_name.gsub(/\s+emo.*/, '')
   end
@@ -161,6 +174,6 @@ class Window_Message < Window_Base
   end
 
   def bust_config
-    Busty::CONFIG[bust_name] || {}
+    Busty::CONFIG[character_name] || {}
   end
 end
