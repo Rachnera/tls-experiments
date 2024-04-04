@@ -1,11 +1,18 @@
 # Inspired by https://forums.rpgmakerweb.com/index.php?threads/simple-message-busts.45897/
 module Busty
   CONFIG = {
+    "Aka2" => {
+      bust_scale: 0.80,
+      face_offset_x: 61,
+      face_offset_y: 66,
+    },
+    "Annah" => {},
     "Balia" => {
       face_offset_x: 53,
       face_offset_y: 38,
     },
     "Carina" => {
+      bust_offset_x: -55,
       face_offset_x: 69,
       face_offset_y: 47,
     },
@@ -18,6 +25,10 @@ module Busty
       face_offset_x: 64,
       face_offset_y: 40,
     },
+    "Iris" => {
+      face_offset_x: 50,
+      face_offset_y: 47,
+    },
     "Nalili" => {
       bust_scale: 0.72,
       bust_offset_y: 50,
@@ -29,13 +40,34 @@ module Busty
       face_offset_x: 58,
       face_offset_y: 34,
     },
+    "Riala" => {
+      face_offset_x: 52,
+      face_offset_y: 49,
+    },
     "Robin blond" => {
       face_offset_x: 63,
       face_offset_y: 53,
     },
+    "Sarai" => {
+      bust_scale: 0.78,
+      bust_offset_x: -25,
+      bust_offset_y: 25,
+      face_offset_x: 27,
+      face_offset_y: 51,
+    },
+    "Simon2" => {
+      bust_offset_x: -80,
+      face_offset_x: 67,
+      face_offset_y: 32,
+    },
     "Varia" => {
       face_offset_x: 62,
       face_offset_y: 48,
+    },
+    "Yarra" => {
+      bust_scale: 0.70,
+      face_offset_x: 83,
+      face_offset_y: 20,
     },
   }
 end
@@ -107,7 +139,9 @@ class Window_Message < Window_Base
     # Don't display bust if the message box isn't at the bottom of the screen
     return false if self.y + self.height != Graphics.height
 
-    !!bust_bitmap
+    #FIXME Yarra apparently has some "faces" that are her breasts, and should be displayed as are
+
+    Busty::CONFIG.has_key?(character_name)
   end
 
   def bust_bitmap
@@ -129,7 +163,11 @@ class Window_Message < Window_Base
   end
 
   def character_name
-    # TODO Deal with non standard names
+    return "Aka2" if $game_message.face_name == 'Aka emo2'
+
+    #FIXME Simon has many forms, that should all be covered here
+    return "Simon2" if $game_message.face_name.start_with?('1 Simon dark')
+
     $game_message.face_name.gsub(/\s+emo.*/, '')
   end
 
