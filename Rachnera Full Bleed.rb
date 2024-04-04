@@ -1,21 +1,37 @@
 # Inspired by https://forums.rpgmakerweb.com/index.php?threads/simple-message-busts.45897/
 module Busty
   CONFIG = {
+    "Balia" => {
+      face_offset_x: 53,
+      face_offset_y: 38,
+    },
+    "Carina" => {
+      face_offset_x: 69,
+      face_offset_y: 47,
+    },
+    "Ginasta" => {
+      face_offset_x: 61,
+      face_offset_y: 42,
+    },
     "Hilstara" => {
       bust_offset_x: -70,
       face_offset_x: 64,
       face_offset_y: 40,
-    },
-    "Orilise" => {
-      bust_scale: 0.71,
-      face_offset_x: 58,
-      face_offset_y: 34,
     },
     "Nalili" => {
       bust_scale: 0.72,
       bust_offset_y: 50,
       face_offset_x: 54,
       face_offset_y: 27,
+    },
+    "Orilise" => {
+      bust_scale: 0.71,
+      face_offset_x: 58,
+      face_offset_y: 34,
+    },
+    "Robin blond" => {
+      face_offset_x: 63,
+      face_offset_y: 53,
     },
     "Varia" => {
       face_offset_x: 62,
