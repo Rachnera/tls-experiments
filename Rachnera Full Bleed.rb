@@ -2,21 +2,24 @@
 module Busty
   CONFIG = {
     "Hilstara" => {
-      bust_offset_x: -10,
-      face_offset_x: +15,
+      bust_offset_x: -70,
+      face_offset_x: 64,
+      face_offset_y: 40,
     },
     "Orilise" => {
-      face_offset_x: +13,
-      face_offset_y: -1,
+      bust_scale: 0.71,
+      face_offset_x: 58,
+      face_offset_y: 34,
     },
     "Nalili" => {
+      bust_scale: 0.72,
       bust_offset_y: 50,
-      face_offset_x: +10,
-      face_offset_y: -10,
+      face_offset_x: 54,
+      face_offset_y: 27,
     },
     "Varia" => {
-      face_offset_x: +12,
-      face_offset_y: +8,
+      face_offset_x: 62,
+      face_offset_y: 48,
     },
   }
 end
@@ -56,7 +59,7 @@ class Window_Message < Window_Base
 
   def update_bust
     if has_bust?
-      @bust.bitmap = rescale_bitmap(Cache.picture(bust_name), 204, 216)
+      @bust.bitmap = rescale_bitmap(Cache.picture(bust_name), bust_scale)
       @bust.x = bust_offset_x
       @bust.y = Graphics.height - @bust.height + bust_offset_y
 
@@ -98,7 +101,9 @@ class Window_Message < Window_Base
     $game_message.face_name.gsub(/\s+emo.*/, '')
   end
 
-  def rescale_bitmap(bitmap, width, height)
+  def rescale_bitmap(bitmap, scale)
+    width = bitmap.width * scale
+    height = bitmap.height * scale
     new_bitmap = Bitmap.new(width, height)
     src_rect = Rect.new(0, 0, bitmap.width, bitmap.height)
     dest_rect = Rect.new(0, 0, width, height)
@@ -118,20 +123,25 @@ class Window_Message < Window_Base
     125
   end
 
+  def bust_scale
+    bust_config[:bust_scale] || 0.75
+  end
+
   def bust_offset_x
-    -60 + (bust_config[:bust_offset_x] || 0)
+    # 51 = 1/4 of 75% of 272
+    bust_config[:bust_offset_x] || -51
   end
 
   def bust_offset_y
-    0 + (bust_config[:bust_offset_y] || 0)
+    bust_config[:bust_offset_y] || 0
   end
 
   def face_offset_x
-    50 + (bust_config[:face_offset_x] || 0)
+    bust_config[:face_offset_x] || 60
   end
 
   def face_offset_y
-    40 + (bust_config[:face_offset_y] || 0)
+    bust_config[:face_offset_y] || 40
   end
 
   def bust_config
