@@ -104,6 +104,9 @@ class Window_Message < Window_Base
   def has_bust?
     return false if $game_message.face_name.empty?
 
+    # Don't display bust if the message box isn't at the bottom of the screen
+    return false if self.y + self.height != Graphics.height
+
     !!bust_bitmap
   end
 
