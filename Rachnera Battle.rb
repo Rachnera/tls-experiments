@@ -2,9 +2,8 @@
 class Scene_Battle < Scene_Base
   alias original_478_show_animation show_animation
   def show_animation(targets, animation_id)
-    bust = Busty::Bust.new(@status_window.z)
+    bust = Busty::Bust.new(999)
     if show_bust?
-      @status_window.hide
       bust.draw(character_name, -60, 60, @subject.face_name, @subject.face_index)
     end
 
@@ -12,7 +11,6 @@ class Scene_Battle < Scene_Base
 
     bust.erase
     bust.dispose
-    @status_window.show
   end
 
   def show_bust?
