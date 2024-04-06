@@ -90,6 +90,17 @@ module Busty
     BASE_CONFIG.has_key?(character_name)
   end
 
+  def self.character_from_face(face_name)
+    return nil if face_name.empty?
+
+    return "Aka2" if face_name == 'Aka emo2'
+
+    #FIXME Simon has many forms, that should all be covered here
+    return "Simon2" if face_name.start_with?('1 Simon dark')
+
+    face_name.gsub(/\s+emo.*/, '')
+  end
+
   def self.rescale_bitmap(bitmap, scale)
     width = bitmap.width * scale
     height = bitmap.height * scale
@@ -118,7 +129,7 @@ module Busty
 
       @bust.bitmap = bust_bitmap
       @bust.x = x
-      @bust.y = y
+      @bust.y = Graphics.height - @bust.height + y # A little unorthodox, but busts are snapped to the _lower_ left corner when y=0
 
       bitmap = Cache.face(face_name)
       rect = Rect.new(face_index % 4 * 96, face_index / 4 * 96, 96, 96)
@@ -145,14 +156,6 @@ module Busty
 
       @bust_face.dispose
       @bust_face.bitmap.dispose unless @bust_face.bitmap.nil?
-    end
-
-    def height
-      @bust.height
-    end
-
-    def width
-      @bust.width
     end
 
     def bust_bitmap
@@ -224,7 +227,7 @@ class Window_Message < Window_Base
       @bust.draw(
         character_name,
         bust_offset_x,
-        Graphics.height - @bust.height + bust_offset_y,
+        bust_offset_y,
         $game_message.face_name,
         $game_message.face_index
       )
@@ -253,14 +256,7 @@ class Window_Message < Window_Base
   end
 
   def character_name
-    return nil unless $game_message.face_name
-
-    return "Aka2" if $game_message.face_name == 'Aka emo2'
-
-    #FIXME Simon has many forms, that should all be covered here
-    return "Simon2" if $game_message.face_name.start_with?('1 Simon dark')
-
-    $game_message.face_name.gsub(/\s+emo.*/, '')
+    Busty::character_from_face($game_message.face_name)
   end
 
   alias original_591_draw_face draw_face
