@@ -1,6 +1,7 @@
 # Inspired by https://forums.rpgmakerweb.com/index.php?threads/simple-message-busts.45897/
 module Busty
-  CONFIG = {
+  # Make the face fits right on the body
+  BASE_CONFIG = {
     "Aka2" => {
       bust_scale: 0.80,
       face_offset_x: 61,
@@ -12,7 +13,6 @@ module Busty
       face_offset_y: 38,
     },
     "Carina" => {
-      bust_offset_x: -55,
       face_offset_x: 69,
       face_offset_y: 47,
     },
@@ -21,7 +21,6 @@ module Busty
       face_offset_y: 42,
     },
     "Hilstara" => {
-      bust_offset_x: -70,
       face_offset_x: 64,
       face_offset_y: 40,
     },
@@ -31,7 +30,6 @@ module Busty
     },
     "Nalili" => {
       bust_scale: 0.72,
-      bust_offset_y: 50,
       face_offset_x: 54,
       face_offset_y: 27,
     },
@@ -50,13 +48,10 @@ module Busty
     },
     "Sarai" => {
       bust_scale: 0.78,
-      bust_offset_x: -25,
-      bust_offset_y: 25,
       face_offset_x: 27,
       face_offset_y: 51,
     },
     "Simon2" => {
-      bust_offset_x: -80,
       face_offset_x: 67,
       face_offset_y: 32,
     },
@@ -70,17 +65,140 @@ module Busty
       face_offset_y: 20,
     },
   }
+  # Optional. Shift the position of the bust compared to the message box.
+  # Useful to move to the left bulky characters that would otherwise cover text (ex: Hilstara) or make small characters appear small (ex: Sarai)
+  MESSAGE_CONFIG = {
+    "Carina" => {
+      bust_offset_x: -55,
+    },
+    "Hilstara" => {
+      bust_offset_x: -70,
+    },
+    "Nalili" => {
+      bust_offset_y: 50,
+    },
+    "Sarai" => {
+      bust_offset_x: -25,
+      bust_offset_y: 25,
+    },
+    "Simon2" => {
+      bust_offset_x: -80,
+    },
+  }
+
+  def self.has_bust?(character_name)
+    BASE_CONFIG.has_key?(character_name)
+  end
+
+  def self.rescale_bitmap(bitmap, scale)
+    width = bitmap.width * scale
+    height = bitmap.height * scale
+    new_bitmap = Bitmap.new(width, height)
+    src_rect = Rect.new(0, 0, bitmap.width, bitmap.height)
+    dest_rect = Rect.new(0, 0, width, height)
+    # Ref: https://www.rubydoc.info/gems/openrgss/Bitmap#stretch_blt-instance_method
+    new_bitmap.stretch_blt(dest_rect, bitmap, src_rect)
+    bitmap.dispose
+    new_bitmap
+  end
+
+  class Bust
+    def initialize(z)
+      @bust = Sprite.new
+      @bust.visible = true
+      @bust.z = z + 1
+
+      @bust_face = Sprite.new
+      @bust_face.visible = true
+      @bust_face.z = @bust.z + 1
+    end
+
+    def draw(character_name, x, y, face_name, face_index)
+      @character_name = character_name
+
+      @bust.bitmap = bust_bitmap
+      @bust.x = x
+      @bust.y = y
+
+      bitmap = Cache.face(face_name)
+      rect = Rect.new(face_index % 4 * 96, face_index / 4 * 96, 96, 96)
+      face_bitmap = Bitmap.new(96, 96)
+      face_bitmap.blt(0, 0, bitmap, rect)
+      @bust_face.bitmap = face_bitmap
+      @bust_face.x = @bust.x + face_offset_x
+      @bust_face.y = @bust.y + face_offset_y
+    end
+
+    def erase
+      @bust.bitmap = nil
+      @bust_face.bitmap = nil
+    end
+
+    def update
+      @bust.update
+      @bust_face.update
+    end
+
+    def dispose
+      @bust.dispose
+      @bust.bitmap.dispose if !@bust.bitmap.nil?
+
+      @bust_face.dispose
+      @bust_face.bitmap.dispose unless @bust_face.bitmap.nil?
+    end
+
+    def height
+      @bust.height
+    end
+
+    def width
+      @bust.width
+    end
+
+    def bust_bitmap
+      #TODO Very basic pseudo cache, can likely be improved (or at least cleaned up)
+      @busts = {} if @busts.nil?
+      return @busts[character_name] if @busts.has_key?(character_name)
+
+      begin
+        @busts[character_name] = Cache.picture(character_name + ' bust')
+      rescue
+        begin
+          @busts[character_name] = Busty::rescale_bitmap(Cache.picture(character_name), bust_scale)
+        rescue
+          @busts[character_name] = nil
+        end
+      end
+
+      @busts[character_name]
+    end
+
+    def character_name
+      @character_name
+    end
+
+    def bust_scale
+      bust_config[:bust_scale] || 0.75
+    end
+
+    def face_offset_x
+      bust_config[:face_offset_x] || 60
+    end
+
+    def face_offset_y
+      bust_config[:face_offset_y] || 40
+    end
+
+    def bust_config
+      Busty::BASE_CONFIG[character_name] || {}
+    end
+  end
 end
+
 class Window_Message < Window_Base
   alias hmb_window_message_create_back_bitmap create_back_bitmap
   def create_back_bitmap
-    @bust = Sprite.new if @bust.nil?
-    @bust.visible = true
-    @bust.z = z + 1
-
-    @bust_face = Sprite.new if @bust_face.nil?
-    @bust_face.visible = true
-    @bust_face.z = @bust.z + 1
+    @bust = Busty::Bust.new(z) if @bust.nil?
 
     hmb_window_message_create_back_bitmap
   end
@@ -93,10 +211,6 @@ class Window_Message < Window_Base
 
   def dispose_bust
     @bust.dispose if !@bust.nil?
-    @bust.bitmap.dispose if !@bust.bitmap.nil?
-
-    @bust_face.dispose unless @bust_face.nil?
-    @bust_face.bitmap.dispose unless @bust_face.bitmap.nil?
   end
 
   alias hmb_window_message_update_back_sprite update_back_sprite
@@ -106,34 +220,28 @@ class Window_Message < Window_Base
   end
 
   def update_bust
-    if has_bust?
-      @bust.bitmap = bust_bitmap
-      @bust.x = bust_offset_x
-      @bust.y = Graphics.height - @bust.height + bust_offset_y
-
-      bitmap = Cache.face($game_message.face_name)
-      rect = Rect.new($game_message.face_index % 4 * 96, $game_message.face_index / 4 * 96, 96, 96)
-      face_bitmap = Bitmap.new(96, 96)
-      face_bitmap.blt(0, 0, bitmap, rect)
-      @bust_face.bitmap = face_bitmap
-      @bust_face.x = @bust.x + face_offset_x
-      @bust_face.y = @bust.y + face_offset_y
+    if show_bust?
+      @bust.draw(
+        character_name,
+        bust_offset_x,
+        Graphics.height - @bust.height + bust_offset_y,
+        $game_message.face_name,
+        $game_message.face_index
+      )
     else
-      @bust.bitmap = nil
-      @bust_face.bitmap = nil
+      @bust.erase
     end
     @bust.update
-    @bust_face.update
   end
 
   alias original_591_new_line_x new_line_x
   def new_line_x
-    return text_indent_if_bust if has_bust?
+    return text_indent_if_bust if show_bust?
 
     original_591_new_line_x
   end
 
-  def has_bust?
+  def show_bust?
     return false if $game_message.face_name.empty?
 
     # Don't display bust if the message box isn't at the bottom of the screen
@@ -141,28 +249,12 @@ class Window_Message < Window_Base
 
     #FIXME Yarra apparently has some "faces" that are her breasts, and should be displayed as are
 
-    Busty::CONFIG.has_key?(character_name)
-  end
-
-  def bust_bitmap
-    #TODO Very basic pseudo cache, can likely be improved (or at least cleaned up)
-    @busts = {} if @busts.nil?
-    return @busts[character_name] if @busts.has_key?(character_name)
-
-    begin
-      @busts[character_name] = Cache.picture(character_name + ' bust')
-    rescue
-      begin
-        @busts[character_name] = rescale_bitmap(Cache.picture(character_name), bust_scale)
-      rescue
-        @busts[character_name] = nil
-      end
-    end
-
-    @busts[character_name]
+    Busty::has_bust?(character_name)
   end
 
   def character_name
+    return nil unless $game_message.face_name
+
     return "Aka2" if $game_message.face_name == 'Aka emo2'
 
     #FIXME Simon has many forms, that should all be covered here
@@ -171,30 +263,14 @@ class Window_Message < Window_Base
     $game_message.face_name.gsub(/\s+emo.*/, '')
   end
 
-  def rescale_bitmap(bitmap, scale)
-    width = bitmap.width * scale
-    height = bitmap.height * scale
-    new_bitmap = Bitmap.new(width, height)
-    src_rect = Rect.new(0, 0, bitmap.width, bitmap.height)
-    dest_rect = Rect.new(0, 0, width, height)
-    # Ref: https://www.rubydoc.info/gems/openrgss/Bitmap#stretch_blt-instance_method
-    new_bitmap.stretch_blt(dest_rect, bitmap, src_rect)
-    bitmap.dispose
-    new_bitmap
-  end
-
   alias original_591_draw_face draw_face
   def draw_face(face_name, face_index, x, y, enabled = true)
-    return if has_bust?
+    return if show_bust?
     original_591_draw_face(face_name, face_index, x, y, enabled)
   end
 
   def text_indent_if_bust
     125
-  end
-
-  def bust_scale
-    bust_config[:bust_scale] || 0.75
   end
 
   def bust_offset_x
@@ -206,15 +282,7 @@ class Window_Message < Window_Base
     bust_config[:bust_offset_y] || 0
   end
 
-  def face_offset_x
-    bust_config[:face_offset_x] || 60
-  end
-
-  def face_offset_y
-    bust_config[:face_offset_y] || 40
-  end
-
   def bust_config
-    Busty::CONFIG[character_name] || {}
+    Busty::MESSAGE_CONFIG[character_name] || {}
   end
 end
