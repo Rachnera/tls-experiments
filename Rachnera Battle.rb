@@ -22,6 +22,15 @@ module Busty
       },
     },
     "Yarra" => {
+      "Lightning Whip" => {
+        face_name: "Yarra emo",
+        face_index: 7,
+        synergy: {
+          character: "Robin blond",
+          face_name: "Robin blond emo",
+          face_index: 5,
+        }
+      },
       "Succubus Kiss" => {
         face_name: "Yarra emo2",
         face_index: 6,
@@ -36,12 +45,33 @@ class Scene_Battle < Scene_Base
   alias original_478_execute_action execute_action
   def execute_action
     @bust = Busty::Bust.new(999) if @bust.nil?
+    synergy_bust = Busty::Bust.new(1001)
+
     if show_bust?
-      # TODO Replace hardcoded x/y with configurable ones
-      @bust.draw(character_name, bust_offset_x, bust_offset_y, bust_face[:face_name], bust_face[:face_index])
+      @bust.draw(
+        character_name,
+        bust_offset_x,
+        bust_offset_y,
+        move_config[:face_name],
+        move_config[:face_index]
+      )
+
+      if move_config[:synergy]
+        synergy_offset = 32
+        synergy_bust.draw(
+          move_config[:synergy][:character],
+          move_config[:synergy][:bust_offset_x] || (bust_offset_x - 32),
+          move_config[:synergy][:bust_offset_y] || 64,
+          move_config[:synergy][:face_name],
+          move_config[:synergy][:face_index]
+        )
+      end
     end
 
     original_478_execute_action
+
+    synergy_bust.erase
+    synergy_bust.dispose
 
     # Simon's Support skill is actually two skills, and the cleanup should only happen after the second one
     unless is_simon_support_skill?
@@ -78,12 +108,12 @@ class Scene_Battle < Scene_Base
     ["Support Slaves", "Support Servants", "Support Allies"].include?(current_move_name)
   end
 
-  def bust_face
-    if Busty::BATTLE_CONFIG[character_name] and Busty::BATTLE_CONFIG[character_name][current_move_name]
-      return Busty::BATTLE_CONFIG[character_name][current_move_name]
-    end
+  def move_config
+    default = { face_name: @subject.face_name, face_index: @subject.face_index }
 
-    { face_name: @subject.face_name, face_index: @subject.face_index }
+    return default unless Busty::BATTLE_CONFIG[character_name]
+
+    Busty::BATTLE_CONFIG[character_name][current_move_name] || default
   end
 
   def current_move_name
