@@ -16,18 +16,38 @@ module Busty
   }
 end
 class Scene_Battle < Scene_Base
-  alias original_478_show_animation show_animation
-  def show_animation(targets, animation_id)
-    bust = Busty::Bust.new(999)
+  alias original_478_execute_action execute_action
+  def execute_action
+    @bust = Busty::Bust.new(999) if @bust.nil?
     if show_bust?
       # TODO Replace hardcoded x/y with configurable ones
-      bust.draw(character_name, -64, 64, bust_face[:face_name], bust_face[:face_index])
+      @bust.draw(character_name, bust_offset_x, bust_offset_y, bust_face[:face_name], bust_face[:face_index])
     end
 
-    original_478_show_animation(targets, animation_id)
+    original_478_execute_action
 
-    bust.erase
-    bust.dispose
+    # Simon's Support skill is actually two skills, and the cleanup should only happen after the second one
+    unless is_simon_support_skill?
+      @bust.erase
+      @bust.dispose
+      @bust = nil
+    end
+  end
+
+  alias original_478_turn_start turn_start
+  def turn_start
+    # Compromise value: Keeping the bar perfectly centered does leave enough space for the busts
+    # But moving it fully to the right (+16*4) means too much empty space
+    @status_window.x = 128+16*2
+
+    original_478_turn_start
+  end
+
+  alias original_478_turn_end turn_end
+  def turn_end
+    @status_window.x = 128
+
+    original_478_turn_end
   end
 
   def show_bust?
@@ -35,6 +55,10 @@ class Scene_Battle < Scene_Base
     return false unless @subject.is_a?(Game_Actor)
 
     Busty::has_bust?(character_name)
+  end
+
+  def is_simon_support_skill?
+    ["Support Slaves", "Support Servants", "Support Allies"].include?(@subject.current_action.item.name)
   end
 
   def bust_face
@@ -47,5 +71,30 @@ class Scene_Battle < Scene_Base
 
   def character_name
     character_name = Busty::character_from_face(@subject.face_name)
+  end
+
+  def bust_offset_x
+    bust_config[:bust_offset_x] || -48
+  end
+
+  def bust_offset_y
+    bust_config[:bust_offset_y] || 0
+  end
+
+  def bust_config
+    Busty::BATTLE_CONFIG[character_name] || {}
+  end
+end
+
+class Game_Actor < Game_Battler
+  # Make screen_x relative to status_window.x instead of a hardcoded 128
+  def screen_x
+    return 0 unless SceneManager.scene_is?(Scene_Battle)
+    status_window = SceneManager.scene.status_window
+    return 0 if status_window.nil?
+    item_rect_width = (status_window.width-24) / $game_party.max_battle_members
+    ext = SceneManager.scene.info_viewport.ox
+    rect = SceneManager.scene.status_window.item_rect(self.index)
+    return SceneManager.scene.status_window.x + 12 + rect.x + item_rect_width / 2 - ext
   end
 end
