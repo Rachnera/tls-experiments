@@ -83,7 +83,7 @@ class Scene_Battle < Scene_Base
 
   alias original_478_turn_start turn_start
   def turn_start
-    # Compromise value: Keeping the bar perfectly centered does leave enough space for the busts
+    # Compromise value: Keeping the bar perfectly centered doesn't leave enough space for the busts
     # But moving it fully to the right (+16*4) means too much empty space
     @status_window.x = 128+16*2
 
