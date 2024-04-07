@@ -1,10 +1,24 @@
 # Need to be after the "Full Bleed" script and all the other many battle scripts
 module Busty
   BATTLE_CONFIG = {
+    "Carina" => {
+      "Shield of Purity" => {
+        face_name: "Carina emo",
+        face_index: 5,
+      },
+    },
     "Simon2" => {
       "Commanding Presence" => {
         face_name: "1 Simon dark eyes",
         face_index: 0,
+      },
+      "Support Allies" => {
+        face_name: "1 Simon dark eyes2",
+        face_index: 6,
+      },
+      "SS heal component" => {
+        face_name: "1 Simon dark",
+        face_index: 5,
       },
     },
     "Yarra" => {
@@ -14,7 +28,10 @@ module Busty
       },
     },
   }
+
+  BATTLE_CONFIG["Simon2"]["Support Slaves"] = BATTLE_CONFIG["Simon2"]["Support Servants"] = BATTLE_CONFIG["Simon2"]["Support Allies"]
 end
+
 class Scene_Battle < Scene_Base
   alias original_478_execute_action execute_action
   def execute_action
@@ -58,15 +75,20 @@ class Scene_Battle < Scene_Base
   end
 
   def is_simon_support_skill?
-    ["Support Slaves", "Support Servants", "Support Allies"].include?(@subject.current_action.item.name)
+    ["Support Slaves", "Support Servants", "Support Allies"].include?(current_move_name)
   end
 
   def bust_face
-    if Busty::BATTLE_CONFIG[character_name] and Busty::BATTLE_CONFIG[character_name][@subject.current_action.item.name]
-      return Busty::BATTLE_CONFIG[character_name][@subject.current_action.item.name]
+    if Busty::BATTLE_CONFIG[character_name] and Busty::BATTLE_CONFIG[character_name][current_move_name]
+      return Busty::BATTLE_CONFIG[character_name][current_move_name]
     end
 
     { face_name: @subject.face_name, face_index: @subject.face_index }
+  end
+
+  def current_move_name
+    # Trimming because some moves have invisible spaces in them (ex: "Shield of Purity ")
+    @subject.current_action.item.name.strip
   end
 
   def character_name
