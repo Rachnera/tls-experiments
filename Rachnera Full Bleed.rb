@@ -28,6 +28,11 @@ module Busty
       face_offset_x: 50,
       face_offset_y: 47,
     },
+    "MainActor1-3" => { # Chosen
+      bust_scale: 0.82,
+      face_offset_x: 79,
+      face_offset_y: 40,
+    },
     "Nalili" => {
       bust_scale: 0.72,
       face_offset_x: 54,
@@ -50,6 +55,10 @@ module Busty
       bust_scale: 0.78,
       face_offset_x: 27,
       face_offset_y: 51,
+    },
+    "Simon1" => {
+      face_offset_x: 63,
+      face_offset_y: 34,
     },
     "Simon2" => {
       face_offset_x: 67,
@@ -74,6 +83,10 @@ module Busty
     "Hilstara" => {
       bust_offset_x: -70,
     },
+    "MainActor1-3" => { # Chosen
+      bust_offset_x: -75,
+      bust_offset_y: 100,
+    },
     "Nalili" => {
       bust_offset_y: 50,
     },
@@ -81,9 +94,27 @@ module Busty
       bust_offset_x: -25,
       bust_offset_y: 25,
     },
+    "Simon1" => {
+      bust_offset_x: -75,
+    },
     "Simon2" => {
       bust_offset_x: -80,
     },
+  }
+  # For characters whose naming convention of their faces isn't consistent with the name of their bust
+  FACE_TO_BUST = {
+    "Aka emo2" => "Aka2",
+    "1 Simon dark eyes" => "Simon2",
+    "1 Simon dark eyes2" => "Simon2",
+    "1 Simon dark" => "Simon2",
+    "1 Simon dark2" => "Simon2",
+    "1 Simon distress3" => "Simon2",
+    "1 Simon distress4" => "Simon2",
+    "face002b" => "Simon1",
+    "face002b2" => "Simon1",
+    "face002b dark" => "Simon1",
+    "face002b dark2" => "Simon1",
+    "MainActor1-3fs" => "MainActor1-3", # Chosen
   }
 
   def self.has_bust?(character_name)
@@ -93,10 +124,7 @@ module Busty
   def self.character_from_face(face_name)
     return nil if face_name.empty?
 
-    return "Aka2" if face_name == 'Aka emo2'
-
-    #FIXME Simon has many forms, that should all be covered here
-    return "Simon2" if face_name.start_with?('1 Simon dark')
+    return FACE_TO_BUST[face_name] if FACE_TO_BUST.has_key?(face_name)
 
     face_name.gsub(/\s+emo.*/, '')
   end
@@ -166,11 +194,7 @@ module Busty
       begin
         @busts[character_name] = Cache.picture(character_name + ' bust')
       rescue
-        begin
-          @busts[character_name] = Busty::rescale_bitmap(Cache.picture(character_name), bust_scale)
-        rescue
-          @busts[character_name] = nil
-        end
+        @busts[character_name] = Busty::rescale_bitmap(Cache.picture(character_name), bust_scale)
       end
 
       @busts[character_name]
@@ -250,7 +274,8 @@ class Window_Message < Window_Base
     # Don't display bust if the message box isn't at the bottom of the screen
     return false if self.y + self.height != Graphics.height
 
-    #FIXME Yarra apparently has some "faces" that are her breasts, and should be displayed as are
+    # Display Yarra's "faces" that are actually her breasts as are
+    return false if $game_message.face_name == "Yarra emo2" and [2, 3].include?($game_message.face_index)
 
     Busty::has_bust?(character_name)
   end
