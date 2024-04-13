@@ -59,10 +59,20 @@ module Busty
       @bust_face.z = @bust.z + 1
     end
 
-    def draw(character_name, x, y, face_name, face_index)
+    def draw(character_name, x, y, face_name, face_index, max_width = nil)
       @character_name = character_name
 
-      @bust.bitmap = bust_bitmap
+      bitmap = bust_bitmap
+      if max_width
+        max_width = max_width-x if x < 0 # Ignore offscreen overflow
+
+        new_bitmap = Bitmap.new(max_width, bust_bitmap.height)
+        rect = Rect.new(0, 0, max_width, bust_bitmap.height)
+        new_bitmap.blt(0, 0, bust_bitmap, rect)
+        bitmap = new_bitmap
+      end
+
+      @bust.bitmap = bitmap
       @bust.x = x
       @bust.y = Graphics.height - @bust.height + y # A little unorthodox, but busts are snapped to the _lower_ left corner when y=0
 
@@ -160,7 +170,8 @@ class Window_Message < Window_Base
         bust_offset_x,
         bust_offset_y,
         $game_message.face_name,
-        $game_message.face_index
+        $game_message.face_index,
+        max_width = (text_indent_if_bust + 5)
       )
     else
       @bust.erase

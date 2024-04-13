@@ -73,6 +73,9 @@ Busty::BASE_CONFIG.merge!({
   },
 })
 Busty::MESSAGE_CONFIG.merge!({
+  "Balia" => {
+    bust_offset_x: -30,
+  },
   "Carina" => {
     bust_offset_x: -55,
   },
