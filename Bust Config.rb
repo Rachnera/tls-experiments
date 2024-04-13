@@ -72,9 +72,13 @@ Busty::BASE_CONFIG.merge!({
     face_offset_y: 20,
   },
 })
+# The following are mostly for example and should be twisted accordingly to what "looks best"
 Busty::MESSAGE_CONFIG.merge!({
   "Balia" => {
     bust_offset_x: -30,
+  },
+  "Hilstara" => {
+    bust_offset_x: -70,
   },
   "MainActor1-3" => { # Chosen
     bust_offset_x: -60,
