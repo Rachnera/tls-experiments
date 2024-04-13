@@ -187,6 +187,8 @@ class Window_Message < Window_Base
   end
 
   def show_bust?
+    return if $game_switches[YEA::SYSTEM::CUSTOM_SWITCHES[:hide_dialog_bust][0]]
+
     return false if $game_message.face_name.empty?
 
     # Don't display bust if the message box isn't at the bottom of the screen
@@ -223,5 +225,25 @@ class Window_Message < Window_Base
 
   def bust_config
     Busty::MESSAGE_CONFIG[character_name] || {}
+  end
+end
+
+YEA::SYSTEM::CUSTOM_SWITCHES.merge!({
+  hide_dialog_bust: [
+    13, # Switch Number; make sure it's not used for something else
+    "Full busts in dialogues",
+    "Hide",
+    "Show",
+    "Show main characters in full when they talk.",
+    true
+  ]
+})
+YEA::SYSTEM::COMMANDS.insert(YEA::SYSTEM::COMMANDS.find_index(:hide_nsfw), :hide_dialog_bust)
+class Scene_System < Scene_MenuBase
+  alias_method :original_421_command_reset_opts, :command_reset_opts
+  def command_reset_opts
+    $game_switches[YEA::SYSTEM::CUSTOM_SWITCHES[:hide_dialog_bust][0]] = false
+
+    original_421_command_reset_opts
   end
 end
