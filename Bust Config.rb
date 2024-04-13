@@ -76,27 +76,15 @@ Busty::MESSAGE_CONFIG.merge!({
   "Balia" => {
     bust_offset_x: -30,
   },
-  "Carina" => {
-    bust_offset_x: -55,
-  },
-  "Hilstara" => {
-    bust_offset_x: -70,
-  },
   "MainActor1-3" => { # Chosen
-    bust_offset_x: -75,
-    bust_offset_y: 100,
+    bust_offset_x: -60,
+    bust_offset_y: 75,
   },
   "Nalili" => {
-    bust_offset_y: 50,
-  },
-  "Sarai" => {
-    bust_offset_x: -25,
     bust_offset_y: 25,
   },
-  "Simon1" => {
-    bust_offset_x: -75,
-  },
-  "Simon2" => {
-    bust_offset_x: -80,
+  "Sarai" => {
+    bust_offset_x: -20,
+    bust_offset_y: 25,
   },
 })
