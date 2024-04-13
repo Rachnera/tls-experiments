@@ -99,7 +99,7 @@ module Busty
       return @busts[character_name] if @busts.has_key?(character_name)
 
       begin
-        @busts[character_name] = Cache.picture(character_name + ' bust')
+        @busts[character_name] = Cache.picture('busts/' + character_name)
       rescue
         @busts[character_name] = Busty::rescale_bitmap(Cache.picture(character_name), bust_scale)
       end
