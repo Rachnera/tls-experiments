@@ -74,6 +74,9 @@ Busty::BASE_CONFIG.merge!({
 })
 # The following are mostly for example and should be twisted accordingly to what "looks best"
 Busty::MESSAGE_CONFIG.merge!({
+  "Altina" => {
+    bust_offset_x: -30,
+  },
   "Balia" => {
     bust_offset_x: -30,
   },
@@ -90,5 +93,39 @@ Busty::MESSAGE_CONFIG.merge!({
   "Sarai" => {
     bust_offset_x: -20,
     bust_offset_y: 25,
+  },
+})
+
+# Decarabia
+Busty::BASE_CONFIG.merge!({
+  "Aka" => {
+    bust_scale: 0.80,
+    face_offset_x: 61,
+    face_offset_y: 66,
+  },
+  "Aka2" => { # FIXME Image missing, will default to RPGMaker auto-resize backup
+    bust_scale: 0.80,
+    face_offset_x: 61,
+    face_offset_y: 66,
+  },
+  "Alonon" => { # FIXME Require image edit
+    bust_scale: 0.72,
+    face_offset_x: 47,
+    face_offset_y: 27,
+  },
+  "Altina" => {
+    bust_scale: 0.78,
+    face_offset_x: 39,
+    face_offset_y: 30,
+  },
+  "Annah" => {
+    bust_scale: 0.77,
+    face_offset_x: 61,
+    face_offset_y: 44,
+  },
+  "Antarion" => {
+    bust_scale: 0.79,
+    face_offset_x: 73,
+    face_offset_y: 28,
   },
 })
