@@ -22,6 +22,7 @@ module Busty
     "face002b dark" => "Simon1",
     "face002b dark2" => "Simon1",
     "MainActor1-3fs" => "MainActor1-3", # Chosen
+    "Alanon emo" => "Alonon",
   }
 
   def self.has_bust?(character_name)
@@ -76,13 +77,17 @@ module Busty
       @bust.x = x
       @bust.y = Graphics.height - @bust.height + y # A little unorthodox, but busts are snapped to the _lower_ left corner when y=0
 
+      # Shave potential 1px width border from face image
+      # TODO Make this configurable?
+      border_width = 1
+
       bitmap = Cache.face(face_name)
-      rect = Rect.new(face_index % 4 * 96, face_index / 4 * 96, 96, 96)
-      face_bitmap = Bitmap.new(96, 96)
+      rect = Rect.new(face_index % 4 * 96 + border_width, face_index / 4 * 96 + border_width, 96 - 2*border_width, 96 - 2*border_width)
+      face_bitmap = Bitmap.new(96 - 2*border_width, 96 - 2*border_width)
       face_bitmap.blt(0, 0, bitmap, rect)
       @bust_face.bitmap = face_bitmap
-      @bust_face.x = @bust.x + face_offset_x
-      @bust_face.y = @bust.y + face_offset_y
+      @bust_face.x = @bust.x + border_width + face_offset_x
+      @bust_face.y = @bust.y + border_width + face_offset_y
     end
 
     def erase
