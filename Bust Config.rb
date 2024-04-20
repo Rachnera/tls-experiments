@@ -117,6 +117,7 @@ Busty::BASE_CONFIG.merge!({
     bust_scale: 0.78,
     face_offset_x: 39,
     face_offset_y: 30,
+    face_border_width: 1,
   },
   "Annah" => {
     bust_scale: 0.77,
@@ -127,5 +128,6 @@ Busty::BASE_CONFIG.merge!({
     bust_scale: 0.79,
     face_offset_x: 73,
     face_offset_y: 28,
+    face_border_width: 1,
   },
 })

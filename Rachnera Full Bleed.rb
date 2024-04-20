@@ -78,8 +78,7 @@ module Busty
       @bust.y = Graphics.height - @bust.height + y # A little unorthodox, but busts are snapped to the _lower_ left corner when y=0
 
       # Shave potential 1px width border from face image
-      # TODO Make this configurable?
-      border_width = 1
+      border_width = face_border_width
 
       bitmap = Cache.face(face_name)
       rect = Rect.new(face_index % 4 * 96 + border_width, face_index / 4 * 96 + border_width, 96 - 2*border_width, 96 - 2*border_width)
@@ -136,6 +135,10 @@ module Busty
 
     def face_offset_y
       bust_config[:face_offset_y] || 40
+    end
+
+    def face_border_width
+      bust_config[:face_border_width] || 0
     end
 
     def bust_config
