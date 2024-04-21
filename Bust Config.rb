@@ -108,7 +108,7 @@ Busty::BASE_CONFIG.merge!({
     face_offset_x: 61,
     face_offset_y: 66,
   },
-  "Alonon" => { # FIXME Require image edit
+  "Alonon" => { # FIXME Many issues, require heavy image editing
     bust_scale: 0.72,
     face_offset_x: 47,
     face_offset_y: 27,
@@ -119,7 +119,7 @@ Busty::BASE_CONFIG.merge!({
     face_offset_y: 30,
     face_border_width: 1,
   },
-  "Annah" => {
+  "Annah" => { # FIXME Slight issue on her neck (cut collar)
     bust_scale: 0.77,
     face_offset_x: 61,
     face_offset_y: 44,
