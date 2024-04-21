@@ -25,12 +25,26 @@ module Busty
     "Alanon emo" => "Alonon",
   }
 
+  # For busts matching with only some of the faces of a facesheet
+  SUBSET_TO_BUST = [
+    {
+      character_name: "Luanell",
+      face_name: "Z Givini emo",
+      face_indexes: [1],
+    },
+  ]
+
   def self.has_bust?(character_name)
     BASE_CONFIG.has_key?(character_name)
   end
 
-  def self.character_from_face(face_name)
+  def self.character_from_face(face_name, face_index)
     return nil if face_name.empty?
+
+    special = SUBSET_TO_BUST.find do |cf|
+      cf[:face_name] == face_name && cf[:face_indexes].include?(face_index)
+    end
+    return special[:character_name] if special
 
     return FACE_TO_BUST[face_name] if FACE_TO_BUST.has_key?(face_name)
 
@@ -209,7 +223,7 @@ class Window_Message < Window_Base
   end
 
   def character_name
-    Busty::character_from_face($game_message.face_name)
+    Busty::character_from_face($game_message.face_name, $game_message.face_index)
   end
 
   alias original_591_draw_face draw_face

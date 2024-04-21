@@ -72,6 +72,13 @@ Busty::BASE_CONFIG.merge!({
     face_offset_y: 20,
   },
 })
+Busty::BASE_CONFIG.merge!({
+  "Luanell" => {
+    bust_scale: 0.81,
+    face_offset_x: 59,
+    face_offset_y: 51,
+  }
+})
 # The following are mostly for example and should be twisted accordingly to what "looks best"
 Busty::MESSAGE_CONFIG.merge!({
   "Altina" => {

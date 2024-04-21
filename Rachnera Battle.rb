@@ -122,7 +122,7 @@ class Scene_Battle < Scene_Base
   end
 
   def character_name
-    character_name = Busty::character_from_face(@subject.face_name)
+    character_name = Busty::character_from_face(@subject.face_name, @subject.face_index)
   end
 
   def bust_offset_x
