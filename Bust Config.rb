@@ -73,6 +73,11 @@ Busty::BASE_CONFIG.merge!({
   },
 })
 Busty::BASE_CONFIG.merge!({
+  "Andra" => {
+    bust_scale: 0.75,
+    face_offset_x: 68,
+    face_offset_y: 47,
+  },
   "Luanell" => {
     bust_scale: 0.81,
     face_offset_x: 59,

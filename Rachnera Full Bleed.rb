@@ -23,14 +23,27 @@ module Busty
     "face002b dark2" => "Simon1",
     "MainActor1-3fs" => "MainActor1-3", # Chosen
     "Alanon emo" => "Alonon",
+    "Z Andra emo" => nil, # To only allow face 4
+    "Z Andra emoN" => nil, # No bust for no robe Andra
+    "Yarra emo2" => nil, # To exclude "faces" 2/3
   }
 
   # For busts matching with only some of the faces of a facesheet
   SUBSET_TO_BUST = [
     {
+      character_name: "Andra",
+      face_name: "Z Andra emo",
+      face_indexes: [4],
+    },
+    {
       character_name: "Luanell",
       face_name: "Z Givini emo",
       face_indexes: [1],
+    },
+    {
+      character_name: "Yarra",
+      face_name: "Yarra emo2",
+      face_indexes: [0, 1, 4, 5, 6, 7],
     },
   ]
 
@@ -48,7 +61,7 @@ module Busty
 
     return FACE_TO_BUST[face_name] if FACE_TO_BUST.has_key?(face_name)
 
-    face_name.gsub(/\s+emo.*/, '')
+    /\A([a-zA-Z]\s+)?(.+)\s+emo(.*)?\Z/.match(face_name)[2]
   end
 
   def self.rescale_bitmap(bitmap, scale)
@@ -215,9 +228,6 @@ class Window_Message < Window_Base
 
     # Don't display bust if the message box isn't at the bottom of the screen
     return false if self.y + self.height != Graphics.height
-
-    # Display Yarra's "faces" that are actually her breasts as are
-    return false if $game_message.face_name == "Yarra emo2" and [2, 3].include?($game_message.face_index)
 
     Busty::has_bust?(character_name)
   end
