@@ -91,7 +91,7 @@ module Busty
       @bust.x = x
       @bust.y = Graphics.height - @bust.height + y # A little unorthodox, but busts are snapped to the _lower_ left corner when y=0
 
-      # Shave potential 1px width border from face image
+      # Shave border of face image if need be
       border_width = face_border_width
 
       bitmap = Cache.face(face_name)
@@ -209,7 +209,7 @@ class Window_Message < Window_Base
   end
 
   def show_bust?
-    return if $game_switches[YEA::SYSTEM::CUSTOM_SWITCHES[:hide_dialog_bust][0]]
+    return false if $game_switches[YEA::SYSTEM::CUSTOM_SWITCHES[:hide_dialog_bust][0]]
 
     return false if $game_message.face_name.empty?
 
