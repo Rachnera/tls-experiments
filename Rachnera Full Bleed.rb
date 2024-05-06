@@ -17,15 +17,32 @@ module Busty
     "1 Simon dark2" => "Simon2",
     "1 Simon distress3" => "Simon2",
     "1 Simon distress4" => "Simon2",
+    "Alanon emo" => "Alonon",
+    "darksorceress" => "Riala",
+    "Dheria emo2" => "Dheria2",
     "face002b" => "Simon1",
     "face002b2" => "Simon1",
     "face002b dark" => "Simon1",
     "face002b dark2" => "Simon1",
+    "Fuzkao emo" => "Fuzkao no hand",
+    "Grynyth emo" => "Grynyth full",
+    "Grynyth emo2" => "Grynyth full",
+    "Ivala emo" => nil, # To remove unsupported furious Ivala (different color)
+    "Janine emo2" => "Janine 1",
+    "Janine emo3" => "Janine 1",
+    "Janine emo2B" => "Janine Bride",
+    "Janine emo3B" => "Janine Bride",
+    "Lilith emo3" => nil, # Grey Lilith not supported yet
     "MainActor1-3fs" => "MainActor1-3", # Chosen
-    "Alanon emo" => "Alonon",
+    "Min emo2" => "Min2",
+    "Riala emo2" => "Riala2",
+    "Tanurak emoX" => nil, # Disable "glitch" Tanurak
+    "Tertia emo" => "TertiaH", # Two Tertia bust files, the H is the one with the same ratio as most others
+    "Xestris emo" => nil, # Exclude Xestris "dark" faces
+    "Xestris emo2" => nil,
+    "Yarra emo2" => nil, # To exclude "faces" 2/3
     "Z Andra emo" => nil, # To only allow face 4
     "Z Andra emoN" => nil, # No bust for no robe Andra
-    "Yarra emo2" => nil, # To exclude "faces" 2/3
   }
 
   # For busts matching with only some of the faces of a facesheet
@@ -36,9 +53,24 @@ module Busty
       face_indexes: [4],
     },
     {
+      character_name: "Ivala",
+      face_name: "Ivala emo",
+      face_indexes: [0, 1, 2, 3, 4, 5, 6],
+    },
+    {
       character_name: "Luanell",
       face_name: "Z Givini emo",
       face_indexes: [1],
+    },
+    {
+      character_name: "Xestris",
+      face_name: "Xestris emo",
+      face_indexes: [0, 1, 2, 3, 4, 5],
+    },
+    {
+      character_name: "Xestris",
+      face_name: "Xestris emo2",
+      face_indexes: [1, 2, 3, 4, 5, 6, 7],
     },
     {
       character_name: "Yarra",
