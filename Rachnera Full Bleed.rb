@@ -32,7 +32,7 @@ module Busty
     "Janine emo3" => "Janine 1",
     "Janine emo2B" => "Janine Bride",
     "Janine emo3B" => "Janine Bride",
-    "Lilith emo3" => nil, # Grey Lilith not supported yet
+    "Lilith emo3" => "Lilith grey",
     "MainActor1-3fs" => "MainActor1-3", # Chosen
     "Min emo2" => "Min2",
     "Riala emo2" => "Riala2",
