@@ -430,6 +430,7 @@ Busty::BASE_CONFIG.merge!({
     face_offset_x: 63,
     face_offset_y: 53,
   },
+  # Wrong hue of grey?
   "Robin grey" => {
     bust_scale: 0.75,
     face_offset_x: 63,

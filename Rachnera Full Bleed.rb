@@ -36,6 +36,7 @@ module Busty
     "MainActor1-3fs" => "MainActor1-3", # Chosen
     "Min emo2" => "Min2",
     "Riala emo2" => "Riala2",
+    "Sabitha H emo" => "SabithaH",
     "Tanurak emoX" => nil, # Disable "glitch" Tanurak
     "Tertia emo" => "TertiaH", # Two Tertia bust files, the H is the one with the same ratio as most others
     "Xestris emo" => nil, # Exclude Xestris "dark" faces
