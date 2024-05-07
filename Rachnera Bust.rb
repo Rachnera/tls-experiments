@@ -65,10 +65,17 @@ module Busty
 
       # Shave border of face image if need be
       border_width = face_border_width
+      face_width = 96 - 2*border_width
+
+      if max_width
+        # Cut part of the face if that would make the image overflows to the right
+        extra = (face_offset_x + border_width + face_width) - max_width
+        face_width -= extra if extra > 0
+      end
 
       bitmap = Cache.face(face_name)
-      rect = Rect.new(face_index % 4 * 96 + border_width, face_index / 4 * 96 + border_width, 96 - 2*border_width, 96 - 2*border_width)
-      face_bitmap = Bitmap.new(96 - 2*border_width, 96 - 2*border_width)
+      rect = Rect.new(face_index % 4 * 96 + border_width, face_index / 4 * 96 + border_width, face_width, 96 - 2*border_width)
+      face_bitmap = Bitmap.new(face_width, 96 - 2*border_width)
       face_bitmap.blt(0, 0, bitmap, rect)
       @bust_face.bitmap = face_bitmap
       @bust_face.x = @bust.x + border_width + face_offset_x
