@@ -170,8 +170,8 @@ Busty::BASE_CONFIG.merge!({
   },
   "Antiala" => {
     bust_scale: 0.75,
-    face_offset_x: 73,
-    face_offset_y: 28,
+    face_offset_x: 69,
+    face_offset_y: 50,
   },
   # further edit necessary?
   "Balia" => {
@@ -424,6 +424,11 @@ Busty::BASE_CONFIG.merge!({
     bust_scale: 0.75,
     face_offset_x: 52,
     face_offset_y: 49,
+  },
+  "Riala2" => {
+    bust_scale: 0.70,
+    face_offset_x: 50,
+    face_offset_y: 43,
   },
   "Robin blond" => {
     bust_scale: 0.75,
