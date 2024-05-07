@@ -83,6 +83,10 @@ module Busty
       @bust_face.y = @bust.y + border_width + face_offset_y
     end
 
+    def redraw(face_name, face_index)
+      draw(@bust.x, @bust.y - Graphics.height + @bust.height, face_name, face_index)
+    end
+
     def erase
       @bust.bitmap = nil
       @bust_face.bitmap = nil
