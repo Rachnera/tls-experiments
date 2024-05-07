@@ -1,77 +1,85 @@
+module Busty
+  # Make the face fits right on the body
+  BASE_CONFIG = {}
+
+  # For characters whose naming convention of their faces isn't consistent with the name of their bust
+  FACE_TO_BUST = {
+    "Aka emo2" => "Aka2",
+    "1 Simon dark eyes" => "Simon2",
+    "1 Simon dark eyes2" => "Simon2",
+    "1 Simon dark" => "Simon2",
+    "1 Simon dark2" => "Simon2",
+    "1 Simon distress3" => "Simon2",
+    "1 Simon distress4" => "Simon2",
+    "Alanon emo" => "Alonon",
+    "darksorceress" => "Riala",
+    "Dheria emo2" => "Dheria2",
+    "face002b" => "Simon1",
+    "face002b2" => "Simon1",
+    "face002b dark" => "Simon1",
+    "face002b dark2" => "Simon1",
+    "Fuzkao emo" => "Fuzkao no hand",
+    "Grynyth emo" => "Grynyth full",
+    "Grynyth emo2" => "Grynyth full",
+    "Ivala emo" => nil, # To remove unsupported furious Ivala (different color)
+    "Janine emo2" => "Janine 1",
+    "Janine emo3" => "Janine 1",
+    "Janine emo2B" => "Janine Bride",
+    "Janine emo3B" => "Janine Bride",
+    "Lilith emo3" => "Lilith grey",
+    "MainActor1-3fs" => "MainActor1-3", # Chosen
+    "Min emo2" => "Min2",
+    "Riala emo2" => "Riala2",
+    "Sabitha H emo" => "SabithaH",
+    "Tanurak emoX" => nil, # Disable "glitch" Tanurak
+    "Tertia emo" => "TertiaH", # Two Tertia bust files, the H is the one with the same ratio as most others
+    "Xestris emo" => nil, # Exclude Xestris "dark" faces
+    "Xestris emo2" => nil,
+    "Yarra emo2" => nil, # To exclude "faces" 2/3
+    "Z Andra emo" => nil, # To only allow face 4
+    "Z Andra emoN" => nil, # No bust for no robe Andra
+  }
+
+  # For busts matching with only some of the faces of a facesheet
+  SUBSET_TO_BUST = [
+    {
+      character_name: "Andra",
+      face_name: "Z Andra emo",
+      face_indexes: [4],
+    },
+    {
+      character_name: "Ivala",
+      face_name: "Ivala emo",
+      face_indexes: [0, 1, 2, 3, 4, 5, 6],
+    },
+    {
+      character_name: "Luanell",
+      face_name: "Z Givini emo",
+      face_indexes: [1],
+    },
+    {
+      character_name: "Xestris",
+      face_name: "Xestris emo",
+      face_indexes: [0, 1, 2, 3, 4, 5],
+    },
+    {
+      character_name: "Xestris",
+      face_name: "Xestris emo2",
+      face_indexes: [1, 2, 3, 4, 5, 6, 7],
+    },
+    {
+      character_name: "Yarra",
+      face_name: "Yarra emo2",
+      face_indexes: [0, 1, 4, 5, 6, 7],
+    },
+  ]
+
+  # Optional. Shift the position of the bust compared to the message box.
+  # Useful to move to the left bulky characters that would otherwise cover text (ex: Hilstara) or make small characters appear small (ex: Sarai)
+  MESSAGE_CONFIG = {}
+end
+
 # Rachnera
-Busty::BASE_CONFIG.merge!({
-  "Aka2" => {
-    bust_scale: 0.80,
-    face_offset_x: 61,
-    face_offset_y: 66,
-  },
-  "Annah" => {},
-  "Balia" => {
-    face_offset_x: 53,
-    face_offset_y: 38,
-  },
-  "Carina" => {
-    face_offset_x: 69,
-    face_offset_y: 47,
-  },
-  "Ginasta" => {
-    face_offset_x: 61,
-    face_offset_y: 42,
-  },
-  "Hilstara" => {
-    face_offset_x: 64,
-    face_offset_y: 40,
-  },
-  "Iris" => {
-    face_offset_x: 50,
-    face_offset_y: 47,
-  },
-  "MainActor1-3" => { # Chosen
-    bust_scale: 0.82,
-    face_offset_x: 79,
-    face_offset_y: 40,
-  },
-  "Nalili" => {
-    bust_scale: 0.72,
-    face_offset_x: 54,
-    face_offset_y: 27,
-  },
-  "Orilise" => {
-    bust_scale: 0.71,
-    face_offset_x: 58,
-    face_offset_y: 34,
-  },
-  "Riala" => {
-    face_offset_x: 52,
-    face_offset_y: 49,
-  },
-  "Robin blond" => {
-    face_offset_x: 63,
-    face_offset_y: 53,
-  },
-  "Sarai" => {
-    bust_scale: 0.78,
-    face_offset_x: 27,
-    face_offset_y: 51,
-  },
-  "Simon1" => {
-    face_offset_x: 63,
-    face_offset_y: 34,
-  },
-  "Simon2" => {
-    face_offset_x: 67,
-    face_offset_y: 32,
-  },
-  "Varia" => {
-    face_offset_x: 62,
-    face_offset_y: 48,
-  },
-  "Yarra" => {
-    bust_scale: 0.70,
-    face_offset_x: 83,
-    face_offset_y: 20,
-  },
-})
 Busty::BASE_CONFIG.merge!({
   "Andra" => {
     bust_scale: 0.75,
@@ -84,7 +92,6 @@ Busty::BASE_CONFIG.merge!({
     face_offset_y: 51,
   }
 })
-# The following are mostly for example and should be twisted accordingly to what "looks best"
 Busty::MESSAGE_CONFIG.merge!({
   "Altina" => {
     bust_offset_x: -30,
