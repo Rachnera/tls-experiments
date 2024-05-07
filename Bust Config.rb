@@ -174,6 +174,7 @@ Busty::BASE_CONFIG.merge!({
     bust_scale: 0.79,
     face_offset_x: 73,
     face_offset_y: 28,
+    face_border_width: 1,
   },
   "Antiala" => {
     bust_scale: 0.75,
