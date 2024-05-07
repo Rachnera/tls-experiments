@@ -30,19 +30,12 @@ class Window_Message < Window_Base
         bust_offset_y,
         $game_message.face_name,
         $game_message.face_index,
-        max_width = (text_indent_if_bust + 5)
+        max_width = (new_line_x + 5)
       )
     else
       @bust.erase
     end
     @bust.update
-  end
-
-  alias original_591_new_line_x new_line_x
-  def new_line_x
-    return text_indent_if_bust if show_bust?
-
-    original_591_new_line_x
   end
 
   def show_bust?
@@ -64,10 +57,6 @@ class Window_Message < Window_Base
   def draw_face(face_name, face_index, x, y, enabled = true)
     return if show_bust?
     original_591_draw_face(face_name, face_index, x, y, enabled)
-  end
-
-  def text_indent_if_bust
-    125
   end
 
   def bust_offset_x
