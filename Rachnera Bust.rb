@@ -46,7 +46,8 @@ module Busty
       @bust_face.z = @bust.z + 1
     end
 
-    def draw(character_name, x, y, face_name, face_index, max_width = nil)
+    def draw(x, y, face_name, face_index, max_width = nil)
+      character_name = Busty::character_from_face(face_name, face_index)
       @character_name = character_name
 
       bitmap = bust_bitmap

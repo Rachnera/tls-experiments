@@ -26,7 +26,6 @@ module Busty
         face_name: "Yarra emo",
         face_index: 7,
         synergy: {
-          character: "Robin blond",
           face_name: "Robin blond emo",
           face_index: 5,
         }
@@ -49,7 +48,6 @@ class Scene_Battle < Scene_Base
 
     if show_bust?
       @bust.draw(
-        character_name,
         bust_offset_x,
         bust_offset_y,
         move_config[:face_name],
@@ -59,7 +57,6 @@ class Scene_Battle < Scene_Base
       if move_config[:synergy]
         synergy_offset = 32
         synergy_bust.draw(
-          move_config[:synergy][:character],
           move_config[:synergy][:bust_offset_x] || (bust_offset_x - 32),
           move_config[:synergy][:bust_offset_y] || 64,
           move_config[:synergy][:face_name],

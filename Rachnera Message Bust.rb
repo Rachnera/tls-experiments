@@ -25,7 +25,6 @@ class Window_Message < Window_Base
   def update_bust
     if show_bust?
       @bust.draw(
-        character_name,
         bust_offset_x,
         bust_offset_y,
         $game_message.face_name,
