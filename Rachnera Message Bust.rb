@@ -29,12 +29,16 @@ class Window_Message < Window_Base
         bust_offset_y,
         $game_message.face_name,
         $game_message.face_index,
-        max_width = (new_line_x + 5)
+        max_width = (new_line_x + standard_padding - bust_text_min_margin)
       )
     else
       @bust.erase
     end
     @bust.update
+  end
+
+  def bust_text_min_margin
+    8
   end
 
   def show_bust?
@@ -59,8 +63,7 @@ class Window_Message < Window_Base
   end
 
   def bust_offset_x
-    # 51 = 1/4 of 75% of 272
-    bust_config[:bust_offset_x] || -51
+    bust_config[:bust_offset_x] || -60
   end
 
   def bust_offset_y
