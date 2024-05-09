@@ -27,6 +27,7 @@ module Busty
     "Janine emo2B" => "Janine Bride",
     "Janine emo3B" => "Janine Bride",
     "Lilith emo3" => "Lilith grey",
+    "MainActor1-1fs" => "Altina",
     "MainActor1-3fs" => "MainActor1-3", # Chosen
     "Min emo2" => "Min2",
     "Riala emo2" => "Riala2",
