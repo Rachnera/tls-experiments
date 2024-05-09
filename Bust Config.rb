@@ -77,6 +77,23 @@ module Busty
   # Optional. Shift the position of the bust compared to the message box.
   # Useful to move to the left bulky characters that would otherwise cover text (ex: Hilstara) or make small characters appear small (ex: Sarai)
   MESSAGE_CONFIG = {}
+
+  # Add conditions that must be checked for some busts to be shown when characters talk
+  # You can disable a character from that feature by passing "CharacterName" => "never" here
+  MESSAGE_AUTODISPLAY_SPECIAL = {
+    "Simon1" => "true_protagonist_revealed",
+  }
+
+  class << self
+    def true_protagonist_revealed
+      # No switch that I'm aware tracking that; so checking if Kai's quests are active instead
+      !$game_party.quests.revealed?(5)
+    end
+
+    def never
+      false
+    end
+  end
 end
 
 # Rachnera
@@ -90,7 +107,11 @@ Busty::BASE_CONFIG.merge!({
     bust_scale: 0.81,
     face_offset_x: 59,
     face_offset_y: 51,
-  }
+  },
+  "Simon1" => {
+    face_offset_x: 63,
+    face_offset_y: 34,
+  },
 })
 Busty::MESSAGE_CONFIG.merge!({
   "Altina" => {

@@ -49,6 +49,11 @@ class Window_Message < Window_Base
     # Don't display bust if the message box isn't at the bottom of the screen
     return false if self.y + self.height != Graphics.height
 
+    # Check for potential special conditions on characters
+    if Busty::MESSAGE_AUTODISPLAY_SPECIAL.has_key?(character_name)
+      return false unless Busty.send(Busty::MESSAGE_AUTODISPLAY_SPECIAL[character_name])
+    end
+
     Busty::has_bust?(character_name)
   end
 
