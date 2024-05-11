@@ -42,12 +42,7 @@ class Window_Message < Window_Base
   end
 
   def show_bust?
-    return false if $game_switches[YEA::SYSTEM::CUSTOM_SWITCHES[:hide_dialog_bust][0]]
-
-    return false if $game_message.face_name.empty?
-
-    # Don't display bust if the message box isn't at the bottom of the screen
-    return false if self.y + self.height != Graphics.height
+    return false unless valid_context?
 
     # Check for potential special conditions on characters
     if Busty::MESSAGE_AUTODISPLAY_SPECIAL.has_key?(character_name)
@@ -55,6 +50,17 @@ class Window_Message < Window_Base
     end
 
     Busty::has_bust?(character_name)
+  end
+
+  def valid_context?
+    return false if $game_switches[YEA::SYSTEM::CUSTOM_SWITCHES[:hide_dialog_bust][0]]
+
+    return false if $game_message.face_name.empty?
+
+    # Don't display bust if the message box isn't at the bottom of the screen
+    return false if self.y + self.height != Graphics.height
+
+    true
   end
 
   def character_name
@@ -77,6 +83,21 @@ class Window_Message < Window_Base
 
   def bust_config
     Busty::MESSAGE_CONFIG[character_name] || {}
+  end
+
+  # Very experimental attempt at eating a big of the right padding to give more space to the bust at "no cost"
+  # To be deleted withou a second thought if it turns to be a problem
+  alias original_591_new_line_x new_line_x
+  def new_line_x
+    original_591_new_line_x + text_extra_indent
+  end
+  alias original_591_maatsf_total_line_width maatsf_total_line_width
+  def maatsf_total_line_width(y = 0)
+    original_591_maatsf_total_line_width(y) + text_extra_indent
+  end
+  def text_extra_indent
+    return 8 if valid_context?
+    0
   end
 end
 
