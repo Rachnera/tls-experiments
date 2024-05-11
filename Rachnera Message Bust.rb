@@ -29,7 +29,7 @@ class Window_Message < Window_Base
         bust_offset_y,
         $game_message.face_name,
         $game_message.face_index,
-        max_width = (new_line_x + standard_padding - bust_text_min_margin)
+        max_width = (new_line_x + bust_extra_x)
       )
     else
       @bust.erase
@@ -37,8 +37,9 @@ class Window_Message < Window_Base
     @bust.update
   end
 
-  def bust_text_min_margin
-    8
+  # How much of the standard padding between image and text the bust is allowed to overflow into
+  def bust_extra_x
+    0.5*standard_padding
   end
 
   def show_bust?
@@ -96,7 +97,7 @@ class Window_Message < Window_Base
     original_591_maatsf_total_line_width(y) + text_extra_indent
   end
   def text_extra_indent
-    return 8 if valid_context?
+    return 0.75*standard_padding if valid_context?
     0
   end
 end
