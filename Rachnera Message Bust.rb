@@ -1,7 +1,7 @@
 class Window_Message < Window_Base
   alias hmb_window_message_create_back_bitmap create_back_bitmap
   def create_back_bitmap
-    @bust = Busty::Bust.new(z) if @bust.nil?
+    @bust = Busty::Bust.new(z+1) if @bust.nil?
 
     hmb_window_message_create_back_bitmap
   end

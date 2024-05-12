@@ -39,11 +39,10 @@ module Busty
     def initialize(z)
       @bust = Sprite.new
       @bust.visible = true
-      @bust.z = z + 1
+      @bust.z = z
 
       @bust_face = Sprite.new
       @bust_face.visible = true
-      @bust_face.z = @bust.z + 1
     end
 
     def draw(x, y, face_name, face_index, max_width = nil)
@@ -81,6 +80,7 @@ module Busty
       @bust_face.bitmap = face_bitmap
       @bust_face.x = @bust.x + border_width + face_offset_x
       @bust_face.y = @bust.y + border_width + face_offset_y
+      @bust_face.z = @bust.z + face_z
     end
 
     def redraw(face_name, face_index)
@@ -137,6 +137,10 @@ module Busty
 
     def face_border_width
       bust_config[:face_border_width] || 0
+    end
+
+    def face_z
+      bust_config[:face_z] || +1
     end
 
     def bust_config
