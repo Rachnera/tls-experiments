@@ -4,13 +4,16 @@ module Busty
 
   # For characters whose naming convention of their faces isn't consistent with the name of their bust
   FACE_TO_BUST = {
-    "Aka emo2" => "Aka2",
     "1 Simon dark eyes" => "Simon2",
     "1 Simon dark eyes2" => "Simon2",
     "1 Simon dark" => "Simon2",
     "1 Simon dark2" => "Simon2",
+    # FIXME There are actually two distinct distress busts (2B and 2D) and I have no idea which one should be used with which faces
+    "1 Simon distress1" => "Simon2D",
+    "1 Simon distress2" => "Simon2D",
     "1 Simon distress3" => "Simon2",
     "1 Simon distress4" => "Simon2",
+    "Aka emo2" => "Aka2",
     "Alanon emo" => "Alonon",
     "darksorceress" => "Riala",
     "Dheria emo2" => "Dheria2",
@@ -18,6 +21,8 @@ module Busty
     "face002b2" => "Simon1",
     "face002b dark" => "Simon1",
     "face002b dark2" => "Simon1",
+    "face002b_Wedding" => "Simon suit wedding",
+    "Fucklord emo" => "Incubus Emperor",
     "Fuzkao emo" => "Fuzkao no hand",
     "Grynyth emo" => "Grynyth full",
     "Grynyth emo2" => "Grynyth full",
@@ -39,6 +44,8 @@ module Busty
     "Yarra emo2" => nil, # To exclude "faces" 2/3
     "Z Andra emo" => nil, # To only allow face 4
     "Z Andra emoN" => nil, # No bust for no robe Andra
+    "Z Grubbak" => "Grubbak",
+    "Z Ralke" => "Ralke",
   }
 
   # For busts matching with only some of the faces of a facesheet
@@ -49,14 +56,59 @@ module Busty
       face_indexes: [4],
     },
     {
+      character_name: "Impaler",
+      face_name: "Z orc emo",
+      face_indexes: [6],
+    },
+    {
       character_name: "Ivala",
       face_name: "Ivala emo",
       face_indexes: [0, 1, 2, 3, 4, 5, 6],
     },
     {
+      character_name: "Orcent1",
+      face_name: "Orcent",
+      face_indexes: [0, 1],
+    },
+    {
+      character_name: "Orcent2",
+      face_name: "Orcent",
+      face_indexes: [2],
+    },
+    {
+      character_name: "Orcent priest",
+      face_name: "Orcent",
+      face_indexes: [3],
+    },
+    {
+      character_name: "Orcent slave",
+      face_name: "Orcent",
+      face_indexes: [4],
+    },
+    {
+      character_name: "Orcent IK",
+      face_name: "Orcent",
+      face_indexes: [5],
+    },
+    {
+      character_name: "Orcent merchant",
+      face_name: "Orcent",
+      face_indexes: [7],
+    },
+    {
+      character_name: "Lord of Blood",
+      face_name: "Incubus King Emo",
+      face_indexes: [4, 5, 6, 7],
+    },
+    {
       character_name: "Luanell",
       face_name: "Z Givini emo",
       face_indexes: [1],
+    },
+    {
+      character_name: "Skullcrusher",
+      face_name: "Incubus King Emo",
+      face_indexes: [0, 1, 2, 3],
     },
     {
       character_name: "Xestris",
@@ -108,10 +160,6 @@ Busty::BASE_CONFIG.merge!({
     bust_scale: 0.81,
     face_offset_x: 59,
     face_offset_y: 51,
-  },
-  "Simon1" => {
-    face_offset_x: 63,
-    face_offset_y: 34,
   },
 })
 Busty::MESSAGE_CONFIG.merge!({
@@ -555,6 +603,7 @@ Busty::BASE_CONFIG.merge!({
     face_offset_x: 68,
     face_offset_y: 65,
   },
+  # FIXME
 #   # HEAVY BUST EDITING. Neck is different.
 #  "Wendis blond" => {
 #     bust_scale: ?,
@@ -610,5 +659,112 @@ Busty::BASE_CONFIG.merge!({
     bust_scale: 0.75,
     face_offset_x: 78,
     face_offset_y: 66,
+  },
+  "Incubus Emperor" => {
+    bust_scale: 0.75,
+    face_offset_x: 41,
+    face_offset_y: 23,
+    face_border_width: 1
+  },
+  # BUST EDIT NECESSARY
+  "Lord of Blood" => {
+    bust_scale: 0.78,
+    face_offset_x: 69,
+    face_offset_y: 21,
+  },
+  "Skullcrusher" => {
+    bust_scale: 0.78,
+    face_offset_x: 70,
+    face_offset_y: 35,
+  },
+  "Biyue" => {
+    bust_scale: 0.77,
+    face_offset_x: 64,
+    face_offset_y: 37,
+  },
+  "Fuani" => {
+    bust_scale: 0.70,
+    face_offset_x: 46,
+    face_offset_y: 61,
+    face_border_width: 1
+  },
+  "Orcent IK" => {
+    bust_scale: 0.73,
+    face_offset_x: 62,
+    face_offset_y: 19,
+  },
+  # BUST EDITING NECESSARY
+  "Orcent merchant" => {
+    bust_scale: 0.73,
+    face_offset_x: 62,
+    face_offset_y: 18,
+  },
+  "Orcent priest" => {
+    bust_scale: 0.73,
+    face_offset_x: 62,
+    face_offset_y: 19,
+  },
+  "Orcent slave" => {
+    bust_scale: 0.74,
+    face_offset_x: 64,
+    face_offset_y: 19,
+  },
+  # BUST EDITING NECESSARY (or not. only light details on the white fur)
+  "Orcent1" => {
+    bust_scale: 0.73,
+    face_offset_x: 62,
+    face_offset_y: 19,
+  },
+  # BUST EDITING NECESSARY
+  "Orcent2" => {
+    bust_scale: 0.73,
+    face_offset_x: 35,
+    face_offset_y: 26,
+  },
+  "Grubbak" => {
+    bust_scale: 0.73,
+    face_offset_x: 67,
+    face_offset_y: 24,
+   face_border_width: 1
+  },
+  "Impaler" => {
+    bust_scale: 0.80,
+    face_offset_x: 69,
+    face_offset_y: 42,
+  },
+  "Ralke" => {
+    bust_scale: 0.70,
+    face_offset_x: 57,
+    face_offset_y: 54,
+  },
+  # bust editing + hair color correction necessary
+  "Simon suit wedding" => {
+    bust_scale: 0.81,
+    face_offset_x: 64,
+    face_offset_y: 45,
+  },
+  # bust editing + hair color correction necessary
+  "Simon1" => {
+    bust_scale: 0.75,
+    face_offset_x: 63,
+    face_offset_y: 34,
+  },
+  # bust editing + hair color correction necessary
+  "Simon2" => {
+    bust_scale: 0.75,
+    face_offset_x: 67,
+    face_offset_y: 32,
+  },
+  # bust editing + hair color correction necessary
+  "Simon2B" => {
+    bust_scale: 0.75,
+    face_offset_x: 67,
+    face_offset_y: 32,
+  },
+  # bust editing + hair color correction necessary
+  "Simon2D" => {
+    bust_scale: 0.75,
+    face_offset_x: 67,
+    face_offset_y: 32,
   },
 })
