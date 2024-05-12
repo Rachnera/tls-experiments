@@ -172,6 +172,9 @@ Busty::MESSAGE_CONFIG.merge!({
   "Bertricia" => {
     bust_offset_x: -36,
   },
+  "Dio" => { # Lustlord
+    bust_offset_x: -36,
+  },
   "Feremina" => {
     bust_offset_x: 0,
   },
@@ -222,7 +225,7 @@ Busty::BASE_CONFIG.merge!({
     face_offset_x: 61,
     face_offset_y: 66,
   },
-  # EDIT
+  # FIXME Major.
   "Alonon" => {
     bust_scale: 0.72,
     face_offset_x: 87,
@@ -234,7 +237,7 @@ Busty::BASE_CONFIG.merge!({
     face_offset_y: 30,
     face_border_width: 1,
   },
-  # EDIT
+  # FIXME Minor. Issue with the inside of her cloth, near the neck.
   "Annah" => {
     bust_scale: 0.77,
     face_offset_x: 61,
@@ -251,7 +254,6 @@ Busty::BASE_CONFIG.merge!({
     face_offset_x: 69,
     face_offset_y: 50,
   },
-  # further edit necessary?
   "Balia" => {
     bust_scale: 0.75,
     face_offset_x: 53,
@@ -287,13 +289,13 @@ Busty::BASE_CONFIG.merge!({
     face_offset_x: 68,
     face_offset_y: 34,
   },
-  # Needs to adjust bust to match color of face's hair and clothes
-  "Dio" => {
+  # FIXME. Minor. Needs to adjust bust to match color of face's hair and clothes
+  "Dio" => { # Lustlord
     bust_scale: 0.75,
     face_offset_x: 26,
     face_offset_y: 36,
   },
-  # Needs to adjust hair color to match
+  # FIXME Minor. Needs to adjust hair color to match
   "Elleani" => {
     bust_scale: 0.80,
     face_offset_x: 79,
@@ -350,7 +352,7 @@ Busty::BASE_CONFIG.merge!({
     face_offset_x: 60,
     face_offset_y: 42,
   },
-  # cut some parts of the bust to try and fix the transparency overlay issue between the two images. might need more edits
+  # cut some parts of the bust to try and fix the transparency overlay issue between the two images.
   "Grynyth full" => {
     bust_scale: 0.76,
     face_offset_x: 64,
@@ -362,6 +364,7 @@ Busty::BASE_CONFIG.merge!({
     face_offset_x: 54,
     face_offset_y: 50,
   },
+  # FIXME Major.
 # DIFFERENT BUST AND FACESET
 #  "Hester" => {
 #    bust_scale: 0.75,
@@ -419,14 +422,13 @@ Busty::BASE_CONFIG.merge!({
     face_offset_x: 46,
     face_offset_y: 16,
   },
-  # further testing might be needed
   "MainActor1-3" => {
     bust_scale: 0.82,
     face_offset_x: 79,
     face_offset_y: 40,
     face_border_width: 1
   },
-  # NEEDS BUST EDITING. different clothes
+  # FIXME Minor. Different clothes
   "Megail" => {
     bust_scale: 0.82,
     face_offset_x: 60,
@@ -438,7 +440,7 @@ Busty::BASE_CONFIG.merge!({
     face_offset_x: 51,
     face_offset_y: 28,
   },
-  # NEEDS BUST EDITING. closes I got is not good enough
+  # FIXME Minor
   "Mestan" => {
     bust_scale: 0.66,
     face_offset_x: 51,
@@ -465,7 +467,7 @@ Busty::BASE_CONFIG.merge!({
     face_offset_x: 45,
     face_offset_y: 48,
   },
-  # edits to the bust necessary to make it perfect
+  # FIXME Minor. edits to the bust necessary to make it perfect
   "Nalili" => {
     bust_scale: 0.72,
     face_offset_x: 55,
@@ -486,13 +488,13 @@ Busty::BASE_CONFIG.merge!({
     face_offset_x: 59,
     face_offset_y: 35,
   },
-  # NEEDS COLOR ADJUSTMENT
+  # FIXME Minor. NEEDS COLOR ADJUSTMENT
   "Palina" => {
     bust_scale: 0.75,
     face_offset_x: 44,
     face_offset_y: 43,
   },
-  # NEEDS COLOR ADJUSTMENT
+  # FIXME Minor. NEEDS COLOR ADJUSTMENT
   "Qum D'umpe" => {
     bust_scale: 0.75,
     face_offset_x: 62,
@@ -513,7 +515,7 @@ Busty::BASE_CONFIG.merge!({
     face_offset_x: 63,
     face_offset_y: 53,
   },
-  # Wrong hue of grey?
+  # FIXME Major. Wrong hue of grey?
   "Robin grey" => {
     bust_scale: 0.75,
     face_offset_x: 63,
@@ -524,7 +526,7 @@ Busty::BASE_CONFIG.merge!({
     face_offset_x: 53,
     face_offset_y: 58,
   },
-  # NEEDS BUST EDITING, mostly the horn on the left
+  # FIXME Minor. NEEDS BUST EDITING, mostly the horn on the left
   "SabithaH" => {
     bust_scale: 0.75,
     face_offset_x: 53,
@@ -535,7 +537,7 @@ Busty::BASE_CONFIG.merge!({
     face_offset_x: 37,
     face_offset_y: 25,
   },
-  # NEEDS BUST EDITING!
+  # FIXME Minor. NEEDS BUST EDITING!
   "Sarai" => {
     bust_scale: 0.77,
     face_offset_x: 26,
@@ -566,7 +568,7 @@ Busty::BASE_CONFIG.merge!({
     face_offset_x: 57,
     face_offset_y: 36,
   },
-  # NEEDS BUST EDITING!
+  # FIXME Major. Need a variant of the bust where the wolf head is up to cover all possible faces.
   "Ulrissa" => {
     bust_scale: 0.75,
     face_offset_x: 64,
@@ -597,13 +599,13 @@ Busty::BASE_CONFIG.merge!({
     face_offset_x: 72,
     face_offset_y: 41,
   },
-  # not perfect, might need light bust editing on the lower left part of hair
+  # FIXME Minor. not perfect, might need light bust editing on the lower left part of hair
  "Vunne" => {
     bust_scale: 0.78,
     face_offset_x: 68,
     face_offset_y: 65,
   },
-  # FIXME
+  # FIXME Major.
 #   # HEAVY BUST EDITING. Neck is different.
 #  "Wendis blond" => {
 #     bust_scale: ?,
@@ -654,7 +656,7 @@ Busty::BASE_CONFIG.merge!({
     face_offset_x: 56,
     face_offset_y: 39,
   },
-  # BUST COLOR EDITING NECESSARY
+  # FIXME Minor. BUST COLOR EDITING NECESSARY
  "Zelica" => {
     bust_scale: 0.75,
     face_offset_x: 78,
@@ -666,7 +668,7 @@ Busty::BASE_CONFIG.merge!({
     face_offset_y: 23,
     face_border_width: 1
   },
-  # BUST EDIT NECESSARY
+  # FIXME Minor. BUST EDIT NECESSARY
   "Lord of Blood" => {
     bust_scale: 0.78,
     face_offset_x: 69,
@@ -693,7 +695,7 @@ Busty::BASE_CONFIG.merge!({
     face_offset_x: 62,
     face_offset_y: 19,
   },
-  # BUST EDITING NECESSARY
+  # FIXME Minor. BUST EDITING NECESSARY
   "Orcent merchant" => {
     bust_scale: 0.73,
     face_offset_x: 62,
@@ -709,13 +711,13 @@ Busty::BASE_CONFIG.merge!({
     face_offset_x: 64,
     face_offset_y: 19,
   },
-  # BUST EDITING NECESSARY (or not. only light details on the white fur)
+  # FIXME Minor. BUST EDITING NECESSARY (or not. only light details on the white fur)
   "Orcent1" => {
     bust_scale: 0.73,
     face_offset_x: 62,
     face_offset_y: 19,
   },
-  # BUST EDITING NECESSARY
+  # FIXME Minor. BUST EDITING NECESSARY
   "Orcent2" => {
     bust_scale: 0.73,
     face_offset_x: 35,
@@ -737,6 +739,7 @@ Busty::BASE_CONFIG.merge!({
     face_offset_x: 57,
     face_offset_y: 54,
   },
+  # FIXME Minor.
   # bust editing + hair color correction necessary
   "Simon suit wedding" => {
     bust_scale: 0.81,
@@ -755,6 +758,7 @@ Busty::BASE_CONFIG.merge!({
     face_offset_x: 67,
     face_offset_y: 32,
   },
+  # FIXME Major. Glitchy beard
   # bust editing + hair color correction necessary
   "Simon2B" => {
     bust_scale: 0.75,
