@@ -35,6 +35,9 @@ module Busty
     "MainActor1-1fs" => "Altina",
     "MainActor1-3fs" => "MainActor1-3", # Chosen
     "Min emo2" => "Min2",
+    "Mithyn emo" => "Mithyn full",
+    "Mithyn emo2" => "Mithyn full",
+    "Mithyn emo3 blush" => "Mithyn full",
     "Riala emo2" => "Riala2",
     "Sabitha H emo" => "SabithaH",
     "Tanurak emoX" => nil, # Disable "glitch" Tanurak
@@ -163,6 +166,12 @@ Busty::BASE_CONFIG.merge!({
   },
 })
 Busty::MESSAGE_CONFIG.merge!({
+  "Aka" => {
+    bust_offset_x: -48,
+  },
+  "Aka2" => {
+    bust_offset_x: -48,
+  },
   "Altina" => {
     bust_offset_x: -30,
   },
@@ -172,11 +181,20 @@ Busty::MESSAGE_CONFIG.merge!({
   "Bertricia" => {
     bust_offset_x: -36,
   },
+  "Dari" => {
+    bust_offset_x: -48,
+  },
+  "Dari2" => {
+    bust_offset_x: -48,
+  },
   "Dio" => { # Lustlord
     bust_offset_x: -36,
   },
   "Feremina" => {
     bust_offset_x: 0,
+  },
+  "Fuani" => {
+    bust_offset_x: -48,
   },
   "Galvia" => {
     bust_offset_x: -36,
@@ -187,10 +205,6 @@ Busty::MESSAGE_CONFIG.merge!({
   "Lynine" => {
     bust_offset_x: -36,
   },
-  "MainActor1-3" => { # Chosen
-    bust_offset_x: -60,
-    bust_offset_y: 75,
-  },
   "Mestan" => {
     bust_offset_x: -36,
   },
@@ -200,8 +214,20 @@ Busty::MESSAGE_CONFIG.merge!({
   "Min2" => {
     bust_offset_x: -36,
   },
+  "Mithyn full" => {
+    bust_offset_x: -180,
+  },
   "Nalili" => {
     bust_offset_y: 25,
+  },
+  "Neranda" => {
+    bust_offset_x: -36,
+  },
+  "Ralke" => {
+    bust_offset_x: -36,
+  },
+  "Riala" => {
+    bust_offset_x: -48,
   },
   "Sarai" => {
     bust_offset_x: -20,
@@ -209,6 +235,15 @@ Busty::MESSAGE_CONFIG.merge!({
   },
   "TertiaH" => {
     bust_offset_x: -72,
+  },
+  "Uyae" => {
+    bust_offset_x: -36,
+  },
+  "Vera" => {
+    bust_offset_x: -36,
+  },
+  "Vunne" => {
+    bust_offset_x: -48,
   },
 })
 
@@ -225,11 +260,12 @@ Busty::BASE_CONFIG.merge!({
     face_offset_x: 61,
     face_offset_y: 66,
   },
-  # FIXME Major.
   "Alonon" => {
-    bust_scale: 0.72,
-    face_offset_x: 87,
-    face_offset_y: 53,
+    bust_scale: 0.71,
+    face_offset_x: 45,
+    face_offset_y: 26,
+    face_border_width: 4,
+    face_z: -1,
   },
   "Altina" => {
     bust_scale: 0.78,
@@ -237,11 +273,12 @@ Busty::BASE_CONFIG.merge!({
     face_offset_y: 30,
     face_border_width: 1,
   },
-  # FIXME Minor. Issue with the inside of her cloth, near the neck.
   "Annah" => {
     bust_scale: 0.77,
     face_offset_x: 61,
     face_offset_y: 44,
+    face_border_width: 4,
+    face_z: -1,
   },
   "Antarion" => {
     bust_scale: 0.79,
@@ -456,11 +493,11 @@ Busty::BASE_CONFIG.merge!({
     face_offset_x: 51,
     face_offset_y: 55,
   },
-  "Mithyn" => {
+  "Mithyn full" => {
     bust_scale: 0.75,
-    face_offset_x: 52,
-    face_offset_y: 46,
-    face_border_width: 1
+    face_offset_x: 175,
+    face_offset_y: 53,
+    face_border_width: 1,
   },
   "Nabith" => {
     bust_scale: 0.72,
