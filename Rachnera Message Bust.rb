@@ -78,7 +78,7 @@ class Window_Message < Window_Base
   end
 
   def bust_offset_x
-    bust_config[:bust_offset_x] || -60
+    bust_config[:bust_offset_x] || -48
   end
 
   def bust_offset_y

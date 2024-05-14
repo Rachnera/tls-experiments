@@ -166,12 +166,6 @@ Busty::BASE_CONFIG.merge!({
   },
 })
 Busty::MESSAGE_CONFIG.merge!({
-  "Aka" => {
-    bust_offset_x: -48,
-  },
-  "Aka2" => {
-    bust_offset_x: -48,
-  },
   "Altina" => {
     bust_offset_x: -30,
   },
@@ -181,20 +175,11 @@ Busty::MESSAGE_CONFIG.merge!({
   "Bertricia" => {
     bust_offset_x: -36,
   },
-  "Dari" => {
-    bust_offset_x: -48,
-  },
-  "Dari2" => {
-    bust_offset_x: -48,
-  },
   "Dio" => { # Lustlord
     bust_offset_x: -36,
   },
   "Feremina" => {
     bust_offset_x: 0,
-  },
-  "Fuani" => {
-    bust_offset_x: -48,
   },
   "Galvia" => {
     bust_offset_x: -36,
@@ -204,6 +189,9 @@ Busty::MESSAGE_CONFIG.merge!({
   },
   "Lynine" => {
     bust_offset_x: -36,
+  },
+  "MainActor1-3" => { # Chosen
+    bust_offset_x: -60,
   },
   "Mestan" => {
     bust_offset_x: -36,
@@ -229,9 +217,6 @@ Busty::MESSAGE_CONFIG.merge!({
   "Ralke" => {
     bust_offset_x: -36,
   },
-  "Riala" => {
-    bust_offset_x: -48,
-  },
   "Sarai" => {
     bust_offset_x: -20,
     bust_offset_y: 25,
@@ -244,9 +229,6 @@ Busty::MESSAGE_CONFIG.merge!({
   },
   "Vera" => {
     bust_offset_x: -36,
-  },
-  "Vunne" => {
-    bust_offset_x: -48,
   },
   "Wendis blond" => {
     bust_offset_x: -36,
@@ -261,7 +243,6 @@ Busty::MESSAGE_CONFIG.merge!({
     bust_offset_x: -36,
   },
   "Wynn" => {
-    bust_offset_x: -48,
     bust_offset_y: 24,
   },
 })
