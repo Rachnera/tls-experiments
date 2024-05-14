@@ -758,10 +758,10 @@ Busty::BASE_CONFIG.merge!({
     face_offset_y: 19,
   },
   "Orcent2" => {
-    bust_scale: 0.73,
-    face_offset_x: 35,
+    bust_scale: 0.74,
+    face_offset_x: 36,
     face_offset_y: 26,
-    face_border_width: 15,
+    face_border_width: [0, 0, 20, 15],
   },
   "Grubbak" => {
     bust_scale: 0.73,
@@ -790,6 +790,7 @@ Busty::BASE_CONFIG.merge!({
     bust_scale: 0.75,
     face_offset_x: 63,
     face_offset_y: 34,
+    face_z: -1,
   },
   "Simon2" => {
     bust_scale: 0.75,
