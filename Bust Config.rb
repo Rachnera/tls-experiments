@@ -48,6 +48,7 @@ module Busty
     "Z Andra emo" => nil, # To only allow face 4
     "Z Andra emoN" => nil, # No bust for no robe Andra
     "Z Grubbak" => "Grubbak",
+    "Z Orcent" => "Orcent1",
     "Z Ralke" => "Ralke",
   }
 
