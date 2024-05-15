@@ -403,12 +403,12 @@ Busty::BASE_CONFIG.merge!({
     face_offset_y: 50,
   },
   # FIXME Major.
-# DIFFERENT BUST AND FACESET
-#  "Hester" => {
-#    bust_scale: 0.75,
-#    face_offset_x: 71,
-#    face_offset_y: 48,
-#  },
+  # DIFFERENT BUST AND FACESET
+  "Hester" => {
+    bust_scale: 0.75,
+    face_offset_x: 71,
+    face_offset_y: 48,
+  },
   # FIXME Minor. bust color hair edited to match faceset
   "Hilstara" => {
     bust_scale: 0.75,
