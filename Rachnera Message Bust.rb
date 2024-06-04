@@ -105,6 +105,43 @@ class Window_Message < Window_Base
   end
 end
 
+# Even more experimental: Use a different windowskin only for dialogs
+module Busty
+  class << self
+    def has_custom_message_skin?
+      return @@has_custom_message_skin if defined?(@@has_custom_message_skin)
+
+      @@has_custom_message_skin = false
+      begin
+        Cache.system(Busty::custom_message_skin_name)
+        @@has_custom_message_skin = true
+      rescue
+        # Nothing to do, already set to false
+      end
+      @@has_custom_message_skin
+    end
+
+    def custom_message_skin_name
+      "CustomMessageWindow"
+    end
+  end
+end
+class Game_Interpreter
+  alias original_591_command_101 command_101
+  def command_101(*args, &block)
+    if Busty::has_custom_message_skin?
+      # @params[0] ~= $game_message.face_name Cf Game_Interpreter#command_101
+      $game_message.message_windowskin =
+        if @params[0].empty?
+          "Window"
+        else
+          Busty::custom_message_skin_name
+        end
+    end
+    original_591_command_101(*args, &block)
+  end
+end
+
 YEA::SYSTEM::CUSTOM_SWITCHES.merge!({
   hide_dialog_bust: [
     13, # Switch Number; make sure it's not used for something else
