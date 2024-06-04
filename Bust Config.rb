@@ -508,7 +508,7 @@ Busty::BASE_CONFIG.merge!({
     bust_scale: 0.73,
     face_offset_x: 55,
     face_offset_y: 28,
-     face_z: -1,
+    face_z: -1,
   },
   "Neranda" => {
     bust_scale: 0.75,
@@ -811,3 +811,44 @@ Busty::BASE_CONFIG.merge!({
     face_border_width: [0, 0, 24, 0],
   },
 })
+
+# Rachnera
+# Configuring super modes
+# They are close enough from normal modes we can just duplicate the original values
+[
+  # Carina does not need anything specific as only her eyes change
+  {
+    original: "Hilstara",
+    faces: ["Hilstara emo3"],
+    bust: "HilstaraKnight",
+  },
+  {
+    original: "Nalili",
+    faces: ["Nalili emo3", "Nalili emo4"],
+    bust: "Nalili2",
+  },
+  {
+    original: "Neranda",
+    faces: ["Neranda emo3", "Neranda emo4"],
+    bust: "NerandaAvatar",
+  },
+  {
+    original: "Trin",
+    faces: ["Trin emo3", "Trin emo4"],
+    bust: "Trin-diadem-portrait",
+  },
+  {
+    original: "Uyae",
+    faces: ["Uyae emo2d"],
+    bust: "Uyae God Flip",
+  },
+].each do |cf|
+  Busty::BASE_CONFIG[cf[:bust]] = Busty::BASE_CONFIG[cf[:original]].clone
+  Busty::MESSAGE_CONFIG[cf[:bust]] = Busty::MESSAGE_CONFIG[cf[:original]].clone if Busty::MESSAGE_CONFIG[cf[:original]]
+  cf[:faces].each do |face|
+    Busty::FACE_TO_BUST[face] = cf[:bust]
+  end
+end
+
+# TODO Nalili is being difficult and needs to be extra adjusted manually. Quick workaround for now.
+Busty::BASE_CONFIG["Nalili2"][:face_z] = +1
