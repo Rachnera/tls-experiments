@@ -185,9 +185,6 @@ Busty::MESSAGE_CONFIG.merge!({
   "Galvia" => {
     bust_offset_x: -36,
   },
-  "Hilstara" => {
-    bust_offset_x: -70,
-  },
   "Lynine" => {
     bust_offset_x: -36,
   },
