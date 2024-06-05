@@ -58,6 +58,8 @@ class Window_Message < Window_Base
 
     return false if $game_message.face_name.empty?
 
+    return false if !self.visible
+
     # Don't display bust if the message box isn't at the bottom of the screen
     return false if self.y + self.height != Graphics.height
 
