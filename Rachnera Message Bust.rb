@@ -135,7 +135,7 @@ class Game_Interpreter
       # @params[0] ~= $game_message.face_name Cf Game_Interpreter#command_101
       $game_message.message_windowskin =
         if @params[0].empty?
-          "Window"
+          Game_ATS::CONFIG[:ats_message_options][:message_windowskin]
         else
           Busty::custom_message_skin_name
         end
