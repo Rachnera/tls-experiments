@@ -37,9 +37,9 @@ class Window_Message < Window_Base
     @bust.update
   end
 
-  # How much of the standard padding between image and text the bust is allowed to overflow into
+  # Define how much the bust is allowed to overflow into the padding between image and text
   def bust_extra_x
-    0.5*standard_padding
+    6
   end
 
   def show_bust?
@@ -100,7 +100,7 @@ class Window_Message < Window_Base
     original_591_maatsf_total_line_width(y) + text_extra_indent
   end
   def text_extra_indent
-    return 0.75*standard_padding if valid_context?
+    return 8 if valid_context?
     0
   end
 end
