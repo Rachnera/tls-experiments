@@ -847,5 +847,12 @@ Busty::BASE_CONFIG.merge!({
   end
 end
 
-# TODO Nalili is being difficult and needs to be extra adjusted manually. Quick workaround for now.
-Busty::BASE_CONFIG["Nalili2"][:face_z] = +1
+# Nalili is being difficult and needs to be extra adjusted manually. Quick workaround for now.
+# Decarabia
+Busty::BASE_CONFIG["Nalili2"] = {
+  bust_scale: 0.73,
+  face_offset_x: 56,
+  face_offset_y: 28,
+  face_z: -1,
+}
+
