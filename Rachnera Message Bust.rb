@@ -128,19 +128,24 @@ module Busty
     end
   end
 end
-class Game_Interpreter
-  alias original_591_command_101 command_101
-  def command_101(*args, &block)
-    if Busty::has_custom_message_skin?
-      # @params[0] ~= $game_message.face_name Cf Game_Interpreter#command_101
-      $game_message.message_windowskin =
-        if @params[0].empty?
-          Game_ATS::CONFIG[:ats_message_options][:message_windowskin]
-        else
-          Busty::custom_message_skin_name
-        end
+class Window_Message < Window_Base
+  alias original_591_atsmo_update_windowskin atsmo_update_windowskin
+  def atsmo_update_windowskin
+    original_591_atsmo_update_windowskin
+
+    skin_name =
+      if $game_message.face_name.empty?
+        Game_ATS::CONFIG[:ats_message_options][:message_windowskin]
+      else
+        Busty::custom_message_skin_name
+      end
+
+    # Update **solely** the message window, whereas the original code would change the choice list and co
+    new_wskin = Cache.system(skin_name)
+    if new_wskin != self.windowskin && new_wskin.width > 32
+      self.windowskin = new_wskin
+      @atsmo_name_window.set_text("") # Clear to redraw in right colour
     end
-    original_591_command_101(*args, &block)
   end
 end
 
