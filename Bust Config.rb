@@ -127,13 +127,19 @@ Busty::SUBSET_TO_BUST = [
 
 # You can disable a character from that feature by passing "CharacterName" => "never" here
 Busty::MESSAGE_AUTODISPLAY_SPECIAL = {
-  "Simon1" => "true_protagonist_revealed",
+  "Simon1" => "show_simon_the_green",
 }
 module Busty
   class << self
-    def true_protagonist_revealed
+    def show_simon_the_green
+      # True protagonist revealed
       # No switch that I'm aware of tracking that; so checking if Kai's quests are active instead
-      !$game_party.quests.revealed?(5)
+      return false if $game_party.quests.revealed?(5)
+
+      # Simon is using his almost naked sprite
+      return false if $game_actors[2].character_index == 2
+
+      true
     end
 
     def never
