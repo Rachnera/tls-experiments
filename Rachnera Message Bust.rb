@@ -1,3 +1,14 @@
+module Busty
+  # Actual values are in "Bust Config". Only empty shells for reference here.
+
+  # Shift the position of the bust. See bust_offset_x/bust_offset_y for default values if this is not set.
+  # Useful to recenter characters that are too thin or wide (ex: Mithyn) or make small characters appear small (ex: Sarai)
+  MESSAGE_CONFIG = {}
+
+  # Add conditions that must be checked for some busts to be shown when characters talk
+  MESSAGE_AUTODISPLAY_SPECIAL = {}
+end
+
 class Window_Message < Window_Base
   alias hmb_window_message_create_back_bitmap create_back_bitmap
   def create_back_bitmap

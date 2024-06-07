@@ -1,149 +1,138 @@
+Busty::FACE_TO_BUST = {
+  "1 Simon dark eyes" => "Simon2",
+  "1 Simon dark eyes2" => "Simon2",
+  "1 Simon dark" => "Simon2",
+  "1 Simon dark2" => "Simon2",
+  # FIXME There are actually two distinct distress busts (2B and 2D) and I have no idea which one should be used with which faces
+  "1 Simon distress1" => "Simon2D",
+  "1 Simon distress2" => "Simon2D",
+  "1 Simon distress3" => "Simon2",
+  "1 Simon distress4" => "Simon2",
+  "Aka emo2" => "Aka2",
+  "Alanon emo" => "Alonon",
+  "darksorceress" => "Riala",
+  "Dheria emo2" => "Dheria2",
+  "face002b" => "Simon1",
+  "face002b2" => "Simon1",
+  "face002b dark" => "Simon1",
+  "face002b dark2" => "Simon1",
+  "face002b_Wedding" => "Simon suit wedding",
+  "Fucklord emo" => "Incubus Emperor",
+  "Fuzkao emo" => "Fuzkao no hand",
+  "Grynyth emo" => "Grynyth full",
+  "Grynyth emo2" => "Grynyth full",
+  "Ivala emo" => nil, # To remove unsupported furious Ivala (different color)
+  "Janine emo2" => "Janine 1",
+  "Janine emo3" => "Janine 1",
+  "Janine emo2B" => "Janine Bride",
+  "Janine emo3B" => "Janine Bride",
+  "Lilith emo3" => "Lilith grey",
+  "MainActor1-1fs" => "Altina",
+  "MainActor1-3fs" => "MainActor1-3", # Chosen
+  "Min emo2" => "Min2",
+  "Mithyn emo" => "Mithyn full",
+  "Mithyn emo2" => "Mithyn full",
+  "Mithyn emo3 blush" => "Mithyn full",
+  "Riala emo2" => "Riala2",
+  "Sabitha H emo" => "SabithaH",
+  "Tanurak emoX" => nil, # Disable "glitch" Tanurak
+  "Tertia emo" => "TertiaH", # Two Tertia bust files, the H is the one with the same ratio as most others
+  "Xestris emo" => nil, # Exclude Xestris "dark" faces
+  "Xestris emo2" => nil,
+  "Yarra emo2" => nil, # To exclude "faces" 2/3
+  "Z Andra emo" => nil, # To only allow face 4
+  "Z Andra emoN" => nil, # No bust for no robe Andra
+  "Z Grubbak" => "Grubbak",
+  "Z Orcent" => "Orcent1",
+  "Z Ralke" => "Ralke",
+}
+
+Busty::SUBSET_TO_BUST = [
+  {
+    character_name: "Andra",
+    face_name: "Z Andra emo",
+    face_indexes: [4],
+  },
+  {
+    character_name: "Impaler",
+    face_name: "Z orc emo",
+    face_indexes: [6],
+  },
+  {
+    character_name: "Ivala",
+    face_name: "Ivala emo",
+    face_indexes: [0, 1, 2, 3, 4, 5, 6],
+  },
+  {
+    character_name: "Orcent1",
+    face_name: "Orcent",
+    face_indexes: [0, 1],
+  },
+  {
+    character_name: "Orcent2",
+    face_name: "Orcent",
+    face_indexes: [2],
+  },
+  {
+    character_name: "Orcent priest",
+    face_name: "Orcent",
+    face_indexes: [3],
+  },
+  {
+    character_name: "Orcent slave",
+    face_name: "Orcent",
+    face_indexes: [4],
+  },
+  {
+    character_name: "Orcent IK",
+    face_name: "Orcent",
+    face_indexes: [5],
+  },
+  {
+    character_name: "Orcent merchant",
+    face_name: "Orcent",
+    face_indexes: [7],
+  },
+  {
+    character_name: "Lord of Blood",
+    face_name: "Incubus King Emo",
+    face_indexes: [4, 5, 6, 7],
+  },
+  {
+    character_name: "Luanell",
+    face_name: "Z Givini emo",
+    face_indexes: [1],
+  },
+  {
+    character_name: "Skullcrusher",
+    face_name: "Incubus King Emo",
+    face_indexes: [0, 1, 2, 3],
+  },
+  {
+    character_name: "Xestris",
+    face_name: "Xestris emo",
+    face_indexes: [0, 1, 2, 3, 4, 5],
+  },
+  {
+    character_name: "Xestris",
+    face_name: "Xestris emo2",
+    face_indexes: [1, 2, 3, 4, 5, 6, 7],
+  },
+  {
+    character_name: "Yarra",
+    face_name: "Yarra emo2",
+    face_indexes: [0, 1, 4, 5, 6, 7],
+  },
+]
+
+# You can disable a character from that feature by passing "CharacterName" => "never" here
+Busty::MESSAGE_AUTODISPLAY_SPECIAL = {
+  "Simon1" => "true_protagonist_revealed",
+}
 module Busty
-  # Make the face fits right on the body
-  BASE_CONFIG = {}
-
-  # For characters whose naming convention of their faces isn't consistent with the name of their bust
-  FACE_TO_BUST = {
-    "1 Simon dark eyes" => "Simon2",
-    "1 Simon dark eyes2" => "Simon2",
-    "1 Simon dark" => "Simon2",
-    "1 Simon dark2" => "Simon2",
-    # FIXME There are actually two distinct distress busts (2B and 2D) and I have no idea which one should be used with which faces
-    "1 Simon distress1" => "Simon2D",
-    "1 Simon distress2" => "Simon2D",
-    "1 Simon distress3" => "Simon2",
-    "1 Simon distress4" => "Simon2",
-    "Aka emo2" => "Aka2",
-    "Alanon emo" => "Alonon",
-    "darksorceress" => "Riala",
-    "Dheria emo2" => "Dheria2",
-    "face002b" => "Simon1",
-    "face002b2" => "Simon1",
-    "face002b dark" => "Simon1",
-    "face002b dark2" => "Simon1",
-    "face002b_Wedding" => "Simon suit wedding",
-    "Fucklord emo" => "Incubus Emperor",
-    "Fuzkao emo" => "Fuzkao no hand",
-    "Grynyth emo" => "Grynyth full",
-    "Grynyth emo2" => "Grynyth full",
-    "Ivala emo" => nil, # To remove unsupported furious Ivala (different color)
-    "Janine emo2" => "Janine 1",
-    "Janine emo3" => "Janine 1",
-    "Janine emo2B" => "Janine Bride",
-    "Janine emo3B" => "Janine Bride",
-    "Lilith emo3" => "Lilith grey",
-    "MainActor1-1fs" => "Altina",
-    "MainActor1-3fs" => "MainActor1-3", # Chosen
-    "Min emo2" => "Min2",
-    "Mithyn emo" => "Mithyn full",
-    "Mithyn emo2" => "Mithyn full",
-    "Mithyn emo3 blush" => "Mithyn full",
-    "Riala emo2" => "Riala2",
-    "Sabitha H emo" => "SabithaH",
-    "Tanurak emoX" => nil, # Disable "glitch" Tanurak
-    "Tertia emo" => "TertiaH", # Two Tertia bust files, the H is the one with the same ratio as most others
-    "Xestris emo" => nil, # Exclude Xestris "dark" faces
-    "Xestris emo2" => nil,
-    "Yarra emo2" => nil, # To exclude "faces" 2/3
-    "Z Andra emo" => nil, # To only allow face 4
-    "Z Andra emoN" => nil, # No bust for no robe Andra
-    "Z Grubbak" => "Grubbak",
-    "Z Orcent" => "Orcent1",
-    "Z Ralke" => "Ralke",
-  }
-
-  # For busts matching with only some of the faces of a facesheet
-  SUBSET_TO_BUST = [
-    {
-      character_name: "Andra",
-      face_name: "Z Andra emo",
-      face_indexes: [4],
-    },
-    {
-      character_name: "Impaler",
-      face_name: "Z orc emo",
-      face_indexes: [6],
-    },
-    {
-      character_name: "Ivala",
-      face_name: "Ivala emo",
-      face_indexes: [0, 1, 2, 3, 4, 5, 6],
-    },
-    {
-      character_name: "Orcent1",
-      face_name: "Orcent",
-      face_indexes: [0, 1],
-    },
-    {
-      character_name: "Orcent2",
-      face_name: "Orcent",
-      face_indexes: [2],
-    },
-    {
-      character_name: "Orcent priest",
-      face_name: "Orcent",
-      face_indexes: [3],
-    },
-    {
-      character_name: "Orcent slave",
-      face_name: "Orcent",
-      face_indexes: [4],
-    },
-    {
-      character_name: "Orcent IK",
-      face_name: "Orcent",
-      face_indexes: [5],
-    },
-    {
-      character_name: "Orcent merchant",
-      face_name: "Orcent",
-      face_indexes: [7],
-    },
-    {
-      character_name: "Lord of Blood",
-      face_name: "Incubus King Emo",
-      face_indexes: [4, 5, 6, 7],
-    },
-    {
-      character_name: "Luanell",
-      face_name: "Z Givini emo",
-      face_indexes: [1],
-    },
-    {
-      character_name: "Skullcrusher",
-      face_name: "Incubus King Emo",
-      face_indexes: [0, 1, 2, 3],
-    },
-    {
-      character_name: "Xestris",
-      face_name: "Xestris emo",
-      face_indexes: [0, 1, 2, 3, 4, 5],
-    },
-    {
-      character_name: "Xestris",
-      face_name: "Xestris emo2",
-      face_indexes: [1, 2, 3, 4, 5, 6, 7],
-    },
-    {
-      character_name: "Yarra",
-      face_name: "Yarra emo2",
-      face_indexes: [0, 1, 4, 5, 6, 7],
-    },
-  ]
-
-  # Optional. Shift the position of the bust compared to the message box.
-  # Useful to move to the left bulky characters that would otherwise cover text (ex: Hilstara) or make small characters appear small (ex: Sarai)
-  MESSAGE_CONFIG = {}
-
-  # Add conditions that must be checked for some busts to be shown when characters talk
-  # You can disable a character from that feature by passing "CharacterName" => "never" here
-  MESSAGE_AUTODISPLAY_SPECIAL = {
-    "Simon1" => "true_protagonist_revealed",
-  }
-
   class << self
     def true_protagonist_revealed
-      # No switch that I'm aware tracking that; so checking if Kai's quests are active instead
+      # No switch that I'm aware of tracking that; so checking if Kai's quests are active instead
       !$game_party.quests.revealed?(5)
     end
 
@@ -847,7 +836,7 @@ Busty::BASE_CONFIG.merge!({
   end
 end
 
-# Nalili is being difficult and needs to be extra adjusted manually. Quick workaround for now.
+# Nalili is being difficult and needs to be extra adjusted manually.
 # Decarabia
 Busty::BASE_CONFIG["Nalili2"] = {
   bust_scale: 0.73,
@@ -855,4 +844,3 @@ Busty::BASE_CONFIG["Nalili2"] = {
   face_offset_y: 28,
   face_z: -1,
 }
-

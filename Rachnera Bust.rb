@@ -1,6 +1,9 @@
 # Inspired by https://forums.rpgmakerweb.com/index.php?threads/simple-message-busts.45897/
 module Busty
-  # All configuration "CONSTANTS" can be found in the "Bust Config" file
+  # All actual configuration "CONSTANTS" can be found in the "Bust Config" file. Just dropping empty shells here for reference.
+  BASE_CONFIG = {} # Make the face fits right on the body
+  FACE_TO_BUST = {} # For characters whose naming convention of their faces isn't consistent with the name of their bust
+  SUBSET_TO_BUST = [] # For busts matching with only some of the faces of a facesheet
 
   def self.has_bust?(character_name)
     BASE_CONFIG.has_key?(character_name)

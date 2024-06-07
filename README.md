@@ -47,7 +47,7 @@ $some_bust = nil
 
 ## Automatically show busts for dialogues
 
-Add the following script below the setup ones, and preferably below other scripts modifying the text box:
+Add the following script before `Bust Config`, and preferably below other scripts modifying the text box:
 - Rachnera Message Bust
 
-If you one day wish to remove that feature but not other bust related ones, just delete that one script
+If you one day wish to remove that feature but not other bust related ones, just delete that one script.
