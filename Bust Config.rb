@@ -174,6 +174,9 @@ Busty::MESSAGE_CONFIG.merge!({
   "Dio" => { # Lustlord
     bust_offset_x: -36,
   },
+  "Esthera" => {
+    bust_offset_x: -72,
+  },
   "Feremina" => {
     bust_offset_x: 0,
   },
