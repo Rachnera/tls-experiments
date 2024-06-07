@@ -107,48 +107,6 @@ class Window_Message < Window_Base
   end
 end
 
-# Even more experimental: Use a different windowskin only for dialogs
-module Busty
-  class << self
-    def has_custom_message_skin?
-      return @@has_custom_message_skin if defined?(@@has_custom_message_skin)
-
-      @@has_custom_message_skin = false
-      begin
-        Cache.system(Busty::custom_message_skin_name)
-        @@has_custom_message_skin = true
-      rescue
-        # Nothing to do, already set to false
-      end
-      @@has_custom_message_skin
-    end
-
-    def custom_message_skin_name
-      "CustomMessageWindow"
-    end
-  end
-end
-class Window_Message < Window_Base
-  alias original_591_atsmo_update_windowskin atsmo_update_windowskin
-  def atsmo_update_windowskin
-    original_591_atsmo_update_windowskin
-
-    skin_name =
-      if $game_message.face_name.empty?
-        Game_ATS::CONFIG[:ats_message_options][:message_windowskin]
-      else
-        Busty::custom_message_skin_name
-      end
-
-    # Update **solely** the message window, whereas the original code would change the choice list and co
-    new_wskin = Cache.system(skin_name)
-    if new_wskin != self.windowskin && new_wskin.width > 32
-      self.windowskin = new_wskin
-      @atsmo_name_window.set_text("") # Clear to redraw in right colour
-    end
-  end
-end
-
 YEA::SYSTEM::CUSTOM_SWITCHES.merge!({
   hide_dialog_bust: [
     13, # Switch Number; make sure it's not used for something else

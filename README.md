@@ -50,6 +50,4 @@ $some_bust = nil
 Add the following script below the setup ones, and preferably below other scripts modifying the text box:
 - Rachnera Message Bust
 
-Optional: Add the file `CustomMessageWindow.png` to `Graphics/System`. This slightly changes the look of the dialog window (and only it) to give more breathing room to image and text.
-
 If you one day wish to remove that feature but not other bust related ones, just delete that one script
