@@ -102,7 +102,7 @@ class Window_Message < Window_Base
     original_591_maatsf_total_line_width(y) + text_extra_indent
   end
   def text_extra_indent
-    return 10 if valid_context?
+    return 8 if valid_context?
     0
   end
 end
