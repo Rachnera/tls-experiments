@@ -171,6 +171,9 @@ Busty::MESSAGE_CONFIG.merge!({
   "Altina" => {
     bust_offset_x: -30,
   },
+  "Alonon" => {
+    bust_offset_x: -24,
+  },
   "Balia" => {
     bust_offset_x: -30,
   },
@@ -214,7 +217,7 @@ Busty::MESSAGE_CONFIG.merge!({
     bust_offset_x: -36,
   },
   "Orcent2" => {
-    bust_offset_x: -36,
+    bust_offset_x: -24,
   },
   "Ralke" => {
     bust_offset_x: -36,
