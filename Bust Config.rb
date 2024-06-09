@@ -128,6 +128,12 @@ Busty::SUBSET_TO_BUST = [
 # You can disable a character from that feature by passing "CharacterName" => "never" here
 Busty::MESSAGE_AUTODISPLAY_SPECIAL = {
   "Simon1" => "show_simon_the_green",
+
+  # Temporary disable characters in need of a bust fix
+  "Hester" => "never",
+  "Robin grey" => "never",
+  "Simon2D" => "never",
+  "Ulrissa" => "never",
 }
 module Busty
   class << self
