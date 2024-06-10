@@ -1,4 +1,3 @@
-# Need to be after the "Full Bleed" script and all the other many battle scripts
 module Busty
   BATTLE_CONFIG = {
     "Carina" => {
@@ -43,6 +42,8 @@ end
 class Scene_Battle < Scene_Base
   alias original_478_execute_action execute_action
   def execute_action
+    return original_478_execute_action if bust_feature_disabled?
+
     @bust = Busty::Bust.new(999) if @bust.nil?
     synergy_bust = Busty::Bust.new(1001)
 
@@ -80,6 +81,8 @@ class Scene_Battle < Scene_Base
 
   alias original_478_turn_start turn_start
   def turn_start
+    return original_478_turn_start if bust_feature_disabled?
+
     # Compromise value: Keeping the bar perfectly centered doesn't leave enough space for the busts
     # But moving it fully to the right (+16*4) means too much empty space
     @status_window.x = 128+16*2
@@ -89,9 +92,15 @@ class Scene_Battle < Scene_Base
 
   alias original_478_turn_end turn_end
   def turn_end
+    return original_478_turn_end if bust_feature_disabled?
+
     @status_window.x = 128
 
     original_478_turn_end
+  end
+
+  def bust_feature_disabled?
+    $game_switches[YEA::SYSTEM::CUSTOM_SWITCHES[:hide_battle_bust][0]]
   end
 
   def show_bust?
@@ -145,5 +154,25 @@ class Game_Actor < Game_Battler
     ext = SceneManager.scene.info_viewport.ox
     rect = SceneManager.scene.status_window.item_rect(self.index)
     return SceneManager.scene.status_window.x + 12 + rect.x + item_rect_width / 2 - ext
+  end
+end
+
+YEA::SYSTEM::CUSTOM_SWITCHES.merge!({
+  hide_battle_bust: [
+    14, # Switch Number; make sure it's not used for something else
+    "Busts in battles",
+    "Hide",
+    "Show",
+    "Show party members in big when they act in battle.",
+    true
+  ]
+})
+YEA::SYSTEM::COMMANDS.insert(YEA::SYSTEM::COMMANDS.find_index(:animations)+1, :hide_battle_bust)
+class Scene_System < Scene_MenuBase
+  alias_method :original_297_command_reset_opts, :command_reset_opts
+  def command_reset_opts
+    $game_switches[YEA::SYSTEM::CUSTOM_SWITCHES[:hide_battle_bust][0]] = false
+
+    original_297_command_reset_opts
   end
 end

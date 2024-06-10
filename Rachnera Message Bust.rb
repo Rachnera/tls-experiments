@@ -148,14 +148,14 @@ end
 YEA::SYSTEM::CUSTOM_SWITCHES.merge!({
   hide_dialog_bust: [
     13, # Switch Number; make sure it's not used for something else
-    "Full busts in dialogues",
+    "Busts in dialogues",
     "Hide",
     "Show",
     "Show main characters in full when they talk.",
     true
   ]
 })
-YEA::SYSTEM::COMMANDS.insert(YEA::SYSTEM::COMMANDS.find_index(:hide_nsfw), :hide_dialog_bust)
+YEA::SYSTEM::COMMANDS.insert(YEA::SYSTEM::COMMANDS.find_index(:instantmsg)+1, :hide_dialog_bust)
 class Scene_System < Scene_MenuBase
   alias_method :original_421_command_reset_opts, :command_reset_opts
   def command_reset_opts
