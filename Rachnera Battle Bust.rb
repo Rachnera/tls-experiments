@@ -36,6 +36,7 @@ module Busty
     },
   }
 
+  # Share config between the three effectively identical variants of Simon's "Support XXX" skill
   BATTLE_CONFIG["Simon2"]["Support Slaves"] = BATTLE_CONFIG["Simon2"]["Support Servants"] = BATTLE_CONFIG["Simon2"]["Support Allies"]
 end
 
