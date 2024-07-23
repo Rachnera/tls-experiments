@@ -2,7 +2,6 @@ module Busty
   BATTLE_CONFIG = {
     "Carina" => {
       "Shield of Purity" => {
-        face_name: "Carina emo",
         face_index: 5,
       },
     },
@@ -16,13 +15,11 @@ module Busty
         face_index: 6,
       },
       "SS heal component" => {
-        face_name: "1 Simon dark",
         face_index: 5,
       },
     },
     "Yarra" => {
       "Lightning Whip" => {
-        face_name: "Yarra emo",
         face_index: 7,
         synergy: {
           face_name: "Robin blond emo",
@@ -120,7 +117,7 @@ class Scene_Battle < Scene_Base
 
     return default unless Busty::BATTLE_CONFIG[character_name]
 
-    Busty::BATTLE_CONFIG[character_name][current_move_name] || default
+    default.merge(Busty::BATTLE_CONFIG[character_name][current_move_name] || {})
   end
 
   def current_move_name
