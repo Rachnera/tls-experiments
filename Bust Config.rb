@@ -18,7 +18,6 @@ Busty::FACE_TO_BUST = {
   "face002b dark2" => "Simon1",
   "face002b_Wedding" => "Simon suit wedding",
   "Fucklord emo" => "Incubus Emperor",
-  "Ivala emo" => nil, # To remove unsupported furious Ivala (different color)
   "Janine emo2" => "Janine 1",
   "Janine emo3" => "Janine 1",
   "Janine emo2B" => "Janine Bride",
@@ -30,9 +29,6 @@ Busty::FACE_TO_BUST = {
   "Riala emo2" => "Riala2",
   "Sabitha H emo" => "SabithaH",
   "Tanurak emoX" => nil, # Disable "glitch" Tanurak
-  "Xestris emo" => nil, # Exclude Xestris "dark" faces
-  "Xestris emo2" => nil,
-  "Yarra emo2" => nil, # To exclude "faces" 2/3
   "Z Andra emo" => nil, # To only allow face 4, see below
   "Z Andra emoN" => nil, # No bust for no robe Andra
   "Z Grubbak" => "Grubbak",
@@ -51,10 +47,11 @@ Busty::SUBSET_TO_BUST = [
     face_name: "Z orc emo",
     face_indexes: [6],
   },
+  # Remove furious Ivala
   {
-    character_name: "Ivala",
+    character_name: nil,
     face_name: "Ivala emo",
-    face_indexes: [0, 1, 2, 3, 4, 5, 6],
+    face_indexes: [7],
   },
   {
     character_name: "Orcent1",
@@ -102,20 +99,22 @@ Busty::SUBSET_TO_BUST = [
     face_name: "Incubus King Emo",
     face_indexes: [0, 1, 2, 3],
   },
+  # Exclude Xestris dark faces
   {
-    character_name: "Xestris",
+    character_name: nil,
     face_name: "Xestris emo",
-    face_indexes: [0, 1, 2, 3, 4, 5],
+    face_indexes: [6, 7],
   },
   {
-    character_name: "Xestris",
+    character_name: nil,
     face_name: "Xestris emo2",
-    face_indexes: [1, 2, 3, 4, 5, 6, 7],
+    face_indexes: [0],
   },
+  # Exclude Yarra's "boobs face"
   {
-    character_name: "Yarra",
+    character_name: nil,
     face_name: "Yarra emo2",
-    face_indexes: [0, 1, 4, 5, 6, 7],
+    face_indexes: [2, 3],
   },
 ]
 
