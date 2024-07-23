@@ -1,5 +1,13 @@
 module Busty
   BATTLE_CONFIG = {
+    "Aka" => {
+      "Disabling Assault" => {
+        face_index: 0,
+      },
+      "Forceful Lunge" => {
+        face_index: 2,
+      },
+    },
     "Carina" => {
       "Shield of Purity" => {
         face_index: 5,
@@ -32,6 +40,11 @@ module Busty
       },
     },
   }
+
+  # Show the same "animation" for all of Aka's debuff strikes
+  BATTLE_CONFIG["Aka"]["Weakening Stab"] = BATTLE_CONFIG["Aka"]["Crippling Stab"] = BATTLE_CONFIG["Aka"]["Piercing Stab"] = BATTLE_CONFIG["Aka"]["Disabling Assault"]
+  # Have both versions of Aka behave the same way
+  BATTLE_CONFIG["Aka2"] = BATTLE_CONFIG["Aka"]
 
   # Share config between the three effectively identical variants of Simon's "Support XXX" skill
   BATTLE_CONFIG["Simon2"]["Support Slaves"] = BATTLE_CONFIG["Simon2"]["Support Servants"] = BATTLE_CONFIG["Simon2"]["Support Allies"]
