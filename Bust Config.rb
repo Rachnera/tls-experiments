@@ -18,9 +18,6 @@ Busty::FACE_TO_BUST = {
   "face002b dark2" => "Simon1",
   "face002b_Wedding" => "Simon suit wedding",
   "Fucklord emo" => "Incubus Emperor",
-  "Fuzkao emo" => "Fuzkao no hand",
-  "Grynyth emo" => "Grynyth full",
-  "Grynyth emo2" => "Grynyth full",
   "Ivala emo" => nil, # To remove unsupported furious Ivala (different color)
   "Janine emo2" => "Janine 1",
   "Janine emo3" => "Janine 1",
@@ -30,17 +27,13 @@ Busty::FACE_TO_BUST = {
   "MainActor1-1fs" => "Altina",
   "MainActor1-3fs" => "MainActor1-3", # Chosen
   "Min emo2" => "Min2",
-  "Mithyn emo" => "Mithyn full",
-  "Mithyn emo2" => "Mithyn full",
-  "Mithyn emo3 blush" => "Mithyn full",
   "Riala emo2" => "Riala2",
   "Sabitha H emo" => "SabithaH",
   "Tanurak emoX" => nil, # Disable "glitch" Tanurak
-  "Tertia emo" => "TertiaH", # Two Tertia bust files, the H is the one with the same ratio as most others
   "Xestris emo" => nil, # Exclude Xestris "dark" faces
   "Xestris emo2" => nil,
   "Yarra emo2" => nil, # To exclude "faces" 2/3
-  "Z Andra emo" => nil, # To only allow face 4
+  "Z Andra emo" => nil, # To only allow face 4, see below
   "Z Andra emoN" => nil, # No bust for no robe Andra
   "Z Grubbak" => "Grubbak",
   # "Z Orcent" => "Orcent1", # FIXME Temporary disable of some of Orcent's faces (bust mismatch)
@@ -208,7 +201,7 @@ Busty::MESSAGE_CONFIG.merge!({
   "Min2" => {
     bust_offset_x: -36,
   },
-  "Mithyn full" => {
+  "Mithyn" => {
     bust_offset_x: -180,
   },
   "Nalili" => {
@@ -227,7 +220,7 @@ Busty::MESSAGE_CONFIG.merge!({
     bust_offset_x: -20,
     bust_offset_y: 25,
   },
-  "TertiaH" => {
+  "Tertia" => {
     bust_offset_x: -72,
   },
   "Uyae" => {
@@ -379,7 +372,7 @@ Busty::BASE_CONFIG.merge!({
     face_offset_x: 59,
     face_offset_y: 37,
   },
-  "Fuzkao no hand" => {
+  "Fuzkao" => {
     bust_scale: 0.70,
     face_offset_x: 82,
     face_offset_y: 25,
@@ -396,7 +389,7 @@ Busty::BASE_CONFIG.merge!({
     face_offset_y: 42,
   },
   # cut some parts of the bust to try and fix the transparency overlay issue between the two images.
-  "Grynyth full" => {
+  "Grynyth" => {
     bust_scale: 0.76,
     face_offset_x: 64,
     face_offset_y: 24,
@@ -498,7 +491,7 @@ Busty::BASE_CONFIG.merge!({
     face_offset_x: 51,
     face_offset_y: 55,
   },
-  "Mithyn full" => {
+  "Mithyn" => {
     bust_scale: 0.75,
     face_offset_x: 175,
     face_offset_y: 53,
@@ -596,7 +589,7 @@ Busty::BASE_CONFIG.merge!({
     face_offset_x: 73,
     face_offset_y: 42,
   },
-  "TertiaH" => {
+  "Tertia" => {
     bust_scale: 0.96,
     face_offset_x: 84,
     face_offset_y: 50,
