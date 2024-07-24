@@ -2,9 +2,11 @@ module Busty
   BATTLE_CONFIG = {
     "Aka" => {
       "Disabling Assault" => {
+        face_name: "Aka emo",
         face_index: 0,
       },
       "Forceful Lunge" => {
+        # face_name is actually optional for characters with a single faceset
         face_index: 2,
       },
     },
@@ -13,21 +15,23 @@ module Busty
         face_index: 5,
       },
     },
-    "Simon2" => {
+    "Simon1" => {
       "Commanding Presence" => {
-        face_name: "1 Simon dark eyes",
+        face_name: "face002b dark",
         face_index: 0,
       },
       "Support Allies" => {
-        face_name: "1 Simon dark eyes2",
+        face_name: "face002b dark2",
         face_index: 6,
       },
       "SS heal component" => {
+        face_name: "face002b",
         face_index: 5,
       },
     },
     "Yarra" => {
       "Lightning Whip" => {
+        face_name: "Yarra emo",
         face_index: 7,
         synergy: {
           face_name: "Robin blond emo",
@@ -43,11 +47,33 @@ module Busty
 
   # Show the same "animation" for all of Aka's debuff strikes
   BATTLE_CONFIG["Aka"]["Weakening Stab"] = BATTLE_CONFIG["Aka"]["Crippling Stab"] = BATTLE_CONFIG["Aka"]["Piercing Stab"] = BATTLE_CONFIG["Aka"]["Disabling Assault"]
-  # Have both versions of Aka behave the same way
-  BATTLE_CONFIG["Aka2"] = BATTLE_CONFIG["Aka"]
-
   # Share config between the three effectively identical variants of Simon's "Support XXX" skill
-  BATTLE_CONFIG["Simon2"]["Support Slaves"] = BATTLE_CONFIG["Simon2"]["Support Servants"] = BATTLE_CONFIG["Simon2"]["Support Allies"]
+  BATTLE_CONFIG["Simon1"]["Support Slaves"] = BATTLE_CONFIG["Simon1"]["Support Servants"] = BATTLE_CONFIG["Simon1"]["Support Allies"]
+
+  # Configure alternative forms
+  DUPLICATE_MOVESETS = {
+    "Aka" => "Aka2",
+    "Aka emo" => "Aka emo2",
+    "Simon1" => "Simon2",
+    "face002b" => "1 Simon dark",
+    "face002b2" => "1 Simon dark2",
+    "face002b dark" => "1 Simon dark eyes",
+    "face002b dark2" => "1 Simon dark eyes2",
+  }
+
+  DUPLICATE_MOVESETS.each do |original, copy|
+    next unless BATTLE_CONFIG[original]
+
+    BATTLE_CONFIG[copy] = Marshal.load(Marshal.dump(BATTLE_CONFIG[original])) # Deep copy
+    BATTLE_CONFIG[copy].each do |move, config|
+      face_name = BATTLE_CONFIG[copy][move][:face_name]
+      if DUPLICATE_MOVESETS[face_name]
+        BATTLE_CONFIG[copy][move][:face_name] = DUPLICATE_MOVESETS[face_name]
+      end
+    end
+  end
+  # TODO
+  # Currently, busts showed through synergy aren't automagically updated. Might be a problem with super modes at the end.
 end
 
 class Scene_Battle < Scene_Base
