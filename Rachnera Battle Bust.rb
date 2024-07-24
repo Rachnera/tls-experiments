@@ -39,6 +39,12 @@ module Busty
         face_index: 5,
       },
     },
+    "Uyae" => {
+      "Aura of Might" => {
+        picture: "busts/Uyae Punch",
+        bust_offset_x: 0,
+      },
+    },
     "Yarra" => {
       "Lightning Whip" => {
         face_name: "Yarra emo",
@@ -102,27 +108,40 @@ class Scene_Battle < Scene_Base
 
     @bust = Busty::Bust.new(999) if @bust.nil?
     synergy_bust = Busty::Bust.new(1001)
+    picture = Sprite.new
 
     if show_bust?
-      @bust.draw(
-        bust_offset_x,
-        bust_offset_y,
-        move_config[:face_name],
-        move_config[:face_index]
-      )
-
-      if move_config[:synergy]
-        synergy_offset = 32
-        synergy_bust.draw(
-          move_config[:synergy][:bust_offset_x] || (bust_offset_x - 32),
-          move_config[:synergy][:bust_offset_y] || 64,
-          move_config[:synergy][:face_name],
-          move_config[:synergy][:face_index]
+      if move_config[:picture] # If there's a dedicated picture, take precedence over everything else
+        picture.bitmap = Cache.picture(move_config[:picture])
+        picture.visible = true
+        picture.z = 999
+        picture.x = bust_offset_x
+        picture.y = Graphics.height - picture.height + bust_offset_y
+      else
+        @bust.draw(
+          bust_offset_x,
+          bust_offset_y,
+          move_config[:face_name],
+          move_config[:face_index]
         )
+
+        if move_config[:synergy]
+          synergy_offset = 32
+          synergy_bust.draw(
+            move_config[:synergy][:bust_offset_x] || (bust_offset_x - 32),
+            move_config[:synergy][:bust_offset_y] || 64,
+            move_config[:synergy][:face_name],
+            move_config[:synergy][:face_index]
+          )
+        end
       end
     end
 
     original_478_execute_action
+
+    picture.dispose
+    picture.bitmap.dispose unless picture.bitmap.nil?
+    picture = nil
 
     synergy_bust.erase
     synergy_bust.dispose
@@ -188,11 +207,11 @@ class Scene_Battle < Scene_Base
   end
 
   def bust_offset_x
-    bust_config[:bust_offset_x] || -48
+    move_config[:bust_offset_x] || bust_config[:bust_offset_x] || -48
   end
 
   def bust_offset_y
-    bust_config[:bust_offset_y] || 0
+    move_config[:bust_offset_y] || bust_config[:bust_offset_y] || 0
   end
 
   def bust_config
