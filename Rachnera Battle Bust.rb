@@ -42,7 +42,6 @@ module Busty
     "Uyae" => {
       "Aura of Might" => {
         picture: "busts/Uyae Punch",
-        bust_offset_x: 0,
       },
     },
     "Yarra" => {
@@ -207,7 +206,10 @@ class Scene_Battle < Scene_Base
   end
 
   def bust_offset_x
-    move_config[:bust_offset_x] || bust_config[:bust_offset_x] || -48
+    # If using a custom picture, assume it's designed to fit in just right and thus no offset is needed by default
+    default = move_config[:picture] ? 0 : -48
+
+    move_config[:bust_offset_x] || bust_config[:bust_offset_x] || default
   end
 
   def bust_offset_y
