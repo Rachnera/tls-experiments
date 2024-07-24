@@ -110,11 +110,16 @@ Busty::SUBSET_TO_BUST = [
     face_name: "Xestris emo2",
     face_indexes: [0],
   },
-  # Exclude Yarra's "boobs face"
+  # Yarra boobs
   {
-    character_name: nil,
+    character_name: "Yarra boobs",
     face_name: "Yarra emo2",
-    face_indexes: [2, 3],
+    face_indexes: [2],
+  },
+  {
+    character_name: "Yarra boobs bigger",
+    face_name: "Yarra emo2",
+    face_indexes: [3],
   },
 ]
 
@@ -855,3 +860,27 @@ Busty::BASE_CONFIG["Nalili2"] = {
   face_offset_y: 28,
   face_z: -1,
 }
+
+# Rachnera
+# Dealing with Yarra's boobs
+Busty::BASE_CONFIG.merge!({
+  "Yarra boobs" => {
+    # Hide "face" by moving it out of screen.
+    # TODO Code a proper "hide_face" option?
+    face_offset_x: -1000,
+    face_offset_y: 1000,
+  },
+  "Yarra boobs bigger" => {
+    face_offset_x: -1000,
+    face_offset_y: 1000,
+  },
+})
+Busty::MESSAGE_CONFIG.merge!({
+  "Yarra boobs" => {
+    bust_offset_y: 0,
+  },
+  "Yarra boobs bigger" => {
+    bust_offset_x: -20,
+    bust_offset_y: 0,
+  },
+})
