@@ -14,6 +14,16 @@ module Busty
       "Shield of Purity" => {
         face_index: 5,
       },
+      "Smite" => {
+        face_index: 7,
+        # While this option is named synergy, it can be actually be used to display any bust for any move
+        synergy: {
+          face_name: "Ivala emo",
+          face_index: 3,
+          bust_offset_x: 360,
+          bust_offset_y: 0,
+        }
+      }
     },
     "Simon1" => {
       "Commanding Presence" => {
