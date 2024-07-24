@@ -69,6 +69,15 @@ module Busty
     "face002b2" => "1 Simon dark2",
     "face002b dark" => "1 Simon dark eyes",
     "face002b dark2" => "1 Simon dark eyes2",
+    "Hilstara" => "HilstaraKnight",
+    "Hilstara emo" => "Hilstara emo3",
+    "Nalili" => "Nalili2",
+    "Neranda emo1" => "Neranda emo3",
+    "Neranda emo2" => "Neranda emo4",
+    "Robin blond" => "Robin grey",
+    "Robin blond emo" => "Robin grey emo",
+    "Uyae" => "Uyae God Flip",
+    "Uyae emo" => "Uyae emo2d",
   }
 
   DUPLICATE_MOVESETS.each do |original, copy|
