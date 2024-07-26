@@ -95,6 +95,11 @@ Busty::SUBSET_TO_BUST = [
     face_indexes: [1],
   },
   {
+    character_name: "Incubus Emperor",
+    face_name: "Monster1",
+    face_indexes: [7],
+  },
+  {
     character_name: "Skullcrusher",
     face_name: "Incubus King Emo",
     face_indexes: [0, 1, 2, 3],
