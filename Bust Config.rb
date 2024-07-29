@@ -130,6 +130,7 @@ Busty::SUBSET_TO_BUST = [
 
 # You can disable a character from that feature by passing "CharacterName" => "never" here
 Busty::MESSAGE_AUTODISPLAY_SPECIAL = {
+  "Feremina" => "stenai_princess_chosen",
   "Simon1" => "show_simon_the_green",
 
   # Temporary disable characters in need of a bust fix
@@ -149,6 +150,10 @@ module Busty
       return false if $game_actors[2].character_index == 2
 
       true
+    end
+
+    def stenai_princess_chosen
+      $game_switches[2893]
     end
 
     def never
