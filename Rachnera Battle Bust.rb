@@ -144,6 +144,7 @@ class Scene_Battle < Scene_Base
 
     synergy_bust.erase
     synergy_bust.dispose
+    synergy_bust = nil
 
     # Simon's Support skill is actually two skills, and the cleanup should only happen after the second one
     unless is_simon_support_skill?
