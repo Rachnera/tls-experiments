@@ -181,6 +181,8 @@ class Scene_Battle < Scene_Base
     # Only for party members, not enemies
     return false unless @subject.is_a?(Game_Actor)
 
+    return false unless current_move_name
+
     Busty::has_bust?(character_name)
   end
 
@@ -197,6 +199,8 @@ class Scene_Battle < Scene_Base
   end
 
   def current_move_name
+    return nil unless @subject.current_action && @subject.current_action.item
+
     # Trimming because some moves have invisible spaces in them (ex: "Shield of Purity ")
     @subject.current_action.item.name.strip
   end
