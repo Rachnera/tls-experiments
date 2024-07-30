@@ -133,6 +133,9 @@ Busty::MESSAGE_AUTODISPLAY_SPECIAL = {
   "Feremina" => "stenai_princess_chosen",
   "Simon1" => "show_simon_the_green",
 
+  # Luanall shares her face with nameless NPC, and there's not really a good way to differentiate them right now
+  "Luanell" => "never",
+
   # Temporary disable characters in need of a bust fix
   "Hester" => "never",
   "Robin grey" => "never",
@@ -178,6 +181,7 @@ Busty::BASE_CONFIG.merge!({
 Busty::MESSAGE_CONFIG.merge!({
   "Altina" => {
     bust_offset_x: -30,
+    bust_offset_y: 36,
   },
   "Alonon" => {
     bust_offset_x: -24,
@@ -186,7 +190,7 @@ Busty::MESSAGE_CONFIG.merge!({
     bust_offset_x: -30,
   },
   "Bertricia" => {
-    bust_offset_x: -36,
+    bust_offset_x: -28,
   },
   "Dio" => { # Lustlord
     bust_offset_x: -36,
@@ -200,11 +204,21 @@ Busty::MESSAGE_CONFIG.merge!({
   "Galvia" => {
     bust_offset_x: -36,
   },
-  "Lynine" => {
+  "Iris" => {
     bust_offset_x: -36,
+    bust_offset_y: 12,
+  },
+  "Kaskia" => {
+    bust_offset_x: -36,
+  },
+  "Lynine" => {
+    bust_offset_x: -30,
   },
   "MainActor1-3" => { # Chosen
     bust_offset_x: -60,
+  },
+  "Melymyn" => {
+    bust_offset_x: -36,
   },
   "Mestan" => {
     bust_offset_x: -36,
@@ -218,8 +232,12 @@ Busty::MESSAGE_CONFIG.merge!({
   "Mithyn" => {
     bust_offset_x: -180,
   },
+  "Nabith" => {
+    bust_offset_x: -36,
+  },
   "Nalili" => {
-    bust_offset_y: 25,
+    bust_offset_x: -36,
+    bust_offset_y: 24,
   },
   "Neranda" => {
     bust_offset_x: -36,
@@ -227,38 +245,39 @@ Busty::MESSAGE_CONFIG.merge!({
   "Orcent2" => {
     bust_offset_x: -24,
   },
+  "Orilise" => {
+    bust_offset_x: -36,
+  },
   "Ralke" => {
     bust_offset_x: -36,
   },
+  "Riala" => {
+    bust_offset_x: -36,
+  },
   "Sarai" => {
-    bust_offset_x: -20,
-    bust_offset_y: 25,
+    bust_offset_x: -12,
+    bust_offset_y: 24,
   },
   "Tertia" => {
     bust_offset_x: -72,
   },
   "Uyae" => {
-    bust_offset_x: -36,
+    bust_offset_x: -24,
   },
   "Vera" => {
     bust_offset_x: -36,
   },
-  "Wendis blond" => {
-    bust_offset_x: -36,
-  },
- "Wendis blondT" => {
-    bust_offset_x: -36,
-  },
- "Wendis grey" => {
-    bust_offset_x: -36,
-  },
- "Wendis greyT" => {
-    bust_offset_x: -36,
+  "Wendis blond" => { # Value duplicated to all other version of Wendis below
+    bust_offset_x: -24,
   },
   "Wynn" => {
     bust_offset_y: 24,
   },
+  "Yelarel" => {
+    bust_offset_x: -36,
+  },
 })
+Busty::MESSAGE_CONFIG["Wendis greyT"] = Busty::MESSAGE_CONFIG["Wendis grey"] = Busty::MESSAGE_CONFIG["Wendis blondT"] = Busty::MESSAGE_CONFIG["Wendis blond"]
 
 # Decarabia
 Busty::BASE_CONFIG.merge!({
