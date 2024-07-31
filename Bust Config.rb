@@ -104,6 +104,17 @@ Busty::SUBSET_TO_BUST = [
     face_name: "Incubus King Emo",
     face_indexes: [0, 1, 2, 3],
   },
+  {
+    character_name: "Vera",
+    face_name: "Y DS_Actor17",
+    face_indexes: [7],
+  },
+  # First half of Vera's faces are actually other characters
+  {
+    character_name: nil,
+    face_name: "Vera emo",
+    face_indexes: [0, 1, 2, 3],
+  },
   # Exclude Xestris dark faces
   {
     character_name: nil,
@@ -127,6 +138,26 @@ Busty::SUBSET_TO_BUST = [
     face_indexes: [3],
   },
 ]
+# Special cheat just for Vera
+# As she has the same expressions on different sheets, but with a different zoom level
+# TODO If more such cheats are needed, rework into something more generic and flexible
+class Window_Message < Window_Base
+  alias original_514_update_bust update_bust
+  def update_bust
+    if show_bust? && character_name == 'Vera' && $game_message.face_name != 'Vera emo'
+      @bust.draw(
+        bust_offset_x,
+        bust_offset_y,
+        'Vera emo',
+        $game_message.face_index,
+        max_width = (new_line_x + bust_extra_x)
+      )
+      return @bust.update
+    end
+
+    original_514_update_bust
+  end
+end
 
 # You can disable a character from that feature by passing "CharacterName" => "never" here
 Busty::MESSAGE_AUTODISPLAY_SPECIAL = {
@@ -192,6 +223,9 @@ Busty::MESSAGE_CONFIG.merge!({
   "Bertricia" => {
     bust_offset_x: -28,
   },
+  "Dari1" => {
+    bust_offset_x: -36,
+  },
   "Dio" => { # Lustlord
     bust_offset_x: -36,
   },
@@ -204,12 +238,18 @@ Busty::MESSAGE_CONFIG.merge!({
   "Galvia" => {
     bust_offset_x: -36,
   },
+  "Herin" => {
+    bust_offset_x: -24,
+  },
   "Iris" => {
     bust_offset_x: -36,
     bust_offset_y: 12,
   },
   "Kaskia" => {
     bust_offset_x: -36,
+  },
+  "Kerannii" => {
+    bust_offset_x: -54,
   },
   "Lynine" => {
     bust_offset_x: -30,
@@ -218,6 +258,9 @@ Busty::MESSAGE_CONFIG.merge!({
     bust_offset_x: -60,
   },
   "Melymyn" => {
+    bust_offset_x: -36,
+  },
+  "Megail" => {
     bust_offset_x: -36,
   },
   "Mestan" => {
@@ -248,6 +291,9 @@ Busty::MESSAGE_CONFIG.merge!({
   "Orilise" => {
     bust_offset_x: -36,
   },
+  "Qum D'umpe" => {
+    bust_offset_x: -42,
+  },
   "Ralke" => {
     bust_offset_x: -36,
   },
@@ -261,22 +307,26 @@ Busty::MESSAGE_CONFIG.merge!({
   "Tertia" => {
     bust_offset_x: -72,
   },
+  "Tyna" => {
+    bust_offset_x: -36,
+  },
   "Uyae" => {
     bust_offset_x: -24,
   },
   "Vera" => {
-    bust_offset_x: -36,
+    bust_offset_x: -24,
   },
   "Wendis blond" => { # Value duplicated to all other version of Wendis below
-    bust_offset_x: -24,
+    bust_offset_x: -30,
   },
   "Wynn" => {
     bust_offset_y: 24,
   },
   "Yelarel" => {
-    bust_offset_x: -36,
+    bust_offset_x: -30,
   },
 })
+Busty::MESSAGE_CONFIG["Dari2"] = Busty::MESSAGE_CONFIG["Dari1"]
 Busty::MESSAGE_CONFIG["Wendis greyT"] = Busty::MESSAGE_CONFIG["Wendis grey"] = Busty::MESSAGE_CONFIG["Wendis blondT"] = Busty::MESSAGE_CONFIG["Wendis blond"]
 
 # Decarabia
@@ -337,11 +387,6 @@ Busty::BASE_CONFIG.merge!({
     bust_scale: 0.75,
     face_offset_x: 69,
     face_offset_y: 47,
-  },
-  "Dari1" => {
-    bust_scale: 0.71,
-    face_offset_x: 47,
-    face_offset_y: 30,
   },
   "Dari1" => {
     bust_scale: 0.71,
