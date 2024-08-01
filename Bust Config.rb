@@ -227,13 +227,13 @@ Busty::MESSAGE_CONFIG.merge!({
     bust_offset_x: -28,
   },
   "Dari1" => {
-    bust_offset_x: -36,
+    bust_offset_x: -30,
   },
   "Dio" => { # Lustlord
     bust_offset_x: -36,
   },
   "Esthera" => {
-    bust_offset_x: -72,
+    bust_offset_x: -60,
   },
   "Feremina" => {
     bust_offset_x: 0,
@@ -252,6 +252,9 @@ Busty::MESSAGE_CONFIG.merge!({
     bust_offset_y: 12,
   },
   "Janine 1" => {
+    bust_offset_x: -36,
+  },
+  "Janine Bride" => {
     bust_offset_x: -36,
   },
   "Kaskia" => {
@@ -331,10 +334,11 @@ Busty::MESSAGE_CONFIG.merge!({
   "Vera" => {
     bust_offset_x: -24,
   },
-  "Wendis blond" => { # Value duplicated to all other version of Wendis below
+  "Wendis blond" => {
     bust_offset_x: -30,
   },
   "Wynn" => {
+    bust_offset_x: -36,
     bust_offset_y: 24,
   },
   "Yelarel" => {
