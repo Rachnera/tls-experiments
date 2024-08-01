@@ -210,6 +210,9 @@ Busty::BASE_CONFIG.merge!({
   },
 })
 Busty::MESSAGE_CONFIG.merge!({
+  "Aka" => {
+    bust_offset_x: -36,
+  },
   "Altina" => {
     bust_offset_x: -30,
     bust_offset_y: 36,
@@ -235,6 +238,9 @@ Busty::MESSAGE_CONFIG.merge!({
   "Feremina" => {
     bust_offset_x: 0,
   },
+  "Fuani" => {
+    bust_offset_x: -30,
+  },
   "Galvia" => {
     bust_offset_x: -36,
   },
@@ -245,11 +251,14 @@ Busty::MESSAGE_CONFIG.merge!({
     bust_offset_x: -36,
     bust_offset_y: 12,
   },
+  "Janine 1" => {
+    bust_offset_x: -36,
+  },
   "Kaskia" => {
     bust_offset_x: -36,
   },
   "Kerannii" => {
-    bust_offset_x: -54,
+    bust_offset_x: -48,
   },
   "Lynine" => {
     bust_offset_x: -30,
@@ -291,6 +300,9 @@ Busty::MESSAGE_CONFIG.merge!({
   "Orilise" => {
     bust_offset_x: -36,
   },
+  "Palina" => {
+    bust_offset_x: -18,
+  },
   "Qum D'umpe" => {
     bust_offset_x: -42,
   },
@@ -301,11 +313,14 @@ Busty::MESSAGE_CONFIG.merge!({
     bust_offset_x: -36,
   },
   "Sarai" => {
-    bust_offset_x: -12,
+    bust_offset_x: 0,
     bust_offset_y: 24,
   },
   "Tertia" => {
     bust_offset_x: -72,
+  },
+  "Trin" => {
+    bust_offset_x: -36,
   },
   "Tyna" => {
     bust_offset_x: -36,
@@ -326,6 +341,7 @@ Busty::MESSAGE_CONFIG.merge!({
     bust_offset_x: -30,
   },
 })
+Busty::MESSAGE_CONFIG["Aka2"] = Busty::MESSAGE_CONFIG["Aka"]
 Busty::MESSAGE_CONFIG["Dari2"] = Busty::MESSAGE_CONFIG["Dari1"]
 Busty::MESSAGE_CONFIG["Wendis greyT"] = Busty::MESSAGE_CONFIG["Wendis grey"] = Busty::MESSAGE_CONFIG["Wendis blondT"] = Busty::MESSAGE_CONFIG["Wendis blond"]
 
