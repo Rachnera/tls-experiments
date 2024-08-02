@@ -167,6 +167,10 @@ Busty::MESSAGE_AUTODISPLAY_SPECIAL = {
   # Luanall shares her face with nameless NPC, and there's not really a good way to differentiate them right now
   "Luanell" => "never",
 
+  # Only them having a portrait while none of the other bachelors did felt plain weird
+  "Etuanun" => "never",
+  "Uneanun" => "never",
+
   # Temporary disable characters in need of a bust fix
   "Hester" => "never",
   "Robin grey" => "never",
@@ -244,6 +248,9 @@ Busty::MESSAGE_CONFIG.merge!({
   "Galvia" => {
     bust_offset_x: -36,
   },
+  "Ginasta" => {
+    bust_offset_x: -36,
+  },
   "Herin" => {
     bust_offset_x: -24,
   },
@@ -316,8 +323,11 @@ Busty::MESSAGE_CONFIG.merge!({
     bust_offset_x: -36,
   },
   "Sarai" => {
-    bust_offset_x: 0,
+    bust_offset_x: -12,
     bust_offset_y: 24,
+  },
+  "Sabitha" => {
+    bust_offset_x: -30,
   },
   "Tertia" => {
     bust_offset_x: -72,
@@ -347,6 +357,7 @@ Busty::MESSAGE_CONFIG.merge!({
 })
 Busty::MESSAGE_CONFIG["Aka2"] = Busty::MESSAGE_CONFIG["Aka"]
 Busty::MESSAGE_CONFIG["Dari2"] = Busty::MESSAGE_CONFIG["Dari1"]
+Busty::MESSAGE_CONFIG["SabithaH"] = Busty::MESSAGE_CONFIG["Sabitha"]
 Busty::MESSAGE_CONFIG["Wendis greyT"] = Busty::MESSAGE_CONFIG["Wendis grey"] = Busty::MESSAGE_CONFIG["Wendis blondT"] = Busty::MESSAGE_CONFIG["Wendis blond"]
 
 # Decarabia
