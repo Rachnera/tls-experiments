@@ -228,10 +228,13 @@ Busty::MESSAGE_CONFIG.merge!({
     bust_offset_x: -36,
   },
   "Balia" => {
-    bust_offset_x: -30,
+    bust_offset_x: -24,
   },
   "Bertricia" => {
     bust_offset_x: -28,
+  },
+  "Biyue" => {
+    bust_offset_x: -42,
   },
   "Dari1" => {
     bust_offset_x: -30,
