@@ -167,7 +167,6 @@ Busty::MESSAGE_AUTODISPLAY_SPECIAL = {
 
   # Temporary disable characters in need of a bust fix
   "Hester" => "never",
-  "Robin grey" => "never",
   "Simon2D" => "never",
   "Ulrissa" => "never",
 }
@@ -758,7 +757,6 @@ Busty::BASE_CONFIG.merge!({
     face_offset_x: 63,
     face_offset_y: 53,
   },
-  # FIXME Major. Wrong hue of grey?
   "Robin grey" => {
     bust_scale: 0.75,
     face_offset_x: 63,
