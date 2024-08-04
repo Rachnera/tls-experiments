@@ -28,6 +28,7 @@ Busty::FACE_TO_BUST = {
   "Min emo2" => "Min2",
   "Riala emo2" => "Riala2",
   "Sabitha H emo" => "SabithaH",
+  "Ulrissa emo3" => "Ulrissa2",
   "Tanurak emoX" => nil, # Disable "glitch" Tanurak
   "Z Andra emo" => nil, # To only allow face 4, see below
   "Z Andra emoN" => nil, # No bust for no robe Andra
@@ -103,6 +104,11 @@ Busty::SUBSET_TO_BUST = [
     face_indexes: [0, 1, 2, 3],
   },
   {
+    character_name: "Ulrissa2",
+    face_name: "Ulrissa emo",
+    face_indexes: [6],
+  },
+  {
     character_name: "Vera",
     face_name: "Y DS_Actor17",
     face_indexes: [7],
@@ -168,7 +174,6 @@ Busty::MESSAGE_AUTODISPLAY_SPECIAL = {
   # Temporary disable characters in need of a bust fix
   "Hester" => "never",
   "Simon2D" => "never",
-  "Ulrissa" => "never",
 }
 module Busty
   class << self
@@ -372,6 +377,9 @@ Busty::MESSAGE_CONFIG.merge!({
     bust_offset_x: -36,
   },
   "Tyna" => {
+    bust_offset_x: -36,
+  },
+  "Ulrissa" => {
     bust_offset_x: -36,
   },
   "Uyae" => {
@@ -805,7 +813,6 @@ Busty::BASE_CONFIG.merge!({
     face_offset_x: 57,
     face_offset_y: 36,
   },
-  # FIXME Major. Need a variant of the bust where the wolf head is up to cover all possible faces.
   "Ulrissa" => {
     bust_scale: 0.75,
     face_offset_x: 64,
@@ -1081,3 +1088,6 @@ Busty::MESSAGE_CONFIG.merge!({
     bust_offset_y: 0,
   },
 })
+# Ulrissa hidden behind wolf mask
+Busty::BASE_CONFIG["Ulrissa2"] = Busty::BASE_CONFIG["Ulrissa"]
+Busty::MESSAGE_CONFIG["Ulrissa2"] = Busty::MESSAGE_CONFIG["Ulrissa"]
