@@ -20,10 +20,9 @@ module Busty
     return FACE_TO_BUST[face_name] if FACE_TO_BUST.has_key?(face_name)
 
     matches = /\A([a-zA-Z]\s+)?(.+)\s+emo(.*)?\Z/.match(face_name)
+    return matches[2] if matches
 
-    return nil unless matches
-
-    matches[2]
+    /\A([a-zA-Z]\s+)?(.+)\Z/.match(face_name)[2] # Will effectively return the name in full if nothing else works
   end
 
   def self.rescale_bitmap(bitmap, scale)

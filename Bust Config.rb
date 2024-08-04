@@ -31,9 +31,7 @@ Busty::FACE_TO_BUST = {
   "Tanurak emoX" => nil, # Disable "glitch" Tanurak
   "Z Andra emo" => nil, # To only allow face 4, see below
   "Z Andra emoN" => nil, # No bust for no robe Andra
-  "Z Grubbak" => "Grubbak",
   # "Z Orcent" => "Orcent1", # FIXME Temporary disable of some of Orcent's faces (bust mismatch)
-  "Z Ralke" => "Ralke",
 }
 
 Busty::SUBSET_TO_BUST = [
@@ -167,10 +165,6 @@ Busty::MESSAGE_AUTODISPLAY_SPECIAL = {
   # Luanall shares her face with nameless NPC, and there's not really a good way to differentiate them right now
   "Luanell" => "never",
 
-  # Only them having a portrait while none of the other bachelors did felt plain weird
-  "Etuanun" => "never",
-  "Uneanun" => "never",
-
   # Temporary disable characters in need of a bust fix
   "Hester" => "never",
   "Robin grey" => "never",
@@ -245,11 +239,17 @@ Busty::MESSAGE_CONFIG.merge!({
   "Dio" => { # Lustlord
     bust_offset_x: -12,
   },
+  "Doomed King" => {
+    bust_offset_x: -24,
+  },
   "Esthera" => {
     bust_offset_x: -60,
   },
   "Eytria" => {
     bust_offset_x: -46,
+  },
+  "Farnan" => {
+    bust_offset_x: -36,
   },
   "Feremina" => {
     bust_offset_x: 0,
@@ -258,6 +258,9 @@ Busty::MESSAGE_CONFIG.merge!({
     bust_offset_x: -30,
   },
   "Galvia" => {
+    bust_offset_x: -36,
+  },
+  "Ghanth" => {
     bust_offset_x: -36,
   },
   "Ginasta" => {
@@ -269,6 +272,12 @@ Busty::MESSAGE_CONFIG.merge!({
   "Herin" => {
     bust_offset_x: -24,
   },
+  "Ignias" => {
+    bust_offset_x: -24,
+  },
+  "Implevon" => {
+    bust_offset_x: -24,
+  },
   "Iris" => {
     bust_offset_x: -36,
     bust_offset_y: 12,
@@ -278,6 +287,13 @@ Busty::MESSAGE_CONFIG.merge!({
   },
   "Janine Bride" => {
     bust_offset_x: -36,
+  },
+  "Jhenno" => {
+    bust_offset_x: -60,
+  },
+  "Kalant" => {
+    bust_offset_x: -60,
+    bust_offset_y: 24,
   },
   "Kaskia" => {
     bust_offset_x: -36,
@@ -439,6 +455,12 @@ Busty::BASE_CONFIG.merge!({
     face_offset_x: 44,
     face_offset_y: 37,
   },
+  "Bhakan" => {
+    bust_scale: 0.80,
+    face_offset_x: 59,
+    face_offset_y: 46,
+    face_z: -1,
+  },
   "Carina" => {
     bust_scale: 0.75,
     face_offset_x: 69,
@@ -464,6 +486,18 @@ Busty::BASE_CONFIG.merge!({
     bust_scale: 0.75,
     face_offset_x: 26,
     face_offset_y: 36,
+  },
+  "Donovan" => {
+    bust_scale: 0.75,
+    face_offset_x: 63,
+    face_offset_y: 58,
+    face_z: -1,
+  },
+  "Doomed King" => {
+    bust_scale: 0.76,
+    face_offset_x: 37,
+    face_offset_y: 57,
+    face_z: -1,
   },
   # FIXME Minor. Needs to adjust hair color to match
   "Elleani" => {
@@ -496,6 +530,12 @@ Busty::BASE_CONFIG.merge!({
     face_offset_x: 60,
     face_offset_y: 34,
   },
+  "Farnan" => {
+    bust_scale: 0.73,
+    face_offset_x: 57,
+    face_offset_y: 46,
+    face_z: -1,
+  },
   "Feremina" => {
     bust_scale: 0.70,
     face_offset_x: 16,
@@ -517,6 +557,12 @@ Busty::BASE_CONFIG.merge!({
     face_offset_y: 59,
     face_border_width: 1,
   },
+  "Ghanth" => {
+    bust_scale: 0.75,
+    face_offset_x: 54,
+    face_offset_y: 45,
+    face_border_width: [16, 15, 23, 29],
+  },
   "Ginasta" => {
     bust_scale: 0.73,
     face_offset_x: 60,
@@ -532,7 +578,8 @@ Busty::BASE_CONFIG.merge!({
   "Herin" => {
     bust_scale: 0.75,
     face_offset_x: 54,
-    face_offset_y: 50,
+    face_offset_y: 58,
+    face_z: -1,
   },
   # FIXME Major.
   # DIFFERENT BUST AND FACESET
@@ -545,6 +592,18 @@ Busty::BASE_CONFIG.merge!({
   "Hilstara" => {
     bust_scale: 0.75,
     face_offset_x: 64,
+    face_offset_y: 40,
+  },
+  "Ignias" => {
+    bust_scale: 0.71,
+    face_offset_x: 49,
+    face_offset_y: 54,
+    face_z: -1,
+    face_border_width: [9, 0, 0, 0],
+  },
+  "Implevon" => {
+    bust_scale: 0.63,
+    face_offset_x: 45,
     face_offset_y: 40,
   },
   "Iris" => {
@@ -566,6 +625,21 @@ Busty::BASE_CONFIG.merge!({
     bust_scale: 0.75,
     face_offset_x: 52,
     face_offset_y: 34,
+  },
+  "Jhenno" => {
+    #FIXME Minor. DIFFERENCE IN HAIR COLOR/BRIGHTNESS, NEEDS ADJUSTMENT
+    bust_scale: 0.75,
+    face_offset_x: 83,
+    face_offset_y: 31,
+    face_z: -1,
+    face_border_width: [9, 0, 0, 0],
+  },
+  "Kalant" => {
+    bust_scale: 0.82,
+    face_offset_x: 79,
+    face_offset_y: 40,
+    face_border_width: 3,
+    face_z: -1,
   },
   "Kaskia" => {
     bust_scale: 0.71,
