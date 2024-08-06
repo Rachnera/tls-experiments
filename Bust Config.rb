@@ -119,14 +119,14 @@ Busty::SUBSET_TO_BUST = [
     face_name: "Vera emo",
     face_indexes: [0, 1, 2, 3],
   },
-  # Exclude Xestris dark faces
+  #  Xestris dark faces
   {
-    character_name: nil,
+    character_name: "Xestris2",
     face_name: "Xestris emo",
     face_indexes: [6, 7],
   },
   {
-    character_name: nil,
+    character_name: "Xestris2",
     face_name: "Xestris emo2",
     face_indexes: [0],
   },
@@ -1091,3 +1091,6 @@ Busty::MESSAGE_CONFIG.merge!({
 # Ulrissa hidden behind wolf mask
 Busty::BASE_CONFIG["Ulrissa2"] = Busty::BASE_CONFIG["Ulrissa"]
 Busty::MESSAGE_CONFIG["Ulrissa2"] = Busty::MESSAGE_CONFIG["Ulrissa"]
+# Dark Xestris
+Busty::BASE_CONFIG["Xestris2"] = Busty::BASE_CONFIG["Xestris"]
+Busty::MESSAGE_CONFIG["Xestris2"] = Busty::MESSAGE_CONFIG["Xestris"]
