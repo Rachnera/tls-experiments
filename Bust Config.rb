@@ -288,6 +288,9 @@ Busty::MESSAGE_CONFIG.merge!({
   "Implevon" => {
     bust_offset_x: -24,
   },
+  "Incubus Emperor" => {
+    bust_offset_x: -30,
+  },
   "Iris" => {
     bust_offset_x: -36,
     bust_offset_y: 12,
