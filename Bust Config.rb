@@ -103,6 +103,12 @@ Busty::SUBSET_TO_BUST = [
     face_name: "Incubus King Emo",
     face_indexes: [0, 1, 2, 3],
   },
+  # Stark has no bust yet; but the configuration below will at least ensure he doesn't end up with Implevon's body
+  {
+    character_name: "Stark",
+    face_name: "Z Implevon",
+    face_indexes: [0, 1, 2, 3],
+  },
   {
     character_name: "Ulrissa2",
     face_name: "Ulrissa emo",
