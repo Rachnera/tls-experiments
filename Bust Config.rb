@@ -26,6 +26,7 @@ Busty::FACE_TO_BUST = {
   "MainActor1-1fs" => "Altina",
   "MainActor1-3fs" => "MainActor1-3", # Chosen
   "Min emo2" => "Min2",
+  "Prologue emo" => "Ivala",
   "Riala emo2" => "Riala2",
   "Sabitha H emo" => "SabithaH",
   "Ulrissa emo3" => "Ulrissa2",
@@ -50,6 +51,11 @@ Busty::SUBSET_TO_BUST = [
   {
     character_name: nil,
     face_name: "Ivala emo",
+    face_indexes: [7],
+  },
+  {
+    character_name: nil,
+    face_name: "Prologue emo",
     face_indexes: [7],
   },
   {
@@ -294,6 +300,9 @@ Busty::MESSAGE_CONFIG.merge!({
   "Iris" => {
     bust_offset_x: -36,
     bust_offset_y: 12,
+  },
+  "Ivala" => {
+    bust_offset_x: -42,
   },
   "Janine 1" => {
     bust_offset_x: -36,
