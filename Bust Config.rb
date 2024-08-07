@@ -184,7 +184,6 @@ Busty::MESSAGE_AUTODISPLAY_SPECIAL = {
   "Luanell" => "never",
 
   # Temporary disable characters in need of a bust fix
-  "Hester" => "never",
   "Simon2D" => "never",
 }
 module Busty
@@ -606,12 +605,11 @@ Busty::BASE_CONFIG.merge!({
     face_offset_y: 58,
     face_z: -1,
   },
-  # FIXME Major.
-  # DIFFERENT BUST AND FACESET
   "Hester" => {
-    bust_scale: 0.75,
-    face_offset_x: 71,
-    face_offset_y: 48,
+    bust_scale: 0.73,
+    face_offset_x: 68,
+    face_offset_y: 47,
+    face_z: -1,
   },
   # FIXME Minor. bust color hair edited to match faceset
   "Hilstara" => {
