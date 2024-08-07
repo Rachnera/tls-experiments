@@ -46,14 +46,13 @@ Busty::SUBSET_TO_BUST = [
     face_name: "Z orc emo",
     face_indexes: [6],
   },
-  # Remove furious Ivala
   {
-    character_name: nil,
+    character_name: "Ivala Golden",
     face_name: "Ivala emo",
     face_indexes: [7],
   },
   {
-    character_name: nil,
+    character_name: "Ivala Golden",
     face_name: "Prologue emo",
     face_indexes: [7],
   },
@@ -1114,3 +1113,11 @@ Busty::MESSAGE_CONFIG["Ulrissa2"] = Busty::MESSAGE_CONFIG["Ulrissa"]
 # Dark Xestris
 Busty::BASE_CONFIG["Xestris2"] = Busty::BASE_CONFIG["Xestris"]
 Busty::MESSAGE_CONFIG["Xestris2"] = Busty::MESSAGE_CONFIG["Xestris"]
+# Golden Ivala. Same trick as Yarra's boobs
+Busty::BASE_CONFIG.merge!({
+  "Ivala Golden" => {
+    face_offset_x: -1000,
+    face_offset_y: 1000,
+  },
+})
+Busty::MESSAGE_CONFIG["Ivala Golden"] = Busty::MESSAGE_CONFIG["Ivala"]
