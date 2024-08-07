@@ -30,7 +30,6 @@ Busty::FACE_TO_BUST = {
   "Riala emo2" => "Riala2",
   "Sabitha H emo" => "SabithaH",
   "Ulrissa emo3" => "Ulrissa2",
-  "Tanurak emoX" => nil, # Disable "glitch" Tanurak
   "Z Andra emo" => nil, # To only allow face 4, see below
   "Z Andra emoN" => nil, # No bust for no robe Andra
   # "Z Orcent" => "Orcent1", # FIXME Temporary disable of some of Orcent's faces (bust mismatch)
@@ -1053,6 +1052,11 @@ Busty::BASE_CONFIG.merge!({
     original: "Neranda",
     faces: ["Neranda emo3", "Neranda emo4"],
     bust: "NerandaAvatar",
+  },
+  {
+    original: "Tanurak",
+    faces: ["Tanurak emoX"],
+    bust: "TanurakX",
   },
   {
     original: "Trin",
