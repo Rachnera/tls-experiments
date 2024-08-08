@@ -1010,11 +1010,6 @@ Busty::BASE_CONFIG.merge!({
     face_offset_x: 67,
     face_offset_y: 32,
   },
-  "Simon2B" => {
-    bust_scale: 0.75,
-    face_offset_x: 67,
-    face_offset_y: 32,
-  },
   "Simon2D" => {
     bust_scale: 0.75,
     face_offset_x: 67,
