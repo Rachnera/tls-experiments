@@ -3,7 +3,6 @@ Busty::FACE_TO_BUST = {
   "1 Simon dark eyes2" => "Simon2",
   "1 Simon dark" => "Simon2",
   "1 Simon dark2" => "Simon2",
-  # FIXME There are actually two distinct distress busts (2B and 2D) and I have no idea which one should be used with which faces
   "1 Simon distress1" => "Simon2D",
   "1 Simon distress2" => "Simon2D",
   "1 Simon distress3" => "Simon2",
@@ -180,9 +179,6 @@ Busty::MESSAGE_AUTODISPLAY_SPECIAL = {
 
   # Luanall shares her face with nameless NPC, and there's not really a good way to differentiate them right now
   "Luanell" => "never",
-
-  # Temporary disable characters in need of a bust fix
-  "Simon2D" => "never",
 }
 module Busty
   class << self
@@ -999,36 +995,25 @@ Busty::BASE_CONFIG.merge!({
     face_offset_x: 57,
     face_offset_y: 54,
   },
-  # FIXME Major. Still some issues with the beard?
   "Simon suit wedding" => {
-    bust_scale: 0.81,
+    bust_scale: 0.815,
     face_offset_x: 64,
     face_offset_y: 45,
-    face_border_width: [0, 13, 19, 28],
   },
   "Simon1" => {
     bust_scale: 0.75,
     face_offset_x: 63,
     face_offset_y: 34,
-    face_z: -1,
   },
   "Simon2" => {
     bust_scale: 0.75,
     face_offset_x: 67,
     face_offset_y: 32,
-    face_border_width: [0, 0, 24, 0],
-  },
-  "Simon2B" => {
-    bust_scale: 0.75,
-    face_offset_x: 67,
-    face_offset_y: 32,
-    face_border_width: [0, 0, 24, 0],
   },
   "Simon2D" => {
     bust_scale: 0.75,
     face_offset_x: 67,
     face_offset_y: 32,
-    face_border_width: [0, 0, 24, 0],
   },
 })
 
