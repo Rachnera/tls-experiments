@@ -803,6 +803,12 @@ Busty::BASE_CONFIG.merge!({
     face_offset_y: 50,
     face_z: -1,
   },
+  "soulmage" => {
+    bust_scale: 0.71,
+    face_offset_x: 55,
+    face_offset_y: 29,
+    face_z: -1,
+  },
   "Tanurak" => {
     bust_scale: 0.75,
     face_offset_x: 73,
