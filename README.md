@@ -55,3 +55,9 @@ Add the following script before `Bust Config`, and preferably below other script
 - Rachnera Message Bust
 
 If you one day wish to remove that feature but not other bust related ones, just delete that one script.
+
+## Credits
+
+Code by Rachnera
+Inspired by [Hollow's Simple Message Busts](https://forums.rpgmakerweb.com/index.php?threads/simple-message-busts.45897/)
+Configuration and image retouches by Decarabia and Lamsey

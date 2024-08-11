@@ -1,4 +1,3 @@
-# Inspired by https://forums.rpgmakerweb.com/index.php?threads/simple-message-busts.45897/
 module Busty
   # All actual configuration "CONSTANTS" can be found in the "Bust Config" file. Just dropping empty shells here for reference.
   BASE_CONFIG = {} # Make the face fits right on the body
