@@ -8,6 +8,8 @@ Add the following scripts to your project:
 
 Also drop the busts/ folder into the Pictures/ folder of your project.
 
+Some of the busts (e.g. Simon, Orcent) require the updated facesets in the Graphics/ folder to be copied into place. That folder contains some other new and updated assets to match the bust system, including the corresponding full-size busts.
+
 ## Manually show a bust
 
 Using the "Script" Event Command:
