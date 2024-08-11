@@ -31,7 +31,7 @@ Busty::FACE_TO_BUST = {
   "Ulrissa emo3" => "Ulrissa2",
   "Z Andra emo" => nil, # To only allow face 4, see below
   "Z Andra emoN" => nil, # No bust for no robe Andra
-  # "Z Orcent" => "Orcent1", # FIXME Temporary disable of some of Orcent's faces (bust mismatch)
+  "Z Orcent" => "Orcent1",
 }
 
 Busty::SUBSET_TO_BUST = [
