@@ -380,6 +380,9 @@ Busty::MESSAGE_CONFIG.merge!({
     bust_offset_x: -12,
     bust_offset_y: 24,
   },
+  "soulmage" => {
+    bust_offset_x: -36,
+  },
   "Tertia" => {
     bust_offset_x: -72,
   },
