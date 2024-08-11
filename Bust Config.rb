@@ -31,7 +31,7 @@ Busty::FACE_TO_BUST = {
   "Ulrissa emo3" => "Ulrissa2",
   "Z Andra emo" => nil, # To only allow face 4, see below
   "Z Andra emoN" => nil, # No bust for no robe Andra
-  # "Z Orcent" => "Orcent1", # FIXME Temporary disable of some of Orcent's faces (bust mismatch)
+  "Z Orcent" => "Orcent1",
 }
 
 Busty::SUBSET_TO_BUST = [
@@ -58,8 +58,7 @@ Busty::SUBSET_TO_BUST = [
   {
     character_name: "Orcent1",
     face_name: "Orcent",
-    # face_indexes: [0, 1], # FIXME Mismatch for face 0 as of now
-    face_indexes: [1],
+    face_indexes: [0, 1]
   },
   {
     character_name: "Orcent2",
@@ -953,37 +952,34 @@ Busty::BASE_CONFIG.merge!({
     face_border_width: 1,
   },
   "Orcent IK" => {
-    bust_scale: 0.73,
-    face_offset_x: 62,
-    face_offset_y: 19,
+    bust_scale: 0.727272,
+    face_offset_x: 61,
+    face_offset_y: 18,
   },
   "Orcent merchant" => {
-    bust_scale: 0.73,
-    face_offset_x: 62,
+    bust_scale: 0.727272,
+    face_offset_x: 61,
     face_offset_y: 18,
-    face_border_width: 5,
   },
   "Orcent priest" => {
-    bust_scale: 0.73,
-    face_offset_x: 62,
-    face_offset_y: 19,
+    bust_scale: 0.727272,
+    face_offset_x: 61,
+    face_offset_y: 18,
   },
   "Orcent slave" => {
-    bust_scale: 0.74,
-    face_offset_x: 64,
-    face_offset_y: 19,
+    bust_scale: 0.727272,
+    face_offset_x: 61,
+    face_offset_y: 18,
   },
-  # FIXME Minor. Coloring issue for the no eyepatch face
   "Orcent1" => {
-    bust_scale: 0.73,
-    face_offset_x: 62,
-    face_offset_y: 19,
+    bust_scale: 0.727272,
+    face_offset_x: 61,
+    face_offset_y: 18,
   },
   "Orcent2" => {
-    bust_scale: 0.74,
-    face_offset_x: 36,
-    face_offset_y: 26,
-    face_border_width: [0, 0, 20, 15],
+    bust_scale: 0.727272,
+    face_offset_x: 35,
+    face_offset_y: 31,
   },
   "Grubbak" => {
     bust_scale: 0.73,
