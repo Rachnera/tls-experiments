@@ -6,9 +6,11 @@ Add the following scripts to your project:
 - Rachnera Bust
 - Bust Config
 
-Also drop the busts/ folder into the Pictures/ folder of your project.
+Drop the `Graphics/` folder to the root of your project. This will do two things:
+- Create a `busts/` folder (under `Pictures/`) with all the properly resized (and sometimes altered) busts ready for display.
+- Update a few facesets (e.g. Simon, Orcent) and sprites (Hester) for consistency.
 
-Some of the busts (e.g. Simon, Orcent) require the updated facesets in the Graphics/ folder to be copied into place. That folder contains some other new and updated assets to match the bust system, including the corresponding full-size busts.
+That folder also contains some other new and updated assets to match the bust system, including the corresponding full-size busts.
 
 ## Manually show a bust
 
