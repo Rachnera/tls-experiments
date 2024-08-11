@@ -425,7 +425,6 @@ Busty::BASE_CONFIG.merge!({
     face_offset_x: 61,
     face_offset_y: 66,
   },
-  # FIXME Minor. For her bust I increased brightness by -5 due to differences in tan between her bust and faceset. Also had to increase brightness on her bust's hair
   "Aka2" => {
     bust_scale: 0.80,
     face_offset_x: 61,
@@ -498,7 +497,6 @@ Busty::BASE_CONFIG.merge!({
     face_offset_x: 68,
     face_offset_y: 34,
   },
-  # FIXME. Minor. Needs to adjust bust to match color of face's hair and clothes
   "Dio" => { # Lustlord
     bust_scale: 0.75,
     face_offset_x: 26,
@@ -516,7 +514,6 @@ Busty::BASE_CONFIG.merge!({
     face_offset_y: 57,
     face_z: -1,
   },
-  # FIXME Minor. Needs to adjust hair color to match
   "Elleani" => {
     bust_scale: 0.80,
     face_offset_x: 79,
@@ -604,7 +601,6 @@ Busty::BASE_CONFIG.merge!({
     face_offset_y: 47,
     face_z: -1,
   },
-  # FIXME Minor. bust color hair edited to match faceset
   "Hilstara" => {
     bust_scale: 0.75,
     face_offset_x: 64,
@@ -643,7 +639,6 @@ Busty::BASE_CONFIG.merge!({
     face_offset_y: 34,
   },
   "Jhenno" => {
-    #FIXME Minor. DIFFERENCE IN HAIR COLOR/BRIGHTNESS, NEEDS ADJUSTMENT
     bust_scale: 0.75,
     face_offset_x: 83,
     face_offset_y: 31,
@@ -747,13 +742,11 @@ Busty::BASE_CONFIG.merge!({
     face_offset_x: 59,
     face_offset_y: 35,
   },
-  # FIXME Minor. NEEDS COLOR ADJUSTMENT
   "Palina" => {
     bust_scale: 0.75,
     face_offset_x: 44,
     face_offset_y: 43,
   },
-  # FIXME Minor. NEEDS COLOR ADJUSTMENT
   "Qum D'umpe" => {
     bust_scale: 0.75,
     face_offset_x: 62,
@@ -917,7 +910,6 @@ Busty::BASE_CONFIG.merge!({
     face_offset_x: 56,
     face_offset_y: 39,
   },
-  # FIXME Minor. BUST COLOR EDITING NECESSARY
  "Zelica" => {
     bust_scale: 0.75,
     face_offset_x: 78,
