@@ -66,39 +66,27 @@ Busty::BATTLE_CONFIG["Aka"]["Weakening Stab"] = Busty::BATTLE_CONFIG["Aka"]["Cri
 # Share config between the three effectively identical variants of Simon's "Support XXX" skill
 Busty::BATTLE_CONFIG["Simon1"]["Support Slaves"] = Busty::BATTLE_CONFIG["Simon1"]["Support Servants"] = Busty::BATTLE_CONFIG["Simon1"]["Support Allies"]
 
-# The block below duplicates configuration for characters with alternate forms
-# TODO Rework so it also works for characters with alternative full images rather than composite faces/busts
-module Busty
-  DUPLICATE_MOVESETS = {
-    "Aka" => "Aka2",
-    "Aka emo" => "Aka emo2",
-    "Simon1" => "Simon2",
-    "face002b" => "1 Simon dark",
-    "face002b2" => "1 Simon dark2",
-    "face002b dark" => "1 Simon dark eyes",
-    "face002b dark2" => "1 Simon dark eyes2",
-    "Hilstara" => "HilstaraKnight",
-    "Hilstara emo" => "Hilstara emo3",
-    "Nalili" => "Nalili2",
-    "Neranda emo1" => "Neranda emo3",
-    "Neranda emo2" => "Neranda emo4",
-    "Robin blond" => "Robin grey",
-    "Robin blond emo" => "Robin grey emo",
-    "Uyae" => "Uyae God Flip",
-    "Uyae emo" => "Uyae emo2d",
-  }
-  
-  DUPLICATE_MOVESETS.each do |original, copy|
-    next unless BATTLE_CONFIG[original]
+# Duplicates configuration for characters with alternate forms
+Busty.duplicate_battle_config({
+  "Aka" => "Aka2",
+  "Aka emo" => "Aka emo2",
 
-    BATTLE_CONFIG[copy] = Marshal.load(Marshal.dump(BATTLE_CONFIG[original])) # Deep copy
-    BATTLE_CONFIG[copy].each do |move, config|
-      face_name = BATTLE_CONFIG[copy][move][:face_name]
-      if DUPLICATE_MOVESETS[face_name]
-        BATTLE_CONFIG[copy][move][:face_name] = DUPLICATE_MOVESETS[face_name]
-      end
-    end
-  end
-  # TODO
-  # Currently, busts showed through synergy aren't automagically updated. Might be a problem with super modes at the end.
-end
+  "Simon1" => "Simon2",
+  "face002b" => "1 Simon dark",
+  "face002b2" => "1 Simon dark2",
+  "face002b dark" => "1 Simon dark eyes",
+  "face002b dark2" => "1 Simon dark eyes2",
+
+  "Hilstara" => "HilstaraKnight",
+  "Hilstara emo" => "Hilstara emo3",
+
+  "Nalili" => "Nalili2",
+  "Nalili emo1" => "Nalili emo3",
+  "Nalili emo2" => "Nalili emo4",
+
+  "Robin blond" => "Robin grey",
+  "Robin blond emo" => "Robin grey emo",
+
+  "Uyae" => "Uyae God Flip",
+  "Uyae emo" => "Uyae emo2d",
+})

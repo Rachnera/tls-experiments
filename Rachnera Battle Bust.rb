@@ -1,6 +1,19 @@
 module Busty
-  # Just placeholders in this file, actual values in "Battle Bust Config"
-  BATTLE_CONFIG = {}
+  BATTLE_CONFIG = {} # Placeholder, actual values in "Battle Bust Config"
+
+  # TODO Rework so it also works for characters with alternative full images rather than composite faces/busts
+  # TODO Find a way to deal with busts displayed with synergy?
+  def self.duplicate_battle_config(equivalence)
+    equivalence.each do |original, copy|
+      next unless BATTLE_CONFIG[original]
+
+      BATTLE_CONFIG[copy] = Marshal.load(Marshal.dump(BATTLE_CONFIG[original])) # Deep copy
+      BATTLE_CONFIG[copy].each do |move, config|
+        face_name = BATTLE_CONFIG[copy][move][:face_name]
+        BATTLE_CONFIG[copy][move][:face_name] = equivalence[face_name] if equivalence[face_name]
+      end
+    end
+  end
 end
 
 class Scene_Battle < Scene_Base
