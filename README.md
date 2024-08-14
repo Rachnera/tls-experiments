@@ -56,6 +56,12 @@ Add the following script before `Bust Config`, and preferably below other script
 
 If you one day wish to remove that feature but not other bust related ones, just delete that one script.
 
+## Test the experimental combat features
+
+Drop the following files after `Bust Config`, in that order:
+- Rachnera Battle Bust
+- Battle Bust Config
+
 ## Credits
 
 Code by Rachnera
