@@ -6,9 +6,10 @@ Add the following scripts to your project:
 - Rachnera Bust
 - Bust Config
 
-Drop the `Graphics/` folder to the root of your project. This will do two things:
+Drop the `Graphics/` folder to the root of your project. This will do the following:
 - Create a `busts/` folder (under `Pictures/`) with all the properly resized (and sometimes altered) busts ready for display.
 - Update a few facesets (e.g. Simon, Orcent) and sprites (Hester) for consistency.
+- Create a `battle/` folder (under `Pictures/`), for all images related to the new battle features (can be safely deleted if you don't use those)
 
 That folder also contains some other new and updated assets to match the bust system, including the corresponding full-size busts.
 
@@ -61,6 +62,8 @@ If you one day wish to remove that feature but not other bust related ones, just
 Drop the following files after `Bust Config`, in that order:
 - Rachnera Battle Bust
 - Battle Bust Config
+
+Can be disabled independantly of the other features, by removing these two scripts and deleting the `Graphics/Pictures/battle` folder.
 
 ## Credits
 

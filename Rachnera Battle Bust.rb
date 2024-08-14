@@ -14,7 +14,7 @@ class Scene_Battle < Scene_Base
 
     if show_bust?
       if move_config[:picture] # If there's a dedicated picture, take precedence over everything else
-        picture.bitmap = Cache.picture(move_config[:picture])
+        picture.bitmap = Cache.picture('battle/' + move_config[:picture])
         picture.visible = true
         picture.z = 999
         picture.x = bust_offset_x

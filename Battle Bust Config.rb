@@ -42,7 +42,7 @@ Busty::BATTLE_CONFIG.merge!({
   },
   "Uyae" => {
     "Aura of Might" => {
-      picture: "busts/Uyae Punch",
+      picture: "Uyae Punch",
     },
   },
   "Yarra" => {
