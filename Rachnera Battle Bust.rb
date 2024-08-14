@@ -9,11 +9,23 @@ module Busty
 
       BATTLE_CONFIG[copy] = Marshal.load(Marshal.dump(BATTLE_CONFIG[original])) # Deep copy
       BATTLE_CONFIG[copy].each do |move, config|
-        face_name = BATTLE_CONFIG[copy][move][:face_name]
-        BATTLE_CONFIG[copy][move][:face_name] = equivalence[face_name] if equivalence[face_name]
+        if config.is_a?(Array)
+          config.each_with_index do |cf, i|
+            if equivalence[cf[:face_name]]
+              BATTLE_CONFIG[copy][move][i][:face_name] = equivalence[cf[:face_name]]
+            end
+          end
+        else
+          if equivalence[config[:face_name]]
+            BATTLE_CONFIG[copy][move][:face_name] = equivalence[config[:face_name]]
+          end
+        end
       end
     end
   end
+end
+
+module SkillHelper
 end
 
 class Scene_Battle < Scene_Base
@@ -108,12 +120,24 @@ class Scene_Battle < Scene_Base
   end
 
   def move_config
-    if Busty::BATTLE_CONFIG[character_name] && current_move_name && Busty::BATTLE_CONFIG[character_name][current_move_name]
-      return Busty::BATTLE_CONFIG[character_name][current_move_name]
+    # If nothing else is configured, will default to the face that shows up at the bottom of the screen
+    final_fallback = { face_name: @subject.face_name, face_index: @subject.face_index }
+
+    return final_fallback if character_name.nil? or current_move_name.nil? or Busty::BATTLE_CONFIG[character_name].nil?
+
+    character_config = Busty::BATTLE_CONFIG[character_name]
+
+    # Simpler case, move is explicitly configured by name
+    if character_config[current_move_name]
+      return character_config[current_move_name]
     end
 
-    # If nothing else is configured, default to the face that shows up at the bottom of the screen
-    { face_name: @subject.face_name, face_index: @subject.face_index }
+    conditional_config = (character_config[:conditionals] || []).find do |cf|
+      SkillHelper.send(cf[:condition], @subject.current_action.item)
+    end
+    return conditional_config if conditional_config
+
+    final_fallback
   end
 
   def current_move_name

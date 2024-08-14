@@ -1,13 +1,16 @@
 Busty::BATTLE_CONFIG.merge!({
   "Aka" => {
-    "Disabling Assault" => {
-      face_name: "Aka emo",
-      face_index: 0,
-    },
     "Forceful Lunge" => {
       face_name: "Aka emo",
       face_index: 2,
     },
+    conditionals: [
+      {
+        condition: 'is_debuff',
+        face_name: "Aka emo",
+        face_index: 0,
+      }
+    ],
   },
   "Carina" => {
     "Shield of Purity" => {
@@ -31,14 +34,17 @@ Busty::BATTLE_CONFIG.merge!({
       face_name: "face002b dark",
       face_index: 0,
     },
-    "Support Allies" => {
-      face_name: "face002b dark2",
-      face_index: 6,
-    },
     "SS heal component" => {
       face_name: "face002b",
       face_index: 5,
     },
+    conditionals: [
+      {
+        condition: 'is_simon_support_skill',
+        face_name: "face002b dark2",
+        face_index: 6,
+      },
+    ],
   },
   "Uyae" => {
     "Aura of Might" => {
@@ -61,10 +67,19 @@ Busty::BATTLE_CONFIG.merge!({
   },
 })
 
-# Show the same "animation" for all of Aka's debuff strikes
-Busty::BATTLE_CONFIG["Aka"]["Weakening Stab"] = Busty::BATTLE_CONFIG["Aka"]["Crippling Stab"] = Busty::BATTLE_CONFIG["Aka"]["Piercing Stab"] = Busty::BATTLE_CONFIG["Aka"]["Disabling Assault"]
-# Share config between the three effectively identical variants of Simon's "Support XXX" skill
-Busty::BATTLE_CONFIG["Simon1"]["Support Slaves"] = Busty::BATTLE_CONFIG["Simon1"]["Support Servants"] = Busty::BATTLE_CONFIG["Simon1"]["Support Allies"]
+module SkillHelper
+  class << self
+    def is_simon_support_skill(move)
+      ["Support Allies", "Support Servants", "Support Slaves"].include?(move.name)
+    end
+
+    def is_debuff(move)
+      move.effects.any? do |effect|
+        effect.code == Game_Battler::EFFECT_ADD_DEBUFF
+      end
+    end
+  end
+end
 
 # Duplicates configuration for characters with alternate forms
 Busty.duplicate_battle_config({
