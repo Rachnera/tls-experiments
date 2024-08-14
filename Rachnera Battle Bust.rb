@@ -95,11 +95,12 @@ class Scene_Battle < Scene_Base
   end
 
   def move_config
-    default = { face_name: @subject.face_name, face_index: @subject.face_index }
+    if Busty::BATTLE_CONFIG[character_name] && current_move_name && Busty::BATTLE_CONFIG[character_name][current_move_name]
+      return Busty::BATTLE_CONFIG[character_name][current_move_name]
+    end
 
-    return default unless Busty::BATTLE_CONFIG[character_name]
-
-    default.merge(Busty::BATTLE_CONFIG[character_name][current_move_name] || {})
+    # If nothing else is configured, default to the face that shows up at the bottom of the screen
+    { face_name: @subject.face_name, face_index: @subject.face_index }
   end
 
   def current_move_name

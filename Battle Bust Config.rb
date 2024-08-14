@@ -5,15 +5,17 @@ Busty::BATTLE_CONFIG.merge!({
       face_index: 0,
     },
     "Forceful Lunge" => {
-      # face_name is actually optional for characters with a single faceset
+      face_name: "Aka emo",
       face_index: 2,
     },
   },
   "Carina" => {
     "Shield of Purity" => {
+      face_name: "Carina emo",
       face_index: 5,
     },
     "Smite" => {
+      face_name: "Carina emo",
       face_index: 7,
       # While this option is named synergy, it can be actually be used to display any bust for any move
       synergy: {
