@@ -127,15 +127,14 @@ class Scene_Battle < Scene_Base
 
     character_config = Busty::BATTLE_CONFIG[character_name]
 
-    # Simpler case, move is explicitly configured by name
-    if character_config[current_move_name]
-      return character_config[current_move_name]
-    end
+    return character_config[current_move_name] if character_config[current_move_name]
 
     conditional_config = (character_config[:conditionals] || []).find do |cf|
       SkillHelper.send(cf[:condition], @subject.current_action.item)
     end
     return conditional_config if conditional_config
+
+    return character_config[:fallback] if character_config[:fallback]
 
     final_fallback
   end

@@ -1,4 +1,40 @@
 Busty::BATTLE_CONFIG.merge!({
+  "Yarra" => {
+    "Attack" => {
+      picture: "BattlePortraits_Yarra_attack",
+    },
+    "Ice Whip" => {
+      picture: "BattlePortraits_Yarra_attack-ice",
+    },
+    "Lightning Whip" => {
+      picture: "BattlePortraits_Yarra_attack-lightning",
+    },
+    "Succubus Kiss" => {
+      picture: "BattlePortraits_Yarra_Kiss",
+    },
+    # Note: Code will stop at the first option that matches, so order can be relevant
+    conditionals: [
+      {
+        condition: 'is_any_masturbation_skill',
+        picture: "BattlePortraits_Yarra_M",
+      },
+      {
+        condition: 'is_item',
+        picture: "BattlePortraits_Yarra_item",
+      },
+      {
+        condition: 'uses_tp',
+        picture: "BattlePortraits_Yarra_spell",
+      },
+    ],
+    fallback: {
+      face_name: "Yarra emo",
+      face_index: 0,
+    },
+  },
+})
+
+Busty::BATTLE_CONFIG.merge!({
   "Aka" => {
     "Forceful Lunge" => {
       face_name: "Aka emo",
@@ -51,24 +87,13 @@ Busty::BATTLE_CONFIG.merge!({
       picture: "Uyae Punch",
     },
   },
-  "Yarra" => {
-    "Lightning Whip" => {
-      face_name: "Yarra emo",
-      face_index: 7,
-      synergy: {
-        face_name: "Robin blond emo",
-        face_index: 5,
-      }
-    },
-    "Succubus Kiss" => {
-      face_name: "Yarra emo2",
-      face_index: 6,
-    },
-  },
 })
 
 module SkillHelper
   class << self
+    # A move can be either an instance of https://www.rubydoc.info/gems/rpg-maker-rgss3/RPG/Skill or of https://www.rubydoc.info/gems/rpg-maker-rgss3/RPG/Item
+    # In all cases, it has access to all properties of their common parent: https://www.rubydoc.info/gems/rpg-maker-rgss3/RPG/UsableItem
+
     def is_simon_support_skill(move)
       ["Support Allies", "Support Servants", "Support Slaves"].include?(move.name)
     end
@@ -77,6 +102,22 @@ module SkillHelper
       move.effects.any? do |effect|
         effect.code == Game_Battler::EFFECT_ADD_DEBUFF
       end
+    end
+
+    def is_any_masturbation_skill(move)
+      move.name.include?("Masturbate") || move.name.include?("Masturbation")
+    end
+
+    def is_item(move)
+      move.is_a?(RPG::Item)
+    end
+
+    def is_skill(move)
+      move.is_a?(RPG::Skill)
+    end
+
+    def uses_tp(move)
+      is_skill(move) && move.tp_cost > 0
     end
   end
 end
