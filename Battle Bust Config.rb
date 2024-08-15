@@ -82,11 +82,6 @@ Busty::BATTLE_CONFIG.merge!({
       },
     ],
   },
-  "Uyae" => {
-    "Aura of Might" => {
-      picture: "Uyae Punch",
-    },
-  },
 })
 
 module SkillHelper
