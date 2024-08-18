@@ -23,6 +23,31 @@ module Busty
       end
     end
   end
+
+  def self.show_enemy_face_window
+    unless defined?(@@enemy_face_window)
+      @@enemy_face_window = Enemy_Face_Window.new
+    end
+    @@enemy_face_window.show
+  end
+
+  def self.hide_enemy_face_window
+    @@enemy_face_window.hide
+  end
+
+  class Enemy_Face_Window < Window_Base
+    def initialize
+      super(0, Graphics.height - window_height, window_width, window_height)
+    end
+
+    def window_height
+      96 + 12*2
+    end
+
+    def window_width
+      window_height + 12
+    end
+  end
 end
 
 module SkillHelper
@@ -103,6 +128,8 @@ class Scene_Battle < Scene_Base
   end
 
   def display_enemy_bust
+    Busty::show_enemy_face_window
+
     @enemy_pic = Sprite.new
 
     enemy_bitmap = Cache.battler(@subject.battler_name, @subject.battler_hue)
@@ -119,7 +146,7 @@ class Scene_Battle < Scene_Base
     @enemy_pic.bitmap = rescaled_and_cropped_enemy_bitmap
     @enemy_pic.visible = true
     @enemy_pic.z = 999
-    @enemy_pic.x = 12
+    @enemy_pic.x = 12 + 6
     @enemy_pic.y = Graphics.height - 96 - 12
   end
 
@@ -128,6 +155,8 @@ class Scene_Battle < Scene_Base
       @enemy_pic.dispose
       @enemy_pic.bitmap.dispose
       @enemy_pic = nil
+
+      Busty::hide_enemy_face_window
     end
 
     if @bust_picture
