@@ -61,6 +61,13 @@ class Scene_Battle < Scene_Base
     end
 
     # New
+    # Is a noop if animations are enabled (everything is already cleaned) or if they weren't any bust shown in the first place
+    cleanup_bust
+  end
+
+  alias original_478_show_animation show_animation
+  def show_animation(targets, animation_id)
+    original_478_show_animation(targets, animation_id)
     cleanup_bust
   end
 
