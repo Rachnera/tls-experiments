@@ -35,6 +35,8 @@ module Busty
     @@enemy_face_window.hide
   end
 
+  # FIXME Explictly dispose of window by combat end?
+
   class Enemy_Face_Window < Window_Base
     def initialize
       super(0, Graphics.height - window_height, window_width, window_height)
