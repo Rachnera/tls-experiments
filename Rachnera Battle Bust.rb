@@ -170,6 +170,11 @@ class Scene_Battle < Scene_Base
 
     character_config = Busty::BATTLE_CONFIG[character_name]
 
+    (character_config[:procs] || []).each do |f|
+      proc_config = f.call(@subject.current_action.item)
+      return proc_config if proc_config
+    end
+
     return character_config[current_move_name] if character_config[current_move_name]
 
     conditional_config = (character_config[:conditionals] || []).find do |cf|
