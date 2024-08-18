@@ -131,6 +131,10 @@ class Scene_Battle < Scene_Base
     Busty::show_enemy_face_window
 
     @enemy_pic = Sprite.new
+    @enemy_pic.x = 12 + 6
+    @enemy_pic.y = Graphics.height - 96 - 12
+    @enemy_pic.z = 999
+    @enemy_pic.visible = true
 
     enemy_bitmap = Cache.battler(@subject.battler_name, @subject.battler_hue)
 
@@ -139,15 +143,17 @@ class Scene_Battle < Scene_Base
     dest_rect = Rect.new(0, 0, rescaled_enemy_bitmap.width, rescaled_enemy_bitmap.height)
     rescaled_enemy_bitmap.stretch_blt(dest_rect, enemy_bitmap, src_rect)
 
-    rescaled_and_cropped_enemy_bitmap = Bitmap.new(96, 96)
-    rescaled_and_cropped_enemy_bitmap.blt(0, 0, rescaled_enemy_bitmap, Rect.new(0, 0, 96, 96))
-    rescaled_enemy_bitmap.dispose
 
-    @enemy_pic.bitmap = rescaled_and_cropped_enemy_bitmap
-    @enemy_pic.visible = true
-    @enemy_pic.z = 999
-    @enemy_pic.x = 12 + 6
-    @enemy_pic.y = Graphics.height - 96 - 12
+    if rescaled_enemy_bitmap.height < 96 # No crop, but recenter vertically
+      @enemy_pic.bitmap = rescaled_enemy_bitmap
+      @enemy_pic.y += (96 - rescaled_enemy_bitmap.height) / 2
+    else # Crop
+      rescaled_and_cropped_enemy_bitmap = Bitmap.new(96, 96)
+      rescaled_and_cropped_enemy_bitmap.blt(0, 0, rescaled_enemy_bitmap, Rect.new(0, 0, 96, 96))
+      rescaled_enemy_bitmap.dispose
+
+      @enemy_pic.bitmap = rescaled_and_cropped_enemy_bitmap
+    end
   end
 
   def cleanup_bust
