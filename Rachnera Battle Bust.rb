@@ -48,6 +48,7 @@ class Scene_Battle < Scene_Base
 
     # New
     display_bust if show_bust?
+    display_enemy_bust if @subject.is_a?(Game_Enemy)
 
     # Original, no change, second part
     show_animation(targets, item.animation_id) if show_all_animation?(item)
@@ -101,7 +102,34 @@ class Scene_Battle < Scene_Base
     end
   end
 
+  def display_enemy_bust
+    @enemy_pic = Sprite.new
+
+    enemy_bitmap = Cache.battler(@subject.battler_name, @subject.battler_hue)
+
+    rescaled_enemy_bitmap = Bitmap.new(96, (96.0 / enemy_bitmap.width) * enemy_bitmap.height)
+    src_rect = Rect.new(0, 0, enemy_bitmap.width, enemy_bitmap.height)
+    dest_rect = Rect.new(0, 0, rescaled_enemy_bitmap.width, rescaled_enemy_bitmap.height)
+    rescaled_enemy_bitmap.stretch_blt(dest_rect, enemy_bitmap, src_rect)
+
+    rescaled_and_cropped_enemy_bitmap = Bitmap.new(96, 96)
+    rescaled_and_cropped_enemy_bitmap.blt(0, 0, rescaled_enemy_bitmap, Rect.new(0, 0, 96, 96))
+    rescaled_enemy_bitmap.dispose
+
+    @enemy_pic.bitmap = rescaled_and_cropped_enemy_bitmap
+    @enemy_pic.visible = true
+    @enemy_pic.z = 999
+    @enemy_pic.x = 12
+    @enemy_pic.y = Graphics.height - 96 - 12
+  end
+
   def cleanup_bust
+    if @enemy_pic
+      @enemy_pic.dispose
+      @enemy_pic.bitmap.dispose
+      @enemy_pic = nil
+    end
+
     if @bust_picture
       @bust_picture.dispose
       @bust_picture.bitmap.dispose
@@ -131,7 +159,7 @@ class Scene_Battle < Scene_Base
 
     # Compromise value: Keeping the bar perfectly centered doesn't leave enough space for the busts
     # But moving it fully to the right (+16*4) means too much empty space
-    @status_window.x = 128+16*2
+    @status_window.x = 128+16*4
 
     original_478_turn_start
   end
