@@ -27,10 +27,8 @@ Busty::BATTLE_CONFIG.merge!({
         picture: "BattlePortraits_Yarra_spell",
       },
     ],
-    procs: [
-      ->(move) do
-        return unless move.name == "Shared Fantasy"
-
+    proc: ->(move) {
+      if move.name == "Shared Fantasy"
         if $game_switches[6]
           return {
             picture: "BattlePortraits_Yarra_Kiss",
@@ -40,8 +38,10 @@ Busty::BATTLE_CONFIG.merge!({
             picture: "BattlePortraits_Yarra_attack-ice",
           }
         end
-      end,
-    ],
+      end
+
+      nil
+    },
     fallback: {
       face_name: "Yarra emo",
       face_index: 0,
