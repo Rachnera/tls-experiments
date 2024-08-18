@@ -45,7 +45,7 @@ module Busty
     end
 
     def window_width
-      window_height + 12
+      window_height + 8
     end
   end
 end
@@ -131,7 +131,7 @@ class Scene_Battle < Scene_Base
     Busty::show_enemy_face_window
 
     @enemy_pic = Sprite.new
-    @enemy_pic.x = 12 + 6
+    @enemy_pic.x = 12 + 4
     @enemy_pic.y = Graphics.height - 96 - 12
     @enemy_pic.z = 999
     @enemy_pic.visible = true
