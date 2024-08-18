@@ -29,53 +29,89 @@ module SkillHelper
 end
 
 class Scene_Battle < Scene_Base
-  alias original_478_execute_action execute_action
-  def execute_action
-    return original_478_execute_action if bust_feature_disabled?
+  # See Yanfly Engine Ace - Ace Battle Engine
+  # Note: TLS does not apparently use any of YEA-CastAnimations, YEA-LunaticObjects, YEA-TargetManager. Left their code in nonetheless for simpler diff  with original.
+  alias original_478_use_item use_item
+  def use_item
+    return original_478_use_item if bust_feature_disabled?
 
-    @bust = Busty::Bust.new(999) if @bust.nil?
-    synergy_bust = Busty::Bust.new(1001)
-    picture = Sprite.new
+    ## Original, no change
+    item = @subject.current_action.item
+    @log_window.display_use_item(@subject, item)
+    @subject.use_item(item)
+    status_redraw_target(@subject)
+    if $imported["YEA-LunaticObjects"]
+      lunatic_object_effect(:before, item, @subject, @subject)
+    end
+    process_casting_animation if $imported["YEA-CastAnimations"]
+    targets = @subject.current_action.make_targets.compact rescue []
 
-    if show_bust?
-      if move_config[:picture] # If there's a dedicated picture, take precedence over everything else
-        picture.bitmap = Cache.picture('battle/' + move_config[:picture])
-        picture.visible = true
-        picture.z = 999
-        picture.x = bust_offset_x
-        picture.y = Graphics.height - picture.height + bust_offset_y
-      else
-        @bust.draw(
-          bust_offset_x,
-          bust_offset_y,
-          move_config[:face_name],
-          move_config[:face_index]
-        )
+    # New
+    display_bust if show_bust?
 
-        if move_config[:synergy]
-          synergy_offset = 32
-          synergy_bust.draw(
-            move_config[:synergy][:bust_offset_x] || (bust_offset_x - 32),
-            move_config[:synergy][:bust_offset_y] || 64,
-            move_config[:synergy][:face_name],
-            move_config[:synergy][:face_index]
-          )
-        end
-      end
+    # Original, no change, second part
+    show_animation(targets, item.animation_id) if show_all_animation?(item)
+    targets.each {|target|
+    if $imported["YEA-TargetManager"]
+      target = alive_random_target(target, item) if item.for_random?
+    end
+    item.repeats.times { invoke_item(target, item) } }
+    if $imported["YEA-LunaticObjects"]
+      lunatic_object_effect(:after, item, @subject, @subject)
     end
 
-    original_478_execute_action
+    # New
+    cleanup_bust
+  end
 
-    picture.dispose
-    picture.bitmap.dispose unless picture.bitmap.nil?
-    picture = nil
+  def display_bust
+    if move_config[:picture] # If there's a dedicated picture, take precedence over everything else
+      @bust_picture = Sprite.new
+      @bust_picture.bitmap = Cache.picture('battle/' + move_config[:picture])
+      @bust_picture.visible = true
+      @bust_picture.z = 999
+      @bust_picture.x = bust_offset_x
+      @bust_picture.y = Graphics.height - @bust_picture.height + bust_offset_y
+    else
+      @bust = Busty::Bust.new(999) if @bust.nil?
+      @bust.draw(
+        bust_offset_x,
+        bust_offset_y,
+        move_config[:face_name],
+        move_config[:face_index]
+      )
 
-    synergy_bust.erase
-    synergy_bust.dispose
-    synergy_bust = nil
+      if move_config[:synergy]
+        synergy_offset = 32
+        @synergy_bust = Busty::Bust.new(1001)
+        @synergy_bust.draw(
+          move_config[:synergy][:bust_offset_x] || (bust_offset_x - 32),
+          move_config[:synergy][:bust_offset_y] || 64,
+          move_config[:synergy][:face_name],
+          move_config[:synergy][:face_index]
+        )
+      end
+    end
+  end
 
-    # Simon's Support skill is actually two skills, and the cleanup should only happen after the second one
-    unless is_simon_support_skill?
+  def cleanup_bust
+    if @bust_picture
+      @bust_picture.dispose
+      @bust_picture.bitmap.dispose
+      @bust_picture = nil
+    end
+
+    if @synergy_bust
+      @synergy_bust.erase
+      @synergy_bust.dispose
+      @synergy_bust = nil
+    end
+
+    if @bust
+      # FIXME Hack that likely won't work anymore with pictures
+      # Simon's Support skill is actually two skills, and the cleanup should only happen after the second one
+      return if is_simon_support_skill?
+
       @bust.erase
       @bust.dispose
       @bust = nil
