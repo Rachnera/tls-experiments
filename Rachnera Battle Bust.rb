@@ -148,8 +148,8 @@ class Scene_Battle < Scene_Base
       @enemy_pic.bitmap = rescaled_enemy_bitmap
       @enemy_pic.y += (96 - rescaled_enemy_bitmap.height) / 2
     else # Crop
-      rescaled_and_cropped_enemy_bitmap = Bitmap.new(96, 96)
-      rescaled_and_cropped_enemy_bitmap.blt(0, 0, rescaled_enemy_bitmap, Rect.new(0, 0, 96, 96))
+      rescaled_and_cropped_enemy_bitmap = Bitmap.new(96, 96 + 6) # Allow to touch the bottom border
+      rescaled_and_cropped_enemy_bitmap.blt(0, 0, rescaled_enemy_bitmap, Rect.new(0, 0, 96, 96 + 6))
       rescaled_enemy_bitmap.dispose
 
       @enemy_pic.bitmap = rescaled_and_cropped_enemy_bitmap
