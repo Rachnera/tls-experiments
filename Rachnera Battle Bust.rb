@@ -232,7 +232,8 @@ class Scene_Battle < Scene_Base
 
     return false unless current_move_name
 
-    Busty::has_bust?(character_name)
+    # TODO Remove the second condition eventually?
+    Busty::BATTLE_CONFIG[character_name] || Busty::has_bust?(character_name)
   end
 
   def is_simon_support_skill?
