@@ -25,7 +25,7 @@ module Busty
   end
 
   def self.show_enemy_face_window
-    unless defined?(@@enemy_face_window)
+    unless defined?(@@enemy_face_window) && @@enemy_face_window
       @@enemy_face_window = Enemy_Face_Window.new
     end
     @@enemy_face_window.show
@@ -35,7 +35,12 @@ module Busty
     @@enemy_face_window.hide
   end
 
-  # FIXME Explictly dispose of window by combat end?
+  def self.dispose_enemy_face_window
+    return unless defined?(@@enemy_face_window) && @@enemy_face_window
+
+    @@enemy_face_window.dispose
+    @@enemy_face_window = nil
+  end
 
   class Enemy_Face_Window < Window_Base
     def initialize
@@ -208,6 +213,13 @@ class Scene_Battle < Scene_Base
     @status_window.x = 128
 
     original_478_turn_end
+  end
+
+  alias original_478_terminate terminate
+  def terminate
+    Busty::dispose_enemy_face_window
+
+    original_478_terminate
   end
 
   def bust_feature_disabled?
