@@ -79,8 +79,12 @@ class Scene_Battle < Scene_Base
     targets = @subject.current_action.make_targets.compact rescue []
 
     # New
-    display_bust if show_bust?
-    display_enemy_bust if @subject.is_a?(Game_Enemy)
+    if show_bust?
+      display_bust
+    else
+      display_enemy_bust if @subject.is_a?(Game_Enemy)
+      display_npc_face if @subject.is_a?(Game_Actor)
+    end
 
     # Original, no change, second part
     show_animation(targets, item.animation_id) if show_all_animation?(item)
@@ -163,6 +167,29 @@ class Scene_Battle < Scene_Base
     end
   end
 
+  def display_npc_face
+    # Effectively works like an enemy, but with the NPC face instead of a resized battler
+    Busty::show_enemy_face_window
+
+    @enemy_pic = Sprite.new
+    @enemy_pic.x = 12 + 4
+    @enemy_pic.y = Graphics.height - 96 - 12
+    @enemy_pic.z = 999
+    @enemy_pic.visible = true
+
+    bitmap = Cache.face(@subject.face_name)
+    rect = Rect.new(
+      @subject.face_index % 4 * 96,
+      @subject.face_index / 4 * 96,
+      96,
+      96
+    )
+    face_bitmap = Bitmap.new(96, 96)
+    face_bitmap.blt(0, 0, bitmap, rect)
+
+    @enemy_pic.bitmap = face_bitmap
+  end
+
   def cleanup_bust
     if @enemy_pic
       @enemy_pic.dispose
@@ -231,6 +258,9 @@ class Scene_Battle < Scene_Base
     return false unless @subject.is_a?(Game_Actor)
 
     return false unless current_move_name
+
+    # Commit to the bit by showing Simon as a NPC at first (25 is the "Window Break" switch)
+    return false if character_name == "Simon1" and not $game_switches[25]
 
     # TODO Remove the second condition eventually?
     Busty::BATTLE_CONFIG[character_name] || Busty::has_bust?(character_name)
