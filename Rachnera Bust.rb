@@ -123,6 +123,8 @@ module Busty
       @bust_overflow.bitmap = nil
     end
 
+    # update and dispose were copy-pasted from the script I took inspiration from (see Credits) and haven't fundamentally changed since
+    # TODO Check if they do anything useful and, if so, if they do their job right
     def update
       @bust.update
       @bust_face.update
