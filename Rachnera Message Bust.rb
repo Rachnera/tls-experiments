@@ -40,7 +40,8 @@ class Window_Message < Window_Base
         bust_offset_y,
         $game_message.face_name,
         $game_message.face_index,
-        max_width = (new_line_x + bust_extra_x)
+        max_width = (new_line_x + bust_extra_x),
+        above_height = height - 4
       )
     else
       @bust.erase
