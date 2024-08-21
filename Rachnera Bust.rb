@@ -93,6 +93,7 @@ module Busty
       @bust_face.y = @bust.y + face_border_width_top + face_offset_y
       @bust_face.z = @bust.z + face_z
 
+      @bust_overflow.bitmap = nil
       return unless above_height
       # Next part is only relevant if the bust was cut
       return unless max_width
