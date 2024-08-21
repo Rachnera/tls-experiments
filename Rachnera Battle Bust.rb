@@ -24,14 +24,18 @@ module Busty
     end
   end
 
-  def self.show_enemy_face_window
+  def self.show_enemy_face_window(bitmap, offset_x = 0, offset_y = 0)
     unless defined?(@@enemy_face_window) && @@enemy_face_window
       @@enemy_face_window = Enemy_Face_Window.new
     end
+    @@enemy_face_window.set_bitmap(bitmap, offset_x, offset_y)
     @@enemy_face_window.show
   end
 
   def self.hide_enemy_face_window
+    return unless defined?(@@enemy_face_window) && @@enemy_face_window
+
+    @@enemy_face_window.clear_bitmap
     @@enemy_face_window.hide
   end
 
@@ -45,6 +49,29 @@ module Busty
   class Enemy_Face_Window < Window_Base
     def initialize
       super(0, Graphics.height - window_height, window_width, window_height)
+
+      @enemy_pic = Sprite.new
+      @enemy_pic.z = z + 1
+      @enemy_pic.visible = true
+    end
+
+    def set_bitmap(bitmap, offset_x = 0, offset_y = 0)
+      @enemy_pic.x = x + 12 + 4 + offset_x # +4 because not a perfect square, cf window_width
+      @enemy_pic.y = y + 12 + offset_y
+      @enemy_pic.bitmap = bitmap
+    end
+
+    def clear_bitmap
+      @enemy_pic.bitmap.dispose if @enemy_pic.bitmap
+    end
+
+    def dispose
+      # Might be overkill; but better safe than sorry
+      clear_bitmap
+      @enemy_pic.dispose
+      @enemy_pic = nil
+
+      super
     end
 
     def window_height
@@ -52,7 +79,7 @@ module Busty
     end
 
     def window_width
-      window_height + 8
+      window_height + 4*2
     end
   end
 end
@@ -139,14 +166,6 @@ class Scene_Battle < Scene_Base
   end
 
   def display_enemy_bust
-    Busty::show_enemy_face_window
-
-    @enemy_pic = Sprite.new
-    @enemy_pic.x = 12 + 4
-    @enemy_pic.y = Graphics.height - 96 - 12
-    @enemy_pic.z = 999
-    @enemy_pic.visible = true
-
     enemy_bitmap = Cache.battler(@subject.battler_name, @subject.battler_hue)
 
     rescaled_enemy_bitmap = Bitmap.new(96, (96.0 / enemy_bitmap.width) * enemy_bitmap.height)
@@ -154,29 +173,23 @@ class Scene_Battle < Scene_Base
     dest_rect = Rect.new(0, 0, rescaled_enemy_bitmap.width, rescaled_enemy_bitmap.height)
     rescaled_enemy_bitmap.stretch_blt(dest_rect, enemy_bitmap, src_rect)
 
-
     if rescaled_enemy_bitmap.height < 96 # No crop, but recenter vertically
-      @enemy_pic.bitmap = rescaled_enemy_bitmap
-      @enemy_pic.y += (96 - rescaled_enemy_bitmap.height) / 2
+      Busty::show_enemy_face_window(
+        rescaled_enemy_bitmap,
+        0,
+        (96 - rescaled_enemy_bitmap.height) / 2
+      )
     else # Crop
       rescaled_and_cropped_enemy_bitmap = Bitmap.new(96, 96 + 6) # Allow to touch the bottom border
       rescaled_and_cropped_enemy_bitmap.blt(0, 0, rescaled_enemy_bitmap, Rect.new(0, 0, 96, 96 + 6))
       rescaled_enemy_bitmap.dispose
 
-      @enemy_pic.bitmap = rescaled_and_cropped_enemy_bitmap
+      Busty::show_enemy_face_window(rescaled_and_cropped_enemy_bitmap)
     end
   end
 
   def display_npc_face
     # Effectively works like an enemy, but with the NPC face instead of a resized battler
-    Busty::show_enemy_face_window
-
-    @enemy_pic = Sprite.new
-    @enemy_pic.x = 12 + 4
-    @enemy_pic.y = Graphics.height - 96 - 12
-    @enemy_pic.z = 999
-    @enemy_pic.visible = true
-
     bitmap = Cache.face(@subject.face_name)
     rect = Rect.new(
       @subject.face_index % 4 * 96,
@@ -187,17 +200,11 @@ class Scene_Battle < Scene_Base
     face_bitmap = Bitmap.new(96, 96)
     face_bitmap.blt(0, 0, bitmap, rect)
 
-    @enemy_pic.bitmap = face_bitmap
+    Busty::show_enemy_face_window(face_bitmap)
   end
 
   def cleanup_bust
-    if @enemy_pic
-      @enemy_pic.dispose
-      @enemy_pic.bitmap.dispose
-      @enemy_pic = nil
-
-      Busty::hide_enemy_face_window
-    end
+    Busty::hide_enemy_face_window
 
     if @bust_picture
       @bust_picture.dispose
