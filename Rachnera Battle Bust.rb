@@ -94,6 +94,16 @@ class Scene_Battle < Scene_Base
   def use_item
     return original_478_use_item if bust_feature_disabled?
 
+    ## New (move message window)
+    reload_log_window_position
+    save_log_window_position
+    if @subject.is_a?(Game_Enemy)
+      move_log_window(
+        96 + 12*2 + 12,
+        Graphics.height - (96 + 12*2 + 38)
+      )
+    end
+
     ## Original, no change
     item = @subject.current_action.item
     @log_window.display_use_item(@subject, item)
@@ -113,7 +123,7 @@ class Scene_Battle < Scene_Base
       display_npc_face if @subject.is_a?(Game_Actor)
     end
 
-    # Original, no change, second part
+    # Original, no change
     show_animation(targets, item.animation_id) if show_all_animation?(item)
     targets.each {|target|
     if $imported["YEA-TargetManager"]
@@ -237,6 +247,8 @@ class Scene_Battle < Scene_Base
     # But moving it fully to the right (+16*4) means too much empty space
     @status_window.x = 128+16*4
 
+    save_log_window_position
+
     original_478_turn_start
   end
 
@@ -246,6 +258,8 @@ class Scene_Battle < Scene_Base
 
     @status_window.x = 128
 
+    reload_log_window_position
+
     original_478_turn_end
   end
 
@@ -254,6 +268,21 @@ class Scene_Battle < Scene_Base
     Busty::dispose_enemy_face_window
 
     original_478_terminate
+  end
+
+  def move_log_window(x, y)
+    @log_window.x = x
+    @log_window.y = y
+  end
+
+  def save_log_window_position
+    @old_log_window_x = @log_window.x
+    @old_log_window_y = @log_window.y
+  end
+
+  def reload_log_window_position
+    @log_window.x = @old_log_window_x
+    @log_window.y = @old_log_window_y
   end
 
   def bust_feature_disabled?
@@ -337,6 +366,17 @@ class Game_Actor < Game_Battler
     ext = SceneManager.scene.info_viewport.ox
     rect = SceneManager.scene.status_window.item_rect(self.index)
     return SceneManager.scene.status_window.x + 12 + rect.x + item_rect_width / 2 - ext
+  end
+end
+
+class Window_BattleLog < Window_Selectable
+  # Keep background in sync with window position
+  alias original_478_update update
+  def update
+    original_478_update
+
+    @back_sprite.x = x
+    @back_sprite.y = y
   end
 end
 
