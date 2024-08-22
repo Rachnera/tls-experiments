@@ -135,14 +135,14 @@ class Scene_Battle < Scene_Base
     end
 
     # New
-    # Is a noop if animations are enabled (everything is already cleaned) or if they weren't any bust shown in the first place
+    # Is a noop if everything was already cleaned in show_animation
     cleanup_bust
   end
 
   alias original_478_show_animation show_animation
   def show_animation(targets, animation_id)
     original_478_show_animation(targets, animation_id)
-    cleanup_bust
+    cleanup_bust if show_bust? # Deliberately wait for the end of the use_item to clean for the less obstrusive small images
   end
 
   def display_bust
