@@ -176,26 +176,38 @@ class Scene_Battle < Scene_Base
   end
 
   def display_enemy_bust
+    rescaled_enemy_bitmap = enemy_bitmap_96_x_96
+
+    if rescaled_enemy_bitmap.height < 96 # No crop, but recenter
+      Busty::show_enemy_face_window(
+        rescaled_enemy_bitmap,
+        (96 - rescaled_enemy_bitmap.width) / 2,
+        (96 - rescaled_enemy_bitmap.height) / 2
+      )
+    else # Crop
+      rescaled_and_cropped_enemy_bitmap = Bitmap.new(rescaled_enemy_bitmap.width, 96 + 6) # Allow to touch the bottom border
+      rescaled_and_cropped_enemy_bitmap.blt(0, 0, rescaled_enemy_bitmap, Rect.new(0, 0, rescaled_enemy_bitmap.width, 96 + 6))
+      rescaled_enemy_bitmap.dispose
+
+      Busty::show_enemy_face_window(
+        rescaled_and_cropped_enemy_bitmap,
+        (96 - rescaled_and_cropped_enemy_bitmap.width) / 2,
+        0
+      )
+    end
+  end
+
+  def enemy_bitmap_96_x_96
     enemy_bitmap = Cache.battler(@subject.battler_name, @subject.battler_hue)
+
+    return enemy_bitmap.clone if enemy_bitmap.width <= 96
 
     rescaled_enemy_bitmap = Bitmap.new(96, (96.0 / enemy_bitmap.width) * enemy_bitmap.height)
     src_rect = Rect.new(0, 0, enemy_bitmap.width, enemy_bitmap.height)
     dest_rect = Rect.new(0, 0, rescaled_enemy_bitmap.width, rescaled_enemy_bitmap.height)
     rescaled_enemy_bitmap.stretch_blt(dest_rect, enemy_bitmap, src_rect)
 
-    if rescaled_enemy_bitmap.height < 96 # No crop, but recenter vertically
-      Busty::show_enemy_face_window(
-        rescaled_enemy_bitmap,
-        0,
-        (96 - rescaled_enemy_bitmap.height) / 2
-      )
-    else # Crop
-      rescaled_and_cropped_enemy_bitmap = Bitmap.new(96, 96 + 6) # Allow to touch the bottom border
-      rescaled_and_cropped_enemy_bitmap.blt(0, 0, rescaled_enemy_bitmap, Rect.new(0, 0, 96, 96 + 6))
-      rescaled_enemy_bitmap.dispose
-
-      Busty::show_enemy_face_window(rescaled_and_cropped_enemy_bitmap)
-    end
+    rescaled_enemy_bitmap
   end
 
   def display_npc_face
