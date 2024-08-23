@@ -248,7 +248,7 @@ Busty::MESSAGE_CONFIG.merge!({
     bust_offset_x: -12,
   },
   "Doomed King" => {
-    bust_offset_x: -24,
+    bust_offset_x: -18,
   },
   "Esthera" => {
     bust_offset_x: -60,
@@ -266,7 +266,7 @@ Busty::MESSAGE_CONFIG.merge!({
     bust_offset_x: -30,
   },
   "Galvia" => {
-    bust_offset_x: -36,
+    bust_offset_x: -24,
   },
   "Ghanth" => {
     bust_offset_x: -36,
