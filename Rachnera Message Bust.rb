@@ -36,18 +36,33 @@ class Window_Message < Window_Base
 
   def update_bust
     if show_bust?
-      @bust.draw(
-        bust_offset_x,
-        bust_offset_y,
-        $game_message.face_name,
-        $game_message.face_index,
-        max_width = (new_line_x + bust_extra_x),
-        above_height = height - 4
-      )
+      @bust.draw(*bust_display_options)
     else
       @bust.erase
     end
     @bust.update
+  end
+
+  def bust_display_options
+    default_values = [
+      bust_offset_x,
+      bust_offset_y,
+      $game_message.face_name,
+      $game_message.face_index,
+      max_width = (new_line_x + bust_extra_x),
+      above_height = height - 4,
+    ]
+
+    return default_values unless custom_bust_display_options
+
+    default_values.map.with_index  do |default_value, index|
+      custom_bust_display_options[index] || default_value
+    end
+  end
+
+  # Doesn't return anything by default; see Bust Config for some actual implementation
+  def custom_bust_display_options
+    nil
   end
 
   # Define how much the bust is allowed to overflow into the padding between image and text

@@ -150,24 +150,31 @@ Busty::SUBSET_TO_BUST = [
     face_indexes: [3],
   },
 ]
-# Special cheat just for Vera
-# As she has the same expressions on different sheets, but with a different zoom level
-# TODO If more such cheats are needed, rework into something more generic and flexible
+# Special cheats for some characters
 class Window_Message < Window_Base
-  alias original_514_update_bust update_bust
-  def update_bust
-    if show_bust? && character_name == 'Vera' && $game_message.face_name != 'Vera emo'
-      @bust.draw(
-        bust_offset_x,
-        bust_offset_y,
-        'Vera emo',
-        $game_message.face_index,
-        max_width = (new_line_x + bust_extra_x)
-      )
-      return @bust.update
+  def custom_bust_display_options
+    # Vera has the same expressions on different sheets, but with a different zoom level. Ensure we use the configured one.
+    if character_name == 'Vera' && $game_message.face_name != 'Vera emo'
+      return [
+        nil,
+        nil,
+        face_name = 'Vera emo'
+      ]
     end
 
-    original_514_update_bust
+    # Qum has a tiny lock of hair that would look so much better with some extra pixels at the bottom
+    if character_name == "Qum D'umpe"
+      return [
+        nil,
+        nil,
+        nil,
+        nil,
+        nil,
+        above_height = height - 12,
+      ]
+    end
+
+    nil
   end
 end
 
