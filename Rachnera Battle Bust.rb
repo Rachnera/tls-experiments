@@ -99,7 +99,7 @@ class Scene_Battle < Scene_Base
     save_log_window_position
     if @subject.is_a?(Game_Enemy)
       move_log_window(
-        96 + 12*2 + 12,
+        0,
         Graphics.height - (96 + 12*2 + 38)
       )
     end
