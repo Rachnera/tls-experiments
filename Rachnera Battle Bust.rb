@@ -85,6 +85,28 @@ module Busty
 end
 
 module SkillHelper
+  class << self
+    # A move can be either an instance of https://www.rubydoc.info/gems/rpg-maker-rgss3/RPG/Skill or of https://www.rubydoc.info/gems/rpg-maker-rgss3/RPG/Item
+    # In all cases, it has access to all properties of their common parent: https://www.rubydoc.info/gems/rpg-maker-rgss3/RPG/UsableItem
+
+    def is_debuff(move)
+      move.effects.any? do |effect|
+        effect.code == Game_Battler::EFFECT_ADD_DEBUFF
+      end
+    end
+
+    def is_item(move)
+      move.is_a?(RPG::Item)
+    end
+
+    def is_skill(move)
+      move.is_a?(RPG::Skill)
+    end
+
+    def uses_tp(move)
+      is_skill(move) && move.tp_cost > 0
+    end
+  end
 end
 
 class Scene_Battle < Scene_Base
