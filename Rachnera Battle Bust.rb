@@ -116,7 +116,7 @@ class Scene_Battle < Scene_Base
   def use_item
     return original_478_use_item if bust_feature_disabled?
 
-    ## New (move message window)
+    # New (move message window)
     reload_log_window_position
     save_log_window_position
     if @subject.is_a?(Game_Enemy)
@@ -126,7 +126,7 @@ class Scene_Battle < Scene_Base
       )
     end
 
-    ## Original, no change
+    # Original, no change
     item = @subject.current_action.item
     @log_window.display_use_item(@subject, item)
     @subject.use_item(item)
@@ -138,6 +138,7 @@ class Scene_Battle < Scene_Base
     targets = @subject.current_action.make_targets.compact rescue []
 
     # New
+    cleanup_bust
     if show_bust?
       display_bust
     else
@@ -161,16 +162,28 @@ class Scene_Battle < Scene_Base
     if $imported["YEA-LunaticObjects"]
       lunatic_object_effect(:after, item, @subject, @subject)
     end
-
-    # New
-    # Is a noop if everything was already cleaned in show_animation
-    cleanup_bust
   end
 
   alias original_478_show_animation show_animation
   def show_animation(targets, animation_id)
     original_478_show_animation(targets, animation_id)
-    cleanup_bust if show_bust? # Deliberately wait for the end of the use_item to clean for the less obstrusive small images
+
+    return if bust_feature_disabled?
+
+    # Deliberately wait for the end of the "sweeper car" clean-up for the less obstrusive small images
+    if show_bust?
+      # Attempt at making player actions slightly more readable with animations disabled
+      if !$game_system.animations? && @bust_picture
+        @bust_picture.z = 2
+        @bust_picture.tone.red = -64
+        @bust_picture.tone.green = -64
+        @bust_picture.tone.blue = -64
+        @bust_picture.tone.gray = 128
+        return
+      end
+
+      cleanup_bust
+    end
   end
 
   def display_bust
@@ -306,6 +319,8 @@ class Scene_Battle < Scene_Base
   alias original_478_turn_end turn_end
   def turn_end
     return original_478_turn_end if bust_feature_disabled?
+
+    cleanup_bust
 
     @status_window.show
     @status_window.x = 128
