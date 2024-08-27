@@ -146,12 +146,6 @@ class Scene_Battle < Scene_Base
       display_npc_face if @subject.is_a?(Game_Actor)
     end
 
-    if can_safely_hide_status_window?
-      @status_window.hide
-    else
-      @status_window.show
-    end
-
     # Original, no change
     show_animation(targets, item.animation_id) if show_all_animation?(item)
     targets.each {|target|
@@ -292,17 +286,6 @@ class Scene_Battle < Scene_Base
     end
   end
 
-  def can_safely_hide_status_window?
-    return false unless show_bust?
-
-    # Too "blinky" as is without animations
-    return false unless $game_system.animations?
-
-    # Is a damage inflicting attack
-    move = @subject.current_action.item
-    SkillHelper::is_skill(move) && move.for_opponent?
-  end
-
   alias original_478_turn_start turn_start
   def turn_start
     return original_478_turn_start if bust_feature_disabled?
@@ -322,7 +305,6 @@ class Scene_Battle < Scene_Base
 
     cleanup_bust
 
-    @status_window.show
     @status_window.x = 128
 
     reload_log_window_position
