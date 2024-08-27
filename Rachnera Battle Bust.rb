@@ -164,7 +164,25 @@ class Scene_Battle < Scene_Base
   alias original_478_show_animation show_animation
   def show_animation(targets, animation_id)
     original_478_show_animation(targets, animation_id)
-    cleanup_bust if show_bust? # Deliberately wait for the end of the use_item to clean for the less obstrusive small images
+
+    return if bust_feature_disabled?
+
+    # Deliberately wait for the end of the "sweeper car" clean-up for the less obstrusive small images
+    if show_bust?
+      # Attempt at making player actions slightly more readable with animations disabled
+      # The idea is that we wait a bit longer before removing the image
+      # But we move it further into the background and gray it out so it's not as obtrusive
+      if !$game_system.animations? && @bust_picture
+        @bust_picture.z = 2
+        @bust_picture.tone.red = -64
+        @bust_picture.tone.green = -64
+        @bust_picture.tone.blue = -64
+        @bust_picture.tone.gray = 128
+        return
+      end
+
+      cleanup_bust
+    end
   end
 
   def display_bust
