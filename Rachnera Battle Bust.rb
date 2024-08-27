@@ -116,7 +116,7 @@ class Scene_Battle < Scene_Base
   def use_item
     return original_478_use_item if bust_feature_disabled?
 
-    ## New (move message window)
+    # New (move message window)
     reload_log_window_position
     save_log_window_position
     if @subject.is_a?(Game_Enemy)
@@ -126,7 +126,7 @@ class Scene_Battle < Scene_Base
       )
     end
 
-    ## Original, no change
+    # Original, no change
     item = @subject.current_action.item
     @log_window.display_use_item(@subject, item)
     @subject.use_item(item)
