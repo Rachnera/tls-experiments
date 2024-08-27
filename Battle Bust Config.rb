@@ -28,8 +28,7 @@ Busty::BATTLE_CONFIG.merge!({
       },
     ],
     fallback: {
-      face_name: "Yarra emo",
-      face_index: 0,
+      picture: "BattlePortraits_Yarra_attack",
     },
   },
 })
