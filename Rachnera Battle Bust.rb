@@ -389,7 +389,7 @@ class Scene_Battle < Scene_Base
   end
 
   def adjusted_bust_x(target)
-    [target.screen_x - @bust_picture.width, -0.125 * @bust_picture.width].max
+    [target.screen_x - @bust_picture.width, 0].max
   end
 
   def bust_scroll_x_start
