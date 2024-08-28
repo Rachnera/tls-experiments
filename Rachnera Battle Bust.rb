@@ -138,8 +138,16 @@ class Scene_Battle < Scene_Base
     targets = @subject.current_action.make_targets.compact rescue []
 
     # New
+    if can_and_should_adjust_x?(@subject.current_action.item, targets)
+      @status_window.hide
+    else
+      @status_window.show
+    end
     if show_bust?
       display_bust
+      if @bust_picture && can_and_should_adjust_x?(@subject.current_action.item, targets)
+        @bust_picture.x = adjusted_bust_x(targets[0])
+      end
     else
       display_enemy_bust if @subject.is_a?(Game_Enemy)
       display_npc_face if @subject.is_a?(Game_Actor)
@@ -308,6 +316,7 @@ class Scene_Battle < Scene_Base
   def turn_end
     return original_478_turn_end if bust_feature_disabled?
 
+    @status_window.show
     @status_window.x = 128
 
     reload_log_window_position
@@ -352,6 +361,19 @@ class Scene_Battle < Scene_Base
 
     # TODO Remove the second condition eventually?
     Busty::BATTLE_CONFIG[character_name] || Busty::has_bust?(character_name)
+  end
+
+  def can_and_should_adjust_x?(move, targets)
+    return false unless show_bust?
+
+    return false unless $game_system.animations?
+
+    # Is an explicitly configured move with a single enemy target
+    move_config[:adjust_x] && SkillHelper::is_skill(move) && move.for_opponent? && targets.count == 1
+  end
+
+  def adjusted_bust_x(target)
+    [target.screen_x - @bust_picture.width, -0.25 * @bust_picture.width].max
   end
 
   def is_simon_support_skill?
