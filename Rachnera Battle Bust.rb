@@ -350,7 +350,13 @@ class Scene_Battle < Scene_Base
   def move_in_bust_picture
     return unless @bust_picture && @bust_target_x
 
-    step = @bust_target_x / 8
+    # Start quick then slows down on arrival
+    step =
+      if @bust_picture.x < @bust_target_x / 2
+        @bust_target_x / 4
+      else
+        @bust_target_x / 8
+      end
     if @bust_picture.x + step  >= @bust_target_x
       @bust_picture.x = @bust_target_x
       @bust_target_x = nil
