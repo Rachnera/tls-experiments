@@ -144,9 +144,16 @@ class Scene_Battle < Scene_Base
       @status_window.show
     end
     if show_bust?
+      @bust_target_x = nil
       display_bust
       if @bust_picture && can_and_should_adjust_x?(@subject.current_action.item, targets)
-        @bust_picture.x = adjusted_bust_x(targets[0])
+        adj_x = adjusted_bust_x(targets[0])
+        if adj_x > 0
+          @bust_picture.x = 0
+          @bust_target_x = adj_x
+        else
+          @bust_picture.x = adj_x
+        end
       end
     else
       display_enemy_bust if @subject.is_a?(Game_Enemy)
@@ -281,6 +288,7 @@ class Scene_Battle < Scene_Base
       @bust_picture.bitmap.dispose
       @bust_picture = nil
     end
+    @bust_target_x = nil
 
     if @synergy_bust
       @synergy_bust.erase
@@ -329,6 +337,26 @@ class Scene_Battle < Scene_Base
     Busty::dispose_enemy_face_window
 
     original_478_terminate
+  end
+
+  def wait_for_animation
+    update_for_wait
+    while @spriteset.animation? do
+      move_in_bust_picture # Only addition compared to Scene_Battle#wait_for_animation
+      update_for_wait
+    end
+  end
+
+  def move_in_bust_picture
+    return unless @bust_picture && @bust_target_x
+
+    step = @bust_target_x / 8
+    if @bust_picture.x + step  >= @bust_target_x
+      @bust_picture.x = @bust_target_x
+      @bust_target_x = nil
+    else
+      @bust_picture.x += step
+    end
   end
 
   def move_log_window(x, y)
