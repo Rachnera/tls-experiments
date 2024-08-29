@@ -147,13 +147,7 @@ class Scene_Battle < Scene_Base
       @bust_target_x = nil
       display_bust
       if @bust_picture && can_and_should_adjust_x?(@subject.current_action.item, targets)
-        adj_x = adjusted_bust_x(targets[0])
-        if adj_x > 0
-          @bust_target_x = adj_x
-          @bust_picture.x = bust_scroll_x_start
-        else
-          @bust_picture.x = adj_x
-        end
+        @bust_picture.x = adjusted_bust_x(targets[0])
       end
     else
       display_enemy_bust if @subject.is_a?(Game_Enemy)
@@ -339,14 +333,6 @@ class Scene_Battle < Scene_Base
     original_478_terminate
   end
 
-  def wait_for_animation
-    update_for_wait
-    while @spriteset.animation? do
-      move_in_bust_picture # Only addition compared to Scene_Battle#wait_for_animation
-      update_for_wait
-    end
-  end
-
   def move_log_window(x, y)
     @log_window.x = x
     @log_window.y = y
@@ -389,32 +375,7 @@ class Scene_Battle < Scene_Base
   end
 
   def adjusted_bust_x(target)
-    [target.screen_x - @bust_picture.width, 0].max
-  end
-
-  def bust_scroll_x_start
-    -0.25 * @bust_target_x
-  end
-
-  def move_in_bust_picture
-    return unless @bust_picture && @bust_target_x
-
-    # Start quick then slows down on arrival
-    current_distance = @bust_picture.x - bust_scroll_x_start
-    total_distance = @bust_target_x - bust_scroll_x_start
-    step =
-      if current_distance < total_distance / 2
-        0.25
-      else
-        0.125
-      end
-    step *= total_distance
-    if @bust_picture.x + step  >= @bust_target_x
-      @bust_picture.x = @bust_target_x
-      @bust_target_x = nil
-    else
-      @bust_picture.x += step
-    end
+    [[target.screen_x - @bust_picture.width / 2, 0].max, Graphics.width - @bust_picture.width].min
   end
 
   def is_simon_support_skill?
