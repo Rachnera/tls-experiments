@@ -144,7 +144,6 @@ class Scene_Battle < Scene_Base
       @status_window.show
     end
     if show_bust?
-      @bust_target_x = nil
       display_bust
       if @bust_picture && can_and_should_adjust_x?(@subject.current_action.item, targets)
         @bust_picture.x = adjusted_bust_x(targets[0])
@@ -282,7 +281,6 @@ class Scene_Battle < Scene_Base
       @bust_picture.bitmap.dispose
       @bust_picture = nil
     end
-    @bust_target_x = nil
 
     if @synergy_bust
       @synergy_bust.erase
