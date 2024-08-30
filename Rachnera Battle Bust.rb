@@ -375,7 +375,7 @@ class Scene_Battle < Scene_Base
   end
 
   def adjusted_bust_x(target)
-    [[target.screen_x - @bust_picture.width / 2, 0].max, Graphics.width - @bust_picture.width].min
+    [[target.screen_x - @bust_picture.width / 2, bust_offset_x].max, Graphics.width - @bust_picture.width].min
   end
 
   def is_simon_support_skill?
