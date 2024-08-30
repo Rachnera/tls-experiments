@@ -2,7 +2,6 @@ Busty::BATTLE_CONFIG.merge!({
   "Yarra" => {
     "Attack" => {
       picture: "BattlePortraits_Yarra_attack",
-      adjust_x: true,
     },
     "Ice Whip" => {
       picture: "BattlePortraits_Yarra_attack-ice",
