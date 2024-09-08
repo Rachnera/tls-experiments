@@ -129,6 +129,7 @@ class Window_Message < Window_Base
   end
   alias original_591_maatsf_total_line_width maatsf_total_line_width
   def maatsf_total_line_width(y = 0)
+    return original_591_maatsf_total_line_width(y) unless valid_context?
     original_591_maatsf_total_line_width(y) - standard_padding*2 + text_extra_indent
   end
   def text_extra_indent
