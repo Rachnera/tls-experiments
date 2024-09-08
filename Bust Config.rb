@@ -222,6 +222,7 @@ Busty::BASE_CONFIG.merge!({
     face_offset_y: 51,
   },
 })
+Busty::MESSAGE_CONFIG = {}
 Busty::MESSAGE_CONFIG.merge!({
   "Aka" => {
     bust_offset_x: -36,
