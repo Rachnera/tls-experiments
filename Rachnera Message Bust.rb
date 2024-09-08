@@ -7,6 +7,9 @@ module Busty
 
   # Add conditions that must be checked for some busts to be shown when characters talk
   MESSAGE_AUTODISPLAY_SPECIAL = {}
+
+  # Coordinates of where the lower left corner of the face should be, relative to the lower left corner of the screen
+  MESSAGE_FACE_POSITION = [24, 72]
 end
 
 class Window_Message < Window_Base
@@ -111,14 +114,19 @@ class Window_Message < Window_Base
     # Taking for granted the image is already tailor made to fit in the corner
     return bust_config[:bust_offset_x] || 0 if bust_face_hidden?
 
-    bust_config[:bust_offset_x] || -48
+    bust_config[:bust_offset_x] || Busty::MESSAGE_FACE_POSITION[0] - bust_face_subcoordinates[0]
   end
 
   def bust_offset_y
     # Cf similar exception in bust_offset_x
     return bust_config[:bust_offset_y] || 0 if bust_face_hidden?
 
-    bust_config[:bust_offset_y] || 0
+    return bust_config[:bust_offset_y] if bust_config[:bust_offset_y]
+
+    maybe_y = 96 + bust_face_subcoordinates[1] - bust_height + Busty::MESSAGE_FACE_POSITION[1]
+    return -1*maybe_y if maybe_y < 0 # Actual y-axis is oriented from top to bottom
+
+    0
   end
 
   def bust_config
@@ -127,6 +135,19 @@ class Window_Message < Window_Base
 
   def bust_face_hidden?
     Busty::BASE_CONFIG[character_name] && Busty::BASE_CONFIG[character_name][:hide_original_face]
+  end
+
+  def bust_face_subcoordinates
+    # No need for existence checks as this is always defined in practice?
+    [
+      Busty::BASE_CONFIG[character_name][:face_offset_x],
+      Busty::BASE_CONFIG[character_name][:face_offset_y],
+    ]
+  end
+
+  # FIXME Last straw in a larger mess to use to the bottom left corner as reference (instead of the upper left one)
+  def bust_height
+    Cache.picture('busts/' + character_name).height
   end
 
   # Cheat with padding and borders to leave more breathing room to busts

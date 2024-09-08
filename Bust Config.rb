@@ -162,18 +162,6 @@ class Window_Message < Window_Base
       ]
     end
 
-    # Qum has a tiny lock of hair that would look so much better with some extra pixels at the bottom
-    if character_name == "Qum D'umpe"
-      return [
-        nil,
-        nil,
-        nil,
-        nil,
-        nil,
-        above_height = height - 12,
-      ]
-    end
-
     nil
   end
 end
@@ -222,212 +210,7 @@ Busty::BASE_CONFIG.merge!({
     face_offset_y: 51,
   },
 })
-Busty::MESSAGE_CONFIG = {}
-Busty::MESSAGE_CONFIG.merge!({
-  "Aka" => {
-    bust_offset_x: -36,
-  },
-  "Altina" => {
-    bust_offset_x: -24,
-    bust_offset_y: 48,
-  },
-  "Alonon" => {
-    bust_offset_x: -24,
-  },
-  "Antiala" => {
-    bust_offset_x: -36,
-  },
-  "Balia" => {
-    bust_offset_x: -24,
-  },
-  "Bertricia" => {
-    bust_offset_x: -28,
-  },
-  "Biyue" => {
-    bust_offset_x: -42,
-  },
-  "Dari1" => {
-    bust_offset_x: -30,
-  },
-  "Dheria2" => {
-    bust_offset_x: -42,
-  },
-  "Dio" => { # Lustlord
-    bust_offset_x: -12,
-  },
-  "Doomed King" => {
-    bust_offset_x: -18,
-  },
-  "Esthera" => {
-    bust_offset_x: -60,
-  },
-  "Eytria" => {
-    bust_offset_x: -46,
-  },
-  "Farnan" => {
-    bust_offset_x: -36,
-  },
-  "Feremina" => {
-    bust_offset_x: 0,
-  },
-  "Fuani" => {
-    bust_offset_x: -30,
-  },
-  "Galvia" => {
-    bust_offset_x: -24,
-  },
-  "Ghanth" => {
-    bust_offset_x: -36,
-  },
-  "Ginasta" => {
-    bust_offset_x: -36,
-  },
-  "Grynyth" => {
-    bust_offset_x: -36,
-  },
-  "Herin" => {
-    bust_offset_x: -24,
-  },
-  "Ignias" => {
-    bust_offset_x: -24,
-  },
-  "Implevon" => {
-    bust_offset_x: -24,
-  },
-  "Incubus Emperor" => {
-    bust_offset_x: -30,
-  },
-  "Iris" => {
-    bust_offset_x: -36,
-    bust_offset_y: 12,
-  },
-  "Ivala" => {
-    bust_offset_x: -42,
-  },
-  "Janine 1" => {
-    bust_offset_x: -36,
-  },
-  "Janine Bride" => {
-    bust_offset_x: -36,
-  },
-  "Jhenno" => {
-    bust_offset_x: -60,
-  },
-  "Kalant" => {
-    bust_offset_x: -60,
-    bust_offset_y: 24,
-  },
-  "Kaskia" => {
-    bust_offset_x: -36,
-  },
-  "Kerannii" => {
-    bust_offset_x: -48,
-  },
-  "Lilith" => {
-    bust_offset_x: -36,
-  },
-  "Lynine" => {
-    bust_offset_x: -30,
-  },
-  "MainActor1-3" => { # Chosen
-    bust_offset_x: -60,
-  },
-  "Melymyn" => {
-    bust_offset_x: -36,
-  },
-  "Megail" => {
-    bust_offset_x: -36,
-  },
-  "Mestan" => {
-    bust_offset_x: -24,
-  },
-  "Min" => {
-    bust_offset_x: -36,
-  },
-  "Min2" => {
-    bust_offset_x: -36,
-  },
-  "Mithyn" => {
-    bust_offset_x: -154,
-  },
-  "Nabith" => {
-    bust_offset_x: -36,
-  },
-  "Nalili" => {
-    bust_offset_x: -36,
-    bust_offset_y: 24,
-  },
-  "Neranda" => {
-    bust_offset_x: -36,
-  },
-  "Orcent2" => {
-    bust_offset_x: -24,
-  },
-  "Orilise" => {
-    bust_offset_x: -36,
-  },
-  "Palina" => {
-    bust_offset_x: -18,
-  },
-  "Qum D'umpe" => {
-    bust_offset_x: -42,
-  },
-  "Ralke" => {
-    bust_offset_x: -36,
-  },
-  "Riala" => {
-    bust_offset_x: -36,
-  },
-  "Sabitha" => {
-    bust_offset_x: -30,
-  },
-  "Sage" => {
-    bust_offset_x: -24,
-  },
-  "Sarai" => {
-    bust_offset_x: -12,
-    bust_offset_y: 24,
-  },
-  "soulmage" => {
-    bust_offset_x: -36,
-  },
-  "Tertia" => {
-    bust_offset_x: -72,
-  },
-  "Trin" => {
-    bust_offset_x: -36,
-  },
-  "Tyna" => {
-    bust_offset_x: -36,
-  },
-  "Ulrissa" => {
-    bust_offset_x: -36,
-  },
-  "Uyae" => {
-    bust_offset_x: -24,
-  },
-  "Vera" => {
-    bust_offset_x: -24,
-  },
-  "Wendis blond" => {
-    bust_offset_x: -30,
-  },
-  "Wynn" => {
-    bust_offset_x: -36,
-    bust_offset_y: 24,
-  },
-  "Xestris" => {
-    bust_offset_x: -36,
-  },
-  "Yelarel" => {
-    bust_offset_x: -30,
-  },
-})
-Busty::MESSAGE_CONFIG["Aka2"] = Busty::MESSAGE_CONFIG["Aka"]
-Busty::MESSAGE_CONFIG["Dari2"] = Busty::MESSAGE_CONFIG["Dari1"]
-Busty::MESSAGE_CONFIG["Lilith grey"] = Busty::MESSAGE_CONFIG["Lilith"]
-Busty::MESSAGE_CONFIG["SabithaH"] = Busty::MESSAGE_CONFIG["Sabitha"]
-Busty::MESSAGE_CONFIG["Wendis greyT"] = Busty::MESSAGE_CONFIG["Wendis grey"] = Busty::MESSAGE_CONFIG["Wendis blondT"] = Busty::MESSAGE_CONFIG["Wendis blond"]
+Busty::MESSAGE_CONFIG = {} # TODO Only needed because of over split of files. To be removed after merge of Bust and Message Bust
 
 # Decarabia
 Busty::BASE_CONFIG.merge!({
@@ -593,7 +376,6 @@ Busty::BASE_CONFIG.merge!({
     face_offset_x: 60,
     face_offset_y: 42,
   },
-  # cut some parts of the bust to try and fix the transparency overlay issue between the two images.
   "Grynyth" => {
     bust_scale: 0.76,
     face_offset_x: 64,
@@ -1023,6 +805,29 @@ Busty::BASE_CONFIG.merge!({
 })
 
 # Rachnera
+
+# Characters always displayed at full height when speaking
+Busty::MESSAGE_CONFIG.merge!({
+  "Antiala" => {
+    bust_offset_y: 0,
+  },
+  "Dio" => {
+    bust_offset_y: 0,
+  },
+  "Doomed King" => {
+    bust_offset_y: 0,
+  },
+  "Esthera" => {
+    bust_offset_y: 0,
+  },
+  "Incubus Emperor" => {
+    bust_offset_y: 0,
+  },
+  "Tertia" => {
+    bust_offset_y: 0,
+  },
+})
+
 # Configuring super modes
 # They are close enough from normal modes we can just duplicate the original values
 [
@@ -1098,7 +903,14 @@ Busty::MESSAGE_CONFIG["Ulrissa2"] = Busty::MESSAGE_CONFIG["Ulrissa"]
 # Dark Xestris
 Busty::BASE_CONFIG["Xestris2"] = Busty::BASE_CONFIG["Xestris"]
 Busty::MESSAGE_CONFIG["Xestris2"] = Busty::MESSAGE_CONFIG["Xestris"]
-# Golden Ivala
+# Ivala
+# Explicit config so we can easily duplicate it
+Busty::MESSAGE_CONFIG.merge!({
+  "Ivala" => {
+    bust_offset_x: -42,
+    bust_offset_y: 0,
+  },
+})
 Busty::BASE_CONFIG.merge!({
   "Ivala Golden" => {
     hide_original_face: true,
