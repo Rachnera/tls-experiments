@@ -108,15 +108,25 @@ class Window_Message < Window_Base
   end
 
   def bust_offset_x
+    # Taking for granted the image is already tailor made to fit in the corner
+    return bust_config[:bust_offset_x] || 0 if bust_face_hidden?
+
     bust_config[:bust_offset_x] || -48
   end
 
   def bust_offset_y
+    # Cf similar exception in bust_offset_x
+    return bust_config[:bust_offset_y] || 0 if bust_face_hidden?
+
     bust_config[:bust_offset_y] || 0
   end
 
   def bust_config
     Busty::MESSAGE_CONFIG[character_name] || {}
+  end
+
+  def bust_face_hidden?
+    Busty::BASE_CONFIG[character_name] && Busty::BASE_CONFIG[character_name][:hide_original_face]
   end
 
   # Cheat with padding and borders to leave more breathing room to busts

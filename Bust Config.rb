@@ -1078,23 +1078,18 @@ Busty::BASE_CONFIG["Nalili2"] = {
 # Dealing with Yarra's boobs
 Busty::BASE_CONFIG.merge!({
   "Yarra boobs" => {
-    # Hide "face" by moving it out of screen.
-    # TODO Code a proper "hide_face" option?
-    face_offset_x: -1000,
-    face_offset_y: 1000,
+    hide_original_face: true,
   },
   "Yarra boobs bigger" => {
-    face_offset_x: -1000,
-    face_offset_y: 1000,
+    hide_original_face: true,
   },
 })
 Busty::MESSAGE_CONFIG.merge!({
   "Yarra boobs" => {
-    bust_offset_y: 0,
+    bust_offset_x: -48,
   },
   "Yarra boobs bigger" => {
-    bust_offset_x: -20,
-    bust_offset_y: 0,
+    bust_offset_x: -6,
   },
 })
 # Ulrissa hidden behind wolf mask
@@ -1103,11 +1098,10 @@ Busty::MESSAGE_CONFIG["Ulrissa2"] = Busty::MESSAGE_CONFIG["Ulrissa"]
 # Dark Xestris
 Busty::BASE_CONFIG["Xestris2"] = Busty::BASE_CONFIG["Xestris"]
 Busty::MESSAGE_CONFIG["Xestris2"] = Busty::MESSAGE_CONFIG["Xestris"]
-# Golden Ivala. Same trick as Yarra's boobs
+# Golden Ivala
 Busty::BASE_CONFIG.merge!({
   "Ivala Golden" => {
-    face_offset_x: -1000,
-    face_offset_y: 1000,
+    hide_original_face: true,
   },
 })
 Busty::MESSAGE_CONFIG["Ivala Golden"] = Busty::MESSAGE_CONFIG["Ivala"]

@@ -43,7 +43,6 @@ module Busty
       @bust.z = z
 
       @bust_face = Sprite.new
-      @bust_face.visible = true
 
       @bust_overflow = Sprite.new
       @bust_overflow.visible = true
@@ -68,11 +67,33 @@ module Busty
       @bust.x = x
       @bust.y = Graphics.height - @bust.height + y # A little unorthodox, but busts are snapped to the _lower_ left corner when y=0
 
+      @bust_overflow.bitmap = nil
+      if above_height && max_width
+        extra_width = bust_bitmap.width - @bust.width
+        extra_height = Graphics.height - above_height - @bust.y
+
+        if extra_width > 0 && extra_height > 0
+          extra_bitmap = Bitmap.new(extra_width, extra_height)
+          extra_rect = Rect.new(@bust.width, 0, extra_width, extra_height)
+          extra_bitmap.blt(0, 0, bust_bitmap, extra_rect)
+
+          @bust_overflow.x = @bust.x + @bust.width
+          @bust_overflow.y = @bust.y
+          @bust_overflow.bitmap = extra_bitmap
+        end
+      end
+
+      if bust_config[:hide_original_face]
+        @bust_face.visible = false
+        return
+      end
+
+      @bust_face.visible = true
+
       # Shave border of face image if need be
       face_width = 96 - face_border_width_left - face_border_width_right
       face_height = 96 - face_border_width_top - face_border_width_bottom
 
-      extra = 0
       if max_width
         # Cut part of the face if that would make the image overflows to the right
         extra = (face_offset_x + face_border_width_left + face_border_width_right + face_width) - max_width
@@ -92,25 +113,6 @@ module Busty
       @bust_face.x = @bust.x + face_border_width_left + face_offset_x
       @bust_face.y = @bust.y + face_border_width_top + face_offset_y
       @bust_face.z = @bust.z + face_z
-
-      @bust_overflow.bitmap = nil
-      return unless above_height
-      # Next part is only relevant if the bust was cut
-      return unless max_width
-      # Also skip if the face is so close to the right we had to cut it
-      return if extra > 0
-
-      extra_width = bust_bitmap.width - @bust.width
-      extra_height = Graphics.height - above_height - @bust.y
-      return unless extra_width > 0 && extra_height > 0
-
-      extra_bitmap = Bitmap.new(extra_width, extra_height)
-      extra_rect = Rect.new(@bust.width, 0, extra_width, extra_height)
-      extra_bitmap.blt(0, 0, bust_bitmap, extra_rect)
-
-      @bust_overflow.x = @bust.x + @bust.width
-      @bust_overflow.y = @bust.y
-      @bust_overflow.bitmap = extra_bitmap
     end
 
     def redraw(face_name, face_index)
