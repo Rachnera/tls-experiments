@@ -24,18 +24,6 @@ module Busty
     /\A([a-zA-Z]\s+)?(.+)\Z/.match(face_name)[2] # Will effectively return the name in full if nothing else works
   end
 
-  def self.rescale_bitmap(bitmap, scale)
-    width = bitmap.width * scale
-    height = bitmap.height * scale
-    new_bitmap = Bitmap.new(width, height)
-    src_rect = Rect.new(0, 0, bitmap.width, bitmap.height)
-    dest_rect = Rect.new(0, 0, width, height)
-    # Ref: https://www.rubydoc.info/gems/openrgss/Bitmap#stretch_blt-instance_method
-    new_bitmap.stretch_blt(dest_rect, bitmap, src_rect)
-    bitmap.dispose
-    new_bitmap
-  end
-
   class Bust
     def initialize(z)
       @bust = Sprite.new
@@ -145,17 +133,7 @@ module Busty
     end
 
     def bust_bitmap
-      #TODO Very basic pseudo cache, can likely be improved (or at least cleaned up)
-      @busts = {} if @busts.nil?
-      return @busts[character_name] if @busts.has_key?(character_name)
-
-      begin
-        @busts[character_name] = Cache.picture('busts/' + character_name)
-      rescue
-        @busts[character_name] = Busty::rescale_bitmap(Cache.picture(character_name), bust_scale)
-      end
-
-      @busts[character_name]
+      Cache.picture('busts/' + character_name)
     end
 
     def character_name
