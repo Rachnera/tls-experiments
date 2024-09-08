@@ -119,26 +119,15 @@ class Window_Message < Window_Base
     Busty::MESSAGE_CONFIG[character_name] || {}
   end
 
-  # Very experimental attempt at eating a big of the right padding to give more space to the bust at "no cost"
-  # To be deleted without a second thought if it turns to be a problem
+  # Cheat with padding and borders to leave more breathing room to busts
   alias original_591_new_line_x new_line_x
   def new_line_x
     original_591_new_line_x + text_extra_indent
   end
-  alias original_591_maatsf_total_line_width maatsf_total_line_width
-  def maatsf_total_line_width(y = 0)
-    original_591_maatsf_total_line_width(y) + text_extra_indent
-  end
-  def text_extra_indent
-    return 8 if valid_context?
-    0
-  end
-
-  # Experiment within the experiment to cheat the vertical borders
-  # Ready to be burned down on sight
   def bust_extra_x
     6-standard_padding
   end
+  alias original_591_maatsf_total_line_width maatsf_total_line_width
   def maatsf_total_line_width(y = 0)
     original_591_maatsf_total_line_width(y) - standard_padding*2 + text_extra_indent
   end
