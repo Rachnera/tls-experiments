@@ -53,7 +53,7 @@ class Window_Message < Window_Base
       $game_message.face_name,
       $game_message.face_index,
       max_width = (new_line_x + bust_extra_x),
-      above_height = height - 4,
+      above_height = height,
     ]
 
     return default_values unless custom_bust_display_options
