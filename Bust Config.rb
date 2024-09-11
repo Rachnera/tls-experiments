@@ -10,6 +10,7 @@ Busty::FACE_TO_BUST = {
   "Aka emo2" => "Aka2",
   "Alanon emo" => "Alonon",
   "darksorceress" => "Riala",
+  "Dheria emo1" => "Dheria1",
   "Dheria emo2" => "Dheria2",
   "face002b" => "Simon1",
   "face002b2" => "Simon1",
@@ -283,8 +284,13 @@ Busty::BASE_CONFIG.merge!({
   },
   "Dari2" => {
     bust_scale: 0.71,
-    face_offset_x: 48,
+    face_offset_x: 47,
     face_offset_y: 30,
+  },
+  "Dheria1" => {
+    bust_scale: 0.75,
+    face_offset_x: 68,
+    face_offset_y: 34,
   },
   "Dheria2" => {
     bust_scale: 0.75,
@@ -516,7 +522,7 @@ Busty::BASE_CONFIG.merge!({
   },
   "Nalili" => {
     bust_scale: 0.73,
-    face_offset_x: 55,
+    face_offset_x: 56,
     face_offset_y: 28,
     face_z: -1,
   },
@@ -804,29 +810,194 @@ Busty::BASE_CONFIG.merge!({
   },
 })
 
-# Rachnera
-
-# Characters always displayed at full height when speaking
+# adjustments to display characters at the right position
+# - most characters -> middle of nose level with top of text box
+# - halflings, dwarren -> short
+# - Tertia, Doom King -> tall
+# also some X axis adjustments for centering
 Busty::MESSAGE_CONFIG.merge!({
+  "Aka" => {
+    bust_offset_y: 5,
+  },
+  "Aka2" => {
+    bust_offset_y: 5,
+  },
   "Antiala" => {
+    bust_offset_y: 15,
+    bust_offset_x: -40,
+  },
+  "Balia" => {
+    bust_offset_x: -25,
+    bust_offset_y: 15,
+  },
+  "Carina" => {
+    bust_offset_y: 15,
+  },
+  "Dari1" => {
+    bust_offset_x: -27,
     bust_offset_y: 0,
   },
-  "Dio" => {
+  "Dari2" => {
+    bust_offset_x: -27,
     bust_offset_y: 0,
+  },
+  "Dheria1" => {
+    bust_offset_x: -40,
+  },
+  "Dheria2" => {
+    bust_offset_x: -40,
+  },
+  "Dio" => {
+    bust_offset_x: -10,
+    bust_offset_y: 15,
   },
   "Doomed King" => {
     bust_offset_y: 0,
   },
+  "Elleani" => {
+    bust_offset_y: 25,
+  },
+  "Esmera" => {
+    bust_offset_x: -40,
+    bust_offset_y: 15,
+  },
   "Esthera" => {
-    bust_offset_y: 0,
+    bust_offset_y: 35,
+  },
+  "Fheliel" => {
+    bust_offset_x: -40,
+  },
+  "Galvia" => {
+    bust_offset_y: 20,
+  },
+  "Grynyth" => {
+    bust_offset_x: -33,
+    bust_offset_y: 25,
+  },
+  "Herin" => {
+    bust_offset_y: 5,
+  },
+  "Hilstara" => {
+    bust_offset_x: -45,
+    bust_offset_y: 15,
   },
   "Incubus Emperor" => {
-    bust_offset_y: 0,
+    bust_offset_x: -20,
+    bust_offset_y: 35,
+  },
+  "Janine 1" => {
+    bust_offset_y: 25,
+  },
+  "Janine Bride" => {
+    bust_offset_y: 25,
+  },
+  "Kalant" => {
+    bust_offset_y: 40,
+  },
+  "Kaskia" => {
+    bust_offset_x: -30,
+  },
+  "Lilith" => {
+    bust_offset_x: -40,
+  },
+  "Lilith grey" => {
+    bust_offset_x: -40,
+  },
+  "Lynine" => {
+    bust_offset_y: 10,
+  },
+  "MainActor1-3" => { # Chosen
+    bust_offset_y: 55,
+  },
+  "Megail" => {
+    bust_offset_y: 20,
+  },
+  "Melymyn" => {
+    bust_offset_y: 8,
+  },
+  "Mestan" => {
+    bust_offset_y: -5,
+  },
+  "Nabith" => {
+    bust_offset_x: -25,
+  },
+  "Neranda" => {
+    bust_offset_y: 15,
+  },
+  "Nyst" => {
+    bust_offset_y: 30,
+  },
+  "Palina" => {
+    bust_offset_x: -15,
+  },
+  "Qum D'umpe" => {
+    bust_offset_y: 20,
+  },
+  "Robin blond" => {
+    bust_offset_x: -40,
+    bust_offset_y: 5,
+  },
+  "Robin grey" => {
+    bust_offset_x: -40,
+    bust_offset_y: 5,
+  },
+  "Sage" => {
+    bust_offset_y: 45,
+  },
+  "Sarai" => {
+    bust_offset_y: 30,
+  },
+  "Tanurak" => {
+    bust_offset_y: 15,
   },
   "Tertia" => {
-    bust_offset_y: 0,
+    bust_offset_x: -65,
+    bust_offset_y: 27,
+  },
+  "Tyna" => {
+    bust_offset_y: 5,
+  },
+  "Uyae" => {
+    bust_offset_x: -20,
+  },
+  "Varia" => {
+    bust_offset_y: 10,
+  },
+  "Vhala" => {
+    bust_offset_y: 12,
+  },
+  "Wynn" => {
+    bust_offset_x: -30,
+    bust_offset_y: 22,
+  },
+  "Bhakan" => {
+    bust_offset_y: 25,
+  },
+  "Donovan" => {
+    bust_offset_y: 5,
+  },
+  "Farnan" => {
+    bust_offset_y: 5,
+  },
+  "Ghanth" => {
+    bust_offset_y: 15,
+  },
+  "Jhenno" => {
+    bust_offset_y: 28,
+  },
+  "Biyue" => {
+    bust_offset_y: 15,
+  },
+  "Grubbak" => {
+    bust_offset_x: -39,
+    bust_offset_y: 31,
+  },
+  "Impaler" => {
+    bust_offset_y: 30,
   },
 })
+
+# Rachnera
 
 # Configuring super modes
 # They are close enough from normal modes we can just duplicate the original values
@@ -907,8 +1078,8 @@ Busty::MESSAGE_CONFIG["Xestris2"] = Busty::MESSAGE_CONFIG["Xestris"]
 # Explicit config so we can easily duplicate it
 Busty::MESSAGE_CONFIG.merge!({
   "Ivala" => {
-    bust_offset_x: -42,
-    bust_offset_y: 0,
+    bust_offset_x: -35,
+    bust_offset_y: 10,
   },
 })
 Busty::BASE_CONFIG.merge!({
