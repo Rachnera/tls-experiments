@@ -1,35 +1,55 @@
 Busty::BATTLE_CONFIG.merge!({
-  "Yarra" => {
-    "Attack" => {
-      picture: "BattlePortraits_Yarra_attack",
-    },
-    "Ice Whip" => {
-      picture: "BattlePortraits_Yarra_attack-ice",
-    },
-    "Lightning Whip" => {
-      picture: "BattlePortraits_Yarra_attack-lightning",
-    },
-    "Succubus Kiss" => {
-      picture: "BattlePortraits_Yarra_Kiss",
-    },
-    # Note: Code will stop at the first option that matches, so order can be relevant
+  "Qum D'umpe" => {
+    "Arousing Kiss" => "QumKissArousingKiss",
+    "Arousing Aura" => "QumKissArousingAura",
+    "Attack" => "QumSpellFlail",
+    "Cleansing Wink" => "QumSpellWink",
+    "Cumdump" => "QumHugAura",
+    "Guard" => "QumHugWince",
+    "Happy Tingles" => "QumMSparkles",
+    "Healing Kiss" => "QumKiss",
+    "Illusory Orgy" => "QumSpellCloud",
+    "Little Death" => "QumSpellSerious",
+    "Mass Kiss" => "QumKissMasskiss",
+    "Orgasmic Thoughts" => "QumOohCloud",
+    "Protective Hug" => "QumHug",
+    "Sealing Tech" => "QumSpell",
+    "Shiny Thoughts" => "QumOohSparkle",
     conditionals: [
       {
         condition: 'is_any_masturbation_skill',
-        picture: "BattlePortraits_Yarra_M",
+        picture: "QumM",
       },
       {
         condition: 'is_item',
-        picture: "BattlePortraits_Yarra_item",
-      },
-      {
-        condition: 'uses_tp',
-        picture: "BattlePortraits_Yarra_spell",
+        picture: "QumOoh",
       },
     ],
-    fallback: {
-      picture: "BattlePortraits_Yarra_attack",
-    },
+    fallback: "QumSpell",
+  },
+  "Yarra" => {
+    "Appreciate Harem" => "YarraMAppreciateHarem",
+    "Attack" => "YarraAttack",
+    "Bonded Fantasy" => "YarraKiss",
+    "First Slut" => "YarraM",
+    "Flirt" => "YarraKiss",
+    "Guard" => "YarraGuard",
+    "Ice Whip" => "YarraAttackIce",
+    "Incubus King's Emissary" => "YarraSpellEmissary",
+    "Sexual Mana" => "YarraMSexualMana",
+    "Shared Fantasy" => "YarraKissSharedFantasy",
+    "Succubus Kiss" => "YarraKiss",
+    conditionals: [
+      {
+        condition: 'is_any_masturbation_skill',
+        picture: "YarraM",
+      },
+      {
+        condition: 'is_item',
+        picture: "YarraItem",
+      },
+    ],
+    fallback: "YarraSpell",
   },
 })
 
