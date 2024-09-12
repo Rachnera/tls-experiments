@@ -33,6 +33,9 @@ Busty::FACE_TO_BUST = {
   "Z Andra emo" => nil, # To only allow face 4, see below
   "Z Andra emoN" => nil, # No bust for no robe Andra
   "Z Orcent" => "Orcent1",
+  # Unsupported supermodes
+  "Megail emo2g" => nil,
+  "Qum D'umpe emo2" => nil,
 }
 
 Busty::SUBSET_TO_BUST = [
