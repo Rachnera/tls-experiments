@@ -386,6 +386,16 @@ class Scene_Battle < Scene_Base
 
     return final_fallback if character_name.nil? or current_move_name.nil? or Busty::BATTLE_CONFIG[character_name].nil?
 
+    raw_config = raw_move_config
+
+    return final_fallback if !raw_config
+
+    return { picture: raw_config } if raw_config.is_a?(String)
+
+    raw_config
+  end
+
+  def raw_move_config
     character_config = Busty::BATTLE_CONFIG[character_name]
 
     proc_config = (character_config[:proc] || ->(move) { nil }).call(@subject.current_action.item)
@@ -400,7 +410,7 @@ class Scene_Battle < Scene_Base
 
     return character_config[:fallback] if character_config[:fallback]
 
-    final_fallback
+    nil
   end
 
   def current_move_name
