@@ -5,7 +5,20 @@ module Busty
   SUBSET_TO_BUST = [] # For busts matching with only some of the faces of a facesheet
 
   def self.has_bust?(character_name)
-    BASE_CONFIG.has_key?(character_name)
+    BASE_CONFIG.has_key?(character_name) && has_bust_bitmap?(character_name)
+  end
+
+  def self.bust_bitmap(character_name)
+    Cache.picture('busts/' + character_name)
+  end
+
+  def self.has_bust_bitmap?(character_name)
+    begin
+      bust_bitmap(character_name)
+      true
+    rescue Errno::ENOENT
+      false
+    end
   end
 
   def self.character_from_face(face_name, face_index)
@@ -133,7 +146,7 @@ module Busty
     end
 
     def bust_bitmap
-      Cache.picture('busts/' + character_name)
+      Busty::bust_bitmap(character_name)
     end
 
     def character_name
