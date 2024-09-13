@@ -359,8 +359,7 @@ class Scene_Battle < Scene_Base
     # Commit to the bit by showing Simon as a NPC at first (25 is the "Window Break" switch)
     return false if character_name == "Simon1" and not $game_switches[25]
 
-    # TODO Remove the second condition eventually?
-    Busty::BATTLE_CONFIG[character_name] || Busty::has_bust?(character_name)
+    !!move_config
   end
 
   def can_and_should_adjust_x?(move, targets)
@@ -381,14 +380,11 @@ class Scene_Battle < Scene_Base
   end
 
   def move_config
-    # If nothing else is configured, will default to the face that shows up at the bottom of the screen
-    final_fallback = { face_name: @subject.face_name, face_index: @subject.face_index }
-
-    return final_fallback if character_name.nil? or current_move_name.nil? or Busty::BATTLE_CONFIG[character_name].nil?
+    return nil if character_name.nil? or current_move_name.nil? or Busty::BATTLE_CONFIG[character_name].nil?
 
     raw_config = raw_move_config
 
-    return final_fallback if !raw_config
+    return nil unless raw_config
 
     return { picture: raw_config } if raw_config.is_a?(String)
 
@@ -401,14 +397,14 @@ class Scene_Battle < Scene_Base
     proc_config = (character_config[:proc] || ->(move) { nil }).call(@subject.current_action.item)
     return proc_config if proc_config
 
-    return character_config[current_move_name] if character_config[current_move_name]
+    return character_config[current_move_name] if character_config.has_key?(current_move_name)
 
     conditional_config = (character_config[:conditionals] || []).find do |cf|
       SkillHelper.send(cf[:condition], @subject.current_action.item)
     end
     return conditional_config if conditional_config
 
-    return character_config[:fallback] if character_config[:fallback]
+    return character_config[:fallback] if character_config.has_key?(:fallback)
 
     nil
   end
