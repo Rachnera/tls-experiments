@@ -331,6 +331,13 @@ class Scene_Battle < Scene_Base
     original_478_terminate
   end
 
+  alias original_478_create_log_window create_log_window
+  def create_log_window
+    original_478_create_log_window
+
+    save_log_window_position
+  end
+
   def move_log_window(x, y)
     @log_window.x = x
     @log_window.y = y
