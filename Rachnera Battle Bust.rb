@@ -2,7 +2,6 @@ module Busty
   BATTLE_CONFIG = {} # Placeholder, actual values in "Battle Bust Config"
 
   # TODO Rework so it also works for characters with alternative full images rather than composite faces/busts
-  # TODO Find a way to deal with busts displayed with synergy?
   def self.duplicate_battle_config(equivalence)
     equivalence.each do |original, copy|
       next unless BATTLE_CONFIG[original]
@@ -145,7 +144,7 @@ class Scene_Battle < Scene_Base
     end
     if show_bust?
       display_bust
-      if @bust_picture && can_and_should_adjust_x?(@subject.current_action.item, targets)
+      if can_and_should_adjust_x?(@subject.current_action.item, targets)
         @bust_picture.x = adjusted_bust_x(targets[0])
       end
     else
@@ -180,47 +179,25 @@ class Scene_Battle < Scene_Base
       # Attempt at making player actions slightly more readable with animations disabled
       # The idea is that we wait a bit longer before removing the image
       # But we move it further into the background and gray it out so it's not as obtrusive
-      if !$game_system.animations? && @bust_picture
+      if !$game_system.animations?
         @bust_picture.z = 2
         @bust_picture.tone.red = -64
         @bust_picture.tone.green = -64
         @bust_picture.tone.blue = -64
         @bust_picture.tone.gray = 128
-        return
+      else
+        cleanup_bust
       end
-
-      cleanup_bust
     end
   end
 
   def display_bust
-    if move_config[:picture] # If there's a dedicated picture, take precedence over everything else
-      @bust_picture = Sprite.new
-      @bust_picture.bitmap = Cache.picture('battle/' + move_config[:picture])
-      @bust_picture.visible = true
-      @bust_picture.z = 999
-      @bust_picture.x = bust_offset_x
-      @bust_picture.y = Graphics.height - @bust_picture.height + bust_offset_y
-    else
-      @bust = Busty::Bust.new(999) if @bust.nil?
-      @bust.draw(
-        bust_offset_x,
-        bust_offset_y,
-        move_config[:face_name],
-        move_config[:face_index]
-      )
-
-      if move_config[:synergy]
-        synergy_offset = 32
-        @synergy_bust = Busty::Bust.new(1001)
-        @synergy_bust.draw(
-          move_config[:synergy][:bust_offset_x] || (bust_offset_x - 32),
-          move_config[:synergy][:bust_offset_y] || 64,
-          move_config[:synergy][:face_name],
-          move_config[:synergy][:face_index]
-        )
-      end
-    end
+    @bust_picture = Sprite.new
+    @bust_picture.bitmap = Cache.picture('battle/' + move_config[:picture])
+    @bust_picture.visible = true
+    @bust_picture.z = 999
+    @bust_picture.x = bust_offset_x
+    @bust_picture.y = Graphics.height - @bust_picture.height + bust_offset_y
   end
 
   def display_enemy_bust
@@ -280,22 +257,6 @@ class Scene_Battle < Scene_Base
       @bust_picture.dispose
       @bust_picture.bitmap.dispose
       @bust_picture = nil
-    end
-
-    if @synergy_bust
-      @synergy_bust.erase
-      @synergy_bust.dispose
-      @synergy_bust = nil
-    end
-
-    if @bust
-      # FIXME Hack that likely won't work anymore with pictures
-      # Simon's Support skill is actually two skills, and the cleanup should only happen after the second one
-      return if is_simon_support_skill?
-
-      @bust.erase
-      @bust.dispose
-      @bust = nil
     end
   end
 
@@ -369,6 +330,7 @@ class Scene_Battle < Scene_Base
     !!move_config
   end
 
+  # TODO Obsolete? Also remove?
   def can_and_should_adjust_x?(move, targets)
     return false unless show_bust?
 
@@ -382,10 +344,6 @@ class Scene_Battle < Scene_Base
     [[target.screen_x - @bust_picture.width / 2, bust_offset_x].max, Graphics.width - @bust_picture.width].min
   end
 
-  def is_simon_support_skill?
-    ["Support Slaves", "Support Servants", "Support Allies"].include?(current_move_name)
-  end
-
   def move_config
     return nil if character_name.nil? or current_move_name.nil? or Busty::BATTLE_CONFIG[character_name].nil?
 
@@ -394,6 +352,8 @@ class Scene_Battle < Scene_Base
     return nil unless raw_config
 
     return { picture: raw_config } if raw_config.is_a?(String)
+
+    return nil unless raw_config[:picture] # Invalid config
 
     raw_config
   end

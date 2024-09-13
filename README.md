@@ -59,11 +59,11 @@ If you one day wish to remove that feature but not other bust related ones, just
 
 ## Test the experimental combat features
 
-Drop the following files after `Bust Config`, in that order:
+Add the following scripts, in that order:
 - Rachnera Battle Bust
 - Battle Bust Config
 
-Can be disabled independantly of the other features, by removing these two scripts and deleting the `Graphics/Pictures/battle` folder.
+This feature is (now) fully indepent of the other ones, and can be disabled safely on its own by removing these two scripts and deleting the `Graphics/Pictures/battle` folder.
 
 ## Credits
 
