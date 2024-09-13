@@ -149,7 +149,11 @@ class Scene_Battle < Scene_Base
       end
     else
       display_enemy_bust if @subject.is_a?(Game_Enemy)
-      display_npc_face if @subject.is_a?(Game_Actor)
+      if @subject.is_a?(Game_Actor)
+        if @actor_command_window.openness == 0 # Don't show anything if we are in the skill menu (i.e. this is an instant skill)
+          display_npc_face
+        end
+      end
     end
 
     # Original, no change
