@@ -1054,6 +1054,11 @@ Busty::MESSAGE_CONFIG.merge!({
     bust: "TanurakX",
   },
   {
+    original: "MainActor1-3",
+    faces: ["MainActor1-3fsx"], # Corrupted Chosen
+    bust: "MainActor1-3x",
+  },
+  {
     original: "Trin",
     faces: ["Trin emo3", "Trin emo4"],
     bust: "Trin-diadem-portrait",
