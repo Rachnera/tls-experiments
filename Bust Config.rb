@@ -27,6 +27,7 @@ Busty::FACE_TO_BUST = {
   "MainActor1-3fs" => "MainActor1-3", # Chosen
   "Min emo2" => "Min2",
   "Prologue emo" => "Ivala",
+  "Qum D'umpe emo2" => "Qum D'umpe2",
   "Riala emo2" => "Riala2",
   "Sabitha H emo" => "SabithaH",
   "Ulrissa emo3" => "Ulrissa2",
@@ -35,7 +36,6 @@ Busty::FACE_TO_BUST = {
   "Z Orcent" => "Orcent1",
   # Unsupported supermodes
   "Megail emo2g" => nil,
-  "Qum D'umpe emo2" => nil,
 }
 
 Busty::SUBSET_TO_BUST = [
@@ -647,6 +647,12 @@ Busty::BASE_CONFIG.merge!({
     face_offset_x: 62,
     face_offset_y: 40,
   },
+  "Qum D'umpe2" => {
+    bust_scale: 0.75,
+    face_offset_x: 62,
+    face_offset_y: 40,
+    face_border_width: [0, 0, 0, 12],
+  },
   "Riala" => {
     bust_scale: 0.75,
     face_offset_x: 52,
@@ -1031,6 +1037,9 @@ Busty::MESSAGE_CONFIG.merge!({
     bust_offset_x: -15,
   },
   "Qum D'umpe" => {
+    bust_offset_y: 20,
+  },
+  "Qum D'umpe2" => {
     bust_offset_y: 20,
   },
   "Robin blond" => {
