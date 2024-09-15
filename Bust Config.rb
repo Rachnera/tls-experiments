@@ -27,7 +27,6 @@ Busty::FACE_TO_BUST = {
   "MainActor1-3fs" => "MainActor1-3", # Chosen
   "Min emo2" => "Min2",
   "Prologue emo" => "Ivala",
-  "Qum D'umpe emo2" => "Qum D'umpe2",
   "Riala emo2" => "Riala2",
   "Sabitha H emo" => "SabithaH",
   "Ulrissa emo3" => "Ulrissa2",
@@ -562,11 +561,6 @@ Busty::BASE_CONFIG.merge!({
     bust_scale: 0.75,
     face_offset_x: 62,
     face_offset_y: 40,
-  },
-  "Qum D'umpe2" => {
-    bust_scale: 0.75,
-    face_offset_x: 62,
-    face_offset_y: 40,
     face_border_width: [0, 0, 0, 12],
   },
   "Riala" => {
@@ -955,9 +949,6 @@ Busty::MESSAGE_CONFIG.merge!({
   "Qum D'umpe" => {
     bust_offset_y: 20,
   },
-  "Qum D'umpe2" => {
-    bust_offset_y: 20,
-  },
   "Robin blond" => {
     bust_offset_x: -40,
     bust_offset_y: 5,
@@ -1057,6 +1048,11 @@ Busty::MESSAGE_CONFIG.merge!({
     original: "MainActor1-3",
     faces: ["MainActor1-3fsx"], # Corrupted Chosen
     bust: "MainActor1-3x",
+  },
+  {
+    original: "Qum D'umpe",
+    faces: ["Qum D'umpe emo2"],
+    bust: "Qum D'umpe2",
   },
   {
     original: "Trin",
