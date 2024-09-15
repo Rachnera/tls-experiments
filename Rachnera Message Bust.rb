@@ -274,6 +274,8 @@ class Window_Message < Window_Base
   def show_bust?
     return false unless valid_context?
 
+    return false unless $game_map.nil? || $game_map.screen.pictures.empty?
+
     # Check for potential special conditions on characters
     if Busty::MESSAGE_AUTODISPLAY_SPECIAL.has_key?(character_name)
       return false unless Busty.send(Busty::MESSAGE_AUTODISPLAY_SPECIAL[character_name])
@@ -378,6 +380,12 @@ class Window_Message < Window_Base
     return if show_bust?
     return original_591_draw_face(face_name, face_index, x + 2*standard_padding, y, enabled) if valid_context?
     original_591_draw_face(face_name, face_index, x, y, enabled)
+  end
+end
+
+class Game_Pictures
+  def empty?
+    @data.compact.reject { |picture| picture.name.empty? }.empty?
   end
 end
 
