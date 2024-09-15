@@ -10,8 +10,8 @@ Busty::FACE_TO_BUST = {
   "Aka emo2" => "Aka2",
   "Alanon emo" => "Alonon",
   "darksorceress" => "Riala",
-  "Dheria emo1" => "Dheria1",
-  "Dheria emo2" => "Dheria2",
+  "Dheria emo1" => "Dheria2", # grey tunic, red eyes
+  "Dheria emo2" => "Dheria1", # blue tunic, green eyes
   "face002b" => "Simon1",
   "face002b2" => "Simon1",
   "face002b dark" => "Simon1",
@@ -141,6 +141,17 @@ Busty::SUBSET_TO_BUST = [
     character_name: "Xestris2",
     face_name: "Xestris emo2",
     face_indexes: [0],
+  },
+  # Xestris ear positions
+  {
+    character_name: "Xestris-ear-up",
+    face_name: "Xestris emo2",
+    face_indexes: [1],
+  },
+  {
+    character_name: "Xestris-ear-down",
+    face_name: "Xestris emo2",
+    face_indexes: [2, 5, 6],
   },
   # Yarra boobs
   {
@@ -289,15 +300,16 @@ Busty::BASE_CONFIG.merge!({
     face_offset_x: 47,
     face_offset_y: 30,
   },
-  "Dheria1" => {
+  "Dheria1" => { # blue tunic, green eyes
     bust_scale: 0.75,
     face_offset_x: 68,
     face_offset_y: 34,
   },
-  "Dheria2" => {
+  "Dheria2" => { # grey tunic, red eyes
     bust_scale: 0.75,
     face_offset_x: 68,
     face_offset_y: 34,
+    face_border_width: [0, 0, 18, 0], # clothing colour mismatch
   },
   "Dio" => { # Lustlord
     bust_scale: 0.75,
@@ -684,6 +696,7 @@ Busty::BASE_CONFIG.merge!({
     face_offset_x: 47,
     face_offset_y: 38,
     face_z: -1,
+    face_border_width: [0, 0, 21, 0],
   },
  "Wynn" => {
     bust_scale: 0.79,
@@ -920,6 +933,9 @@ Busty::MESSAGE_CONFIG.merge!({
   "Mestan" => {
     bust_offset_y: -5,
   },
+  "Mithyn" => {
+    bust_offset_x: -145,
+  },
   "Nabith" => {
     bust_offset_x: -25,
   },
@@ -1043,15 +1059,6 @@ Busty::MESSAGE_CONFIG.merge!({
   end
 end
 
-# Nalili is being difficult and needs to be extra adjusted manually.
-# Decarabia
-Busty::BASE_CONFIG["Nalili2"] = {
-  bust_scale: 0.73,
-  face_offset_x: 56,
-  face_offset_y: 28,
-  face_z: -1,
-}
-
 # Rachnera
 # Dealing with Yarra's boobs
 Busty::BASE_CONFIG.merge!({
@@ -1076,6 +1083,11 @@ Busty::MESSAGE_CONFIG["Ulrissa2"] = Busty::MESSAGE_CONFIG["Ulrissa"]
 # Dark Xestris
 Busty::BASE_CONFIG["Xestris2"] = Busty::BASE_CONFIG["Xestris"]
 Busty::MESSAGE_CONFIG["Xestris2"] = Busty::MESSAGE_CONFIG["Xestris"]
+# Xestris ear positions
+Busty::BASE_CONFIG["Xestris-ear-up"] = Busty::BASE_CONFIG["Xestris"]
+Busty::MESSAGE_CONFIG["Xestris-ear-up"] = Busty::MESSAGE_CONFIG["Xestris"]
+Busty::BASE_CONFIG["Xestris-ear-down"] = Busty::BASE_CONFIG["Xestris"]
+Busty::MESSAGE_CONFIG["Xestris-ear-down"] = Busty::MESSAGE_CONFIG["Xestris"]
 # Ivala
 # Explicit config so we can easily duplicate it
 Busty::MESSAGE_CONFIG.merge!({
