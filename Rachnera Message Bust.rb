@@ -13,6 +13,9 @@ module Busty
   # Coordinates of where the lower left corner of the face should be, relative to the lower left corner of the screen
   MESSAGE_FACE_POSITION = [24, 72]
 
+  # Ambiance images, to be ignored when checking if busts should be displayed
+  AMBIENT_PICTURES = ['beam1_ani1']
+
   def self.has_bust?(character_name)
     BASE_CONFIG.has_key?(character_name) && has_bust_bitmap?(character_name)
   end
@@ -274,7 +277,11 @@ class Window_Message < Window_Base
   def show_bust?
     return false unless valid_context?
 
-    return false unless $game_map.nil? || ($game_map.screen.pictures.empty? && $game_map.screen.pictures_extra_viewport.empty?)
+    if $game_map
+      [$game_map.screen.pictures, $game_map.screen.pictures_extra_viewport].each do |pictures|
+        return false unless pictures.empty?(ignore = Busty::AMBIENT_PICTURES)
+      end
+    end
 
     # Check for potential special conditions on characters
     if Busty::MESSAGE_AUTODISPLAY_SPECIAL.has_key?(character_name)
@@ -384,8 +391,8 @@ class Window_Message < Window_Base
 end
 
 class Game_Pictures
-  def empty?
-    @data.compact.reject { |picture| picture.name.empty? }.empty?
+  def empty?(ignore = [])
+    @data.compact.reject { |picture| picture.name.empty? || ignore.include?(picture.name) }.empty?
   end
 end
 
