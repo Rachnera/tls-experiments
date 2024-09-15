@@ -1,10 +1,4 @@
-## Initial setup
-
-For any of the busts related features to work, you first need to do the following (once).
-
-Add the following scripts to your project:
-- Rachnera Bust
-- Bust Config
+## Assets setup
 
 Drop the `Graphics/` folder to the root of your project. This will do the following:
 - Create a `busts/` folder (under `Pictures/`) with all the properly resized (and sometimes altered) busts ready for display.
@@ -13,11 +7,17 @@ Drop the `Graphics/` folder to the root of your project. This will do the follow
 
 That folder also contains some other new and updated assets to match the bust system, including the corresponding full-size busts.
 
-## Manually show a bust
+## Busts for dialogues
+
+Add the following scripts to your project:
+- Rachnera Message Bust
+- Bust Config
+
+### Manually show a bust
 
 Using the "Script" Event Command:
 
-### Display
+#### Display
 
 ```rb
 $some_bust = Busty::Bust.new(z = 0)
@@ -31,7 +31,7 @@ $some_bust.draw(
 
 Note: To accomodate with the fact busts tend to be snapped to the bottom, y = 0 corresponds with the bottom of the bust aligned with the bottom of the screen. Axis are however unchanged, hence the minus sign.
 
-### Change expression
+#### Change expression
 
 Shortcut if you just need to change the character's expression without moving anything else.
 
@@ -42,7 +42,7 @@ $some_bust.redraw(
 )
 ```
 
-### Dispose
+#### Dispose
 
 ```rb
 $some_bust.erase
@@ -50,20 +50,13 @@ $some_bust.dispose
 $some_bust = nil
 ```
 
-## Automatically show busts for dialogues
-
-Add the following script before `Bust Config`, and preferably below other scripts modifying the text box:
-- Rachnera Message Bust
-
-If you one day wish to remove that feature but not other bust related ones, just delete that one script.
-
 ## Test the experimental combat features
 
 Add the following scripts, in that order:
 - Rachnera Battle Bust
 - Battle Bust Config
 
-This feature is (now) fully indepent of the other ones, and can be disabled safely on its own by removing these two scripts and deleting the `Graphics/Pictures/battle` folder.
+This feature is (now) fully indepent of the other ones, and can be disabled safely on its own by removing these two scripts.
 
 ## Credits
 

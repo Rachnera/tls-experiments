@@ -214,7 +214,6 @@ Busty::BASE_CONFIG.merge!({
     face_offset_y: 51,
   },
 })
-Busty::MESSAGE_CONFIG = {} # TODO Only needed because of over split of files. To be removed after merge of Bust and Message Bust
 
 # Decarabia
 Busty::BASE_CONFIG.merge!({
