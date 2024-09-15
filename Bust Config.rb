@@ -42,88 +42,6 @@ Busty::SUBSET_TO_BUST = [
     face_name: "Z Andra emo",
     face_indexes: [4],
   },
-  # Grynyth needs separate images for every face because her semi-transparent
-  # elements and moving eyebrow thingies make overlays a total nightmare
-  {
-    character_name: "Grynyth1-0",
-    face_name: "Grynyth emo",
-    face_indexes: [0],
-  },
-  {
-    character_name: "Grynyth1-1",
-    face_name: "Grynyth emo",
-    face_indexes: [1],
-  },
-  {
-    character_name: "Grynyth1-2",
-    face_name: "Grynyth emo",
-    face_indexes: [2],
-  },
-  {
-    character_name: "Grynyth1-3",
-    face_name: "Grynyth emo",
-    face_indexes: [3],
-  },
-  {
-    character_name: "Grynyth1-4",
-    face_name: "Grynyth emo",
-    face_indexes: [4],
-  },
-  {
-    character_name: "Grynyth1-5",
-    face_name: "Grynyth emo",
-    face_indexes: [5],
-  },
-  {
-    character_name: "Grynyth1-6",
-    face_name: "Grynyth emo",
-    face_indexes: [6],
-  },
-  {
-    character_name: "Grynyth1-7",
-    face_name: "Grynyth emo",
-    face_indexes: [7],
-  },
-  {
-    character_name: "Grynyth2-0",
-    face_name: "Grynyth emo2",
-    face_indexes: [0],
-  },
-  {
-    character_name: "Grynyth2-1",
-    face_name: "Grynyth emo2",
-    face_indexes: [1],
-  },
-  {
-    character_name: "Grynyth2-2",
-    face_name: "Grynyth emo2",
-    face_indexes: [2],
-  },
-  {
-    character_name: "Grynyth2-3",
-    face_name: "Grynyth emo2",
-    face_indexes: [3],
-  },
-  {
-    character_name: "Grynyth2-4",
-    face_name: "Grynyth emo2",
-    face_indexes: [4],
-  },
-  {
-    character_name: "Grynyth2-5",
-    face_name: "Grynyth emo2",
-    face_indexes: [5],
-  },
-  {
-    character_name: "Grynyth2-6",
-    face_name: "Grynyth emo2",
-    face_indexes: [6],
-  },
-  {
-    character_name: "Grynyth2-7",
-    face_name: "Grynyth emo2",
-    face_indexes: [7],
-  },
   {
     character_name: "Impaler",
     face_name: "Z orc emo",
@@ -1182,39 +1100,16 @@ Busty::BASE_CONFIG["Xestris-ear-up"] = Busty::BASE_CONFIG["Xestris"]
 Busty::MESSAGE_CONFIG["Xestris-ear-up"] = Busty::MESSAGE_CONFIG["Xestris"]
 Busty::BASE_CONFIG["Xestris-ear-down"] = Busty::BASE_CONFIG["Xestris"]
 Busty::MESSAGE_CONFIG["Xestris-ear-down"] = Busty::MESSAGE_CONFIG["Xestris"]
-# Grynyth eyebrow thingies
-Busty::BASE_CONFIG["Grynyth1-0"] = Busty::BASE_CONFIG["Grynyth"]
-Busty::MESSAGE_CONFIG["Grynyth1-0"] = Busty::MESSAGE_CONFIG["Grynyth"]
-Busty::BASE_CONFIG["Grynyth1-1"] = Busty::BASE_CONFIG["Grynyth"]
-Busty::MESSAGE_CONFIG["Grynyth1-1"] = Busty::MESSAGE_CONFIG["Grynyth"]
-Busty::BASE_CONFIG["Grynyth1-2"] = Busty::BASE_CONFIG["Grynyth"]
-Busty::MESSAGE_CONFIG["Grynyth1-2"] = Busty::MESSAGE_CONFIG["Grynyth"]
-Busty::BASE_CONFIG["Grynyth1-3"] = Busty::BASE_CONFIG["Grynyth"]
-Busty::MESSAGE_CONFIG["Grynyth1-3"] = Busty::MESSAGE_CONFIG["Grynyth"]
-Busty::BASE_CONFIG["Grynyth1-4"] = Busty::BASE_CONFIG["Grynyth"]
-Busty::MESSAGE_CONFIG["Grynyth1-4"] = Busty::MESSAGE_CONFIG["Grynyth"]
-Busty::BASE_CONFIG["Grynyth1-5"] = Busty::BASE_CONFIG["Grynyth"]
-Busty::MESSAGE_CONFIG["Grynyth1-5"] = Busty::MESSAGE_CONFIG["Grynyth"]
-Busty::BASE_CONFIG["Grynyth1-6"] = Busty::BASE_CONFIG["Grynyth"]
-Busty::MESSAGE_CONFIG["Grynyth1-6"] = Busty::MESSAGE_CONFIG["Grynyth"]
-Busty::BASE_CONFIG["Grynyth1-7"] = Busty::BASE_CONFIG["Grynyth"]
-Busty::MESSAGE_CONFIG["Grynyth1-7"] = Busty::MESSAGE_CONFIG["Grynyth"]
-Busty::BASE_CONFIG["Grynyth2-0"] = Busty::BASE_CONFIG["Grynyth"]
-Busty::MESSAGE_CONFIG["Grynyth2-0"] = Busty::MESSAGE_CONFIG["Grynyth"]
-Busty::BASE_CONFIG["Grynyth2-1"] = Busty::BASE_CONFIG["Grynyth"]
-Busty::MESSAGE_CONFIG["Grynyth2-1"] = Busty::MESSAGE_CONFIG["Grynyth"]
-Busty::BASE_CONFIG["Grynyth2-2"] = Busty::BASE_CONFIG["Grynyth"]
-Busty::MESSAGE_CONFIG["Grynyth2-2"] = Busty::MESSAGE_CONFIG["Grynyth"]
-Busty::BASE_CONFIG["Grynyth2-3"] = Busty::BASE_CONFIG["Grynyth"]
-Busty::MESSAGE_CONFIG["Grynyth2-3"] = Busty::MESSAGE_CONFIG["Grynyth"]
-Busty::BASE_CONFIG["Grynyth2-4"] = Busty::BASE_CONFIG["Grynyth"]
-Busty::MESSAGE_CONFIG["Grynyth2-4"] = Busty::MESSAGE_CONFIG["Grynyth"]
-Busty::BASE_CONFIG["Grynyth2-5"] = Busty::BASE_CONFIG["Grynyth"]
-Busty::MESSAGE_CONFIG["Grynyth2-5"] = Busty::MESSAGE_CONFIG["Grynyth"]
-Busty::BASE_CONFIG["Grynyth2-6"] = Busty::BASE_CONFIG["Grynyth"]
-Busty::MESSAGE_CONFIG["Grynyth2-6"] = Busty::MESSAGE_CONFIG["Grynyth"]
-Busty::BASE_CONFIG["Grynyth2-7"] = Busty::BASE_CONFIG["Grynyth"]
-Busty::MESSAGE_CONFIG["Grynyth2-7"] = Busty::MESSAGE_CONFIG["Grynyth"]
+# Grynyth needs separate images for every face because her semi-transparent
+# elements and moving eyebrow thingies make overlays a total nightmare
+(1..2).each do |i|
+  (0..7).each do |j|
+    name = "Grynyth#{i}-#{j}"
+    Busty::SUBSET_TO_BUST.insert(-1, { character_name: name, face_name: "Grynyth emo#{i > 1 ? i : ''}", face_indexes: [j] })
+    Busty::BASE_CONFIG[name] = Busty::BASE_CONFIG["Grynyth"]
+    Busty::MESSAGE_CONFIG[name] = Busty::MESSAGE_CONFIG["Grynyth"]
+  end
+end
 # Ivala
 # Explicit config so we can easily duplicate it
 Busty::MESSAGE_CONFIG.merge!({
