@@ -14,7 +14,7 @@ module Busty
   MESSAGE_FACE_POSITION = [24, 72]
 
   # Ambiance images, to be ignored when checking if busts should be displayed
-  AMBIENT_PICTURES = ['beam1_ani1', 'wallofivala1', 'wallofivala2', 'wallofivala3']
+  AMBIENT_PICTURES = ['beam1_ani1', 'wallofivala1', 'wallofivala2', 'wallofivala3', 'title0']
 
   def self.has_bust?(character_name)
     BASE_CONFIG.has_key?(character_name) && has_bust_bitmap?(character_name)
