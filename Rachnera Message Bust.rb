@@ -274,7 +274,7 @@ class Window_Message < Window_Base
   def show_bust?
     return false unless valid_context?
 
-    return false unless $game_map.nil? || $game_map.screen.pictures.empty?
+    return false unless $game_map.nil? || ($game_map.screen.pictures.empty? && $game_map.screen.pictures_extra_viewport.empty?)
 
     # Check for potential special conditions on characters
     if Busty::MESSAGE_AUTODISPLAY_SPECIAL.has_key?(character_name)
