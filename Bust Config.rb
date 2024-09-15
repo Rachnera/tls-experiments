@@ -34,8 +34,6 @@ Busty::FACE_TO_BUST = {
   "Z Andra emo" => nil, # To only allow face 4, see below
   "Z Andra emoN" => nil, # No bust for no robe Andra
   "Z Orcent" => "Orcent1",
-  # Unsupported supermodes
-  "Megail emo2g" => nil,
 }
 
 Busty::SUBSET_TO_BUST = [
@@ -581,7 +579,7 @@ Busty::BASE_CONFIG.merge!({
   "Megail" => {
     bust_scale: 0.80,
     face_offset_x: 60,
-    face_offset_y: 39,
+    face_offset_y: 40,
     face_z: -1,
   },
   "Melymyn" => {
@@ -1116,6 +1114,11 @@ Busty::MESSAGE_CONFIG.merge!({
     original: "Hilstara",
     faces: ["Hilstara emo3"],
     bust: "HilstaraKnight",
+  },
+  {
+    original: "Megail",
+    faces: ["Megail emo2g"],
+    bust: "MegailGold",
   },
   {
     original: "Nalili",
