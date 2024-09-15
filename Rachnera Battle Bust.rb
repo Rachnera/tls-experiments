@@ -137,16 +137,8 @@ class Scene_Battle < Scene_Base
     targets = @subject.current_action.make_targets.compact rescue []
 
     # New
-    if can_and_should_adjust_x?(@subject.current_action.item, targets)
-      @status_window.hide
-    else
-      @status_window.show
-    end
     if show_bust?
       display_bust
-      if can_and_should_adjust_x?(@subject.current_action.item, targets)
-        @bust_picture.x = adjusted_bust_x(targets[0])
-      end
     else
       display_enemy_bust if @subject.is_a?(Game_Enemy)
       if @subject.is_a?(Game_Actor)
@@ -180,18 +172,15 @@ class Scene_Battle < Scene_Base
 
     # Deliberately wait for the end of the "sweeper car" clean-up for the less obstrusive small images
     if show_bust?
-      # Attempt at making player actions slightly more readable with animations disabled
-      # The idea is that we wait a bit longer before removing the image
+      # Wait a bit longer before removing the image for smoother display (especially with animations off)
       # But we move it further into the background and gray it out so it's not as obtrusive
-      if !$game_system.animations?
-        @bust_picture.z = 2
-        @bust_picture.tone.red = -64
-        @bust_picture.tone.green = -64
-        @bust_picture.tone.blue = -64
-        @bust_picture.tone.gray = 128
-      else
-        cleanup_bust
-      end
+      @bust_picture.z = 2
+      @bust_picture.tone.red = -64
+      @bust_picture.tone.green = -64
+      @bust_picture.tone.blue = -64
+      @bust_picture.tone.gray = 128
+
+      @bust_target_x = -256
     end
   end
 
@@ -262,6 +251,7 @@ class Scene_Battle < Scene_Base
       @bust_picture.bitmap.dispose
       @bust_picture = nil
     end
+    @bust_target_x = nil
   end
 
   alias original_478_turn_start turn_start
@@ -332,20 +322,6 @@ class Scene_Battle < Scene_Base
     return false if character_name == "Simon1" and not $game_switches[25]
 
     !!move_config
-  end
-
-  # TODO Obsolete? Also remove?
-  def can_and_should_adjust_x?(move, targets)
-    return false unless show_bust?
-
-    return false unless $game_system.animations?
-
-    # Is an explicitly configured move with a single enemy target
-    move_config[:adjust_x] && SkillHelper::is_skill(move) && move.for_opponent? && targets.count == 1
-  end
-
-  def adjusted_bust_x(target)
-    [[target.screen_x - @bust_picture.width / 2, bust_offset_x].max, Graphics.width - @bust_picture.width].min
   end
 
   def move_config
@@ -428,6 +404,30 @@ class Window_BattleLog < Window_Selectable
 
     @back_sprite.x = x
     @back_sprite.y = y
+  end
+end
+
+# Experimental smooth sprite exit
+class Scene_Battle < Scene_Base
+  def exit_stage_left(step)
+    return unless $game_system.animations? && @bust_picture && @bust_target_x && @bust_target_x < @bust_picture.x
+
+    if @bust_picture.x - step < @bust_target_x
+      @bust_picture.x = @bust_target_x
+      @bust_target_x = nil
+    else
+      @bust_picture.x -= step
+    end
+  end
+end
+class Sprite_Battler < Sprite_Base
+  alias original_478_update_effect update_effect
+  def update_effect
+    original_478_update_effect
+
+    if SceneManager.scene.is_a?(Scene_Battle)
+      SceneManager.scene.exit_stage_left(step = 2)
+    end
   end
 end
 
