@@ -10,8 +10,8 @@ Busty::FACE_TO_BUST = {
   "Aka emo2" => "Aka2",
   "Alanon emo" => "Alonon",
   "darksorceress" => "Riala",
-  "Dheria emo1" => "Dheria1",
-  "Dheria emo2" => "Dheria2",
+  "Dheria emo1" => "Dheria2", # grey tunic, red eyes
+  "Dheria emo2" => "Dheria1", # blue tunic, green eyes
   "face002b" => "Simon1",
   "face002b2" => "Simon1",
   "face002b dark" => "Simon1",
@@ -33,9 +33,6 @@ Busty::FACE_TO_BUST = {
   "Z Andra emo" => nil, # To only allow face 4, see below
   "Z Andra emoN" => nil, # No bust for no robe Andra
   "Z Orcent" => "Orcent1",
-  # Unsupported supermodes
-  "Megail emo2g" => nil,
-  "Qum D'umpe emo2" => nil,
 }
 
 Busty::SUBSET_TO_BUST = [
@@ -141,6 +138,17 @@ Busty::SUBSET_TO_BUST = [
     character_name: "Xestris2",
     face_name: "Xestris emo2",
     face_indexes: [0],
+  },
+  # Xestris ear positions
+  {
+    character_name: "Xestris-ear-up",
+    face_name: "Xestris emo2",
+    face_indexes: [1],
+  },
+  {
+    character_name: "Xestris-ear-down",
+    face_name: "Xestris emo2",
+    face_indexes: [2, 5, 6],
   },
   # Yarra boobs
   {
@@ -289,15 +297,16 @@ Busty::BASE_CONFIG.merge!({
     face_offset_x: 47,
     face_offset_y: 30,
   },
-  "Dheria1" => {
+  "Dheria1" => { # blue tunic, green eyes
     bust_scale: 0.75,
     face_offset_x: 68,
     face_offset_y: 34,
   },
-  "Dheria2" => {
+  "Dheria2" => { # grey tunic, red eyes
     bust_scale: 0.75,
     face_offset_x: 68,
     face_offset_y: 34,
+    face_border_width: [0, 0, 18, 0], # clothing colour mismatch
   },
   "Dio" => { # Lustlord
     bust_scale: 0.75,
@@ -388,7 +397,7 @@ Busty::BASE_CONFIG.merge!({
     bust_scale: 0.76,
     face_offset_x: 64,
     face_offset_y: 24,
-    face_border_width: 1,
+    hide_original_face: true,
   },
   "Herin" => {
     bust_scale: 0.75,
@@ -487,7 +496,7 @@ Busty::BASE_CONFIG.merge!({
   "Megail" => {
     bust_scale: 0.80,
     face_offset_x: 60,
-    face_offset_y: 39,
+    face_offset_y: 40,
     face_z: -1,
   },
   "Melymyn" => {
@@ -552,6 +561,7 @@ Busty::BASE_CONFIG.merge!({
     bust_scale: 0.75,
     face_offset_x: 62,
     face_offset_y: 40,
+    face_border_width: [0, 0, 0, 12],
   },
   "Riala" => {
     bust_scale: 0.75,
@@ -684,6 +694,7 @@ Busty::BASE_CONFIG.merge!({
     face_offset_x: 47,
     face_offset_y: 38,
     face_z: -1,
+    face_border_width: [0, 0, 21, 0],
   },
  "Wynn" => {
     bust_scale: 0.79,
@@ -920,6 +931,9 @@ Busty::MESSAGE_CONFIG.merge!({
   "Mestan" => {
     bust_offset_y: -5,
   },
+  "Mithyn" => {
+    bust_offset_x: -145,
+  },
   "Nabith" => {
     bust_offset_x: -25,
   },
@@ -1011,6 +1025,11 @@ Busty::MESSAGE_CONFIG.merge!({
     bust: "HilstaraKnight",
   },
   {
+    original: "Megail",
+    faces: ["Megail emo2g"],
+    bust: "MegailGold",
+  },
+  {
     original: "Nalili",
     faces: ["Nalili emo3", "Nalili emo4"],
     bust: "Nalili2",
@@ -1024,6 +1043,16 @@ Busty::MESSAGE_CONFIG.merge!({
     original: "Tanurak",
     faces: ["Tanurak emoX"],
     bust: "TanurakX",
+  },
+  {
+    original: "MainActor1-3",
+    faces: ["MainActor1-3fsx"], # Corrupted Chosen
+    bust: "MainActor1-3x",
+  },
+  {
+    original: "Qum D'umpe",
+    faces: ["Qum D'umpe emo2"],
+    bust: "Qum D'umpe2",
   },
   {
     original: "Trin",
@@ -1042,15 +1071,6 @@ Busty::MESSAGE_CONFIG.merge!({
     Busty::FACE_TO_BUST[face] = cf[:bust]
   end
 end
-
-# Nalili is being difficult and needs to be extra adjusted manually.
-# Decarabia
-Busty::BASE_CONFIG["Nalili2"] = {
-  bust_scale: 0.73,
-  face_offset_x: 56,
-  face_offset_y: 28,
-  face_z: -1,
-}
 
 # Rachnera
 # Dealing with Yarra's boobs
@@ -1076,6 +1096,21 @@ Busty::MESSAGE_CONFIG["Ulrissa2"] = Busty::MESSAGE_CONFIG["Ulrissa"]
 # Dark Xestris
 Busty::BASE_CONFIG["Xestris2"] = Busty::BASE_CONFIG["Xestris"]
 Busty::MESSAGE_CONFIG["Xestris2"] = Busty::MESSAGE_CONFIG["Xestris"]
+# Xestris ear positions
+Busty::BASE_CONFIG["Xestris-ear-up"] = Busty::BASE_CONFIG["Xestris"]
+Busty::MESSAGE_CONFIG["Xestris-ear-up"] = Busty::MESSAGE_CONFIG["Xestris"]
+Busty::BASE_CONFIG["Xestris-ear-down"] = Busty::BASE_CONFIG["Xestris"]
+Busty::MESSAGE_CONFIG["Xestris-ear-down"] = Busty::MESSAGE_CONFIG["Xestris"]
+# Grynyth needs separate images for every face because her semi-transparent
+# elements and moving eyebrow thingies make overlays a total nightmare
+(1..2).each do |i|
+  (0..7).each do |j|
+    name = "Grynyth#{i}-#{j}"
+    Busty::SUBSET_TO_BUST.insert(-1, { character_name: name, face_name: "Grynyth emo#{i > 1 ? i : ''}", face_indexes: [j] })
+    Busty::BASE_CONFIG[name] = Busty::BASE_CONFIG["Grynyth"]
+    Busty::MESSAGE_CONFIG[name] = Busty::MESSAGE_CONFIG["Grynyth"]
+  end
+end
 # Ivala
 # Explicit config so we can easily duplicate it
 Busty::MESSAGE_CONFIG.merge!({
