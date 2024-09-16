@@ -980,7 +980,7 @@ Busty::MESSAGE_CONFIG.merge!({
     bust_offset_x: -24,
   },
   "Riala" => {
-    bust_offset_x: -36,
+    bust_offset_x: -30,
   },
 })
 
