@@ -155,6 +155,12 @@ Busty::SUBSET_TO_BUST = [
     face_name: "Yarra emo2",
     face_indexes: [3],
   },
+  # Disabled variant colors of the Doom King
+  {
+    character_name: nil,
+    face_name: "Doomed King emo",
+    face_indexes: [0, 2, 3, 4, 6, 7],
+  },
 ]
 # Special cheats for some characters
 class Window_Message < Window_Base
@@ -272,11 +278,6 @@ Busty::BASE_CONFIG.merge!({
     face_offset_y: 47,
   },
   "Dari1" => {
-    bust_scale: 0.71,
-    face_offset_x: 47,
-    face_offset_y: 30,
-  },
-  "Dari2" => {
     bust_scale: 0.71,
     face_offset_x: 47,
     face_offset_y: 30,
@@ -552,11 +553,6 @@ Busty::BASE_CONFIG.merge!({
     face_offset_x: 63,
     face_offset_y: 53,
   },
-  "Robin grey" => {
-    bust_scale: 0.75,
-    face_offset_x: 63,
-    face_offset_y: 53,
-  },
   "Sabitha" => {
     bust_scale: 0.75,
     face_offset_x: 53,
@@ -611,27 +607,27 @@ Busty::BASE_CONFIG.merge!({
     face_offset_x: 64,
     face_offset_y: 48,
   },
- "Uneanun" => {
+  "Uneanun" => {
     bust_scale: 0.84,
     face_offset_x: 66,
     face_offset_y: 62,
   },
- "Uyae" => {
+  "Uyae" => {
     bust_scale: 0.70,
     face_offset_x: 52,
     face_offset_y: 42,
   },
- "Varia" => {
+  "Varia" => {
     bust_scale: 0.70,
     face_offset_x: 62,
     face_offset_y: 48,
   },
- "Vera" => {
+  "Vera" => {
     bust_scale: 0.69,
     face_offset_x: 40,
     face_offset_y: 23,
   },
- "Vhala" => {
+  "Vhala" => {
     bust_scale: 0.75,
     face_offset_x: 72,
     face_offset_y: 41,
@@ -649,54 +645,54 @@ Busty::BASE_CONFIG.merge!({
     face_z: -1,
     face_border_width: [0, 0, 21, 0]
   },
- "Wendis blondT" => {
+  "Wendis blondT" => {
     bust_scale: 0.69,
     face_offset_x: 47,
     face_offset_y: 38,
     face_z: -1,
     face_border_width: [0, 0, 21, 0]
   },
- "Wendis grey" => {
+  "Wendis grey" => {
     bust_scale: 0.70,
     face_offset_x: 48,
     face_offset_y: 40,
     face_z: -1,
     face_border_width: [0, 0, 21, 0],
   },
- "Wendis greyT" => {
+  "Wendis greyT" => {
     bust_scale: 0.69,
     face_offset_x: 47,
     face_offset_y: 38,
     face_z: -1,
     face_border_width: [0, 0, 21, 0],
   },
- "Wynn" => {
+  "Wynn" => {
     bust_scale: 0.79,
     face_offset_x: 59,
     face_offset_y: 50,
     face_border_width: 1,
   },
- "Xerces" => {
+  "Xerces" => {
     bust_scale: 0.75,
     face_offset_x: 60,
     face_offset_y: 25,
   },
- "Xestris" => {
+  "Xestris" => {
     bust_scale: 0.74,
     face_offset_x: 59,
     face_offset_y: 27,
   },
- "Yarra" => {
+  "Yarra" => {
     bust_scale: 0.70,
     face_offset_x: 83,
     face_offset_y: 20,
   },
- "Yelarel" => {
+  "Yelarel" => {
     bust_scale: 0.91,
     face_offset_x: 56,
     face_offset_y: 39,
   },
- "Zelica" => {
+  "Zelica" => {
     bust_scale: 0.75,
     face_offset_x: 78,
     face_offset_y: 66,
@@ -821,10 +817,6 @@ Busty::MESSAGE_CONFIG.merge!({
     bust_offset_x: -27,
     bust_offset_y: 0,
   },
-  "Dari2" => {
-    bust_offset_x: -27,
-    bust_offset_y: 0,
-  },
   "Dheria1" => {
     bust_offset_x: -40,
   },
@@ -915,11 +907,7 @@ Busty::MESSAGE_CONFIG.merge!({
     bust_offset_y: 20,
   },
   "Robin blond" => {
-    bust_offset_x: -40,
-    bust_offset_y: 5,
-  },
-  "Robin grey" => {
-    bust_offset_x: -40,
+    bust_offset_x: -43,
     bust_offset_y: 5,
   },
   "Sage" => {
@@ -976,6 +964,24 @@ Busty::MESSAGE_CONFIG.merge!({
   "Impaler" => {
     bust_offset_y: 30,
   },
+  "Yarra" => {
+    bust_offset_x: -55,
+  },
+  "Dari1" => {
+    bust_offset_x: -30,
+  },
+  "Iris" => {
+    bust_offset_x: -30,
+  },
+  "Xerces" => {
+    bust_offset_x: -42,
+  },
+  "Mestan" => {
+    bust_offset_x: -24,
+  },
+  "Riala" => {
+    bust_offset_x: -36,
+  },
 })
 
 # Configuring super modes and co
@@ -986,6 +992,11 @@ Busty::replicate_config_for_alternate_forms([
     original: "Aka",
     faces: ["Aka emo2"],
     bust: "Aka2",
+  },
+  {
+    original: "Dari1",
+    faces: ["Dari2 emo"],
+    bust: "Dari2",
   },
   {
     original: "Hilstara",
@@ -1016,6 +1027,11 @@ Busty::replicate_config_for_alternate_forms([
     original: "Neranda",
     faces: ["Neranda emo3", "Neranda emo4"],
     bust: "NerandaAvatar",
+  },
+  {
+    original: "Robin blond",
+    faces: ["Robin grey emo"],
+    bust: "Robin grey",
   },
   {
     original: "Tanurak",
