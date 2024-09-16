@@ -209,7 +209,6 @@ module Busty
   end
 end
 
-# Rachnera
 Busty::BASE_CONFIG.merge!({
   "Andra" => {
     bust_scale: 0.75,
@@ -221,10 +220,6 @@ Busty::BASE_CONFIG.merge!({
     face_offset_x: 59,
     face_offset_y: 51,
   },
-})
-
-# Decarabia
-Busty::BASE_CONFIG.merge!({
   "Aka" => {
     bust_scale: 0.80,
     face_offset_x: 61,
@@ -1013,8 +1008,6 @@ Busty::MESSAGE_CONFIG.merge!({
   },
 })
 
-# Rachnera
-
 # Configuring super modes
 # They are close enough from normal modes we can just duplicate the original values
 [
@@ -1072,7 +1065,6 @@ Busty::MESSAGE_CONFIG.merge!({
   end
 end
 
-# Rachnera
 # Dealing with Yarra's boobs
 Busty::BASE_CONFIG.merge!({
   "Yarra boobs" => {
