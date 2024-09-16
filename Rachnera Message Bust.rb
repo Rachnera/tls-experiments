@@ -49,6 +49,16 @@ module Busty
     /\A([a-zA-Z]\s+)?(.+)\Z/.match(face_name)[2] # Will effectively return the name in full if nothing else works
   end
 
+  def self.replicate_config_for_alternate_forms(equivalences)
+    equivalences.each do |cf|
+      Busty::BASE_CONFIG[cf[:bust]] = Busty::BASE_CONFIG[cf[:original]].clone
+      Busty::MESSAGE_CONFIG[cf[:bust]] = Busty::MESSAGE_CONFIG[cf[:original]].clone if Busty::MESSAGE_CONFIG[cf[:original]]
+      cf[:faces].each do |face|
+        Busty::FACE_TO_BUST[face] = cf[:bust]
+      end
+    end
+  end
+
   class Bust
     def initialize(z)
       @bust = Sprite.new

@@ -7,7 +7,6 @@ Busty::FACE_TO_BUST = {
   "1 Simon distress2" => "Simon2D",
   "1 Simon distress3" => "Simon2",
   "1 Simon distress4" => "Simon2",
-  "Aka emo2" => "Aka2",
   "Alanon emo" => "Alonon",
   "darksorceress" => "Riala",
   "Dheria emo1" => "Dheria2", # grey tunic, red eyes
@@ -18,11 +17,6 @@ Busty::FACE_TO_BUST = {
   "face002b dark2" => "Simon1",
   "face002b_Wedding" => "Simon suit wedding",
   "Fucklord emo" => "Incubus Emperor",
-  "Janine emo2" => "Janine 1",
-  "Janine emo3" => "Janine 1",
-  "Janine emo2B" => "Janine Bride",
-  "Janine emo3B" => "Janine Bride",
-  "Lilith emo3" => "Lilith grey",
   "MainActor1-1fs" => "Altina",
   "MainActor1-3fs" => "MainActor1-3", # Chosen
   "Min emo2" => "Min2",
@@ -221,11 +215,6 @@ Busty::BASE_CONFIG.merge!({
     face_offset_y: 51,
   },
   "Aka" => {
-    bust_scale: 0.80,
-    face_offset_x: 61,
-    face_offset_y: 66,
-  },
-  "Aka2" => {
     bust_scale: 0.80,
     face_offset_x: 61,
     face_offset_y: 66,
@@ -433,12 +422,7 @@ Busty::BASE_CONFIG.merge!({
     face_offset_x: 57,
     face_offset_y: 50,
   },
-  "Janine 1" => {
-    bust_scale: 0.75,
-    face_offset_x: 52,
-    face_offset_y: 34,
-  },
-  "Janine Bride" => {
+  "Janine" => {
     bust_scale: 0.75,
     face_offset_x: 52,
     face_offset_y: 34,
@@ -466,11 +450,6 @@ Busty::BASE_CONFIG.merge!({
     bust_scale: 0.75,
     face_offset_x: 68,
     face_offset_y: 39,
-  },
-  "Lilith grey" => {
-    bust_scale: 0.75,
-    face_offset_x: 69,
-    face_offset_y: 69,
   },
   "Lilith" => {
     bust_scale: 0.75,
@@ -827,9 +806,6 @@ Busty::MESSAGE_CONFIG.merge!({
   "Aka" => {
     bust_offset_y: 5,
   },
-  "Aka2" => {
-    bust_offset_y: 5,
-  },
   "Antiala" => {
     bust_offset_y: 15,
     bust_offset_x: -40,
@@ -893,10 +869,7 @@ Busty::MESSAGE_CONFIG.merge!({
     bust_offset_x: -20,
     bust_offset_y: 35,
   },
-  "Janine 1" => {
-    bust_offset_y: 25,
-  },
-  "Janine Bride" => {
+  "Janine" => {
     bust_offset_y: 25,
   },
   "Kalant" => {
@@ -906,9 +879,6 @@ Busty::MESSAGE_CONFIG.merge!({
     bust_offset_x: -30,
   },
   "Lilith" => {
-    bust_offset_x: -40,
-  },
-  "Lilith grey" => {
     bust_offset_x: -40,
   },
   "Lynine" => {
@@ -1008,14 +978,29 @@ Busty::MESSAGE_CONFIG.merge!({
   },
 })
 
-# Configuring super modes
+# Configuring super modes and co
 # They are close enough from normal modes we can just duplicate the original values
-[
+Busty::replicate_config_for_alternate_forms([
   # Carina does not need anything specific as only her eyes change
+  {
+    original: "Aka",
+    faces: ["Aka emo2"],
+    bust: "Aka2",
+  },
   {
     original: "Hilstara",
     faces: ["Hilstara emo3"],
     bust: "HilstaraKnight",
+  },
+  {
+    original: "Janine",
+    faces: ["Janine emo2B", "Janine emo3B"],
+    bust: "Janine Bride",
+  },
+  {
+    original: "Lilith",
+    faces: ["Lilith emo3"],
+    bust: "Lilith grey",
   },
   {
     original: "Megail",
@@ -1057,13 +1042,7 @@ Busty::MESSAGE_CONFIG.merge!({
     faces: ["Uyae emo2d"],
     bust: "Uyae God Flip",
   },
-].each do |cf|
-  Busty::BASE_CONFIG[cf[:bust]] = Busty::BASE_CONFIG[cf[:original]].clone
-  Busty::MESSAGE_CONFIG[cf[:bust]] = Busty::MESSAGE_CONFIG[cf[:original]].clone if Busty::MESSAGE_CONFIG[cf[:original]]
-  cf[:faces].each do |face|
-    Busty::FACE_TO_BUST[face] = cf[:bust]
-  end
-end
+])
 
 # Dealing with Yarra's boobs
 Busty::BASE_CONFIG.merge!({
