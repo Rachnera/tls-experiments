@@ -966,6 +966,7 @@ Busty::MESSAGE_CONFIG.merge!({
   },
   "Yarra" => {
     bust_offset_x: -55,
+    bust_offset_y: 10,
   },
   "Dari1" => {
     bust_offset_x: -30,
