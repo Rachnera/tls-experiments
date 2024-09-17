@@ -155,12 +155,6 @@ Busty::SUBSET_TO_BUST = [
     face_name: "Yarra emo2",
     face_indexes: [3],
   },
-  # Disabled variant colors of the Doom King
-  {
-    character_name: nil,
-    face_name: "Doomed King emo",
-    face_indexes: [0, 2, 3, 4, 6, 7],
-  },
 ]
 # Special cheats for some characters
 class Window_Message < Window_Base
@@ -308,7 +302,7 @@ Busty::BASE_CONFIG.merge!({
     bust_scale: 0.76,
     face_offset_x: 37,
     face_offset_y: 57,
-    face_z: -1,
+    hide_original_face: true,
   },
   "Elleani" => {
     bust_scale: 0.80,
@@ -828,6 +822,7 @@ Busty::MESSAGE_CONFIG.merge!({
     bust_offset_y: 15,
   },
   "Doomed King" => {
+    bust_offset_x: -15,
     bust_offset_y: 0,
   },
   "Elleani" => {
@@ -1098,6 +1093,13 @@ Busty::MESSAGE_CONFIG["Xestris-ear-down"] = Busty::MESSAGE_CONFIG["Xestris"]
     Busty::BASE_CONFIG[name] = Busty::BASE_CONFIG["Grynyth"]
     Busty::MESSAGE_CONFIG[name] = Busty::MESSAGE_CONFIG["Grynyth"]
   end
+end
+# Doom King has various armour colours - simplest just to use one bust image for each
+(0..7).each do |j|
+  name = "Doomed King #{j}"
+  Busty::SUBSET_TO_BUST.insert(-1, { character_name: name, face_name: "Doomed King emo", face_indexes: [j] })
+  Busty::BASE_CONFIG[name] = Busty::BASE_CONFIG["Doomed King"]
+  Busty::MESSAGE_CONFIG[name] = Busty::MESSAGE_CONFIG["Doomed King"]
 end
 # Ivala
 # Explicit config so we can easily duplicate it
