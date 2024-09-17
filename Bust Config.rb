@@ -155,12 +155,6 @@ Busty::SUBSET_TO_BUST = [
     face_name: "Yarra emo2",
     face_indexes: [3],
   },
-  # Disabled variant colors of the Doom King
-  {
-    character_name: nil,
-    face_name: "Doomed King emo",
-    face_indexes: [0, 2, 3, 4, 6, 7],
-  },
 ]
 # Special cheats for some characters
 class Window_Message < Window_Base
