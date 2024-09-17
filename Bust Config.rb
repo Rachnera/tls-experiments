@@ -213,7 +213,7 @@ Busty::BASE_CONFIG.merge!({
   "Andra" => {
     bust_scale: 0.75,
     face_offset_x: 68,
-    face_offset_y: 47,
+    face_offset_y: 63,
   },
   "Luanell" => {
     bust_scale: 0.81,
@@ -254,7 +254,7 @@ Busty::BASE_CONFIG.merge!({
   "Antiala" => {
     bust_scale: 0.75,
     face_offset_x: 69,
-    face_offset_y: 50,
+    face_offset_y: 66,
   },
   "Balia" => {
     bust_scale: 0.75,
@@ -296,7 +296,7 @@ Busty::BASE_CONFIG.merge!({
   "Dio" => { # Lustlord
     bust_scale: 0.75,
     face_offset_x: 26,
-    face_offset_y: 36,
+    face_offset_y: 52,
   },
   "Donovan" => {
     bust_scale: 0.75,
@@ -387,7 +387,7 @@ Busty::BASE_CONFIG.merge!({
   "Herin" => {
     bust_scale: 0.75,
     face_offset_x: 54,
-    face_offset_y: 58,
+    face_offset_y: 74,
     face_z: -1,
   },
   "Hester" => {
@@ -695,12 +695,12 @@ Busty::BASE_CONFIG.merge!({
   "Zelica" => {
     bust_scale: 0.75,
     face_offset_x: 78,
-    face_offset_y: 66,
+    face_offset_y: 106,
   },
   "Incubus Emperor" => {
     bust_scale: 0.75,
     face_offset_x: 41,
-    face_offset_y: 23,
+    face_offset_y: 39,
     face_border_width: 1,
   },
   "Lord of Blood" => {
@@ -738,7 +738,7 @@ Busty::BASE_CONFIG.merge!({
   "Orcent priest" => {
     bust_scale: 0.727272,
     face_offset_x: 61,
-    face_offset_y: 18,
+    face_offset_y: 34,
   },
   "Orcent slave" => {
     bust_scale: 0.727272,
