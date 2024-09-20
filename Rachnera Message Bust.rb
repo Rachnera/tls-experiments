@@ -324,6 +324,7 @@ class Window_Message < Window_Base
   alias original_591_draw_face draw_face
   def draw_face(face_name, face_index, x, y, enabled = true)
     return if show_bust?
+    return original_591_draw_face(face_name, face_index, x + 2*standard_padding, y, enabled) if valid_context?
     original_591_draw_face(face_name, face_index, x, y, enabled)
   end
 
@@ -392,11 +393,6 @@ class Window_Message < Window_Base
       create_contents
     end
     original_591_new_page(*args, &block)
-  end
-  def draw_face(face_name, face_index, x, y, enabled = true)
-    return if show_bust?
-    return original_591_draw_face(face_name, face_index, x + 2*standard_padding, y, enabled) if valid_context?
-    original_591_draw_face(face_name, face_index, x, y, enabled)
   end
 end
 
