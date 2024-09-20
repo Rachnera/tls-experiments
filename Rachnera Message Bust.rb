@@ -227,7 +227,7 @@ class Window_Message < Window_Base
   alias hmb_window_message_create_back_bitmap create_back_bitmap
   def create_back_bitmap
     @bust = Busty::Bust.new(z+1) if @bust.nil?
-    @choice_window.z = z + 2 if @choice_window.z < z + 2
+    @choice_window.z = z + 10 if @choice_window.z < z + 10
 
     hmb_window_message_create_back_bitmap
   end
