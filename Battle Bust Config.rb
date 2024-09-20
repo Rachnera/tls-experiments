@@ -2,7 +2,10 @@ Busty::BATTLE_CONFIG.merge!({
   "Qum D'umpe" => {
     "Arousing Kiss" => "QumKissArousingKiss",
     "Arousing Aura" => "QumKissArousingAura",
-    "Attack" => "QumSpellFlail",
+    "Attack" => {
+      picture: "QumSpellFlail",
+      move_in_out: true,
+    },
     "Cleansing Wink" => "QumSpellWink",
     "Cumdump" => "QumHugAura",
     "Guard" => "QumHugWince",
@@ -29,7 +32,10 @@ Busty::BATTLE_CONFIG.merge!({
   },
   "Yarra" => {
     "Appreciate Harem" => "YarraMAppreciateHarem",
-    "Attack" => "YarraAttack",
+    "Attack" => {
+      picture: "YarraAttack",
+      move_in_out: true,
+    },
     "Bonded Fantasy" => "YarraKiss",
     "First Slut" => "YarraM",
     "Flirt" => "YarraKiss",

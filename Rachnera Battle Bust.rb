@@ -180,7 +180,9 @@ class Scene_Battle < Scene_Base
       @bust_picture.tone.blue = -64
       @bust_picture.tone.gray = 128
 
-      @bust_target_x = -256
+      if move_config[:move_in_out]
+        @bust_target_x = -128
+      end
     end
   end
 
@@ -191,6 +193,11 @@ class Scene_Battle < Scene_Base
     @bust_picture.z = 999
     @bust_picture.x = bust_offset_x
     @bust_picture.y = Graphics.height - @bust_picture.height + bust_offset_y
+
+    if $game_system.animations? && move_config[:move_in_out]
+      @bust_picture.x = -128
+      @bust_target_x = bust_offset_x
+    end
   end
 
   def display_enemy_bust
@@ -407,8 +414,19 @@ class Window_BattleLog < Window_Selectable
   end
 end
 
-# Experimental smooth sprite exit
+# Experimental smooth sprite enter/exit
 class Scene_Battle < Scene_Base
+  def enter_stage_left(step)
+    return unless $game_system.animations? && @bust_picture && @bust_target_x && @bust_target_x > @bust_picture.x
+
+    if @bust_picture.x + step > @bust_target_x
+      @bust_picture.x = @bust_target_x
+      @bust_target_x = nil
+    else
+      @bust_picture.x += step
+    end
+  end
+
   def exit_stage_left(step)
     return unless $game_system.animations? && @bust_picture && @bust_target_x && @bust_target_x < @bust_picture.x
 
@@ -421,6 +439,15 @@ class Scene_Battle < Scene_Base
   end
 end
 class Sprite_Battler < Sprite_Base
+  alias original_478_update_animation update_animation
+  def update_animation
+    original_478_update_animation
+
+    if SceneManager.scene.is_a?(Scene_Battle)
+      SceneManager.scene.enter_stage_left(step = 4)
+    end
+  end
+
   alias original_478_update_effect update_effect
   def update_effect
     original_478_update_effect
