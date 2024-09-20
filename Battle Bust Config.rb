@@ -22,7 +22,7 @@ Busty::BATTLE_CONFIG.merge!({
       },
       {
         condition: 'is_item',
-        picture: "QumOoh",
+        picture: "QumOohItem",
       },
     ],
     fallback: "QumSpell",
