@@ -293,6 +293,10 @@ class Window_Message < Window_Base
       end
     end
 
+    if !$game_message.choices.empty?
+      return false if @choice_window.max_choice_width > 0.66 * Graphics.width
+    end
+
     # Check for potential special conditions on characters
     if Busty::MESSAGE_AUTODISPLAY_SPECIAL.has_key?(character_name)
       return false unless Busty.send(Busty::MESSAGE_AUTODISPLAY_SPECIAL[character_name])
