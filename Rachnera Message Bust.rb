@@ -70,9 +70,11 @@ module Busty
       @bust_overflow = Sprite.new
       @bust_overflow.visible = true
       @bust_overflow.z = @bust.z
+
+      @fade_sprites = []
     end
 
-    def draw(x, y, face_name, face_index, max_width = nil, above_height = nil)
+    def draw(x, y, face_name, face_index, max_width = nil, above_height = nil, fade_width = 0)
       character_name = Busty::character_from_face(face_name, face_index)
       @character_name = character_name
 
@@ -80,8 +82,8 @@ module Busty
       if max_width
         max_width = max_width-x if x < 0 # Ignore offscreen overflow
 
-        new_bitmap = Bitmap.new(max_width, bust_bitmap.height)
-        rect = Rect.new(0, 0, max_width, bust_bitmap.height)
+        new_bitmap = Bitmap.new(max_width - fade_width, bust_bitmap.height)
+        rect = Rect.new(0, 0, max_width - fade_width, bust_bitmap.height)
         new_bitmap.blt(0, 0, bust_bitmap, rect)
         bitmap = new_bitmap
       end
@@ -136,6 +138,31 @@ module Busty
       @bust_face.x = @bust.x + face_border_width_left + face_offset_x
       @bust_face.y = @bust.y + face_border_width_top + face_offset_y
       @bust_face.z = @bust.z + face_z
+
+      # Check if the cleanup is truly done right below
+      @fade_sprites.each { |sprite| sprite.bitmap = nil }
+      @fade_sprites = []
+      # Taking for granted this will never be useful in a context where above_height isn't defined
+      if above_height && fade_width > 0
+        fade_width.times do |i|
+          break if max_width - fade_width + i > bust_bitmap.width
+
+          bitmap = Bitmap.new(1, @bust.height)
+          rect = Rect.new(max_width - fade_width + i + 1, 0, 1, @bust.height)
+          bitmap.blt(0, 0, bust_bitmap, rect)
+
+          sprite = Sprite.new
+          sprite.visible = true
+          sprite.y = @bust.y
+          sprite.z = @bust.z - 1
+
+          sprite.bitmap = bitmap
+          sprite.x = @bust.x + @bust.width + i
+          sprite.opacity = 255 * (1 - 1.0 * (i+1) / fade_width)
+
+          @fade_sprites.push(sprite)
+        end
+      end
     end
 
     def redraw(face_name, face_index)
@@ -214,7 +241,7 @@ module Busty
     end
 
     def sprites_list
-      [@bust, @bust_face, @bust_overflow]
+      [@bust, @bust_face, @bust_overflow] + @fade_sprites
     end
   end
 end
@@ -261,6 +288,7 @@ class Window_Message < Window_Base
       $game_message.face_index,
       max_width = (new_line_x + bust_extra_x),
       above_height = height,
+      fade_width = 12,
     ]
 
     return default_values unless custom_bust_display_options
