@@ -148,7 +148,7 @@ module Busty
           break if max_width - fade_width + i > bust_bitmap.width
 
           bitmap = Bitmap.new(1, @bust.height)
-          rect = Rect.new(max_width - fade_width + i + 1, 0, 1, @bust.height)
+          rect = Rect.new(max_width - fade_width + i, 0, 1, @bust.height)
           bitmap.blt(0, 0, bust_bitmap, rect)
 
           sprite = Sprite.new
