@@ -386,7 +386,7 @@ class Window_Message < Window_Base
 
   # Define how much the bust is allowed to overflow into the padding between image and text
   def bust_overflow_x
-    6
+    12
   end
 
   # Cheat with paddings and borders to leave more breathing room to busts
