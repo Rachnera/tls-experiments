@@ -143,28 +143,20 @@ module Busty
     end
 
     def erase
-      @bust.bitmap = nil
-      @bust_face.bitmap = nil
-      @bust_overflow.bitmap = nil
+      sprites_list.each { |sprite| sprite.bitmap = nil }
     end
 
     # update and dispose were copy-pasted from the script I took inspiration from (see Credits) and haven't fundamentally changed since
     # TODO Check if they do anything useful and, if so, if they do their job right
     def update
-      @bust.update
-      @bust_face.update
-      @bust_overflow.update
+      sprites_list.each { |sprite| sprite.update }
     end
 
     def dispose
-      @bust.dispose
-      @bust.bitmap.dispose if !@bust.bitmap.nil?
-
-      @bust_face.dispose
-      @bust_face.bitmap.dispose unless @bust_face.bitmap.nil?
-
-      @bust_overflow.dispose
-      @bust_overflow.bitmap.dispose if @bust_overflow.bitmap
+      sprites_list.each do |sprite|
+        sprite.dispose
+        sprite.bitmap.dispose if !sprite.bitmap.nil?
+      end
     end
 
     def bust_bitmap
@@ -219,6 +211,10 @@ module Busty
 
     def bust_config
       Busty::BASE_CONFIG[character_name] || {}
+    end
+
+    def sprites_list
+      [@bust, @bust_face, @bust_overflow]
     end
   end
 end
