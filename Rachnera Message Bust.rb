@@ -287,7 +287,7 @@ class Window_Message < Window_Base
       $game_message.face_index,
       max_width = (new_line_x + bust_extra_x),
       above_height = height,
-      fade_width = 12,
+      fade_width = bust_should_fade? ? 12 : 0,
     ]
 
     return default_values unless custom_bust_display_options
@@ -378,6 +378,12 @@ class Window_Message < Window_Base
     ]
   end
 
+  def bust_should_fade?
+    return true if bust_config[:fade].nil?
+
+    bust_config[:fade]
+  end
+
   # FIXME Last straw in a larger mess to use to the bottom left corner as reference (instead of the upper left one)
   def bust_height
     Cache.picture('busts/' + character_name).height
@@ -385,7 +391,10 @@ class Window_Message < Window_Base
 
   # Define how much the bust is allowed to overflow into the padding between image and text
   def bust_overflow_x
-    12
+    # Can overflow more if the bust is already invisible by the last pixels
+    return 12 if bust_should_fade?
+
+    6
   end
 
   # Cheat with paddings and borders to leave more breathing room to busts
