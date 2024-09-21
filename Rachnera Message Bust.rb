@@ -303,11 +303,6 @@ class Window_Message < Window_Base
     nil
   end
 
-  # Define how much the bust is allowed to overflow into the padding between image and text
-  def bust_extra_x
-    6
-  end
-
   def show_bust?
     return false unless valid_context?
 
@@ -347,13 +342,6 @@ class Window_Message < Window_Base
 
   def character_name
     Busty::character_from_face($game_message.face_name, $game_message.face_index)
-  end
-
-  alias original_591_draw_face draw_face
-  def draw_face(face_name, face_index, x, y, enabled = true)
-    return if show_bust?
-    return original_591_draw_face(face_name, face_index, x + 2*standard_padding, y, enabled) if valid_context?
-    original_591_draw_face(face_name, face_index, x, y, enabled)
   end
 
   def bust_offset_x
@@ -396,13 +384,24 @@ class Window_Message < Window_Base
     Cache.picture('busts/' + character_name).height
   end
 
-  # Cheat with padding and borders to leave more breathing room to busts
+  # Define how much the bust is allowed to overflow into the padding between image and text
+  def bust_overflow_x
+    6
+  end
+
+  # Cheat with paddings and borders to leave more breathing room to busts
+  def bust_extra_x
+    bust_overflow_x - standard_padding
+  end
+  alias original_591_draw_face draw_face
+  def draw_face(face_name, face_index, x, y, enabled = true)
+    return if show_bust?
+    return original_591_draw_face(face_name, face_index, x + 2*standard_padding, y, enabled) if valid_context?
+    original_591_draw_face(face_name, face_index, x, y, enabled)
+  end
   alias original_591_new_line_x new_line_x
   def new_line_x
     original_591_new_line_x + text_extra_indent
-  end
-  def bust_extra_x
-    6-standard_padding
   end
   alias original_591_maatsf_total_line_width maatsf_total_line_width
   def maatsf_total_line_width(y = 0)
