@@ -110,34 +110,33 @@ module Busty
 
       if bust_config[:hide_original_face]
         @bust_face.visible = false
-        return
+      else
+        @bust_face.visible = true
+
+        # Shave border of face image if need be
+        face_width = 96 - face_border_width_left - face_border_width_right
+        face_height = 96 - face_border_width_top - face_border_width_bottom
+  
+        if max_width
+          # Cut part of the face if that would make the image overflows to the right
+          extra = (face_offset_x + face_border_width_left + face_border_width_right + face_width) - max_width
+          face_width -= extra if extra > 0
+        end
+  
+        bitmap = Cache.face(face_name)
+        rect = Rect.new(
+          face_index % 4 * 96 + face_border_width_left,
+          face_index / 4 * 96 + face_border_width_top,
+          face_width,
+          face_height
+        )
+        face_bitmap = Bitmap.new(face_width, face_height)
+        face_bitmap.blt(0, 0, bitmap, rect)
+        @bust_face.bitmap = face_bitmap
+        @bust_face.x = @bust.x + face_border_width_left + face_offset_x
+        @bust_face.y = @bust.y + face_border_width_top + face_offset_y
+        @bust_face.z = @bust.z + face_z
       end
-
-      @bust_face.visible = true
-
-      # Shave border of face image if need be
-      face_width = 96 - face_border_width_left - face_border_width_right
-      face_height = 96 - face_border_width_top - face_border_width_bottom
-
-      if max_width
-        # Cut part of the face if that would make the image overflows to the right
-        extra = (face_offset_x + face_border_width_left + face_border_width_right + face_width) - max_width
-        face_width -= extra if extra > 0
-      end
-
-      bitmap = Cache.face(face_name)
-      rect = Rect.new(
-        face_index % 4 * 96 + face_border_width_left,
-        face_index / 4 * 96 + face_border_width_top,
-        face_width,
-        face_height
-      )
-      face_bitmap = Bitmap.new(face_width, face_height)
-      face_bitmap.blt(0, 0, bitmap, rect)
-      @bust_face.bitmap = face_bitmap
-      @bust_face.x = @bust.x + face_border_width_left + face_offset_x
-      @bust_face.y = @bust.y + face_border_width_top + face_offset_y
-      @bust_face.z = @bust.z + face_z
 
       # Check if the cleanup is truly done right below
       @fade_sprites.each { |sprite| sprite.bitmap = nil }
