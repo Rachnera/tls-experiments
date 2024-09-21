@@ -144,7 +144,7 @@ module Busty
       # Taking for granted this will never be useful in a context where above_height isn't defined
       if above_height && fade_width > 0
         fade_width.times do |i|
-          break if max_width - fade_width + i > bust_bitmap.width
+          break if max_width - fade_width + i > bust_bitmap.width # Useless?
 
           bitmap = Bitmap.new(1, @bust.height)
           rect = Rect.new(max_width - fade_width + i, 0, 1, @bust.height)
