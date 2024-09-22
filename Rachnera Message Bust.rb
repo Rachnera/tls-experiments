@@ -141,7 +141,8 @@ module Busty
       # Check if the cleanup is truly done right below
       @fade_sprites.each { |sprite| sprite.bitmap = nil }
       @fade_sprites = []
-      if fade_width > 0
+      # Only make sense if the width is limited
+      if max_width && fade_width > 0
         fade_width.times do |i|
           break if max_width - fade_width + i > bust_bitmap.width # Useless?
 
