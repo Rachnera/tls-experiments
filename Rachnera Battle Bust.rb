@@ -375,10 +375,7 @@ class Scene_Battle < Scene_Base
   end
 
   def bust_offset_x
-    # If using a custom picture, assume it's designed to fit in just right and thus no offset is needed by default
-    default = move_config[:picture] ? 0 : -48
-
-    move_config[:bust_offset_x] || bust_config[:bust_offset_x] || default
+    move_config[:bust_offset_x] || bust_config[:bust_offset_x] || 0
   end
 
   def bust_offset_y
