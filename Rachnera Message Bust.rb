@@ -410,10 +410,7 @@ class Window_Message < Window_Base
 
   # Define how much the bust is allowed to overflow into the padding between image and text
   def bust_overflow_x
-    # Can overflow more if the bust is already invisible by the last pixels
-    return 12 if bust_should_fade?
-
-    6
+    12
   end
 
   # Cheat with paddings and borders to leave more breathing room to busts
