@@ -157,7 +157,7 @@ module Busty
 
           sprite.bitmap = bitmap
           sprite.x = @bust.x + @bust.width + i
-          sprite.opacity = 255 * (1 - 1.0 * (i+1) / fade_width)
+          sprite.opacity = 255 * (1 - Gradient.ease_in(1.0 * (i+1) / fade_width))
 
           @fade_sprites.push(sprite)
         end
@@ -241,6 +241,21 @@ module Busty
 
     def sprites_list
       [@bust, @bust_face, @bust_overflow] + @fade_sprites
+    end
+  end
+end
+
+module Gradient
+  class << self
+    # For all functions: f(0) = 0, f(1) = 1
+
+    def linear(x)
+      x
+    end
+
+    def ease_in(x)
+      # https://easings.net/#easeInSine
+      1 - Math.cos(x * (Math::PI / 2))
     end
   end
 end
