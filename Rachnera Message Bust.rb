@@ -157,7 +157,12 @@ module Busty
 
           sprite.bitmap = bitmap
           sprite.x = @bust.x + @bust.width + i
-          sprite.opacity = 255 * (1 - Gradient.ease_in(1.0 * (i+1) / gradient_length))
+
+          # Have a effectively go from "0.1 to 0.9"
+          # Since we're already sandwiched between full opacity (the normal bust) and full transparency (padding on the right)
+          # Plus that makes positioning more consistent with disabled fade
+          a = 1.0 * (i+1) / (gradient_length+1)
+          sprite.opacity = 255 * (1 - Gradient.ease_in(a))
 
           @fade_sprites.push(sprite)
         end
@@ -300,7 +305,7 @@ class Window_Message < Window_Base
       $game_message.face_index,
       max_width = (new_line_x + bust_extra_x),
       above_height = height,
-      bust_gradient_length,
+      bust_should_fade? ? bust_gradient_length : 0,
     ]
 
     return default_values unless custom_bust_display_options
@@ -398,8 +403,6 @@ class Window_Message < Window_Base
   end
 
   def bust_gradient_length
-    return 0 unless bust_should_fade?
-
     12
   end
 
@@ -410,7 +413,7 @@ class Window_Message < Window_Base
 
   # Define how much the bust is allowed to overflow into the padding between image and text
   def bust_overflow_x
-    12
+    10
   end
 
   # Cheat with paddings and borders to leave more breathing room to busts
