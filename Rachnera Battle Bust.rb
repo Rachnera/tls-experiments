@@ -181,7 +181,7 @@ class Scene_Battle < Scene_Base
       @bust_picture.tone.gray = 128
 
       if move_config[:move_in_out]
-        @bust_target_x = -128
+        @bust_exit_left = true
       end
     end
   end
@@ -195,8 +195,8 @@ class Scene_Battle < Scene_Base
     @bust_picture.y = Graphics.height - @bust_picture.height + bust_offset_y
 
     if $game_system.animations? && move_config[:move_in_out]
-      @bust_picture.x = -128
-      @bust_target_x = bust_offset_x
+      @bust_picture.x = bust_offscreen_x
+      @bust_enter_left = true
     end
   end
 
@@ -258,7 +258,9 @@ class Scene_Battle < Scene_Base
       @bust_picture.bitmap.dispose
       @bust_picture = nil
     end
-    @bust_target_x = nil
+
+    @bust_enter_left = false
+    @bust_exit_left = false
   end
 
   alias original_478_turn_start turn_start
@@ -413,26 +415,40 @@ end
 
 # Experimental smooth sprite enter/exit
 class Scene_Battle < Scene_Base
-  def enter_stage_left(step)
-    return unless $game_system.animations? && @bust_picture && @bust_target_x && @bust_target_x > @bust_picture.x
-
-    if @bust_picture.x + step > @bust_target_x
-      @bust_picture.x = @bust_target_x
-      @bust_target_x = nil
-    else
-      @bust_picture.x += step
-    end
+  def bust_offscreen_x
+    -128
   end
 
-  def exit_stage_left(step)
-    return unless $game_system.animations? && @bust_picture && @bust_target_x && @bust_target_x < @bust_picture.x
+  def enter_stage_left
+    return unless $game_system.animations? && @bust_enter_left
 
-    if @bust_picture.x - step < @bust_target_x
-      @bust_picture.x = @bust_target_x
-      @bust_target_x = nil
-    else
-      @bust_picture.x -= step
+    return unless @bust_picture.x < bust_offset_x
+
+    step = 4
+
+    if @bust_picture.x + step >= bust_offset_x
+      @bust_picture.x = bust_offset_x
+      @bust_enter_left = false
+      return
     end
+
+    @bust_picture.x += step
+  end
+
+  def exit_stage_left
+    return unless $game_system.animations? && @bust_exit_left
+
+    return unless @bust_picture.x > bust_offscreen_x
+
+    step = 2
+
+    if @bust_picture.x - step <= bust_offscreen_x
+      @bust_picture.x = bust_offscreen_x
+      @bust_exit_left = false
+      return
+    end
+
+    @bust_picture.x -= step
   end
 end
 class Sprite_Battler < Sprite_Base
@@ -441,7 +457,7 @@ class Sprite_Battler < Sprite_Base
     original_478_update_animation
 
     if SceneManager.scene.is_a?(Scene_Battle)
-      SceneManager.scene.enter_stage_left(step = 4)
+      SceneManager.scene.enter_stage_left
     end
   end
 
@@ -450,7 +466,7 @@ class Sprite_Battler < Sprite_Base
     original_478_update_effect
 
     if SceneManager.scene.is_a?(Scene_Battle)
-      SceneManager.scene.exit_stage_left(step = 2)
+      SceneManager.scene.exit_stage_left
     end
   end
 end
