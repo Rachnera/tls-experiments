@@ -181,7 +181,7 @@ class Scene_Battle < Scene_Base
       @bust_picture.tone.gray = 128
 
       if move_config[:move_in_out]
-        @bust_exit_left = true
+        @bust_exit_left = 0
       end
     end
   end
@@ -196,7 +196,7 @@ class Scene_Battle < Scene_Base
 
     if $game_system.animations? && move_config[:move_in_out]
       @bust_picture.x = bust_offscreen_x
-      @bust_enter_left = true
+      @bust_enter_left = 0
     end
   end
 
@@ -259,8 +259,8 @@ class Scene_Battle < Scene_Base
       @bust_picture = nil
     end
 
-    @bust_enter_left = false
-    @bust_exit_left = false
+    @bust_enter_left = nil
+    @bust_exit_left = nil
   end
 
   alias original_478_turn_start turn_start
@@ -424,15 +424,16 @@ class Scene_Battle < Scene_Base
 
     return unless @bust_picture.x < bust_offset_x
 
-    step = 4
+    @bust_enter_left += 1
 
-    if @bust_picture.x + step >= bust_offset_x
+    if @bust_enter_left >= bust_move_duration
       @bust_picture.x = bust_offset_x
-      @bust_enter_left = false
+      @bust_enter_left = nil
       return
     end
 
-    @bust_picture.x += step
+    a = 1.0 * @bust_enter_left / bust_move_duration
+    @bust_picture.x = bust_offscreen_x + EaseFuncs.linear(a) * bust_move_total_distance
   end
 
   def exit_stage_left
@@ -440,15 +441,25 @@ class Scene_Battle < Scene_Base
 
     return unless @bust_picture.x > bust_offscreen_x
 
-    step = 2
+    @bust_exit_left += 1
 
-    if @bust_picture.x - step <= bust_offscreen_x
+    if @bust_exit_left >= bust_move_duration
       @bust_picture.x = bust_offscreen_x
-      @bust_exit_left = false
+      @bust_exit_left = nil
       return
     end
 
-    @bust_picture.x -= step
+    a = 1.0 * @bust_exit_left / bust_move_duration
+    @bust_picture.x = bust_offset_x - EaseFuncs.linear(a) * bust_move_total_distance
+  end
+
+  # In frames (60 FPS?)
+  def bust_move_duration
+    30
+  end
+
+  def bust_move_total_distance
+    bust_offset_x - bust_offscreen_x
   end
 end
 class Sprite_Battler < Sprite_Base
@@ -467,6 +478,13 @@ class Sprite_Battler < Sprite_Base
 
     if SceneManager.scene.is_a?(Scene_Battle)
       SceneManager.scene.exit_stage_left
+    end
+  end
+end
+module EaseFuncs
+  class << self
+    def linear(x)
+      x
     end
   end
 end
