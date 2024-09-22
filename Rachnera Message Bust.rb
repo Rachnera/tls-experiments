@@ -74,7 +74,7 @@ module Busty
       @fade_sprites = []
     end
 
-    def draw(x, y, face_name, face_index, max_width = nil, above_height = nil, fade_width = 0)
+    def draw(x, y, face_name, face_index, max_width = nil, above_height = nil, gradient_length = 0)
       character_name = Busty::character_from_face(face_name, face_index)
       @character_name = character_name
 
@@ -82,8 +82,8 @@ module Busty
       if max_width
         max_width = max_width-x if x < 0 # Ignore offscreen overflow
 
-        new_bitmap = Bitmap.new(max_width - fade_width, bust_bitmap.height)
-        rect = Rect.new(0, 0, max_width - fade_width, bust_bitmap.height)
+        new_bitmap = Bitmap.new(max_width - gradient_length, bust_bitmap.height)
+        rect = Rect.new(0, 0, max_width - gradient_length, bust_bitmap.height)
         new_bitmap.blt(0, 0, bust_bitmap, rect)
         bitmap = new_bitmap
       end
@@ -142,12 +142,12 @@ module Busty
       @fade_sprites.each { |sprite| sprite.bitmap = nil }
       @fade_sprites = []
       # Only make sense if the width is limited
-      if max_width && fade_width > 0
-        fade_width.times do |i|
-          break if max_width - fade_width + i > bust_bitmap.width # Useless?
+      if max_width && gradient_length > 0
+        gradient_length.times do |i|
+          break if max_width - gradient_length + i > bust_bitmap.width # Useless?
 
           bitmap = Bitmap.new(1, @bust.height)
-          rect = Rect.new(max_width - fade_width + i, 0, 1, @bust.height)
+          rect = Rect.new(max_width - gradient_length + i, 0, 1, @bust.height)
           bitmap.blt(0, 0, bust_bitmap, rect)
 
           sprite = Sprite.new
@@ -157,7 +157,7 @@ module Busty
 
           sprite.bitmap = bitmap
           sprite.x = @bust.x + @bust.width + i
-          sprite.opacity = 255 * (1 - Gradient.ease_in(1.0 * (i+1) / fade_width))
+          sprite.opacity = 255 * (1 - Gradient.ease_in(1.0 * (i+1) / gradient_length))
 
           @fade_sprites.push(sprite)
         end
@@ -247,14 +247,12 @@ end
 
 module Gradient
   class << self
-    # For all functions: f(0) = 0, f(1) = 1
-
     def linear(x)
       x
     end
 
+    # https://easings.net/#easeInSine
     def ease_in(x)
-      # https://easings.net/#easeInSine
       1 - Math.cos(x * (Math::PI / 2))
     end
   end
@@ -302,7 +300,7 @@ class Window_Message < Window_Base
       $game_message.face_index,
       max_width = (new_line_x + bust_extra_x),
       above_height = height,
-      fade_width = bust_should_fade? ? 12 : 0,
+      bust_gradient_length,
     ]
 
     return default_values unless custom_bust_display_options
@@ -397,6 +395,12 @@ class Window_Message < Window_Base
     return true if bust_config[:fade].nil?
 
     bust_config[:fade]
+  end
+
+  def bust_gradient_length
+    return 0 unless bust_should_fade?
+
+    12
   end
 
   # FIXME Last straw in a larger mess to use to the bottom left corner as reference (instead of the upper left one)
