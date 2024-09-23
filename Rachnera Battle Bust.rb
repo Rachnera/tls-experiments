@@ -139,7 +139,13 @@ class Scene_Battle < Scene_Base
     # New
     if show_bust?
       display_bust
+      if can_safely_hide_status_window?(item)
+        @status_window.hide
+      else
+        @status_window.show
+      end
     else
+      @status_window.show
       display_enemy_bust if @subject.is_a?(Game_Enemy)
       if @subject.is_a?(Game_Actor)
         if @actor_command_window.openness == 0 # Don't show anything if we are in the skill menu (i.e. this is an instant skill)
@@ -183,6 +189,10 @@ class Scene_Battle < Scene_Base
       if move_config[:move_in_out]
         @bust_exit_left = 0
       end
+    end
+
+    if move_effects_require_showing_status_window?(@subject.current_action.item)
+      @status_window.show
     end
   end
 
@@ -386,6 +396,21 @@ class Scene_Battle < Scene_Base
 
   def bust_config
     Busty::BATTLE_CONFIG[character_name] || {}
+  end
+
+  def can_safely_hide_status_window?(move)
+    return false unless $game_system.animations?
+
+    # Healing/buff have animations centered on characters
+    return false unless move.for_opponent?
+
+    true
+  end
+
+  def move_effects_require_showing_status_window?(move)
+    return true unless move.damage.type == 1 # Standard HP damage
+
+    false
   end
 end
 
