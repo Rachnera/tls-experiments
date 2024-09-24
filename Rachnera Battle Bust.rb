@@ -483,7 +483,7 @@ class Scene_Battle < Scene_Base
     end
 
     a = 1.0 * @bust_enter_left / bust_move_duration
-    @bust_picture.x = bust_offscreen_x + EaseFuncs.ease_out(a) * bust_move_total_distance
+    @bust_picture.x = bust_offscreen_x + EaseFuncs.ease_out_sine(a) * bust_move_total_distance
   end
 
   def exit_stage_left
@@ -500,10 +500,10 @@ class Scene_Battle < Scene_Base
     end
 
     a = 1.0 * @bust_exit_left / bust_move_duration
-    @bust_picture.x = bust_offset_x - EaseFuncs.ease_in(a) * bust_move_total_distance
+    @bust_picture.x = bust_offset_x - EaseFuncs.ease_in_sine(a) * bust_move_total_distance
   end
 
-  # In frames? At 60 FPS?
+  # In frames (60 FPS)
   def bust_move_duration
     60
   end
@@ -538,11 +538,11 @@ module EaseFuncs
       x
     end
 
-    def ease_in(x)
+    def ease_in_sine(x)
       1 - Math.cos(x * (Math::PI / 2))
     end
 
-    def ease_out(x)
+    def ease_out_sine(x)
       Math.sin(x * (Math::PI / 2))
     end
   end
