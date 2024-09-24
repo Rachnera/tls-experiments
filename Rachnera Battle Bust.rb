@@ -186,7 +186,7 @@ class Scene_Battle < Scene_Base
       @bust_picture.tone.blue = -64
       @bust_picture.tone.gray = 128
 
-      if move_config[:move_in_out]
+      if move_bust_out?
         @bust_exit_left = 0
       end
     end
@@ -204,7 +204,7 @@ class Scene_Battle < Scene_Base
     @bust_picture.x = bust_offset_x
     @bust_picture.y = Graphics.height - @bust_picture.height + bust_offset_y
 
-    if $game_system.animations? && move_config[:move_in_out]
+    if move_bust_in?
       @bust_picture.x = bust_offscreen_x
       @bust_enter_left = 0
     end
@@ -452,7 +452,21 @@ end
 # Experimental smooth sprite enter/exit
 class Scene_Battle < Scene_Base
   def bust_offscreen_x
-    -128
+    - Graphics.width / 2
+  end
+
+  def move_bust_in?
+    return false unless $game_system.animations?
+
+    move_config[:move_in]
+  end
+
+  def move_bust_out?
+    return false unless $game_system.animations?
+
+    return true unless move_config.has_key?(:move_out)
+
+    move_config[:move_out]
   end
 
   def enter_stage_left
