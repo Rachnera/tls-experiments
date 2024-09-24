@@ -140,7 +140,7 @@ class Scene_Battle < Scene_Base
     if show_bust?
       display_bust
       if can_safely_hide_status_window?(item)
-        @status_window.hide
+        hide_status_window
       else
         @status_window.show
       end
@@ -398,6 +398,17 @@ class Scene_Battle < Scene_Base
     Busty::BATTLE_CONFIG[character_name] || {}
   end
 
+  def hide_status_window
+    @status_window.hide
+
+    # Clean popus lying around where the window was
+    @spriteset.actor_sprites.each do |battler_sprite|
+      (battler_sprite.popups || []).each do |popup|
+        popup.force_fade
+      end
+    end
+  end
+
   def can_safely_hide_status_window?(move)
     return false unless $game_system.animations?
 
@@ -520,6 +531,12 @@ module EaseFuncs
     def ease_out(x)
       Math.sin(x * (Math::PI / 2))
     end
+  end
+end
+
+class Sprite_Popup < Sprite_Base
+  def force_fade
+    @full = 0
   end
 end
 
