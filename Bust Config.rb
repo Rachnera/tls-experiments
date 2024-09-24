@@ -24,6 +24,7 @@ Busty::FACE_TO_BUST = {
   "Riala emo2" => "Riala2",
   "Sabitha H emo" => "SabithaH",
   "Ulrissa emo3" => "Ulrissa2",
+  "Uyae emo2d" => "Uyae God Flip",
   "Z Andra emo" => nil, # To only allow face 4, see below
   "Z Andra emoN" => nil, # No bust for no robe Andra
   "Z Orcent" => "Orcent1",
@@ -610,6 +611,11 @@ Busty::BASE_CONFIG.merge!({
     face_offset_x: 52,
     face_offset_y: 42,
   },
+  "Uyae God Flip" => {
+    bust_scale: 0.70,
+    face_offset_x: 52,
+    face_offset_y: 42,
+  },
   "Varia" => {
     bust_scale: 0.70,
     face_offset_x: 62,
@@ -794,6 +800,7 @@ Busty::BASE_CONFIG.merge!({
 Busty::MESSAGE_CONFIG.merge!({
   "Aka" => {
     bust_offset_y: 5,
+    fade: false,
   },
   "Antiala" => {
     bust_offset_y: 15,
@@ -803,12 +810,16 @@ Busty::MESSAGE_CONFIG.merge!({
     bust_offset_x: -25,
     bust_offset_y: 15,
   },
+  "Bertricia" => {
+    fade: false,
+  },
   "Carina" => {
     bust_offset_y: 15,
   },
   "Dari1" => {
-    bust_offset_x: -27,
+    bust_offset_x: -30,
     bust_offset_y: 0,
+    fade: false,
   },
   "Dheria1" => {
     bust_offset_x: -40,
@@ -826,6 +837,7 @@ Busty::MESSAGE_CONFIG.merge!({
   },
   "Elleani" => {
     bust_offset_y: 25,
+    fade: false,
   },
   "Esmera" => {
     bust_offset_x: -40,
@@ -834,8 +846,14 @@ Busty::MESSAGE_CONFIG.merge!({
   "Esthera" => {
     bust_offset_y: 35,
   },
+  "Feremina" => {
+    fade: false,
+  },
   "Fheliel" => {
     bust_offset_x: -40,
+  },
+  "Fuzkao" => {
+    fade: false,
   },
   "Galvia" => {
     bust_offset_y: 20,
@@ -851,6 +869,9 @@ Busty::MESSAGE_CONFIG.merge!({
     bust_offset_x: -45,
     bust_offset_y: 15,
   },
+  "Implevon" => {
+    fade: false,
+  },
   "Incubus Emperor" => {
     bust_offset_x: -20,
     bust_offset_y: 35,
@@ -863,12 +884,17 @@ Busty::MESSAGE_CONFIG.merge!({
   },
   "Kaskia" => {
     bust_offset_x: -30,
+    fade: false,
   },
   "Lilith" => {
     bust_offset_x: -40,
   },
+  "Lord of Blood" => {
+    fade: false,
+  },
   "Lynine" => {
     bust_offset_y: 10,
+    fade: false,
   },
   "MainActor1-3" => { # Chosen
     bust_offset_y: 55,
@@ -878,6 +904,12 @@ Busty::MESSAGE_CONFIG.merge!({
   },
   "Melymyn" => {
     bust_offset_y: 8,
+  },
+  "Min" => {
+    fade: false,
+  },
+  "Min2" => {
+    fade: false,
   },
   "Mithyn" => {
     bust_offset_x: -145,
@@ -891,11 +923,25 @@ Busty::MESSAGE_CONFIG.merge!({
   "Nyst" => {
     bust_offset_y: 30,
   },
+  "Orilise" => {
+    fade: false,
+  },
   "Palina" => {
     bust_offset_x: -15,
   },
   "Qum D'umpe" => {
     bust_offset_y: 20,
+  },
+  "Ralke" => {
+    fade: false,
+  },
+  "Riala" => {
+    bust_offset_x: -30,
+    fade: false,
+  },
+  "Riala2" => {
+    bust_offset_x: -30,
+    fade: false,
   },
   "Robin blond" => {
     bust_offset_x: -43,
@@ -904,8 +950,15 @@ Busty::MESSAGE_CONFIG.merge!({
   "Sage" => {
     bust_offset_y: 45,
   },
+  "Sabitha" => {
+    fade: false,
+  },
+  "SabithaH" => {
+    fade: false,
+  },
   "Sarai" => {
     bust_offset_y: 30,
+    fade: false,
   },
   "Tanurak" => {
     bust_offset_y: 15,
@@ -917,7 +970,14 @@ Busty::MESSAGE_CONFIG.merge!({
   "Tyna" => {
     bust_offset_y: 5,
   },
+  "Ulrissa" => {
+    fade: false,
+  },
   "Uyae" => {
+    bust_offset_x: -20,
+    fade: false,
+  },
+  "Uyae God Flip" => {
     bust_offset_x: -20,
   },
   "Varia" => {
@@ -925,6 +985,21 @@ Busty::MESSAGE_CONFIG.merge!({
   },
   "Vhala" => {
     bust_offset_y: 12,
+  },
+  "Vunne" => {
+    fade: false,
+  },
+  "Wendis blond" => {
+    fade: false,
+  },
+  "Wendis blondT" => {
+    fade: false,
+  },
+  "Wendis grey" => {
+    fade: false,
+  },
+  "Wendis greyT" => {
+    fade: false,
   },
   "Wynn" => {
     bust_offset_x: -30,
@@ -938,12 +1013,14 @@ Busty::MESSAGE_CONFIG.merge!({
   },
   "Farnan" => {
     bust_offset_y: 5,
+    fade: false,
   },
   "Ghanth" => {
     bust_offset_y: 15,
   },
   "Jhenno" => {
     bust_offset_y: 28,
+    fade: false,
   },
   "Biyue" => {
     bust_offset_y: 15,
@@ -958,9 +1035,7 @@ Busty::MESSAGE_CONFIG.merge!({
   "Yarra" => {
     bust_offset_x: -55,
     bust_offset_y: 10,
-  },
-  "Dari1" => {
-    bust_offset_x: -30,
+    fade: false,
   },
   "Iris" => {
     bust_offset_x: -30,
@@ -970,9 +1045,6 @@ Busty::MESSAGE_CONFIG.merge!({
   },
   "Mestan" => {
     bust_offset_x: -24,
-  },
-  "Riala" => {
-    bust_offset_x: -30,
   },
 })
 
@@ -1044,11 +1116,6 @@ Busty::replicate_config_for_alternate_forms([
     original: "Trin",
     faces: ["Trin emo3", "Trin emo4"],
     bust: "Trin-diadem-portrait",
-  },
-  {
-    original: "Uyae",
-    faces: ["Uyae emo2d"],
-    bust: "Uyae God Flip",
   },
 ])
 
