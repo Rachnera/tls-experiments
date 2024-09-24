@@ -474,10 +474,9 @@ Busty::BASE_CONFIG.merge!({
     face_offset_y: 28,
   },
   "Mestan" => {
-    bust_scale: 0.66,
-    face_offset_x: 52,
-    face_offset_y: 41,
-    face_z: -1,
+    bust_scale: 0.71,
+    face_offset_x: 50,
+    face_offset_y: 61,
   },
   "Min" => {
     bust_scale: 0.70,
@@ -879,9 +878,6 @@ Busty::MESSAGE_CONFIG.merge!({
   },
   "Melymyn" => {
     bust_offset_y: 8,
-  },
-  "Mestan" => {
-    bust_offset_y: -5,
   },
   "Mithyn" => {
     bust_offset_x: -145,
