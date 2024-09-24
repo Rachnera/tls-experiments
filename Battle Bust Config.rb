@@ -44,7 +44,10 @@ Busty::BATTLE_CONFIG.merge!({
     "Flirt" => "YarraKiss",
     "Guard" => "YarraGuard",
     "Harem Mistress" => nil,
-    "Ice Whip" => "YarraAttackIce",
+    "Ice Whip" => {
+      picture: "YarraAttackIce",
+      move_in: true,
+    },
     "Incubus King's Emissary" => "YarraSpellEmissary",
     "Sexual Mana" => "YarraMSexualMana",
     "Shared Fantasy" => "YarraKissSharedFantasy",
