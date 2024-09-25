@@ -198,10 +198,6 @@ module Busty
       @character_name
     end
 
-    def bust_scale
-      bust_config[:bust_scale] || 0.75
-    end
-
     def face_offset_x
       bust_config[:face_offset_x] || 60
     end
