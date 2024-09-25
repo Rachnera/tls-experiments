@@ -14,10 +14,12 @@ module Busty
   AMBIENT_PICTURES = ['beam1_ani1', 'wallofivala1', 'wallofivala2', 'wallofivala3', 'title0']
 
   def self.has_bust?(character_name)
-    CONFIG.has_key?(character_name) &&
-      CONFIG[:face_offset_x] &&
-      CONFIG[:face_offset_y] &&
-      has_bust_bitmap?(character_name)
+    return false unless CONFIG.has_key?(character_name)
+
+    config = CONFIG[character_name]
+    valid_config = (config[:face_offset_x] && config[:face_offset_y]) || config[:hide_original_face]
+
+    valid_config && has_bust_bitmap?(character_name)
   end
 
   def self.bust_bitmap(character_name)
