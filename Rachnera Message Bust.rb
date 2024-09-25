@@ -1,12 +1,9 @@
 module Busty
   # All actual configuration "CONSTANTS" can be found in the "Bust Config" file. Just dropping empty shells here for reference.
-  BASE_CONFIG = {} # Make the face fits right on the body
+  CONFIG = {} # Make the face fits right on the body and the body fit right on the screen
   FACE_TO_BUST = {} # For characters whose naming convention of their faces isn't consistent with the name of their bust
   SUBSET_TO_BUST = [] # For busts matching with only some of the faces of a facesheet
 
-  # Shift the position of the bust. See bust_offset_x/bust_offset_y for default values if this is not set.
-  # Useful to recenter characters that are too thin or wide (ex: Mithyn) or make small characters appear small (ex: Sarai)
-  MESSAGE_CONFIG = {}
   # Add conditions that must be checked for some busts to be shown when characters talk
   MESSAGE_AUTODISPLAY_SPECIAL = {}
 
@@ -17,9 +14,9 @@ module Busty
   AMBIENT_PICTURES = ['beam1_ani1', 'wallofivala1', 'wallofivala2', 'wallofivala3', 'title0']
 
   def self.has_bust?(character_name)
-    BASE_CONFIG.has_key?(character_name) &&
-      BASE_CONFIG[:face_offset_x] &&
-      BASE_CONFIG[:face_offset_y] &&
+    CONFIG.has_key?(character_name) &&
+      CONFIG[:face_offset_x] &&
+      CONFIG[:face_offset_y] &&
       has_bust_bitmap?(character_name)
   end
 
@@ -54,8 +51,7 @@ module Busty
 
   def self.replicate_config_for_alternate_forms(equivalences)
     equivalences.each do |cf|
-      Busty::BASE_CONFIG[cf[:bust]] = Busty::BASE_CONFIG[cf[:original]].clone
-      Busty::MESSAGE_CONFIG[cf[:bust]] = Busty::MESSAGE_CONFIG[cf[:original]].clone if Busty::MESSAGE_CONFIG[cf[:original]]
+      Busty::CONFIG[cf[:bust]] = Busty::CONFIG[cf[:original]].clone
       cf[:faces].each do |face|
         Busty::FACE_TO_BUST[face] = cf[:bust]
       end
@@ -240,7 +236,7 @@ module Busty
     end
 
     def bust_config
-      Busty::BASE_CONFIG[character_name] || {}
+      Busty::CONFIG[character_name] || {}
     end
 
     def sprites_list
@@ -364,7 +360,7 @@ class Window_Message < Window_Base
     # Taking for granted the image is already tailor made to fit in the corner
     return bust_config[:bust_offset_x] || 0 if bust_face_hidden?
 
-    bust_config[:bust_offset_x] || Busty::MESSAGE_FACE_POSITION[0] - bust_face_subcoordinates[0]
+    bust_config[:bust_offset_x] || Busty::MESSAGE_FACE_POSITION[0] - bust_config[:face_offset_x]
   end
 
   def bust_offset_y
@@ -373,26 +369,18 @@ class Window_Message < Window_Base
 
     return bust_config[:bust_offset_y] if bust_config[:bust_offset_y]
 
-    maybe_y = 96 + bust_face_subcoordinates[1] - bust_height + Busty::MESSAGE_FACE_POSITION[1]
+    maybe_y = 96 + bust_config[:face_offset_y] - bust_height + Busty::MESSAGE_FACE_POSITION[1]
     return -1*maybe_y if maybe_y < 0 # Actual y-axis is oriented from top to bottom
 
     0
   end
 
   def bust_config
-    Busty::MESSAGE_CONFIG[character_name] || {}
+    Busty::CONFIG[character_name] || {}
   end
 
   def bust_face_hidden?
-    Busty::BASE_CONFIG[character_name] && Busty::BASE_CONFIG[character_name][:hide_original_face]
-  end
-
-  def bust_face_subcoordinates
-    # No need for existence checks as this is always defined in practice?
-    [
-      Busty::BASE_CONFIG[character_name][:face_offset_x],
-      Busty::BASE_CONFIG[character_name][:face_offset_y],
-    ]
+    bust_config[:hide_original_face]
   end
 
   def bust_should_fade?

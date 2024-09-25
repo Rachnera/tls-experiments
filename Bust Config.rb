@@ -19,7 +19,6 @@ Busty::FACE_TO_BUST = {
   "Fucklord emo" => "Incubus Emperor",
   "MainActor1-1fs" => "Altina",
   "MainActor1-3fs" => "MainActor1-3", # Chosen
-  "Min emo2" => "Min2",
   "Prologue emo" => "Ivala",
   "Riala emo2" => "Riala2",
   "Sabitha H emo" => "SabithaH",
@@ -204,7 +203,7 @@ module Busty
   end
 end
 
-Busty::BASE_CONFIG.merge!({
+Busty::CONFIG.merge!({
   "Andra" => {
     face_offset_x: 68,
     face_offset_y: 63,
@@ -216,6 +215,9 @@ Busty::BASE_CONFIG.merge!({
   "Aka" => {
     face_offset_x: 61,
     face_offset_y: 66,
+
+    bust_offset_y: 5,
+    fade: false,
   },
   "Alonon" => {
     face_offset_x: 45,
@@ -242,58 +244,92 @@ Busty::BASE_CONFIG.merge!({
   "Antiala" => {
     face_offset_x: 69,
     face_offset_y: 66,
+
+    bust_offset_y: 15,
+    bust_offset_x: -40,
   },
   "Balia" => {
     face_offset_x: 53,
     face_offset_y: 38,
+
+    bust_offset_x: -25,
+    bust_offset_y: 15,
   },
   "Bertricia" => {
     face_offset_x: 44,
     face_offset_y: 37,
+
+    fade: false,
   },
   "Bhakan" => {
     face_offset_x: 59,
     face_offset_y: 46,
     face_z: -1,
+
+    bust_offset_y: 25,
   },
   "Carina" => {
     face_offset_x: 69,
     face_offset_y: 47,
+
+    bust_offset_y: 15,
   },
   "Dari1" => {
     face_offset_x: 47,
     face_offset_y: 30,
+
+    bust_offset_x: -30,
+    bust_offset_y: 0,
+    fade: false,
   },
   "Dheria1" => { # blue tunic, green eyes
     face_offset_x: 68,
     face_offset_y: 34,
+
+    bust_offset_x: -40,
   },
   "Dheria2" => { # grey tunic, red eyes
     face_offset_x: 68,
     face_offset_y: 34,
     face_border_width: [0, 0, 18, 0], # clothing colour mismatch
+
+    bust_offset_x: -40,
   },
   "Dio" => { # Lustlord
     face_offset_x: 26,
     face_offset_y: 52,
+
+    bust_offset_x: -10,
+    bust_offset_y: 15,
   },
   "Donovan" => {
     face_offset_x: 63,
     face_offset_y: 58,
     face_z: -1,
+
+    bust_offset_y: 5,
   },
   "Doomed King" => {
     face_offset_x: 37,
     face_offset_y: 57,
     hide_original_face: true,
+
+    bust_offset_x: -15,
+    bust_offset_y: 0,
   },
   "Elleani" => {
     face_offset_x: 79,
     face_offset_y: 31,
+
+    bust_offset_y: 25,
+    fade: false,
   },
   "Esmera" => {
     face_offset_x: 67,
     face_offset_y: 49,
+
+    bust_offset_x: -40,
+    bust_offset_y: 15,
   },
   "Estaven" => {
     face_offset_x: 70,
@@ -302,6 +338,8 @@ Busty::BASE_CONFIG.merge!({
   "Esthera" => {
     face_offset_x: 82,
     face_offset_y: 39,
+
+    bust_offset_y: 35,
   },
   "Etuanun" => {
     face_offset_x: 66,
@@ -315,28 +353,41 @@ Busty::BASE_CONFIG.merge!({
     face_offset_x: 57,
     face_offset_y: 46,
     face_z: -1,
+
+    bust_offset_y: 5,
+    fade: false,
   },
   "Feremina" => {
     face_offset_x: 16,
     face_offset_y: 22,
+
+    fade: false,
   },
   "Fheliel" => {
     face_offset_x: 59,
     face_offset_y: 37,
+
+    bust_offset_x: -40,
   },
   "Fuzkao" => {
     face_offset_x: 82,
     face_offset_y: 25,
+
+    fade: false,
   },
   "Galvia" => {
     face_offset_x: 41,
     face_offset_y: 59,
     face_border_width: 1,
+
+    bust_offset_y: 20,
   },
   "Ghanth" => {
     face_offset_x: 54,
     face_offset_y: 45,
     face_border_width: [16, 15, 23, 29],
+
+    bust_offset_y: 15,
   },
   "Ginasta" => {
     face_offset_x: 60,
@@ -346,11 +397,16 @@ Busty::BASE_CONFIG.merge!({
     face_offset_x: 64,
     face_offset_y: 24,
     hide_original_face: true,
+
+    bust_offset_x: -33,
+    bust_offset_y: 25,
   },
   "Herin" => {
     face_offset_x: 54,
     face_offset_y: 74,
     face_z: -1,
+
+    bust_offset_y: 5,
   },
   "Hester" => {
     face_offset_x: 68,
@@ -360,6 +416,9 @@ Busty::BASE_CONFIG.merge!({
   "Hilstara" => {
     face_offset_x: 64,
     face_offset_y: 40,
+
+    bust_offset_x: -45,
+    bust_offset_y: 15,
   },
   "Ignias" => {
     face_offset_x: 49,
@@ -370,34 +429,51 @@ Busty::BASE_CONFIG.merge!({
   "Implevon" => {
     face_offset_x: 45,
     face_offset_y: 40,
+
+    fade: false,
   },
   "Iris" => {
     face_offset_x: 50,
     face_offset_y: 47,
+
+    bust_offset_x: -30,
   },
   "Ivala" => {
     face_offset_x: 57,
     face_offset_y: 50,
+
+    bust_offset_x: -35,
+    bust_offset_y: 10,
   },
   "Janine" => {
     face_offset_x: 52,
     face_offset_y: 34,
+
+    bust_offset_y: 25,
   },
   "Jhenno" => {
     face_offset_x: 83,
     face_offset_y: 31,
     face_z: -1,
     face_border_width: [9, 0, 0, 0],
+
+    bust_offset_y: 28,
+    fade: false,
   },
   "Kalant" => {
     face_offset_x: 79,
     face_offset_y: 40,
     face_border_width: 3,
     face_z: -1,
+
+    bust_offset_y: 40,
   },
   "Kaskia" => {
     face_offset_x: 54,
     face_offset_y: 47,
+
+    bust_offset_x: -30,
+    fade: false,
   },
   "Kerannii" => {
     face_offset_x: 68,
@@ -406,45 +482,60 @@ Busty::BASE_CONFIG.merge!({
   "Lilith" => {
     face_offset_x: 69,
     face_offset_y: 69,
+
+    bust_offset_x: -40,
   },
   "Lynine" => {
     face_offset_x: 46,
     face_offset_y: 16,
+
+    bust_offset_y: 10,
+    fade: false,
   },
-  "MainActor1-3" => {
+  "MainActor1-3" => { # Chosen
     face_offset_x: 79,
     face_offset_y: 40,
     face_border_width: 1,
+
+    bust_offset_y: 55,
   },
   "Megail" => {
     face_offset_x: 60,
     face_offset_y: 40,
     face_z: -1,
+
+    bust_offset_y: 20,
   },
   "Melymyn" => {
     face_offset_x: 51,
     face_offset_y: 28,
+
+    bust_offset_y: 8,
   },
   "Mestan" => {
     face_offset_x: 50,
     face_offset_y: 61,
+
+    bust_offset_x: -24,
   },
   "Min" => {
     face_offset_x: 51,
     face_offset_y: 55,
-  },
-  "Min2" => {
-    face_offset_x: 51,
-    face_offset_y: 55,
+
+    fade: false,
   },
   "Mithyn" => {
     face_offset_x: 175,
     face_offset_y: 53,
     face_border_width: 1,
+
+    bust_offset_x: -145,
   },
   "Nabith" => {
     face_offset_x: 45,
     face_offset_y: 48,
+
+    bust_offset_x: -25,
   },
   "Nalili" => {
     face_offset_x: 56,
@@ -454,54 +545,82 @@ Busty::BASE_CONFIG.merge!({
   "Neranda" => {
     face_offset_x: 42,
     face_offset_y: 52,
+
+    bust_offset_y: 15,
   },
   "Nyst" => {
     face_offset_x: 42,
     face_offset_y: 21,
+
+    bust_offset_y: 30,
   },
   "Orilise" => {
     face_offset_x: 59,
     face_offset_y: 35,
+
+    fade: false,
   },
   "Palina" => {
     face_offset_x: 44,
     face_offset_y: 43,
+
+    bust_offset_x: -15,
   },
   "Qum D'umpe" => {
     face_offset_x: 62,
     face_offset_y: 40,
     face_border_width: [0, 0, 0, 12],
+
+    bust_offset_y: 20,
   },
   "Riala" => {
     face_offset_x: 52,
     face_offset_y: 49,
+
+    bust_offset_x: -30,
+    fade: false,
   },
   "Riala2" => {
     face_offset_x: 50,
     face_offset_y: 43,
+
+    bust_offset_x: -30,
+    fade: false,
   },
   "Robin blond" => {
     face_offset_x: 63,
     face_offset_y: 53,
+
+    bust_offset_x: -43,
+    bust_offset_y: 5,
   },
   "Sabitha" => {
     face_offset_x: 53,
     face_offset_y: 58,
+
+    fade: false,
   },
   "SabithaH" => {
     face_offset_x: 53,
     face_offset_y: 58,
     face_border_width: 5,
     face_z: -1,
+
+    fade: false,
   },
   "Sage" => {
     face_offset_x: 37,
     face_offset_y: 25,
+
+    bust_offset_y: 45,
   },
   "Sarai" => {
     face_offset_x: 26,
     face_offset_y: 50,
     face_z: -1,
+
+    bust_offset_y: 30,
+    fade: false,
   },
   "soulmage" => {
     face_offset_x: 55,
@@ -511,10 +630,15 @@ Busty::BASE_CONFIG.merge!({
   "Tanurak" => {
     face_offset_x: 73,
     face_offset_y: 42,
+
+    bust_offset_y: 15,
   },
   "Tertia" => {
     face_offset_x: 84,
     face_offset_y: 50,
+
+    bust_offset_x: -65,
+    bust_offset_y: 27,
   },
   "Trin" => {
     face_offset_x: 52,
@@ -523,10 +647,14 @@ Busty::BASE_CONFIG.merge!({
   "Tyna" => {
     face_offset_x: 57,
     face_offset_y: 36,
+
+    bust_offset_y: 5,
   },
   "Ulrissa" => {
     face_offset_x: 64,
     face_offset_y: 48,
+
+    fade: false,
   },
   "Uneanun" => {
     face_offset_x: 66,
@@ -535,14 +663,21 @@ Busty::BASE_CONFIG.merge!({
   "Uyae" => {
     face_offset_x: 52,
     face_offset_y: 42,
+
+    bust_offset_x: -20,
+    fade: false,
   },
   "Uyae God Flip" => {
     face_offset_x: 52,
     face_offset_y: 42,
+
+    bust_offset_x: -20,
   },
   "Varia" => {
     face_offset_x: 62,
     face_offset_y: 48,
+
+    bust_offset_y: 10,
   },
   "Vera" => {
     face_offset_x: 40,
@@ -551,44 +686,61 @@ Busty::BASE_CONFIG.merge!({
   "Vhala" => {
     face_offset_x: 72,
     face_offset_y: 41,
+
+    bust_offset_y: 12,
   },
   "Vunne" => {
     face_offset_x: 68,
     face_offset_y: 65,
     face_z: -1,
+
+    fade: false,
   },
   "Wendis blond" => {
     face_offset_x: 48,
     face_offset_y: 40,
     face_z: -1,
-    face_border_width: [0, 0, 21, 0]
+    face_border_width: [0, 0, 21, 0],
+
+    fade: false,
   },
   "Wendis blondT" => {
     face_offset_x: 47,
     face_offset_y: 38,
     face_z: -1,
-    face_border_width: [0, 0, 21, 0]
+    face_border_width: [0, 0, 21, 0],
+
+    fade: false,
   },
   "Wendis grey" => {
     face_offset_x: 48,
     face_offset_y: 40,
     face_z: -1,
     face_border_width: [0, 0, 21, 0],
+
+    fade: false,
   },
   "Wendis greyT" => {
     face_offset_x: 47,
     face_offset_y: 38,
     face_z: -1,
     face_border_width: [0, 0, 21, 0],
+
+    fade: false,
   },
   "Wynn" => {
     face_offset_x: 59,
     face_offset_y: 50,
     face_border_width: 1,
+
+    bust_offset_x: -30,
+    bust_offset_y: 22,
   },
   "Xerces" => {
     face_offset_x: 60,
     face_offset_y: 25,
+
+    bust_offset_x: -42,
   },
   "Xestris" => {
     face_offset_x: 59,
@@ -597,6 +749,10 @@ Busty::BASE_CONFIG.merge!({
   "Yarra" => {
     face_offset_x: 83,
     face_offset_y: 20,
+
+    bust_offset_x: -55,
+    bust_offset_y: 10,
+    fade: false,
   },
   "Yelarel" => {
     face_offset_x: 56,
@@ -610,11 +766,16 @@ Busty::BASE_CONFIG.merge!({
     face_offset_x: 41,
     face_offset_y: 39,
     face_border_width: 1,
+
+    bust_offset_x: -20,
+    bust_offset_y: 35,
   },
   "Lord of Blood" => {
     face_offset_x: 69,
     face_offset_y: 21,
     face_z: -1,
+
+    fade: false,
   },
   "Skullcrusher" => {
     face_offset_x: 70,
@@ -623,6 +784,8 @@ Busty::BASE_CONFIG.merge!({
   "Biyue" => {
     face_offset_x: 64,
     face_offset_y: 37,
+
+    bust_offset_y: 15,
   },
   "Fuani" => {
     face_offset_x: 46,
@@ -656,15 +819,22 @@ Busty::BASE_CONFIG.merge!({
   "Grubbak" => {
     face_offset_x: 67,
     face_offset_y: 24,
-    face_border_width: 1
+    face_border_width: 1,
+
+    bust_offset_x: -39,
+    bust_offset_y: 31,
   },
   "Impaler" => {
     face_offset_x: 69,
     face_offset_y: 42,
+
+    bust_offset_y: 30,
   },
   "Ralke" => {
     face_offset_x: 57,
     face_offset_y: 54,
+
+    fade: false,
   },
   "Simon suit wedding" => {
     face_offset_x: 64,
@@ -681,262 +851,6 @@ Busty::BASE_CONFIG.merge!({
   "Simon2D" => {
     face_offset_x: 67,
     face_offset_y: 32,
-  },
-})
-
-# adjustments to display characters at the right position
-# - most characters -> middle of nose level with top of text box
-# - halflings, dwarren -> short
-# - Tertia, Doom King -> tall
-# also some X axis adjustments for centering
-Busty::MESSAGE_CONFIG.merge!({
-  "Aka" => {
-    bust_offset_y: 5,
-    fade: false,
-  },
-  "Antiala" => {
-    bust_offset_y: 15,
-    bust_offset_x: -40,
-  },
-  "Balia" => {
-    bust_offset_x: -25,
-    bust_offset_y: 15,
-  },
-  "Bertricia" => {
-    fade: false,
-  },
-  "Carina" => {
-    bust_offset_y: 15,
-  },
-  "Dari1" => {
-    bust_offset_x: -30,
-    bust_offset_y: 0,
-    fade: false,
-  },
-  "Dheria1" => {
-    bust_offset_x: -40,
-  },
-  "Dheria2" => {
-    bust_offset_x: -40,
-  },
-  "Dio" => {
-    bust_offset_x: -10,
-    bust_offset_y: 15,
-  },
-  "Doomed King" => {
-    bust_offset_x: -15,
-    bust_offset_y: 0,
-  },
-  "Elleani" => {
-    bust_offset_y: 25,
-    fade: false,
-  },
-  "Esmera" => {
-    bust_offset_x: -40,
-    bust_offset_y: 15,
-  },
-  "Esthera" => {
-    bust_offset_y: 35,
-  },
-  "Feremina" => {
-    fade: false,
-  },
-  "Fheliel" => {
-    bust_offset_x: -40,
-  },
-  "Fuzkao" => {
-    fade: false,
-  },
-  "Galvia" => {
-    bust_offset_y: 20,
-  },
-  "Grynyth" => {
-    bust_offset_x: -33,
-    bust_offset_y: 25,
-  },
-  "Herin" => {
-    bust_offset_y: 5,
-  },
-  "Hilstara" => {
-    bust_offset_x: -45,
-    bust_offset_y: 15,
-  },
-  "Implevon" => {
-    fade: false,
-  },
-  "Incubus Emperor" => {
-    bust_offset_x: -20,
-    bust_offset_y: 35,
-  },
-  "Janine" => {
-    bust_offset_y: 25,
-  },
-  "Kalant" => {
-    bust_offset_y: 40,
-  },
-  "Kaskia" => {
-    bust_offset_x: -30,
-    fade: false,
-  },
-  "Lilith" => {
-    bust_offset_x: -40,
-  },
-  "Lord of Blood" => {
-    fade: false,
-  },
-  "Lynine" => {
-    bust_offset_y: 10,
-    fade: false,
-  },
-  "MainActor1-3" => { # Chosen
-    bust_offset_y: 55,
-  },
-  "Megail" => {
-    bust_offset_y: 20,
-  },
-  "Melymyn" => {
-    bust_offset_y: 8,
-  },
-  "Min" => {
-    fade: false,
-  },
-  "Min2" => {
-    fade: false,
-  },
-  "Mithyn" => {
-    bust_offset_x: -145,
-  },
-  "Nabith" => {
-    bust_offset_x: -25,
-  },
-  "Neranda" => {
-    bust_offset_y: 15,
-  },
-  "Nyst" => {
-    bust_offset_y: 30,
-  },
-  "Orilise" => {
-    fade: false,
-  },
-  "Palina" => {
-    bust_offset_x: -15,
-  },
-  "Qum D'umpe" => {
-    bust_offset_y: 20,
-  },
-  "Ralke" => {
-    fade: false,
-  },
-  "Riala" => {
-    bust_offset_x: -30,
-    fade: false,
-  },
-  "Riala2" => {
-    bust_offset_x: -30,
-    fade: false,
-  },
-  "Robin blond" => {
-    bust_offset_x: -43,
-    bust_offset_y: 5,
-  },
-  "Sage" => {
-    bust_offset_y: 45,
-  },
-  "Sabitha" => {
-    fade: false,
-  },
-  "SabithaH" => {
-    fade: false,
-  },
-  "Sarai" => {
-    bust_offset_y: 30,
-    fade: false,
-  },
-  "Tanurak" => {
-    bust_offset_y: 15,
-  },
-  "Tertia" => {
-    bust_offset_x: -65,
-    bust_offset_y: 27,
-  },
-  "Tyna" => {
-    bust_offset_y: 5,
-  },
-  "Ulrissa" => {
-    fade: false,
-  },
-  "Uyae" => {
-    bust_offset_x: -20,
-    fade: false,
-  },
-  "Uyae God Flip" => {
-    bust_offset_x: -20,
-  },
-  "Varia" => {
-    bust_offset_y: 10,
-  },
-  "Vhala" => {
-    bust_offset_y: 12,
-  },
-  "Vunne" => {
-    fade: false,
-  },
-  "Wendis blond" => {
-    fade: false,
-  },
-  "Wendis blondT" => {
-    fade: false,
-  },
-  "Wendis grey" => {
-    fade: false,
-  },
-  "Wendis greyT" => {
-    fade: false,
-  },
-  "Wynn" => {
-    bust_offset_x: -30,
-    bust_offset_y: 22,
-  },
-  "Bhakan" => {
-    bust_offset_y: 25,
-  },
-  "Donovan" => {
-    bust_offset_y: 5,
-  },
-  "Farnan" => {
-    bust_offset_y: 5,
-    fade: false,
-  },
-  "Ghanth" => {
-    bust_offset_y: 15,
-  },
-  "Jhenno" => {
-    bust_offset_y: 28,
-    fade: false,
-  },
-  "Biyue" => {
-    bust_offset_y: 15,
-  },
-  "Grubbak" => {
-    bust_offset_x: -39,
-    bust_offset_y: 31,
-  },
-  "Impaler" => {
-    bust_offset_y: 30,
-  },
-  "Yarra" => {
-    bust_offset_x: -55,
-    bust_offset_y: 10,
-    fade: false,
-  },
-  "Iris" => {
-    bust_offset_x: -30,
-  },
-  "Xerces" => {
-    bust_offset_x: -42,
-  },
-  "Mestan" => {
-    bust_offset_x: -24,
   },
 })
 
@@ -1009,64 +923,47 @@ Busty::replicate_config_for_alternate_forms([
     faces: ["Trin emo3", "Trin emo4"],
     bust: "Trin-diadem-portrait",
   },
+  {
+    original: "Min",
+    faces: ["Min emo2"],
+    bust: "Min2",
+  },
 ])
 
 # Dealing with Yarra's boobs
-Busty::BASE_CONFIG.merge!({
+Busty::CONFIG.merge!({
   "Yarra boobs" => {
     hide_original_face: true,
-  },
-  "Yarra boobs bigger" => {
-    hide_original_face: true,
-  },
-})
-Busty::MESSAGE_CONFIG.merge!({
-  "Yarra boobs" => {
     bust_offset_x: -48,
   },
   "Yarra boobs bigger" => {
+    hide_original_face: true,
     bust_offset_x: -6,
   },
 })
 # Ulrissa hidden behind wolf mask
-Busty::BASE_CONFIG["Ulrissa2"] = Busty::BASE_CONFIG["Ulrissa"]
-Busty::MESSAGE_CONFIG["Ulrissa2"] = Busty::MESSAGE_CONFIG["Ulrissa"]
+Busty::CONFIG["Ulrissa2"] = Busty::CONFIG["Ulrissa"]
 # Dark Xestris
-Busty::BASE_CONFIG["Xestris2"] = Busty::BASE_CONFIG["Xestris"]
-Busty::MESSAGE_CONFIG["Xestris2"] = Busty::MESSAGE_CONFIG["Xestris"]
+Busty::CONFIG["Xestris2"] = Busty::CONFIG["Xestris"]
 # Xestris ear positions
-Busty::BASE_CONFIG["Xestris-ear-up"] = Busty::BASE_CONFIG["Xestris"]
-Busty::MESSAGE_CONFIG["Xestris-ear-up"] = Busty::MESSAGE_CONFIG["Xestris"]
-Busty::BASE_CONFIG["Xestris-ear-down"] = Busty::BASE_CONFIG["Xestris"]
-Busty::MESSAGE_CONFIG["Xestris-ear-down"] = Busty::MESSAGE_CONFIG["Xestris"]
+Busty::CONFIG["Xestris-ear-up"] = Busty::CONFIG["Xestris"]
+Busty::CONFIG["Xestris-ear-down"] = Busty::CONFIG["Xestris"]
 # Grynyth needs separate images for every face because her semi-transparent
 # elements and moving eyebrow thingies make overlays a total nightmare
 (1..2).each do |i|
   (0..7).each do |j|
     name = "Grynyth#{i}-#{j}"
     Busty::SUBSET_TO_BUST.insert(-1, { character_name: name, face_name: "Grynyth emo#{i > 1 ? i : ''}", face_indexes: [j] })
-    Busty::BASE_CONFIG[name] = Busty::BASE_CONFIG["Grynyth"]
-    Busty::MESSAGE_CONFIG[name] = Busty::MESSAGE_CONFIG["Grynyth"]
+    Busty::CONFIG[name] = Busty::CONFIG["Grynyth"]
   end
 end
 # Doom King has various armour colours - simplest just to use one bust image for each
 (0..7).each do |j|
   name = "Doomed King #{j}"
   Busty::SUBSET_TO_BUST.insert(-1, { character_name: name, face_name: "Doomed King emo", face_indexes: [j] })
-  Busty::BASE_CONFIG[name] = Busty::BASE_CONFIG["Doomed King"]
-  Busty::MESSAGE_CONFIG[name] = Busty::MESSAGE_CONFIG["Doomed King"]
+  Busty::CONFIG[name] = Busty::CONFIG["Doomed King"]
 end
-# Ivala
-# Explicit config so we can easily duplicate it
-Busty::MESSAGE_CONFIG.merge!({
-  "Ivala" => {
-    bust_offset_x: -35,
-    bust_offset_y: 10,
-  },
+# Radiant Ivala
+Busty::CONFIG["Ivala Golden"] = Busty::CONFIG["Ivala"].clone.merge({
+  hide_original_face: true,
 })
-Busty::BASE_CONFIG.merge!({
-  "Ivala Golden" => {
-    hide_original_face: true,
-  },
-})
-Busty::MESSAGE_CONFIG["Ivala Golden"] = Busty::MESSAGE_CONFIG["Ivala"]
