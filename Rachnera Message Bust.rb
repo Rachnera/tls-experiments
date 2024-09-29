@@ -178,12 +178,6 @@ module Busty
       sprites_list.each { |sprite| sprite.bitmap = nil }
     end
 
-    # update and dispose were copy-pasted from the script I took inspiration from (see Credits) and haven't fundamentally changed since
-    # TODO Check if they do anything useful and, if so, if they do their job right
-    def update
-      sprites_list.each { |sprite| sprite.update }
-    end
-
     def dispose
       sprites_list.each do |sprite|
         sprite.dispose
@@ -291,7 +285,6 @@ class Window_Message < Window_Base
     else
       @bust.erase
     end
-    @bust.update
   end
 
   def bust_display_options
