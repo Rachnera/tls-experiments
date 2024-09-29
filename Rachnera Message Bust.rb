@@ -82,9 +82,6 @@ module Busty
     end
 
     def draw(x, y, face_name, face_index, max_width = nil, above_height = nil, gradient_length = 0)
-      @face_name = face_name
-      @face_index = face_index
-
       character_name = Busty::character_from_face(face_name, face_index)
       @character_name = character_name
 
@@ -123,29 +120,7 @@ module Busty
       else
         @bust_face.visible = true
 
-        # Shave border of face image if need be
-        face_width = 96 - face_border_width_left - face_border_width_right
-        face_height = 96 - face_border_width_top - face_border_width_bottom
-  
-        if max_width
-          # Cut part of the face if that would make the image overflows to the right
-          extra = (face_offset_x + face_border_width_left + face_border_width_right + face_width) - max_width
-          face_width -= extra if extra > 0
-        end
-  
-        bitmap = Cache.face(face_name)
-        rect = Rect.new(
-          face_index % 4 * 96 + face_border_width_left,
-          face_index / 4 * 96 + face_border_width_top,
-          face_width,
-          face_height
-        )
-        face_bitmap = Bitmap.new(face_width, face_height)
-        face_bitmap.blt(0, 0, bitmap, rect)
-        @bust_face.bitmap = face_bitmap
-        @bust_face.x = @bust.x + face_border_width_left + face_offset_x
-        @bust_face.y = @bust.y + face_border_width_top + face_offset_y
-        @bust_face.z = @bust.z + face_z
+        draw_face(face_name, face_index)
       end
 
       # Check if the cleanup is truly done right below
@@ -179,11 +154,31 @@ module Busty
       end
     end
 
-    def redraw(face_name, face_index)
-      draw(@bust.x, @bust.y - Graphics.height + @bust.height, face_name, face_index)
+    def draw_face(face_name, face_index)
+      @face_name = face_name
+      @face_index = face_index
+
+      # Shave border of face image if need be
+      face_width = 96 - face_border_width_left - face_border_width_right
+      face_height = 96 - face_border_width_top - face_border_width_bottom
+
+      bitmap = Cache.face(face_name)
+      rect = Rect.new(
+        face_index % 4 * 96 + face_border_width_left,
+        face_index / 4 * 96 + face_border_width_top,
+        face_width,
+        face_height
+      )
+      face_bitmap = Bitmap.new(face_width, face_height)
+      face_bitmap.blt(0, 0, bitmap, rect)
+      @bust_face.bitmap = face_bitmap
+      @bust_face.x = @bust.x + face_border_width_left + face_offset_x
+      @bust_face.y = @bust.y + face_border_width_top + face_offset_y
+      @bust_face.z = @bust.z + face_z
     end
 
     def erase
+      @character_name = nil
       @face_name = nil
       @face_index = nil
 
@@ -298,10 +293,17 @@ class Window_Message < Window_Base
     end
 
     if @bust.character_name == character_name
-      if @bust.face_name == bust_display_options[2] && @bust.face_index == bust_display_options[3]
+      requested_face_name = bust_display_options[2]
+      requested_face_index = bust_display_options[3]
+
+      if @bust.face_name == requested_face_name && @bust.face_index == requested_face_index
         # Nothing to do, is already displayed right
         return
       end
+
+      # Just redraw the face, nothing else has changed (same character)
+      @bust.draw_face(requested_face_name, requested_face_index)
+      return
     end
 
     @bust.draw(*bust_display_options)
