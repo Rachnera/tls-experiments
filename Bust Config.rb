@@ -7,6 +7,10 @@ Busty::FACE_TO_BUST = {
   "1 Simon distress2" => "Simon2D",
   "1 Simon distress3" => "Simon2",
   "1 Simon distress4" => "Simon2",
+  "1 Simon topless dark eyes" => "Simon topless",
+  "1 Simon topless dark eyes2" => "Simon topless",
+  "1 Simon topless" => "Simon topless",
+  "1 Simon topless2" => "Simon topless",
   "Alanon emo" => "Alonon",
   "darksorceress" => "Riala",
   "Dheria emo1" => "Dheria2", # grey tunic, red eyes
@@ -15,6 +19,10 @@ Busty::FACE_TO_BUST = {
   "face002b2" => "Simon1",
   "face002b dark" => "Simon1",
   "face002b dark2" => "Simon1",
+  "face002b topless dark eyes" => "Simon topless",
+  "face002b topless dark eyes2" => "Simon topless",
+  "face002b topless" => "Simon topless",
+  "face002b topless2" => "Simon topless",
   "face002b_Wedding" => "Simon suit wedding",
   "Fucklord emo" => "Incubus Emperor",
   "MainActor1-1fs" => "Altina",
@@ -156,7 +164,31 @@ Busty::SUBSET_TO_BUST = [
     face_name: "Yarra emo2",
     face_indexes: [3],
   },
+  # Topless young Simon needs a special beardless bust
+  {
+    character_name: "Simon topless young",
+    face_name: "face002b topless",
+    face_indexes: [7],
+  },
+  {
+    character_name: "Simon topless young",
+    face_name: "face002b topless dark eyes",
+    face_indexes: [7],
+  },
 ]
+
+# map from clothed Simon to corresponding topless Simon
+Busty::TOPLESS_SIMON_MAP = {
+  "1 Simon dark eyes" => "1 Simon topless dark eyes",
+  "1 Simon dark eyes2" => "1 Simon topless dark eyes2",
+  "1 Simon dark" => "1 Simon topless",
+  "1 Simon dark2" => "1 Simon topless2",
+  "face002b" => "face002b topless",
+  "face002b2" => "face002b topless2",
+  "face002b dark" => "face002b topless dark eyes",
+  "face002b dark2" => "face002b topless dark eyes2",
+}
+
 # Special cheats for some characters
 class Window_Message < Window_Base
   def custom_bust_display_options
@@ -166,6 +198,13 @@ class Window_Message < Window_Base
         nil,
         nil,
         face_name = 'Vera emo'
+      ]
+    elsif Busty::TOPLESS_SIMON_MAP[$game_message.face_name] && $game_actors[2].character_index == 2
+      # Simon is using his almost naked sprite, override with topless faceset
+      return [
+        -40,
+        19,
+        face_name = Busty::TOPLESS_SIMON_MAP[$game_message.face_name]
       ]
     elsif character_name == 'Uyae' && $game_switches[1481] # YHILIN III
       # fix up Uyae's clothes after returning from first Zirantia trip
@@ -193,9 +232,6 @@ module Busty
       # True protagonist revealed
       # No switch that I'm aware of tracking that; so checking if Kai's quests are active instead
       return false if $game_party.quests.revealed?(5)
-
-      # Simon is using his almost naked sprite
-      return false if $game_actors[2].character_index == 2
 
       true
     end
@@ -847,6 +883,10 @@ Busty::CONFIG.merge!({
     face_offset_x: 64,
     face_offset_y: 45,
   },
+  "Simon topless" => {
+    face_offset_x: 64,
+    face_offset_y: 30,
+  },
   "Simon1" => {
     face_offset_x: 63,
     face_offset_y: 34,
@@ -957,6 +997,8 @@ Busty::CONFIG["Xestris2"] = Busty::CONFIG["Xestris"]
 # Xestris ear positions
 Busty::CONFIG["Xestris-ear-up"] = Busty::CONFIG["Xestris"]
 Busty::CONFIG["Xestris-ear-down"] = Busty::CONFIG["Xestris"]
+# Young topless Simon
+Busty::CONFIG["Simon topless young"] = Busty::CONFIG["Simon topless"]
 # Grynyth needs separate images for every face because her semi-transparent
 # elements and moving eyebrow thingies make overlays a total nightmare
 (1..2).each do |i|
