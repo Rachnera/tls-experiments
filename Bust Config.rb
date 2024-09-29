@@ -23,6 +23,7 @@ Busty::FACE_TO_BUST = {
   "Riala emo2" => "Riala2",
   "Sabitha H emo" => "SabithaH",
   "Ulrissa emo3" => "Ulrissa2",
+  "Uyae2 emo" => "Uyae2",
   "Uyae emo2d" => "Uyae God Flip",
   "Z Andra emo" => nil, # To only allow face 4, see below
   "Z Andra emoN" => nil, # No bust for no robe Andra
@@ -165,6 +166,13 @@ class Window_Message < Window_Base
         nil,
         nil,
         face_name = 'Vera emo'
+      ]
+    elsif character_name == 'Uyae' && $game_switches[1481] # YHILIN III
+      # fix up Uyae's clothes after returning from first Zirantia trip
+      return [
+        nil,
+        nil,
+        face_name = 'Uyae2 emo'
       ]
     end
 
@@ -663,7 +671,6 @@ Busty::CONFIG.merge!({
   "Uyae" => {
     face_offset_x: 52,
     face_offset_y: 42,
-
     bust_offset_x: -20,
     fade: false,
   },
@@ -943,6 +950,8 @@ Busty::CONFIG.merge!({
 })
 # Ulrissa hidden behind wolf mask
 Busty::CONFIG["Ulrissa2"] = Busty::CONFIG["Ulrissa"]
+# Uyae with fixed clothes
+Busty::CONFIG["Uyae2"] = Busty::CONFIG["Uyae"]
 # Dark Xestris
 Busty::CONFIG["Xestris2"] = Busty::CONFIG["Xestris"]
 # Xestris ear positions
