@@ -61,6 +61,9 @@ module Busty
   end
 
   class Bust
+    attr_reader :face_name
+    attr_reader :face_index
+
     def initialize(z)
       @bust = Sprite.new
       @bust.visible = true
@@ -73,9 +76,15 @@ module Busty
       @bust_overflow.z = @bust.z
 
       @fade_sprites = []
+
+      @face_name = nil
+      @face_index = nil
     end
 
     def draw(x, y, face_name, face_index, max_width = nil, above_height = nil, gradient_length = 0)
+      @face_name = face_name
+      @face_index = face_index
+
       character_name = Busty::character_from_face(face_name, face_index)
       @character_name = character_name
 
@@ -175,6 +184,9 @@ module Busty
     end
 
     def erase
+      @face_name = nil
+      @face_index = nil
+
       sprites_list.each { |sprite| sprite.bitmap = nil }
     end
 
@@ -280,11 +292,19 @@ class Window_Message < Window_Base
   end
 
   def update_bust
-    if show_bust?
-      @bust.draw(*bust_display_options)
-    else
+    if !show_bust?
       @bust.erase
+      return
     end
+
+    if @bust.character_name == character_name
+      if @bust.face_name == bust_display_options[2] && @bust.face_index == bust_display_options[3]
+        # Nothing to do, is already displayed right
+        return
+      end
+    end
+
+    @bust.draw(*bust_display_options)
   end
 
   def bust_display_options
