@@ -174,7 +174,6 @@ end
 
 # You can disable a character from that feature by passing "CharacterName" => "never" here
 Busty::MESSAGE_AUTODISPLAY_SPECIAL = {
-  "Feremina" => "stenai_princess_chosen",
   "Simon1" => "show_simon_the_green",
 
   # Luanall shares her face with nameless NPC, and there's not really a good way to differentiate them right now
@@ -191,10 +190,6 @@ module Busty
       return false if $game_actors[2].character_index == 2
 
       true
-    end
-
-    def stenai_princess_chosen
-      $game_switches[2893]
     end
 
     def never
@@ -571,6 +566,11 @@ Busty::CONFIG.merge!({
     face_offset_y: 40,
     face_border_width: [0, 0, 0, 12],
 
+    bust_offset_y: 20,
+  },
+  "Reletima" => {
+    face_offset_x: 72,
+    face_offset_y: 47,
     bust_offset_y: 20,
   },
   "Riala" => {
