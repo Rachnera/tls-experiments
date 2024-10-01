@@ -7,10 +7,6 @@ Busty::FACE_TO_BUST = {
   "1 Simon distress2" => "Simon2D",
   "1 Simon distress3" => "Simon2",
   "1 Simon distress4" => "Simon2",
-  "1 Simon topless dark eyes" => "Simon topless",
-  "1 Simon topless dark eyes2" => "Simon topless",
-  "1 Simon topless" => "Simon topless",
-  "1 Simon topless2" => "Simon topless",
   "Alanon emo" => "Alonon",
   "darksorceress" => "Riala",
   "Dheria emo1" => "Dheria2", # grey tunic, red eyes
@@ -19,10 +15,6 @@ Busty::FACE_TO_BUST = {
   "face002b2" => "Simon1",
   "face002b dark" => "Simon1",
   "face002b dark2" => "Simon1",
-  "face002b topless dark eyes" => "Simon topless",
-  "face002b topless dark eyes2" => "Simon topless",
-  "face002b topless" => "Simon topless",
-  "face002b topless2" => "Simon topless",
   "face002b_Wedding" => "Simon suit wedding",
   "Fucklord emo" => "Incubus Emperor",
   "MainActor1-1fs" => "Altina",
@@ -188,6 +180,9 @@ Busty::TOPLESS_SIMON_MAP = {
   "face002b dark" => "face002b topless dark eyes",
   "face002b dark2" => "face002b topless dark eyes2",
 }
+Busty::TOPLESS_SIMON_MAP.each do |key, value|
+  Busty::FACE_TO_BUST[value] = "Simon topless"
+end
 
 # Special cheats for some characters
 class Window_Message < Window_Base
