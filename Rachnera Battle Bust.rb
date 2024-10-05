@@ -510,7 +510,7 @@ class Scene_Battle < Scene_Base
 
   # Time, in frames, the bust stands still before moving out
   def bust_idle_duration
-    120
+    240
   end
 
   def bust_move_total_distance
