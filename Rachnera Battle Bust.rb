@@ -119,16 +119,6 @@ class Scene_Battle < Scene_Base
     # (case of actions happening outside of turns)
     offset_right_status_window
 
-    # New (move message window)
-    if @subject.is_a?(Game_Enemy)
-      move_log_window(
-        0,
-        Graphics.height - (96 + 12*2 + 38)
-      )
-    else
-      reset_log_window_position
-    end
-
     # Original, no change
     item = @subject.current_action.item
     @log_window.display_use_item(@subject, item)
@@ -291,7 +281,6 @@ class Scene_Battle < Scene_Base
     return original_478_turn_end if bust_feature_disabled?
 
     reset_status_window
-    reset_log_window_position
 
     original_478_turn_end
   end
@@ -301,15 +290,6 @@ class Scene_Battle < Scene_Base
     Busty::dispose_enemy_face_window
 
     original_478_terminate
-  end
-
-  def move_log_window(x, y)
-    @log_window.x = x
-    @log_window.y = y
-  end
-
-  def reset_log_window_position
-    move_log_window(0, 0)
   end
 
   def bust_feature_disabled?
