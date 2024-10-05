@@ -116,13 +116,13 @@ class Scene_Battle < Scene_Base
     return original_478_use_item if bust_feature_disabled?
 
     # New (move message window)
-    reload_log_window_position
-    save_log_window_position
     if @subject.is_a?(Game_Enemy)
       move_log_window(
         0,
         Graphics.height - (96 + 12*2 + 38)
       )
+    else
+      reset_log_window_position
     end
 
     # Original, no change
@@ -281,8 +281,6 @@ class Scene_Battle < Scene_Base
     # But moving it fully to the right (+16*4) means too much empty space
     @status_window.x = 128+16*4
 
-    save_log_window_position
-
     original_478_turn_start
   end
 
@@ -293,7 +291,7 @@ class Scene_Battle < Scene_Base
     @status_window.show
     @status_window.x = 128
 
-    reload_log_window_position
+    reset_log_window_position
 
     original_478_turn_end
   end
@@ -305,26 +303,13 @@ class Scene_Battle < Scene_Base
     original_478_terminate
   end
 
-  alias original_478_create_log_window create_log_window
-  def create_log_window
-    original_478_create_log_window
-
-    save_log_window_position
-  end
-
   def move_log_window(x, y)
     @log_window.x = x
     @log_window.y = y
   end
 
-  def save_log_window_position
-    @old_log_window_x = @log_window.x
-    @old_log_window_y = @log_window.y
-  end
-
-  def reload_log_window_position
-    @log_window.x = @old_log_window_x
-    @log_window.y = @old_log_window_y
+  def reset_log_window_position
+    move_log_window(0, 0)
   end
 
   def bust_feature_disabled?
