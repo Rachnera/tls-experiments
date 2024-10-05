@@ -115,6 +115,10 @@ class Scene_Battle < Scene_Base
   def use_item
     return original_478_use_item if bust_feature_disabled?
 
+    # New: Ensure status_window position is right even if we skip turn_start
+    # (case of actions happening outside of turns)
+    offset_right_status_window
+
     # New (move message window)
     if @subject.is_a?(Game_Enemy)
       move_log_window(
@@ -277,8 +281,7 @@ class Scene_Battle < Scene_Base
   def turn_start
     return original_478_turn_start if bust_feature_disabled?
 
-    # Move status window as much to the right as possible
-    @status_window.x = 128+16*4
+    offset_right_status_window
 
     original_478_turn_start
   end
@@ -287,9 +290,7 @@ class Scene_Battle < Scene_Base
   def turn_end
     return original_478_turn_end if bust_feature_disabled?
 
-    @status_window.show
-    @status_window.x = 128
-
+    reset_status_window
     reset_log_window_position
 
     original_478_turn_end
@@ -380,6 +381,24 @@ class Scene_Battle < Scene_Base
 
   def bust_config
     Busty::BATTLE_CONFIG[character_name] || {}
+  end
+
+  def offset_right_status_window
+    @status_window.x = 128+16*4
+  end
+
+  def reset_status_window
+    @status_window.show
+    @status_window.x = 128
+  end
+
+  alias original_478_update_info_viewport update_info_viewport
+  def update_info_viewport
+    # Ensure we reset even if we skip turn_end
+    # (case of actions happening outside of turns)
+    reset_status_window if @actor_command_window.active
+
+    original_478_update_info_viewport
   end
 
   def hide_status_window
