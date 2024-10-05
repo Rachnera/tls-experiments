@@ -277,8 +277,7 @@ class Scene_Battle < Scene_Base
   def turn_start
     return original_478_turn_start if bust_feature_disabled?
 
-    # Compromise value: Keeping the bar perfectly centered doesn't leave enough space for the busts
-    # But moving it fully to the right (+16*4) means too much empty space
+    # Move status window as much to the right as possible
     @status_window.x = 128+16*4
 
     original_478_turn_start
