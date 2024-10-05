@@ -170,19 +170,9 @@ class Scene_Battle < Scene_Base
 
     return if bust_feature_disabled?
 
-    # Deliberately wait for the end of the "sweeper car" clean-up for the less obstrusive small images
     if show_bust?
-      # Wait a bit longer before removing the image for smoother display (especially with animations off)
-      # But we move it further into the background and gray it out so it's not as obtrusive
-      @bust_picture.z = 2
-      @bust_picture.tone.red = -64
-      @bust_picture.tone.green = -64
-      @bust_picture.tone.blue = -64
-      @bust_picture.tone.gray = 128
-
-      if move_bust_out?
-        @bust_exit_left = 0
-      end
+      # Make the image less obstrusive but don't remove it entirely for smoother transition
+      send_bust_to_background
     end
 
     if move_effects_require_showing_status_window?(@subject.current_action.item)
@@ -198,6 +188,7 @@ class Scene_Battle < Scene_Base
     @bust_picture.x = bust_offset_x
     @bust_picture.y = Graphics.height - @bust_picture.height + bust_offset_y
 
+    @bust_idle = 0
     if move_bust_in?
       @bust_picture.x = bust_offscreen_x
       @bust_enter_left = 0
@@ -265,6 +256,7 @@ class Scene_Battle < Scene_Base
 
     @bust_enter_left = nil
     @bust_exit_left = nil
+    @bust_idle = nil
   end
 
   alias original_478_turn_start turn_start
@@ -406,6 +398,14 @@ class Scene_Battle < Scene_Base
 
     false
   end
+
+  def send_bust_to_background
+    @bust_picture.z = 2
+    @bust_picture.tone.red = -64
+    @bust_picture.tone.green = -64
+    @bust_picture.tone.blue = -64
+    @bust_picture.tone.gray = 128
+  end
 end
 
 class Game_Actor < Game_Battler
@@ -452,6 +452,18 @@ class Scene_Battle < Scene_Base
     move_config[:move_out]
   end
 
+  def time_to_move_out
+    return unless $game_system.animations? && @bust_idle && move_bust_out?
+
+    return if @bust_exit_left || @bust_picture.tone.gray != 0
+
+    @bust_idle += 1
+    if @bust_idle >= bust_move_in_duration + bust_idle_duration
+      send_bust_to_background
+      @bust_exit_left = 0
+    end
+  end
+
   def enter_stage_left
     return unless $game_system.animations? && @bust_enter_left
 
@@ -459,13 +471,13 @@ class Scene_Battle < Scene_Base
 
     @bust_enter_left += 1
 
-    if @bust_enter_left >= bust_move_duration
+    if @bust_enter_left >= bust_move_in_duration
       @bust_picture.x = bust_offset_x
       @bust_enter_left = nil
       return
     end
 
-    a = 1.0 * @bust_enter_left / bust_move_duration
+    a = 1.0 * @bust_enter_left / bust_move_in_duration
     @bust_picture.x = bust_offscreen_x + EaseFuncs.ease_out_sine(a) * bust_move_total_distance
   end
 
@@ -476,19 +488,29 @@ class Scene_Battle < Scene_Base
 
     @bust_exit_left += 1
 
-    if @bust_exit_left >= bust_move_duration
+    if @bust_exit_left >= bust_move_out_duration
       @bust_picture.x = bust_offscreen_x
       @bust_exit_left = nil
       return
     end
 
-    a = 1.0 * @bust_exit_left / bust_move_duration
+    a = 1.0 * @bust_exit_left / bust_move_out_duration
     @bust_picture.x = bust_offset_x - EaseFuncs.ease_in_sine(a) * bust_move_total_distance
   end
 
-  # In frames (60 FPS)
-  def bust_move_duration
+  # Time, in frames (60 FPS), the bust takes to move in
+  def bust_move_in_duration
     60
+  end
+
+  # Time, in frames (60 FPS), the bust takes to move out
+  def bust_move_out_duration
+    180
+  end
+
+  # Time, in frames, the bust stands still before moving out
+  def bust_idle_duration
+    120
   end
 
   def bust_move_total_distance
@@ -502,6 +524,10 @@ class Sprite_Battler < Sprite_Base
 
     if SceneManager.scene.is_a?(Scene_Battle)
       SceneManager.scene.enter_stage_left
+
+      # Allow to move out even if still animating
+      SceneManager.scene.time_to_move_out
+      SceneManager.scene.exit_stage_left
     end
   end
 
