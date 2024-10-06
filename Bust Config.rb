@@ -165,12 +165,20 @@ class Window_Message < Window_Base
       return 'Vera emo'
     end
 
-    if character_name == 'Uyae' && $game_switches[1481] # YHILIN III
-      # fix up Uyae's clothes after returning from first Zirantia trip
-      return 'Uyae2 emo'
-    end
-
     $game_message.face_name
+  end
+end
+module Busty
+  class << self
+    alias original_character_from_face character_from_face
+    def character_from_face(face_name, face_index)
+      if face_name == 'Uyae emo' && $game_switches[1481] # YHILIN III
+        # fix up Uyae's clothes after returning from first Zirantia trip
+        return 'Uyae2'
+      end
+
+      original_character_from_face(face_name, face_index)
+    end
   end
 end
 
