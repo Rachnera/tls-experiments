@@ -23,7 +23,6 @@ Busty::FACE_TO_BUST = {
   "Riala emo2" => "Riala2",
   "Sabitha H emo" => "SabithaH",
   "Ulrissa emo3" => "Ulrissa2",
-  "Uyae2 emo" => "Uyae2",
   "Uyae emo2d" => "Uyae God Flip",
   "Z Andra emo" => nil, # To only allow face 4, see below
   "Z Andra emoN" => nil, # No bust for no robe Andra
