@@ -294,43 +294,35 @@ class Window_Message < Window_Base
     end
 
     if @bust.character_name == character_name
-      requested_face_name = bust_display_options[2]
-      requested_face_index = bust_display_options[3]
-
-      if @bust.face_name == requested_face_name && @bust.face_index == requested_face_index
+      if @bust.face_name == bust_face_name && @bust.face_index == bust_face_index
         # Nothing to do, is already displayed right
         return
       end
 
       # Just redraw the face, nothing else has changed (same character)
-      @bust.draw_face(requested_face_name, requested_face_index)
+      @bust.draw_face(bust_face_name, bust_face_index)
       return
     end
 
-    @bust.draw(*bust_display_options)
-  end
-
-  def bust_display_options
-    default_values = [
+    @bust.draw(
       bust_offset_x,
       bust_offset_y,
-      $game_message.face_name,
-      $game_message.face_index,
+      bust_face_name,
+      bust_face_index,
       max_width = (new_line_x + bust_extra_x),
       above_height = height,
-      bust_should_fade?,
-    ]
-
-    return default_values unless custom_bust_display_options
-
-    default_values.map.with_index  do |default_value, index|
-      custom_bust_display_options[index] || default_value
-    end
+      bust_should_fade?
+    )
   end
 
-  # Doesn't return anything by default; see Bust Config for some actual implementation
-  def custom_bust_display_options
-    nil
+  # Allow faces to be overridden in certain circumstances; see Bust Config for implementation.
+  # This applies both when displaying busts and when just displaying faces.
+  def bust_face_name
+    $game_message.face_name
+  end
+
+  def bust_face_index
+    $game_message.face_index
   end
 
   def show_bust?

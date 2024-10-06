@@ -159,24 +159,18 @@ Busty::SUBSET_TO_BUST = [
 ]
 # Special cheats for some characters
 class Window_Message < Window_Base
-  def custom_bust_display_options
+  def bust_face_name
     # Vera has the same expressions on different sheets, but with a different zoom level. Ensure we use the configured one.
     if character_name == 'Vera' && $game_message.face_name != 'Vera emo'
-      return [
-        nil,
-        nil,
-        face_name = 'Vera emo'
-      ]
-    elsif character_name == 'Uyae' && $game_switches[1481] # YHILIN III
-      # fix up Uyae's clothes after returning from first Zirantia trip
-      return [
-        nil,
-        nil,
-        face_name = 'Uyae2 emo'
-      ]
+      return 'Vera emo'
     end
 
-    nil
+    if character_name == 'Uyae' && $game_switches[1481] # YHILIN III
+      # fix up Uyae's clothes after returning from first Zirantia trip
+      return 'Uyae2 emo'
+    end
+
+    $game_message.face_name
   end
 end
 
