@@ -364,7 +364,7 @@ class Window_Message < Window_Base
   end
 
   def character_name
-    Busty::character_from_face(bust_face_name, $game_message.face_index)
+    Busty::character_from_face(bust_face_name, bust_face_index)
   end
 
   def bust_offset_x

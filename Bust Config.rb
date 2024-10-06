@@ -167,7 +167,7 @@ Busty::TOPLESS_SIMON_MAP.values.uniq.each do |value|
   Busty::FACE_TO_BUST[value] = "Simon topless"
 end
 # young Simon does not support disrobing
-Busty::SIMON_YOUNG_FACES = ["face002b_topless","face002b_topless dark"]
+Busty::SIMON_YOUNG_FACES = ["face002b","face002b dark"]
 
 # Automatically swap certain facesets depending on certain conditions.
 # NB this comes before face-to-bust mapping in character_from_face.
@@ -176,7 +176,7 @@ class Window_Message < Window_Base
     # if Simon is using his almost-naked sprite, override with topless faceset, unless it's young Simon
     topless_simon_face = Busty::TOPLESS_SIMON_MAP[$game_message.face_name]
     if topless_simon_face && $game_actors[2].character_index == 2 && 
-        ($game_message.face_index != 7 || !Busty::SIMON_YOUNG_FACES.include?(topless_simon_face))
+        !($game_message.face_index == 7 && Busty::SIMON_YOUNG_FACES.include?($game_message.face_name))
       return topless_simon_face
     end
     
