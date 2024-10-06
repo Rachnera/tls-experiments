@@ -364,7 +364,7 @@ class Window_Message < Window_Base
   end
 
   def character_name
-    Busty::character_from_face($game_message.face_name, $game_message.face_index)
+    Busty::character_from_face(bust_face_name, $game_message.face_index)
   end
 
   def bust_offset_x
@@ -417,8 +417,8 @@ class Window_Message < Window_Base
   alias original_591_draw_face draw_face
   def draw_face(face_name, face_index, x, y, enabled = true)
     return if show_bust?
-    return original_591_draw_face(face_name, face_index, x + 2*standard_padding, y, enabled) if valid_context?
-    original_591_draw_face(face_name, face_index, x, y, enabled)
+    return original_591_draw_face(bust_face_name, face_index, x + 2*standard_padding, y, enabled) if valid_context?
+    original_591_draw_face(bust_face_name, face_index, x, y, enabled)
   end
   alias original_591_new_line_x new_line_x
   def new_line_x
