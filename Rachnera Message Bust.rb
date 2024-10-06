@@ -129,13 +129,7 @@ module Busty
         end
       end
 
-      if bust_config[:hide_original_face]
-        @bust_face.visible = false
-      else
-        @bust_face.visible = true
-
-        draw_face(face_name, face_index)
-      end
+      draw_face(face_name, face_index)
 
       @fade_sprites.each { |sprite| sprite.bitmap = nil }
       if fade_right && max_width && gradient_length > 0
@@ -154,6 +148,13 @@ module Busty
     def draw_face(face_name, face_index)
       @face_name = face_name
       @face_index = face_index
+
+      if bust_config[:hide_original_face]
+        @bust_face.visible = false
+        return
+      end
+
+      @bust_face.visible = true
 
       # Shave border of face image if need be
       face_width = 96 - face_border_width_left - face_border_width_right

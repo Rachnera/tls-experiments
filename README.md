@@ -36,7 +36,7 @@ Note: To accomodate with the fact busts tend to be snapped to the bottom, y = 0 
 Shortcut if you just need to change the character's expression without moving anything else.
 
 ```rb
-$some_bust.redraw(
+$some_bust.draw_face(
   face_name = "Tertia emo",
   face_index = 7
 )
