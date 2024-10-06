@@ -111,11 +111,6 @@ Busty::SUBSET_TO_BUST = [
     face_name: "Ulrissa emo",
     face_indexes: [6],
   },
-  {
-    character_name: "Vera",
-    face_name: "Y DS_Actor17",
-    face_indexes: [7],
-  },
   # First half of Vera's faces are actually other characters
   {
     character_name: nil,
@@ -156,24 +151,59 @@ Busty::SUBSET_TO_BUST = [
     face_indexes: [3],
   },
 ]
-# Special cheats for some characters
+
+# map from clothed Simon facesets to corresponding topless Simon
+Busty::TOPLESS_SIMON_MAP = {
+  "face002b" => "face002b_topless",
+  "1 Simon dark" => "face002b_topless",
+  "face002b2" => "face002b_topless2",
+  "1 Simon dark2" => "face002b_topless2",
+  "face002b dark" => "face002b_topless dark",
+  "1 Simon dark eyes" => "face002b_topless dark",
+  "face002b dark2" => "face002b_topless dark2",
+  "1 Simon dark eyes2" => "face002b_topless dark2",
+}
+Busty::TOPLESS_SIMON_MAP.values.uniq.each do |value|
+  Busty::FACE_TO_BUST[value] = "Simon topless"
+end
+# young Simon does not support disrobing
+Busty::SIMON_YOUNG_FACES = ["face002b","face002b dark"]
+
+# Automatically swap certain facesets depending on certain conditions.
+# NB this comes before face-to-bust mapping in character_from_face.
 class Window_Message < Window_Base
   def bust_face_name
+    # if Simon is using his almost-naked sprite, override with topless faceset, unless it's young Simon
+    topless_simon_face = Busty::TOPLESS_SIMON_MAP[$game_message.face_name]
+    if topless_simon_face && $game_actors[2].character_index == 2 && 
+        !($game_message.face_index == 7 && Busty::SIMON_YOUNG_FACES.include?($game_message.face_name))
+      return topless_simon_face
+    end
+    
+    # fix up Uyae's clothes after returning from first Zirantia trip
+    # see also character_from_face below
+    if $game_message.face_name == 'Uyae emo' && $game_switches[1481] # YHILIN III
+      return 'Uyae2 emo'
+    end
+    
     # Vera has the same expressions on different sheets, but with a different zoom level. Ensure we use the configured one.
-    if character_name == 'Vera' && $game_message.face_name != 'Vera emo'
+    if $game_message.face_name == 'Y DS_Actor17' && $game_message.face_index == 7
       return 'Vera emo'
     end
 
     $game_message.face_name
   end
 end
+
+# Automatically swap busts depending on certain conditions.
+# NB this step comes after faceset swapping in bust_face_name.
 module Busty
   class << self
     alias original_character_from_face character_from_face
     def character_from_face(face_name, face_index)
-      if face_name == 'Uyae emo' && $game_switches[1481] # YHILIN III
-        # fix up Uyae's clothes after returning from first Zirantia trip
-        return 'Uyae2'
+      if face_name == 'Uyae2 emo' && $game_switches[2081] # HOME BASE
+        # reinstate Uyae's boob window after travelling the world between ch3-4
+        return 'Uyae3'
       end
 
       original_character_from_face(face_name, face_index)
@@ -194,9 +224,6 @@ module Busty
       # True protagonist revealed
       # No switch that I'm aware of tracking that; so checking if Kai's quests are active instead
       return false if $game_party.quests.revealed?(5)
-
-      # Simon is using his almost naked sprite
-      return false if $game_actors[2].character_index == 2
 
       true
     end
@@ -848,6 +875,10 @@ Busty::CONFIG.merge!({
     face_offset_x: 64,
     face_offset_y: 45,
   },
+  "Simon topless" => {
+    face_offset_x: 64,
+    face_offset_y: 30,
+  },
   "Simon1" => {
     face_offset_x: 63,
     face_offset_y: 34,
@@ -953,6 +984,7 @@ Busty::CONFIG.merge!({
 Busty::CONFIG["Ulrissa2"] = Busty::CONFIG["Ulrissa"]
 # Uyae with fixed clothes
 Busty::CONFIG["Uyae2"] = Busty::CONFIG["Uyae"]
+Busty::CONFIG["Uyae3"] = Busty::CONFIG["Uyae"]
 # Dark Xestris
 Busty::CONFIG["Xestris2"] = Busty::CONFIG["Xestris"]
 # Xestris ear positions
