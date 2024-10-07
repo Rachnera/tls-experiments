@@ -400,7 +400,6 @@ class Window_Message < Window_Base
     bust_config[:fade]
   end
 
-  # FIXME Last straw in a larger mess to use to the bottom left corner as reference (instead of the upper left one)
   def bust_height
     Cache.picture('busts/' + character_name).height
   end
