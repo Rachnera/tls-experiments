@@ -826,6 +826,8 @@ Busty::CONFIG.merge!({
     face_offset_x: 46,
     face_offset_y: 61,
     face_border_width: 1,
+    bust_offset_x: -12,
+    fade: false,
   },
   "Orcent IK" => {
     face_offset_x: 61,
