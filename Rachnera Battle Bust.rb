@@ -498,17 +498,17 @@ class Scene_Battle < Scene_Base
 
   # Time, in frames (60 FPS), the bust takes to move in
   def bust_move_in_duration
-    60
+    90
   end
 
   # Time, in frames (60 FPS), the bust takes to move out
   def bust_move_out_duration
-    180
+    90
   end
 
   # Time, in frames, the bust stands still before moving out
   def bust_idle_duration
-    240
+    120
   end
 
   def bust_move_total_distance
