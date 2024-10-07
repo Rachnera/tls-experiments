@@ -447,8 +447,6 @@ class Scene_Battle < Scene_Base
   def move_bust_out?
     return false unless $game_system.animations?
 
-    return true unless move_config.has_key?(:move_out)
-
     move_config[:move_out]
   end
 

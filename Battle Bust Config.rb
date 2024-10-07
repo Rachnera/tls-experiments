@@ -5,6 +5,7 @@ Busty::BATTLE_CONFIG.merge!({
     "Attack" => {
       picture: "QumSpellFlail",
       move_in: true,
+      move_out: true,
     },
     "Cleansing Wink" => "QumSpellWink",
     "Cumdump" => "QumHugAura",
@@ -15,7 +16,6 @@ Busty::BATTLE_CONFIG.merge!({
     "Little Death" => "QumSpellSerious",
     "Mass Kiss" => {
       picture: "QumKissMasskiss",
-      move_out: false,
     },
     "Orgasmic Thoughts" => "QumOohCloud",
     "Protective Hug" => "QumHug",
@@ -38,6 +38,7 @@ Busty::BATTLE_CONFIG.merge!({
     "Attack" => {
       picture: "YarraAttack",
       move_in: true,
+      move_out: true,
     },
     "Bonded Fantasy" => "YarraKiss",
     "First Slut" => "YarraM",
@@ -47,6 +48,7 @@ Busty::BATTLE_CONFIG.merge!({
     "Ice Whip" => {
       picture: "YarraAttackIce",
       move_in: true,
+      move_out: true,
     },
     "Incubus King's Emissary" => "YarraSpellEmissary",
     "Sexual Mana" => "YarraMSexualMana",
