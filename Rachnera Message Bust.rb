@@ -61,8 +61,7 @@ module Busty
   end
 
   class Bust
-    attr_reader :face_name
-    attr_reader :face_index
+    attr_reader :face_config
 
     def initialize(z, gradient_length = 0)
       @bust = Sprite.new
@@ -89,9 +88,6 @@ module Busty
 
         @fade_sprites.push(sprite)
       end
-
-      @face_name = nil
-      @face_index = nil
     end
 
     def draw(x, y, face_name, face_index, max_width = nil, above_height = nil, fade_right = false)
@@ -146,8 +142,7 @@ module Busty
     end
 
     def draw_face(face_name, face_index)
-      @face_name = face_name
-      @face_index = face_index
+      @face_config = [face_name, face_index]
 
       if bust_config[:hide_original_face]
         @bust_face.visible = false
@@ -177,8 +172,7 @@ module Busty
 
     def erase
       @character_name = nil
-      @face_name = nil
-      @face_index = nil
+      @face_config = nil
 
       sprites_list.each { |sprite| sprite.bitmap = nil }
     end
@@ -295,21 +289,20 @@ class Window_Message < Window_Base
     end
 
     if @bust.character_name == character_name
-      if @bust.face_name == bust_face_name && @bust.face_index == bust_face_index
+      if @bust.face_config == bust_face_config
         # Nothing to do, is already displayed right
         return
       end
 
       # Just redraw the face, nothing else has changed (same character)
-      @bust.draw_face(bust_face_name, bust_face_index)
+      @bust.draw_face(*bust_face_config)
       return
     end
 
     @bust.draw(
       bust_offset_x,
       bust_offset_y,
-      bust_face_name,
-      bust_face_index,
+      *bust_face_config,
       max_width = (new_line_x + bust_extra_x),
       above_height = height,
       bust_should_fade?
@@ -324,6 +317,13 @@ class Window_Message < Window_Base
 
   def bust_face_index
     $game_message.face_index
+  end
+
+  def bust_face_config
+    [
+      bust_face_name,
+      bust_face_index,
+    ]
   end
 
   def show_bust?
@@ -364,7 +364,7 @@ class Window_Message < Window_Base
   end
 
   def character_name
-    Busty::character_from_face(bust_face_name, bust_face_index)
+    Busty::character_from_face(*bust_face_config)
   end
 
   def bust_offset_x
@@ -417,8 +417,8 @@ class Window_Message < Window_Base
   alias original_591_draw_face draw_face
   def draw_face(face_name, face_index, x, y, enabled = true)
     return if show_bust?
-    return original_591_draw_face(bust_face_name, face_index, x + 2*standard_padding, y, enabled) if valid_context?
-    original_591_draw_face(bust_face_name, face_index, x, y, enabled)
+    return original_591_draw_face(*bust_face_config, x + 2*standard_padding, y, enabled) if valid_context?
+    original_591_draw_face(*bust_face_config, x, y, enabled)
   end
   alias original_591_new_line_x new_line_x
   def new_line_x
