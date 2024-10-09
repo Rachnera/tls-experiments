@@ -58,6 +58,12 @@ To make sure the bust never covers up the text, the code is given a dead zone, a
 
 ![Dead zone dimensions](docs/deadzone.jpg)
 
+In practice, this is achieved by taking the original image, cutting it to only keep what's left of the dead zone, cutting the remains to only keep what's above it, and putting the two images in the right spots.
+
+In general, this feature is one big collage:
+
+![Bust parts](docs/split.jpg)
+
 ## Test the experimental combat features
 
 Add the following scripts, in that order:
