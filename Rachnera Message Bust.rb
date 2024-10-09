@@ -98,8 +98,7 @@ module Busty
 
       max_width = nil
       if deadzone_x
-        max_width = deadzone_x
-        max_width -= x if x < 0 # Ignore offscreen overflow
+        max_width = deadzone_x - x
         max_width -= gradient_length if fade_right # Effectively thiner by the length of the gradient
 
         new_bitmap = Bitmap.new(max_width, bust_bitmap.height)
@@ -347,7 +346,7 @@ class Window_Message < Window_Base
       return false unless Busty.send(Busty::MESSAGE_AUTODISPLAY_SPECIAL[character_name])
     end
 
-    Busty::has_bust?(character_name)
+    Busty::has_bust?(character_name) && coherent_bust_config?
   end
 
   def valid_context?
@@ -409,6 +408,20 @@ class Window_Message < Window_Base
     return true if bust_config[:fade].nil?
 
     bust_config[:fade]
+  end
+
+  def coherent_bust_config?
+    # Bust would be fully in the dead zone
+    if bust_offset_x >= bust_deadzone_x
+      return false
+    end
+
+    # Face is (even partially) in the dead zone
+    if !bust_config[:hide_original_face] && bust_offset_x + bust_config[:face_offset_x] + 96 >= bust_deadzone_x
+      return false
+    end
+
+    true
   end
 
   def bust_height
