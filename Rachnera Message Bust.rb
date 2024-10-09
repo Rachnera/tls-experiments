@@ -425,7 +425,7 @@ class Window_Message < Window_Base
   end
 
   def bust_height
-    Cache.picture('busts/' + character_name).height
+    Busty::bust_bitmap(character_name).height
   end
 
   # Define how much the bust is allowed to overflow into the padding between image and text
