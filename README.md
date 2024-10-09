@@ -50,6 +50,14 @@ $some_bust.dispose
 $some_bust = nil
 ```
 
+### Technical considerations
+
+#### Dead zone
+
+To make sure the bust never covers up the text, the code is given a dead zone, a part of the screen it is simply forbidden to overlap into in any capacity. This rectangular zone is in practice defined with basic x and h parameters, as per the following diagram:
+
+![Dead zone dimensions](docs/deadzone.jpg)
+
 ## Test the experimental combat features
 
 Add the following scripts, in that order:

@@ -90,12 +90,15 @@ module Busty
       end
     end
 
-    def draw(x, y, face_name, face_index, max_width = nil, above_height = nil, fade_right = false)
+    def draw(x, y, face_name, face_index, deadzone_x = nil, deadzone_h = nil, fade_right = false)
       character_name = Busty::character_from_face(face_name, face_index)
       @character_name = character_name
 
       bitmap = bust_bitmap
-      if max_width
+
+      max_width = nil
+      if deadzone_x
+        max_width = deadzone_x
         max_width -= x if x < 0 # Ignore offscreen overflow
         max_width -= gradient_length if fade_right # Effectively thiner by the length of the gradient
 
@@ -110,9 +113,9 @@ module Busty
       @bust.y = Graphics.height - @bust.height + y # A little unorthodox, but busts are snapped to the _lower_ left corner when y=0
 
       @bust_overflow.bitmap = nil
-      if above_height && max_width
+      if deadzone_x && deadzone_h
         extra_width = bust_bitmap.width - @bust.width
-        extra_height = Graphics.height - above_height - @bust.y
+        extra_height = Graphics.height - deadzone_h - @bust.y
 
         if extra_width > 0 && extra_height > 0
           extra_bitmap = Bitmap.new(extra_width, extra_height)
@@ -303,8 +306,8 @@ class Window_Message < Window_Base
       bust_offset_x,
       bust_offset_y,
       *bust_face_config,
-      max_width = (new_line_x + bust_extra_x),
-      above_height = height,
+      bust_deadzone_x,
+      bust_deadzone_h,
       bust_should_fade?
     )
   end
@@ -392,6 +395,14 @@ class Window_Message < Window_Base
 
   def bust_face_hidden?
     bust_config[:hide_original_face]
+  end
+
+  def bust_deadzone_x
+    new_line_x + bust_extra_x
+  end
+
+  def bust_deadzone_h
+    height # Full height of the message box
   end
 
   def bust_should_fade?
