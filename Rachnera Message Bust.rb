@@ -63,16 +63,16 @@ module Busty
   class Bust
     attr_reader :face_config
 
-    def initialize(z, gradient_length = 0)
+    def initialize(base_z, gradient_length = 0)
       @bust = Sprite.new
       @bust.visible = true
-      @bust.z = z
+      @bust.z = base_z + 5 # above text box, with room for faces above/below
 
       @bust_face = Sprite.new
 
       @bust_overflow = Sprite.new
       @bust_overflow.visible = true
-      @bust_overflow.z = @bust.z
+      @bust_overflow.z = base_z - 1 # below text box
 
       @fade_sprites = []
       gradient_length.times do |i|
@@ -90,7 +90,7 @@ module Busty
       end
     end
 
-    def draw(x, y, face_name, face_index, deadzone_x = nil, deadzone_h = nil, fade_right = false)
+    def draw(x, y, face_name, face_index, deadzone_x = nil, deadzone_h = nil, fade_right = false, overflow_behind_text = false)
       character_name = Busty::character_from_face(face_name, face_index)
       @character_name = character_name
 
@@ -114,7 +114,7 @@ module Busty
       @bust_overflow.bitmap = nil
       if deadzone_x && deadzone_h
         extra_width = bust_bitmap.width - @bust.width
-        extra_height = Graphics.height - deadzone_h - @bust.y
+        extra_height = Graphics.height - (overflow_behind_text ? @bust.y : @bust.y + deadzone_h)
 
         if extra_width > 0 && extra_height > 0
           extra_bitmap = Bitmap.new(extra_width, extra_height)
@@ -262,7 +262,7 @@ end
 class Window_Message < Window_Base
   alias hmb_window_message_create_back_bitmap create_back_bitmap
   def create_back_bitmap
-    @bust = Busty::Bust.new(z+5, gradient_length = 12) if @bust.nil?
+    @bust = Busty::Bust.new(z, gradient_length = 12) if @bust.nil?
     @choice_window.z = z + 10 if @choice_window.z < z + 10
 
     hmb_window_message_create_back_bitmap
@@ -307,7 +307,8 @@ class Window_Message < Window_Base
       *bust_face_config,
       bust_deadzone_x,
       bust_deadzone_h,
-      bust_should_fade?
+      bust_should_fade?,
+      bust_overflow_behind_text?
     )
   end
 
@@ -408,6 +409,13 @@ class Window_Message < Window_Base
     return true if bust_config[:fade].nil?
 
     bust_config[:fade]
+  end
+
+  # should the overflow portion of the bust be rendered under the translucent textbox background?
+  def bust_overflow_behind_text?
+    return true if bust_config[:overflow_behind_text].nil?
+
+    bust_config[:overflow_behind_text]
   end
 
   def coherent_bust_config?
