@@ -357,7 +357,7 @@ class Window_Message < Window_Base
     return false if !self.visible
 
     # Don't display bust if the message box isn't at the bottom of the screen
-    return false if self.y + self.height != Graphics.height
+    return false if $game_message.position != 2 || self.y + self.height != Graphics.height
 
     # Don't display bust if message box is abnormally tall
     return false if self.height > Graphics.height / 2
