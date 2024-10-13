@@ -282,9 +282,9 @@ Busty::CONFIG.merge!({
   "Balia" => {
     face_offset_x: 53,
     face_offset_y: 38,
-
     bust_offset_x: -25,
     bust_offset_y: 15,
+    overflow_behind_text: false, # doesn't play nice with fade and semitransparent bits
   },
   "Bertricia" => {
     face_offset_x: 44,
