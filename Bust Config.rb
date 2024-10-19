@@ -305,6 +305,14 @@ Busty::CONFIG.merge!({
 
     bust_offset_y: 15,
   },
+  "Death" => {
+    face_offset_x: 56,
+    face_offset_y: 32,
+    
+    bust_offset_x: -25,
+    bust_offset_y: 30,
+    fade: false,
+  },
   "Dari1" => {
     face_offset_x: 47,
     face_offset_y: 30,
