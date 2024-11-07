@@ -35,6 +35,20 @@ Busty::BATTLE_CONFIG.merge!({
       nil
     },
   },
+  "MainActor1-3" => {
+    "Attack" => "ChosenAttack",
+    "Guard" => "ChosenGuard",
+    "Heroic Assault" => "ChosenSpecial",
+    "Heroic Aura" => "ChosenGuardAura",
+    "Heroic Blow" => "ChosenAttackShout",
+    conditionals: [
+      {
+        condition: 'is_item',
+        picture: "ChosenItem",
+      },
+    ],
+    fallback: "ChosenSpecial",
+  },
   "Qum D'umpe" => {
     "Arousing Kiss" => "QumKissArousingKiss",
     "Arousing Aura" => "QumKissArousingAura",
