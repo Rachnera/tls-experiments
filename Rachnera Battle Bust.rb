@@ -1,48 +1,72 @@
 module Busty
   BATTLE_CONFIG = {} # Placeholder, actual values in "Battle Bust Config"
 
-  # TODO Rework so it also works for characters with alternative full images rather than composite faces/busts
-  def self.duplicate_battle_config(equivalence)
-    equivalence.each do |original, copy|
-      next unless BATTLE_CONFIG[original]
+  class << self
+    def duplicate_battle_config(equivalence)
+      equivalence.each do |eq|
+        base = eq[:base_character]
+        evolved = eq[:evolved_character]
+        search_and_replace = eq[:search_and_replace]
 
-      BATTLE_CONFIG[copy] = Marshal.load(Marshal.dump(BATTLE_CONFIG[original])) # Deep copy
-      BATTLE_CONFIG[copy].each do |move, config|
-        if config.is_a?(Array)
-          config.each_with_index do |cf, i|
-            if equivalence[cf[:face_name]]
-              BATTLE_CONFIG[copy][move][i][:face_name] = equivalence[cf[:face_name]]
+        next unless BATTLE_CONFIG[base]
+
+        # Deep copy
+        # The proc option is treated on its own later on
+        BATTLE_CONFIG[evolved] = Marshal.load(Marshal.dump(
+          BATTLE_CONFIG[base].select {|k, v| k != :proc}
+        ))
+
+        BATTLE_CONFIG[base].each do |move, config|
+          if config.is_a?(String)
+            BATTLE_CONFIG[evolved][move] = rec_gsub(config, search_and_replace)
+          end
+
+          if config.is_a?(Hash)
+            BATTLE_CONFIG[evolved][move][:picture] = rec_gsub(config[:picture], search_and_replace)
+          end
+
+          if config.is_a?(Array)
+            config.each_with_index do |cf, i|
+              BATTLE_CONFIG[evolved][move][i][:picture] = rec_gsub(cf[:picture], search_and_replace)
             end
           end
-        else
-          if equivalence[config[:face_name]]
-            BATTLE_CONFIG[copy][move][:face_name] = equivalence[config[:face_name]]
-          end
         end
+
+        BATTLE_CONFIG[evolved][:proc] = BATTLE_CONFIG[base][:proc] if BATTLE_CONFIG[base][:proc]
       end
     end
-  end
 
-  def self.show_enemy_face_window(bitmap, offset_x = 0, offset_y = 0)
-    unless defined?(@@enemy_face_window) && @@enemy_face_window
-      @@enemy_face_window = Enemy_Face_Window.new
+    def rec_gsub(original, search_and_replace)
+      return original unless search_and_replace
+
+      replaced = original.dup
+      search_and_replace.each do |search, replace|
+        replaced.gsub!(search, replace)
+      end
+      replaced
     end
-    @@enemy_face_window.set_bitmap(bitmap, offset_x, offset_y)
-    @@enemy_face_window.show
-  end
 
-  def self.hide_enemy_face_window
-    return unless defined?(@@enemy_face_window) && @@enemy_face_window
+    def show_enemy_face_window(bitmap, offset_x = 0, offset_y = 0)
+      unless defined?(@@enemy_face_window) && @@enemy_face_window
+        @@enemy_face_window = Enemy_Face_Window.new
+      end
+      @@enemy_face_window.set_bitmap(bitmap, offset_x, offset_y)
+      @@enemy_face_window.show
+    end
 
-    @@enemy_face_window.clear_bitmap
-    @@enemy_face_window.hide
-  end
+    def hide_enemy_face_window
+      return unless defined?(@@enemy_face_window) && @@enemy_face_window
 
-  def self.dispose_enemy_face_window
-    return unless defined?(@@enemy_face_window) && @@enemy_face_window
+      @@enemy_face_window.clear_bitmap
+      @@enemy_face_window.hide
+    end
 
-    @@enemy_face_window.dispose
-    @@enemy_face_window = nil
+    def dispose_enemy_face_window
+      return unless defined?(@@enemy_face_window) && @@enemy_face_window
+
+      @@enemy_face_window.dispose
+      @@enemy_face_window = nil
+    end
   end
 
   class Enemy_Face_Window < Window_Base

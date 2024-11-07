@@ -1,4 +1,40 @@
 Busty::BATTLE_CONFIG.merge!({
+  "Aka" => {
+    "Blinding Stab" => "AkaRedPierceBlinding",
+    "Crippling Stab" => "AkaRedPierceCrippling",
+    "Piercing Stab" => "AkaRedPiercePiercing",
+    "Weakening Stab" => "AkaRedPierceWeakening",
+    fallback: "AkaRedAssault",
+    proc: ->(move) {
+      aka_transformed = $game_switches[908]
+      aka_confident = $game_switches[217]
+
+      if move.name == "Guard"
+        return aka_transformed ? "AkaBlueDefend" : aka_confident ? "AkaRedCoolGuard" : "AkaRedNervousGuard"
+      end
+
+      if move.name == "Disabling Assault"
+        return aka_transformed ? "AkaBlueAssaultDisabling" : "AkaRedAssault"
+      end
+
+      if SkillHelper::is_item(move)
+        return aka_transformed ? "AkaBlueItem" : aka_confident ? "AkaRedCoolItem" : "AkaRedNervousItem"
+      end
+
+      {
+        "Attack" => "Stab",
+        "Deathblow" => "StabDeathblow",
+        "Forceful Lunge" => "StabForce",
+        "Poisoned Blade" => "StabPoison",
+      }.each do |move_name, file_name|
+        if move.name == move_name
+          return "Aka" + (aka_transformed ? "BlueCool" : aka_confident ? "RedCool": "RedNervous") + file_name
+        end
+      end
+
+      nil
+    },
+  },
   "Qum D'umpe" => {
     "Arousing Kiss" => "QumKissArousingKiss",
     "Arousing Aura" => "QumKissArousingAura",
@@ -41,6 +77,8 @@ Busty::BATTLE_CONFIG.merge!({
       move_out: true,
     },
     "Bonded Fantasy" => "YarraKiss",
+    "Combat Fantasy" => "YarraCombatFantasy",
+    "Combat Flirt" => "YarraCombatFlirt",
     "First Slut" => "YarraM",
     "Flirt" => "YarraKiss",
     "Guard" => "YarraGuard",
@@ -78,30 +116,29 @@ module SkillHelper
     def is_any_masturbation_skill(move)
       move.name.include?("Masturbate") || move.name.include?("Masturbation")
     end
+
+    def is_stab_skill(move)
+      move.name.include?("Stab")
+    end
   end
 end
 
 # Duplicates configuration for characters with alternate forms
-Busty.duplicate_battle_config({
-  "Aka" => "Aka2",
-  "Aka emo" => "Aka emo2",
+Busty.duplicate_battle_config([
+  {
+    base_character: "Aka",
+    evolved_character: "Aka2",
+    search_and_replace: {
+      "AkaRed" => "AkaBlue",
+    },
+  }
+])
 
-  "Simon1" => "Simon2",
-  "face002b" => "1 Simon dark",
-  "face002b2" => "1 Simon dark2",
-  "face002b dark" => "1 Simon dark eyes",
-  "face002b dark2" => "1 Simon dark eyes2",
-
-  "Hilstara" => "HilstaraKnight",
-  "Hilstara emo" => "Hilstara emo3",
-
-  "Nalili" => "Nalili2",
-  "Nalili emo1" => "Nalili emo3",
-  "Nalili emo2" => "Nalili emo4",
-
-  "Robin blond" => "Robin grey",
-  "Robin blond emo" => "Robin grey emo",
-
-  "Uyae" => "Uyae God Flip",
-  "Uyae emo" => "Uyae emo2d",
+# Moves exclusive to transformed Aka
+Busty::BATTLE_CONFIG["Aka2"].merge!({
+  "Bloody Ecstatic Strike" => "AkaBlueAssaultBloody",
+  "Ecstatic Strike" => "AkaBlueAssaultEcstatic",
+  "Lethal Intent" => "AkaBlueLethalIntent",
+  "Sexual Stab" => "AkaBlueSexualStab",
+  "Unite the Harem" => "AkaBlueStanceUnite",
 })
