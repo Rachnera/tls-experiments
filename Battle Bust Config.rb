@@ -36,6 +36,9 @@ Busty::BATTLE_CONFIG.merge!({
     },
   },
   "Altina" => {
+    "Arcane Fire" => "AltinaStormFire",
+    "Arcane Ice" => "AltinaStormIce",
+    "Arcane Lightning" => "AltinaStormLightning",
     "Atmospheric Jolt" => "AltinaStaffJolt",
     "Earth Lance" => "AltinaLanceEarth",
     "Forest Lance" => "AltinaLanceForest",
