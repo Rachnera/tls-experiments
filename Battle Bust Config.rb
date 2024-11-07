@@ -35,6 +35,42 @@ Busty::BATTLE_CONFIG.merge!({
       nil
     },
   },
+  "Altina" => {
+    "Atmospheric Jolt" => "AltinaStaffJolt",
+    "Earth Lance" => "AltinaLanceEarth",
+    "Forest Lance" => "AltinaLanceForest",
+    "Fire Storm" => "AltinaStormFire",
+    "Gathered Healing" => "AltinaHeal",
+    "Guard" => "AltinaGuard",
+    "Heal" => "AltinaHeal",
+    "Ice Storm" => "AltinaStormIce",
+    "Light of Hope" => "AltinaStaffHope",
+    "Lightning Storm" => "AltinaStormLightning",
+    "Poison Storm" => "AltinaStormPoison",
+    "Quake" => "AltinaStormEarth",
+    conditionals: [
+      {
+        condition: 'is_item',
+        picture: "AltinaItem",
+      },
+    ],
+    proc: ->(move) {
+      altina_confident = $game_switches[1954]
+
+      if move.name == "Attack"
+        return altina_confident ? "AltinaStaffSerious" : "AltinaStaffClumsy"
+      end
+
+      ["Fire", "Ice", "Lightning", "Poison"].each do |move_name|
+        if move.name == move_name
+          return "AltinaSpell" + (altina_confident ? "Confident": "Nervous") + move_name
+        end
+      end
+
+      nil
+    },
+    fallback: "AltinaStaffSerious",
+  },
   "MainActor1-3" => {
     "Attack" => "ChosenAttack",
     "Guard" => "ChosenGuard",
