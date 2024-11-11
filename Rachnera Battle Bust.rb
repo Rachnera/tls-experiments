@@ -605,6 +605,21 @@ class Sprite_Popup < Sprite_Base
   end
 end
 
+# Pseudo "flex space-evenly" when team is small
+class Window_BattleStatus < Window_Selectable
+  alias yanfly_478_item_rect item_rect
+  def item_rect(index)
+    rect = yanfly_478_item_rect(index)
+
+    if $game_party.members.size < $game_party.max_battle_members
+      spacing = (contents.width - $game_party.members.size * rect.width) / ($game_party.members.size + 1)
+      rect.x = spacing + index * (rect.width + spacing)
+    end
+
+    rect
+  end
+end
+
 YEA::SYSTEM::CUSTOM_SWITCHES.merge!({
   hide_battle_bust: [
     14, # Switch Number; make sure it's not used for something else
