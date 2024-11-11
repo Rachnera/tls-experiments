@@ -161,6 +161,7 @@ class Scene_Battle < Scene_Base
         hide_status_window
       else
         @status_window.show
+        instant_skill_custom_offset if item.instant
       end
     else
       @status_window.show
@@ -186,6 +187,7 @@ class Scene_Battle < Scene_Base
     # New
     # Is a noop if everything was already cleaned in show_animation
     cleanup_bust
+    instant_skill_custom_reset
   end
 
   alias original_478_show_animation show_animation
@@ -390,6 +392,20 @@ class Scene_Battle < Scene_Base
   def reset_status_window
     @status_window.show
     @status_window.x = 128
+  end
+
+  def instant_skill_custom_offset
+    @original_info_viewport_ox = @info_viewport.ox
+    @info_viewport.ox = 64
+    @actor_command_window.hide
+  end
+
+  def instant_skill_custom_reset
+    return unless @original_info_viewport_ox
+
+    @info_viewport.ox = @original_info_viewport_ox
+    @original_info_viewport_ox = nil
+    @actor_command_window.show
   end
 
   alias original_478_update_info_viewport update_info_viewport
