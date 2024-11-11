@@ -351,6 +351,10 @@ class Scene_Battle < Scene_Base
     end
     return conditional_config if conditional_config
 
+    if SkillHelper.is_item(@subject.current_action.item) && character_config["Item"]
+      return character_config["Item"]
+    end
+
     return character_config[:fallback] if character_config.has_key?(:fallback)
 
     nil

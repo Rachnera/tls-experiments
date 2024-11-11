@@ -47,16 +47,11 @@ Busty::BATTLE_CONFIG.merge!({
     "Guard" => "AltinaGuard",
     "Heal" => "AltinaHeal",
     "Ice Storm" => "AltinaStormIce",
+    "Item" => "AltinaItem",
     "Light of Hope" => "AltinaStaffHope",
     "Lightning Storm" => "AltinaStormLightning",
     "Poison Storm" => "AltinaStormPoison",
     "Quake" => "AltinaStormEarth",
-    conditionals: [
-      {
-        condition: 'is_item',
-        picture: "AltinaItem",
-      },
-    ],
     proc: ->(move) {
       altina_confident = $game_switches[1954]
 
@@ -80,12 +75,7 @@ Busty::BATTLE_CONFIG.merge!({
     "Heroic Assault" => "ChosenSpecial",
     "Heroic Aura" => "ChosenGuardAura",
     "Heroic Blow" => "ChosenAttackShout",
-    conditionals: [
-      {
-        condition: 'is_item',
-        picture: "ChosenItem",
-      },
-    ],
+    "Item" => "ChosenItem",
     fallback: "ChosenSpecial",
   },
   "Qum D'umpe" => {
@@ -102,10 +92,9 @@ Busty::BATTLE_CONFIG.merge!({
     "Happy Tingles" => "QumMSparkles",
     "Healing Kiss" => "QumKiss",
     "Illusory Orgy" => "QumSpellCloud",
+    "Item" => "QumOohItem",
     "Little Death" => "QumSpellSerious",
-    "Mass Kiss" => {
-      picture: "QumKissMasskiss",
-    },
+    "Mass Kiss" => "QumKissMasskiss",
     "Orgasmic Thoughts" => "QumOohCloud",
     "Protective Hug" => "QumHug",
     "Sealing Tech" => "QumSpell",
@@ -114,10 +103,6 @@ Busty::BATTLE_CONFIG.merge!({
       {
         condition: 'is_any_masturbation_skill',
         picture: "QumM",
-      },
-      {
-        condition: 'is_item',
-        picture: "QumOohItem",
       },
     ],
     fallback: "QumSpell",
@@ -142,6 +127,7 @@ Busty::BATTLE_CONFIG.merge!({
       move_out: true,
     },
     "Incubus King's Emissary" => "YarraSpellEmissary",
+    "Item" => "YarraItem",
     "Sexual Mana" => "YarraMSexualMana",
     "Shared Fantasy" => "YarraKissSharedFantasy",
     "Succubus Kiss" => "YarraKiss",
@@ -149,10 +135,6 @@ Busty::BATTLE_CONFIG.merge!({
       {
         condition: 'is_any_masturbation_skill',
         picture: "YarraM",
-      },
-      {
-        condition: 'is_item',
-        picture: "YarraItem",
       },
     ],
     fallback: "YarraSpell",
