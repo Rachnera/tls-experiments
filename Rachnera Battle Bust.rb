@@ -620,6 +620,85 @@ class Window_BattleStatus < Window_Selectable
   end
 end
 
+#  Custom skill description
+class Window_BattleHelp < Window_Help
+  def set_item(item)
+    if SkillHelper::is_skill(item) && [
+      YEA::REGEXP::USABLEITEM::INSTANT,
+      YEA::REGEXP::SKILL::COOLDOWN,
+      YEA::REGEXP::SKILL::LIMITED_USES,
+      YEA::REGEXP::SKILL::WARMUP,
+    ].any? {|regexp| regexp.match(item.note) }
+      set_line_number(3)
+      create_contents
+
+      special = []
+
+      if YEA::REGEXP::USABLEITEM::INSTANT.match(item.note)
+        special.push("\\I[4085]\\C[14]Instant")
+      end
+
+      if YEA::REGEXP::SKILL::WARMUP.match(item.note)
+        remaining_time = @actor_window.actor.warmup?(item) - $game_troop.turn_count
+
+        txt = "\\I[4063]\\C[18]"
+        txt +=
+          if remaining_time > 1
+            "Warming up, ready in #{remaining_time} turns"
+          elsif remaining_time == 1
+            "Warming up, ready next turn"
+          else
+            "Ready!"
+          end
+
+        special.push(txt)
+      end
+
+      if YEA::REGEXP::SKILL::LIMITED_USES.match(item.note)
+        total_uses = $1.to_i
+        remaining_uses = total_uses - @actor_window.actor.times_used?(item)
+
+        special.push("\\I[4090]\\C[8]Remaining uses (this battle): #{remaining_uses}/#{total_uses}")
+      end
+
+      if YEA::REGEXP::SKILL::COOLDOWN.match(item.note)
+        total_cooldown = $1.to_i
+        current_cooldown = @actor_window.actor.cooldown?(item)
+
+        txt = "\\I[4023]\\C[13]"
+        txt += 
+         if current_cooldown > 0
+          "Cooling down, ready #{current_cooldown > 1 ? "in #{current_cooldown} turns" : "next turn"}"
+         else
+          "#{total_cooldown} turn#{total_cooldown > 1 ? "s": ""} cooldown after use"
+         end
+
+        special.push(txt)
+      end
+
+      extra_line = special.join(" ")
+
+      text = item.description
+      text += "\n"
+      text += extra_line
+
+      return set_text(text)
+    end
+
+    set_line_number(2)
+    set_text(item ? item.description : "")
+  end
+
+  def set_line_number(line_number)
+    new_height = fitting_height(line_number)
+
+    return if new_height == self.height
+
+    self.height = new_height
+    create_contents # Force height update of the text container; without it, still constrained by the previous value
+  end
+end
+
 YEA::SYSTEM::CUSTOM_SWITCHES.merge!({
   hide_battle_bust: [
     14, # Switch Number; make sure it's not used for something else
