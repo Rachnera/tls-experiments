@@ -802,7 +802,7 @@ Busty::CONFIG.merge!({
     face_offset_y: 39,
   },
   "Zelica" => {
-    face_offset_x: 78,
+    face_offset_x: 77,
     face_offset_y: 106,
   },
   "Incubus Emperor" => {
