@@ -680,9 +680,10 @@ class Window_BattleHelp < Window_Help
         extra_text = "\\I[4085]\\C[14]Instant" + extra_text
       end
 
-      text = item.description
-      text += "\n"
-      text += extra_text
+      # Remove existing (Limited X), (Cooldown Y)... from description
+      description = item.description.gsub(/\s+(\(Instant\)|(\(Cooldown [0-9]+\))|(\(Warmup [0-9]+\))|(\(Limited [0-9]+\)))/, '')
+
+      text = description + "\n" + extra_text
 
       return set_text(text)
     end
