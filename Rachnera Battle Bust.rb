@@ -629,14 +629,7 @@ class Window_BattleHelp < Window_Help
       YEA::REGEXP::SKILL::LIMITED_USES,
       YEA::REGEXP::SKILL::WARMUP,
     ].any? {|regexp| regexp.match(item.note) }
-      set_line_number(3)
-      create_contents
-
       special = []
-
-      if YEA::REGEXP::USABLEITEM::INSTANT.match(item.note)
-        special.push("\\I[4085]\\C[14]Instant")
-      end
 
       if YEA::REGEXP::SKILL::WARMUP.match(item.note)
         remaining_time = @actor_window.actor.warmup?(item) - $game_troop.turn_count
@@ -676,11 +669,20 @@ class Window_BattleHelp < Window_Help
         special.push(txt)
       end
 
-      extra_line = special.join(" ")
+      # Add required number of extra lines
+      set_line_number(2+[special.count, 1].max)
+      create_contents
+
+      extra_text = special.join("\n")
+
+      # Instant is small enough that we can sneak in at the start of another line
+      if YEA::REGEXP::USABLEITEM::INSTANT.match(item.note)
+        extra_text = "\\I[4085]\\C[14]Instant" + extra_text
+      end
 
       text = item.description
       text += "\n"
-      text += extra_line
+      text += extra_text
 
       return set_text(text)
     end
