@@ -658,12 +658,12 @@ class Window_BattleHelp < Window_Help
         total_cooldown = $1.to_i
         current_cooldown = @actor_window.actor.cooldown?(item)
 
-        txt = "\\I[4023]\\C[13]"
+        txt = "\\I[4023]"
         txt += 
          if current_cooldown > 0
-          "Cooling down, ready #{current_cooldown > 1 ? "in #{current_cooldown} turns" : "next turn"}"
+          "\\C[13]Cooling down, ready again #{current_cooldown > 1 ? "in #{current_cooldown} turns" : "next turn"}"
          else
-          "#{total_cooldown} turn#{total_cooldown > 1 ? "s": ""} cooldown after use"
+          "\\C[8]#{total_cooldown} turn#{total_cooldown > 1 ? "s": ""} cooldown after use"
          end
 
         special.push(txt)
