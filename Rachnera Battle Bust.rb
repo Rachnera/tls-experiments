@@ -196,7 +196,7 @@ class Scene_Battle < Scene_Base
 
     return if bust_feature_disabled?
 
-    if show_bust?
+    if show_bust? && !keep_bust_around?
       # Make the image less obstrusive but don't remove it entirely for smoother transition
       send_bust_to_background
     end
@@ -207,9 +207,15 @@ class Scene_Battle < Scene_Base
   end
 
   def display_bust
-    @bust_picture = Sprite.new
+    @bust_picture = Sprite.new if !@bust_picture
+
     @bust_picture.bitmap = Cache.picture('battle/' + move_config[:picture])
     @bust_picture.visible = true
+    @bust_picture.tone.red = 0
+    @bust_picture.tone.green = 0
+    @bust_picture.tone.blue = 0
+    @bust_picture.tone.gray = 0
+
     @bust_picture.z = 999
     @bust_picture.x = bust_offset_x
     @bust_picture.y = Graphics.height - @bust_picture.height + bust_offset_y
@@ -275,9 +281,7 @@ class Scene_Battle < Scene_Base
     Busty::hide_enemy_face_window
 
     if @bust_picture
-      @bust_picture.dispose
-      @bust_picture.bitmap.dispose
-      @bust_picture = nil
+      @bust_picture.bitmap = nil unless show_bust? && keep_bust_around?
     end
 
     @bust_enter_left = nil
@@ -306,6 +310,11 @@ class Scene_Battle < Scene_Base
   alias original_478_terminate terminate
   def terminate
     Busty::dispose_enemy_face_window
+
+    if @bust_picture
+      @bust_picture.dispose
+      @bust_picture.bitmap.dispose if @bust_picture.bitmap
+    end
 
     original_478_terminate
   end
@@ -449,6 +458,11 @@ class Scene_Battle < Scene_Base
     @bust_picture.tone.green = -64
     @bust_picture.tone.blue = -64
     @bust_picture.tone.gray = 128
+  end
+
+  # Used for skills that are made of several skills chained together
+  def keep_bust_around?
+    move_config[:chained]
   end
 end
 

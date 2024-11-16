@@ -122,6 +122,7 @@ Busty::BATTLE_CONFIG.merge!({
     "Precise Strike" => "SimonGreenThrustPrecise",
     "Rebuke" => "SimonGreenStanceRebuke",
     "Silencing Strike" => "SimonGreenThrustSilencing",
+    "SS heal component" => "SimonGreenHealHealing",
     "Stunning Strike" => "SimonGreenThrustStunning",
     "Suppress Lust" => "SimonGreenDefSurpressLust",
     "Unified Strike" => "SimonGreenThrustUnified",
@@ -129,6 +130,7 @@ Busty::BATTLE_CONFIG.merge!({
       {
         condition: 'is_simon_support_skill',
         picture: "SimonGreenHeal",
+        chained: true,
       },
     ],
     fallback: "SimonGreenStance",
