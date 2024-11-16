@@ -177,10 +177,6 @@ module SkillHelper
     def is_any_masturbation_skill(move)
       move.name.include?("Masturbate") || move.name.include?("Masturbation")
     end
-
-    def is_stab_skill(move)
-      move.name.include?("Stab")
-    end
   end
 end
 
