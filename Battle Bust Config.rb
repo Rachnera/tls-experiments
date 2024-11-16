@@ -107,6 +107,32 @@ Busty::BATTLE_CONFIG.merge!({
     ],
     fallback: "QumSpell",
   },
+  "Simon1" => {
+    "Attack" => "SimonGreenSwing",
+    "Battlefield Medicine" => "SimonGreenBattleMedicine",
+    "Blinding Strike" => "SimonGreenThrustBlinding",
+    "Command" => nil,
+    "Commanding Presence" => "SimonGreenStanceCommandingPresence",
+    "Corrupt" => "SimonGreenDom",
+    "Dominate" => "SimonGreenDom",
+    "Guard" => "SimonGreenDef",
+    "Heroic Imitation" => "SimonGreenSwingHeroic",
+    "Item" => "SimonGreenItem",
+    "Lust Renewal" => "SimonGreenDefLustRenewal",
+    "Precise Strike" => "SimonGreenThrustPrecise",
+    "Rebuke" => "SimonGreenStanceRebuke",
+    "Silencing Strike" => "SimonGreenThrustSilencing",
+    "Stunning Strike" => "SimonGreenThrustStunning",
+    "Suppress Lust" => "SimonGreenDefSurpressLust",
+    "Unified Strike" => "SimonGreenThrustUnified",
+    conditionals: [
+      {
+        condition: 'is_simon_support_skill',
+        picture: "SimonGreenHeal",
+      },
+    ],
+    fallback: "SimonGreenStance",
+  },
   "Yarra" => {
     "Appreciate Harem" => "YarraMAppreciateHarem",
     "Attack" => {
@@ -166,7 +192,14 @@ Busty.duplicate_battle_config([
     search_and_replace: {
       "AkaRed" => "AkaBlue",
     },
-  }
+  },
+  {
+    base_character: "Simon1",
+    evolved_character: "Simon2",
+    search_and_replace: {
+      "SimonGreen" => "SimonBlack",
+    },
+  },
 ])
 
 # Moves exclusive to transformed Aka
@@ -176,4 +209,13 @@ Busty::BATTLE_CONFIG["Aka2"].merge!({
   "Lethal Intent" => "AkaBlueLethalIntent",
   "Sexual Stab" => "AkaBlueSexualStab",
   "Unite the Harem" => "AkaBlueStanceUnite",
+})
+
+# Moves exclusive to Simon the Black
+Busty::BATTLE_CONFIG["Simon2"].merge!({
+  "Incubus Assault" => "SimonBlackSwingIncubusAssault",
+  "Incubus Presence" => "SimonBlackStanceIncubusPresence",
+  "Incubus Strike" => "SimonBlackThrustIncubus",
+  "King's Aura" => "SimonBlackHealKingsAura",
+  "King's Rebuke" => "SimonBlackStanceKingsRebuke",
 })
