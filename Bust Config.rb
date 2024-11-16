@@ -150,6 +150,11 @@ Busty::SUBSET_TO_BUST = [
     face_name: "Yarra emo2",
     face_indexes: [3],
   },
+  {
+    character_name: "Bartholomew",
+    face_name: "Y soldier alts emo",
+    face_indexes: [1,5],
+  },
 ]
 
 # map from clothed Simon facesets to corresponding topless Simon
@@ -278,6 +283,13 @@ Busty::CONFIG.merge!({
 
     bust_offset_y: 15,
     bust_offset_x: -40,
+  },
+  "Bartholomew" => {
+    face_offset_x: 35,
+    face_offset_y: 35,
+
+    bust_offset_y: 18,
+    bust_offset_x: -18,
   },
   "Balia" => {
     face_offset_x: 53,
