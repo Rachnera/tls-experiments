@@ -27,6 +27,7 @@ Busty::FACE_TO_BUST = {
   "Z Andra emo" => nil, # To only allow face 4, see below
   "Z Andra emoN" => "AndraN", # post-debauchment
   "Z Orcent" => "Orcent1",
+  "Z Zirantian ambassador" => "Uolian",
 }
 
 Busty::SUBSET_TO_BUST = [
@@ -719,6 +720,11 @@ Busty::CONFIG.merge!({
   "Uneanun" => {
     face_offset_x: 66,
     face_offset_y: 62,
+  },
+  "Uolian" => {
+    face_offset_x: 54,
+    face_offset_y: 27,
+    bust_offset_x: -35,
   },
   "Uyae" => {
     face_offset_x: 52,
