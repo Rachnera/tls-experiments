@@ -37,6 +37,11 @@ Busty::SUBSET_TO_BUST = [
     face_indexes: [4],
   },
   {
+    character_name: "Ardan Steward",
+    face_name: "People3",
+    face_indexes: [3],
+  },
+  {
     character_name: "Impaler",
     face_name: "Z orc emo",
     face_indexes: [6],
@@ -288,6 +293,11 @@ Busty::CONFIG.merge!({
 
     bust_offset_y: 15,
     bust_offset_x: -40,
+  },
+  "Ardan Steward" => {
+    face_offset_x: 63,
+    face_offset_y: 34,
+    bust_offset_y: 28,
   },
   "Bartholomew" => {
     face_offset_x: 35,
