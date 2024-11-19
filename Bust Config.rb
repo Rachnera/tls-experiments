@@ -25,7 +25,7 @@ Busty::FACE_TO_BUST = {
   "Ulrissa emo3" => "Ulrissa2",
   "Uyae emo2d" => "Uyae God Flip",
   "Z Andra emo" => nil, # To only allow face 4, see below
-  "Z Andra emoN" => nil, # No bust for no robe Andra
+  "Z Andra emoN" => "AndraN", # post-debauchment
   "Z Orcent" => "Orcent1",
 }
 
@@ -243,6 +243,10 @@ Busty::CONFIG.merge!({
   "Andra" => {
     face_offset_x: 68,
     face_offset_y: 63,
+  },
+  "AndraN" => { # post-debauchment
+    face_offset_x: 68,
+    face_offset_y: 46,
   },
   "Luanell" => {
     face_offset_x: 59,
