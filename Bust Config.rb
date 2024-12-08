@@ -162,6 +162,11 @@ Busty::SUBSET_TO_BUST = [
     face_indexes: [3],
   },
   {
+    character_name: "Aramite Ambassador",
+    face_name: "Y Aram4",
+    face_indexes: [2],
+  },
+  {
     character_name: "Bartholomew",
     face_name: "Y soldier alts emo",
     face_indexes: [1,5],
@@ -298,6 +303,10 @@ Busty::CONFIG.merge!({
 
     bust_offset_y: 15,
     bust_offset_x: -40,
+  },
+  "Aramite Ambassador" => {
+    face_offset_x: 66,
+    face_offset_y: 30,
   },
   "Ardan Steward" => {
     face_offset_x: 66,
