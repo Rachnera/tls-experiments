@@ -167,6 +167,11 @@ Busty::SUBSET_TO_BUST = [
     face_indexes: [2],
   },
   {
+    character_name: "Yhilini Ambassador",
+    face_name: "Y DS_Actor04",
+    face_indexes: [3],
+  },
+  {
     character_name: "Bartholomew",
     face_name: "Y soldier alts emo",
     face_indexes: [1,5],
@@ -852,6 +857,11 @@ Busty::CONFIG.merge!({
   "Yelarel" => {
     face_offset_x: 56,
     face_offset_y: 39,
+  },
+  "Yhilini Ambassador" => {
+    face_offset_x: 60,
+    face_offset_y: 28,
+    bust_offset_y: 0,
   },
   "Zelica" => {
     face_offset_x: 77,
