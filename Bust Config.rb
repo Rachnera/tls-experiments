@@ -27,6 +27,7 @@ Busty::FACE_TO_BUST = {
   "Z Andra emo" => nil, # To only allow face 4, see below
   "Z Andra emoN" => "AndraN", # post-debauchment
   "Z Orcent" => "Orcent1",
+  "Z Elven ambassador" => "Elven Ambassador",
   "Z Zirantian ambassador" => "Uolian",
 }
 
@@ -414,6 +415,10 @@ Busty::CONFIG.merge!({
 
     bust_offset_y: 25,
     fade: false,
+  },
+  "Elven Ambassador" => {
+    face_offset_x: 59,
+    face_offset_y: 63,
   },
   "Esmera" => {
     face_offset_x: 67,
