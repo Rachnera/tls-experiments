@@ -1011,6 +1011,8 @@ Busty::CONFIG["Ulrissa2"] = Busty::CONFIG["Ulrissa"]
 # Uyae with fixed clothes
 Busty::CONFIG["Uyae2"] = Busty::CONFIG["Uyae"]
 Busty::CONFIG["Uyae3"] = Busty::CONFIG["Uyae"]
+# Tertia with "fixed" clothes (according to Yarra, anyway)
+Busty::CONFIG["TertiaN"] = Busty::CONFIG["Tertia"]
 # Dark Xestris
 Busty::CONFIG["Xestris2"] = Busty::CONFIG["Xestris"]
 # Xestris ear positions
