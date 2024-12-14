@@ -96,6 +96,11 @@ Busty::SUBSET_TO_BUST = [
     face_indexes: [7],
   },
   {
+    character_name: "Reval",
+    face_name: "Actor3",
+    face_indexes: [0],
+  },
+  {
     character_name: "Skullcrusher",
     face_name: "Incubus King Emo",
     face_indexes: [0, 1, 2, 3],
@@ -632,6 +637,11 @@ Busty::CONFIG.merge!({
     face_offset_x: 72,
     face_offset_y: 47,
     bust_offset_y: 20,
+  },
+  "Reval" => {
+    face_offset_x: 54,
+    face_offset_y: 30,
+    bust_offset_x: -35,
   },
   "Riala" => {
     face_offset_x: 52,
