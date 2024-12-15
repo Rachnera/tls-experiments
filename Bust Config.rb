@@ -27,6 +27,8 @@ Busty::FACE_TO_BUST = {
   "Z Andra emo" => nil, # To only allow face 4, see below
   "Z Andra emoN" => "AndraN", # post-debauchment
   "Z Orcent" => "Orcent1",
+  "Z Elven ambassador" => "Elven Ambassador",
+  "Z Zirantian ambassador" => "Uolian",
 }
 
 Busty::SUBSET_TO_BUST = [
@@ -34,6 +36,16 @@ Busty::SUBSET_TO_BUST = [
     character_name: "Andra",
     face_name: "Z Andra emo",
     face_indexes: [4],
+  },
+  {
+    character_name: "Ardan Ambassador",
+    face_name: "People3",
+    face_indexes: [2],
+  },
+  {
+    character_name: "Ardan Steward",
+    face_name: "People3",
+    face_indexes: [3],
   },
   {
     character_name: "Impaler",
@@ -153,6 +165,16 @@ Busty::SUBSET_TO_BUST = [
   {
     character_name: "Yarra boobs bigger",
     face_name: "Yarra emo2",
+    face_indexes: [3],
+  },
+  {
+    character_name: "Aramite Ambassador",
+    face_name: "Y Aram4",
+    face_indexes: [2],
+  },
+  {
+    character_name: "Yhilini Ambassador",
+    face_name: "Y DS_Actor04",
     face_indexes: [3],
   },
   {
@@ -293,6 +315,21 @@ Busty::CONFIG.merge!({
     bust_offset_y: 15,
     bust_offset_x: -40,
   },
+  "Aramite Ambassador" => {
+    face_offset_x: 66,
+    face_offset_y: 30,
+  },
+  "Ardan Steward" => {
+    face_offset_x: 66,
+    face_offset_y: 36,
+    bust_offset_y: 30,
+  },
+  "Ardan Ambassador" => {
+    face_offset_x: 66,
+    face_offset_y: 53,
+    bust_offset_x: -36,
+    bust_offset_y: 14,
+  },
   "Bartholomew" => {
     face_offset_x: 35,
     face_offset_y: 35,
@@ -383,6 +420,10 @@ Busty::CONFIG.merge!({
 
     bust_offset_y: 25,
     fade: false,
+  },
+  "Elven Ambassador" => {
+    face_offset_x: 59,
+    face_offset_y: 63,
   },
   "Esmera" => {
     face_offset_x: 67,
@@ -730,6 +771,11 @@ Busty::CONFIG.merge!({
     face_offset_x: 66,
     face_offset_y: 62,
   },
+  "Uolian" => {
+    face_offset_x: 54,
+    face_offset_y: 27,
+    bust_offset_x: -35,
+  },
   "Uyae" => {
     face_offset_x: 52,
     face_offset_y: 42,
@@ -826,6 +872,11 @@ Busty::CONFIG.merge!({
   "Yelarel" => {
     face_offset_x: 56,
     face_offset_y: 39,
+  },
+  "Yhilini Ambassador" => {
+    face_offset_x: 60,
+    face_offset_y: 28,
+    bust_offset_y: 0,
   },
   "Zelica" => {
     face_offset_x: 77,
