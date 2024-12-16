@@ -48,6 +48,11 @@ Busty::SUBSET_TO_BUST = [
     face_indexes: [3],
   },
   {
+    character_name: "Dwarren Ambassador",
+    face_name: "Actor3",
+    face_indexes: [6],
+  },
+  {
     character_name: "Impaler",
     face_name: "Z orc emo",
     face_indexes: [6],
@@ -413,6 +418,11 @@ Busty::CONFIG.merge!({
 
     bust_offset_x: -15,
     bust_offset_y: 0,
+  },
+  "Dwarren Ambassador" => {
+    face_offset_x: 41,
+    face_offset_y: 49,
+    bust_offset_y: 15,
   },
   "Elleani" => {
     face_offset_x: 79,
