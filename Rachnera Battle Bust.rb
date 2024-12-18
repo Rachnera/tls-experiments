@@ -32,7 +32,14 @@ module Busty
           end
         end
 
-        BATTLE_CONFIG[evolved][:proc] = BATTLE_CONFIG[base][:proc] if BATTLE_CONFIG[base][:proc]
+        if BATTLE_CONFIG[base][:proc]
+          BATTLE_CONFIG[evolved][:proc] = ->(move) {
+            image = BATTLE_CONFIG[base][:proc].call(move)
+            return nil unless image
+
+            rec_gsub(image, search_and_replace)
+          }
+        end
       end
     end
 
@@ -352,9 +359,6 @@ class Scene_Battle < Scene_Base
   def raw_move_config
     character_config = Busty::BATTLE_CONFIG[character_name]
 
-    proc_config = (character_config[:proc] || ->(move) { nil }).call(@subject.current_action.item)
-    return proc_config if proc_config
-
     return character_config[current_move_name] if character_config.has_key?(current_move_name)
 
     conditional_config = (character_config[:conditionals] || []).find do |cf|
@@ -365,6 +369,9 @@ class Scene_Battle < Scene_Base
     if SkillHelper.is_item(@subject.current_action.item) && character_config["Item"]
       return character_config["Item"]
     end
+
+    proc_config = (character_config[:proc] || ->(move) { nil }).call(@subject.current_action.item)
+    return proc_config if proc_config
 
     return character_config[:fallback] if character_config.has_key?(:fallback)
 

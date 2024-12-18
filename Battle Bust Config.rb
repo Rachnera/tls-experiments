@@ -69,7 +69,47 @@ Busty::BATTLE_CONFIG.merge!({
     },
     fallback: "AltinaStaffSerious",
   },
-  "MainActor1-3" => {
+  "Hilstara" => {
+    "Active Defense" => "HilstaraNormalDef2",
+    "Aegis Assault" => "HilstaraNormalAegis2",
+    "Attack" => "HilstaraNormalAxe",
+    "Bash" => "HilstaraNormalAxeBash",
+    "Item" => "HilstaraNormalItem",
+    "Mighty Bash" => "HilstaraNormalAxeMightyBash",
+    "Powerful Blow" => "HilstaraNormalAxeBlow",
+    "Vanguard" => "HilstaraNormalDef2",
+    proc: ->(move) {
+      serious_hilstara = $game_switches[1961]
+      general_hilstara = $game_switches[3361]
+
+      {
+        "Arcane Shieldwall" => "Def1NeutralArcane",
+        "Guard" => "Def1Neutral",
+        "Holy Shieldwall" => "Def1NeutralHoly",
+        "Indomitable Will" => "Def1NeutralAura",
+        "Shieldwall" => "Def1NeutralShieldwall",
+      }.each do |move_name, file_name|
+        if move.name == move_name
+          return "HilstaraNormal" + (serious_hilstara ? file_name.sub("Neutral", "Serious") : file_name)
+        end
+      end
+
+      if move.name == "Tactical Eye"
+        return general_hilstara ? "HilstaraNormalBuffGeneralEye" : "HilstaraNormalBuffEye"
+      end
+
+      if move.name == "Sexy Encouragement"
+        return general_hilstara ? "HilstaraNormalBuffGeneralSexy" : "HilstaraNormalBuffSexy"
+      end
+
+      if ["Encourage", "Hold the Line!"].include?(move.name)
+        return general_hilstara ? "HilstaraNormalBuffGeneral" : "HilstaraNormalBuff"
+      end
+
+      nil
+    },
+  },
+  "MainActor1-3" => { # Chosen
     "Attack" => "ChosenAttack",
     "Guard" => "ChosenGuard",
     "Heroic Assault" => "ChosenSpecial",
@@ -198,6 +238,13 @@ Busty.duplicate_battle_config([
       "SimonGreen" => "SimonBlack",
     },
   },
+  {
+    base_character: "Hilstara",
+    evolved_character: "HilstaraKnight",
+    search_and_replace: {
+      "HilstaraNormal" => "HilstaraHero",
+    },
+  },
 ])
 
 # Moves exclusive to transformed Aka
@@ -216,4 +263,10 @@ Busty::BATTLE_CONFIG["Simon2"].merge!({
   "Incubus Strike" => "SimonBlackThrustIncubus",
   "King's Aura" => "SimonBlackHealKingsAura",
   "King's Rebuke" => "SimonBlackStanceKingsRebuke",
+})
+
+# Config specific to Hilstara the White
+Busty::BATTLE_CONFIG["HilstaraKnight"].merge!({
+  "Guard" => "HilstaraHeroDef2",
+  "Wall of Silence" => "HilstaraHeroDef1SeriousSilence",
 })
