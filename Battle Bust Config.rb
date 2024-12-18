@@ -4,7 +4,6 @@ Busty::BATTLE_CONFIG.merge!({
     "Crippling Stab" => "AkaRedPierceCrippling",
     "Piercing Stab" => "AkaRedPiercePiercing",
     "Weakening Stab" => "AkaRedPierceWeakening",
-    fallback: "AkaRedAssault",
     proc: ->(move) {
       aka_transformed = $game_switches[908]
       aka_confident = $game_switches[217]
@@ -67,7 +66,6 @@ Busty::BATTLE_CONFIG.merge!({
 
       nil
     },
-    fallback: "AltinaStaffSerious",
   },
   "Hilstara" => {
     "Active Defense" => "HilstaraNormalDef2",
@@ -116,7 +114,6 @@ Busty::BATTLE_CONFIG.merge!({
     "Heroic Aura" => "ChosenGuardAura",
     "Heroic Blow" => "ChosenAttackShout",
     "Item" => "ChosenItem",
-    fallback: "ChosenSpecial",
   },
   "Qum D'umpe" => {
     "Arousing Kiss" => "QumKissArousingKiss",
@@ -145,7 +142,6 @@ Busty::BATTLE_CONFIG.merge!({
         picture: "QumM",
       },
     ],
-    fallback: "QumSpell",
   },
   "Simon1" => {
     "Attack" => "SimonGreenSwing",
@@ -173,7 +169,6 @@ Busty::BATTLE_CONFIG.merge!({
         chained: true,
       },
     ],
-    fallback: "SimonGreenStance",
   },
   "Yarra" => {
     "Appreciate Harem" => "YarraMAppreciateHarem",
@@ -189,6 +184,7 @@ Busty::BATTLE_CONFIG.merge!({
     "Flirt" => "YarraKiss",
     "Guard" => "YarraGuard",
     "Harem Mistress" => nil,
+    "Haze of Sex" => "YarraSpell",
     "Ice Whip" => {
       picture: "YarraAttackIce",
       move_in: true,
@@ -196,7 +192,9 @@ Busty::BATTLE_CONFIG.merge!({
     },
     "Incubus King's Emissary" => "YarraSpellEmissary",
     "Item" => "YarraItem",
+    "Sealing Tech" => "YarraSpell",
     "Sexual Mana" => "YarraMSexualMana",
+    "Sexual Torment" => "YarraSpell",
     "Shared Fantasy" => "YarraKissSharedFantasy",
     "Succubus Kiss" => "YarraKiss",
     conditionals: [
@@ -205,7 +203,6 @@ Busty::BATTLE_CONFIG.merge!({
         picture: "YarraM",
       },
     ],
-    fallback: "YarraSpell",
   },
 })
 

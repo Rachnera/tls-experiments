@@ -373,8 +373,6 @@ class Scene_Battle < Scene_Base
     proc_config = (character_config[:proc] || ->(move) { nil }).call(@subject.current_action.item)
     return proc_config if proc_config
 
-    return character_config[:fallback] if character_config.has_key?(:fallback)
-
     nil
   end
 
