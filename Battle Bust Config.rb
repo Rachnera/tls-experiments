@@ -143,6 +143,35 @@ Busty::BATTLE_CONFIG.merge!({
       },
     ],
   },
+  "Robin blond" => {
+    "Ambient Mana" => "RobinAmbientMana",
+    "Cure" => "RobinCure",
+    "Dark Lance" => "RobinDarkLance",
+    "Disrupt" => "RobinSpellDisrupt",
+    "Guard" => "RobinGuardShield",
+    "Heal" => "RobinHeal",
+    "Healing Lance" => "RobinHealLance",
+    "Item" => "RobinItem",
+    "Silent Dark" => "RobinDarkClaspSilent",
+    proc: ->(move) {
+      robin_confident = $game_switches[1564]
+
+      if move.name == "Attack"
+        return robin_confident ? "RobinSpellConfidentGeneric" : "RobinSpellNervousGeneric"
+      end
+
+      ["Fire", "Ice", "Lightning"].each do |move_name|
+        if move.name == move_name
+          return "RobinSpell" + (robin_confident ? "Confident": "Nervous") + move_name
+        end
+        if move.name == move_name + " Lance"
+          return "RobinLance" + (robin_confident ? "Composed": "Startled") + move_name
+        end
+      end
+
+      nil
+    },
+  },
   "Simon1" => {
     "Attack" => "SimonGreenSwing",
     "Battlefield Medicine" => "SimonGreenBattleMedicine",
@@ -242,6 +271,11 @@ Busty.duplicate_battle_config([
       "HilstaraNormal" => "HilstaraHero",
     },
   },
+  {
+    base_character: "Robin blond",
+    evolved_character: "Robin grey",
+    search_and_replace: {}, # Robin only has a few skills that vary between forms, updated by hand below
+  },
 ])
 
 # Moves exclusive to transformed Aka
@@ -266,4 +300,9 @@ Busty::BATTLE_CONFIG["Simon2"].merge!({
 Busty::BATTLE_CONFIG["HilstaraKnight"].merge!({
   "Guard" => "HilstaraHeroDef2",
   "Wall of Silence" => "HilstaraHeroDef1SeriousSilence",
+})
+
+# Robin the Grey
+Busty::BATTLE_CONFIG["Robin grey"].merge!({
+  "Ambient Mana" => "RobinDarkAmbientMana",
 })
