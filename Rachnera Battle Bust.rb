@@ -226,12 +226,6 @@ class Scene_Battle < Scene_Base
     @bust_picture.z = 999
     @bust_picture.x = bust_offset_x
     @bust_picture.y = Graphics.height - @bust_picture.height + bust_offset_y
-
-    @bust_idle = 0
-    if move_bust_in?
-      @bust_picture.x = bust_offscreen_x
-      @bust_enter_left = 0
-    end
   end
 
   def display_enemy_bust
@@ -290,10 +284,6 @@ class Scene_Battle < Scene_Base
     if @bust_picture
       @bust_picture.bitmap = nil unless show_bust? && keep_bust_around?
     end
-
-    @bust_enter_left = nil
-    @bust_exit_left = nil
-    @bust_idle = nil
   end
 
   alias original_478_turn_start turn_start
@@ -492,129 +482,6 @@ class Window_BattleLog < Window_Selectable
 
     @back_sprite.x = x
     @back_sprite.y = y
-  end
-end
-
-# Experimental smooth sprite enter/exit
-class Scene_Battle < Scene_Base
-  def bust_offscreen_x
-    - Graphics.width / 2
-  end
-
-  def move_bust_in?
-    return false unless $game_system.animations?
-
-    move_config[:move_in]
-  end
-
-  def move_bust_out?
-    return false unless $game_system.animations?
-
-    move_config[:move_out]
-  end
-
-  def time_to_move_out
-    return unless $game_system.animations? && @bust_idle && move_bust_out?
-
-    return if @bust_exit_left || @bust_picture.tone.gray != 0
-
-    @bust_idle += 1
-    if @bust_idle >= bust_move_in_duration + bust_idle_duration
-      send_bust_to_background
-      @bust_exit_left = 0
-    end
-  end
-
-  def enter_stage_left
-    return unless $game_system.animations? && @bust_enter_left
-
-    return unless @bust_picture.x < bust_offset_x
-
-    @bust_enter_left += 1
-
-    if @bust_enter_left >= bust_move_in_duration
-      @bust_picture.x = bust_offset_x
-      @bust_enter_left = nil
-      return
-    end
-
-    a = 1.0 * @bust_enter_left / bust_move_in_duration
-    @bust_picture.x = bust_offscreen_x + EaseFuncs.ease_out_sine(a) * bust_move_total_distance
-  end
-
-  def exit_stage_left
-    return unless $game_system.animations? && @bust_exit_left
-
-    return unless @bust_picture.x > bust_offscreen_x
-
-    @bust_exit_left += 1
-
-    if @bust_exit_left >= bust_move_out_duration
-      @bust_picture.x = bust_offscreen_x
-      @bust_exit_left = nil
-      return
-    end
-
-    a = 1.0 * @bust_exit_left / bust_move_out_duration
-    @bust_picture.x = bust_offset_x - EaseFuncs.ease_in_sine(a) * bust_move_total_distance
-  end
-
-  # Time, in frames (60 FPS), the bust takes to move in
-  def bust_move_in_duration
-    90
-  end
-
-  # Time, in frames (60 FPS), the bust takes to move out
-  def bust_move_out_duration
-    90
-  end
-
-  # Time, in frames, the bust stands still before moving out
-  def bust_idle_duration
-    120
-  end
-
-  def bust_move_total_distance
-    bust_offset_x - bust_offscreen_x
-  end
-end
-class Sprite_Battler < Sprite_Base
-  alias original_478_update_animation update_animation
-  def update_animation
-    original_478_update_animation
-
-    if SceneManager.scene.is_a?(Scene_Battle)
-      SceneManager.scene.enter_stage_left
-
-      # Allow to move out even if still animating
-      SceneManager.scene.time_to_move_out
-      SceneManager.scene.exit_stage_left
-    end
-  end
-
-  alias original_478_update_effect update_effect
-  def update_effect
-    original_478_update_effect
-
-    if SceneManager.scene.is_a?(Scene_Battle)
-      SceneManager.scene.exit_stage_left
-    end
-  end
-end
-# https://easings.net/
-module EaseFuncs
-  class << self
-    def linear(x)
-      x
-    end
-
-    def ease_in_sine(x)
-      1 - Math.cos(x * (Math::PI / 2))
-    end
-
-    def ease_out_sine(x)
-      Math.sin(x * (Math::PI / 2))
-    end
   end
 end
 

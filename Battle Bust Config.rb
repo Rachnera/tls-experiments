@@ -118,11 +118,7 @@ Busty::BATTLE_CONFIG.merge!({
   "Qum D'umpe" => {
     "Arousing Kiss" => "QumKissArousingKiss",
     "Arousing Aura" => "QumKissArousingAura",
-    "Attack" => {
-      picture: "QumSpellFlail",
-      move_in: true,
-      move_out: true,
-    },
+    "Attack" => "QumSpellFlail",
     "Cleansing Wink" => "QumSpellWink",
     "Cumdump" => "QumHugAura",
     "Guard" => "QumHugWince",
@@ -201,11 +197,7 @@ Busty::BATTLE_CONFIG.merge!({
   },
   "Yarra" => {
     "Appreciate Harem" => "YarraMAppreciateHarem",
-    "Attack" => {
-      picture: "YarraAttack",
-      move_in: true,
-      move_out: true,
-    },
+    "Attack" => "YarraAttack",
     "Bonded Fantasy" => "YarraKiss",
     "Combat Fantasy" => "YarraCombatFantasy",
     "Combat Flirt" => "YarraCombatFlirt",
@@ -214,11 +206,7 @@ Busty::BATTLE_CONFIG.merge!({
     "Guard" => "YarraGuard",
     "Harem Mistress" => nil,
     "Haze of Sex" => "YarraSpell",
-    "Ice Whip" => {
-      picture: "YarraAttackIce",
-      move_in: true,
-      move_out: true,
-    },
+    "Ice Whip" => "YarraAttackIce",
     "Incubus King's Emissary" => "YarraSpellEmissary",
     "Item" => "YarraItem",
     "Sealing Tech" => "YarraSpell",
