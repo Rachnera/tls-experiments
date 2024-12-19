@@ -578,15 +578,19 @@ end
 
 # See Yanfly core engine - Adjust Animation Speed for equivalence in FPS
 class Sprite_Battler < Sprite_Base
+  alias yanfly_478_set_animation_rate set_animation_rate
   def set_animation_rate
+    if !SceneManager.scene.is_a?(Scene_Battle) || SceneManager.scene.bust_feature_disabled?
+      return yanfly_478_set_animation_rate
+    end
+
     # Max animation speed for enemies
     # FIXME Remove before release?
-    if SceneManager.scene.is_a?(Scene_Battle) && SceneManager.scene.subject.is_a?(Game_Enemy)
+    if SceneManager.scene.subject.is_a?(Game_Enemy)
       @ani_rate = 1
       return
     end
 
-    # Current default value
     @ani_rate = 4
   end
 end
