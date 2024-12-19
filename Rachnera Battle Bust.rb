@@ -721,6 +721,21 @@ class Window_BattleHelp < Window_Help
   end
 end
 
+# See Yanfly core engine - Adjust Animation Speed for equivalence in FPS
+class Sprite_Battler < Sprite_Base
+  def set_animation_rate
+    # Max animation speed for enemies
+    # FIXME Remove before release?
+    if SceneManager.scene.is_a?(Scene_Battle) && SceneManager.scene.subject.is_a?(Game_Enemy)
+      @ani_rate = 1
+      return
+    end
+
+    # Current default value
+    @ani_rate = 4
+  end
+end
+
 YEA::SYSTEM::CUSTOM_SWITCHES.merge!({
   hide_battle_bust: [
     14, # Switch Number; make sure it's not used for something else
