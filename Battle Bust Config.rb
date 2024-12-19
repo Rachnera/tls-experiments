@@ -179,14 +179,17 @@ Busty::BATTLE_CONFIG.merge!({
     "Precise Strike" => "SimonGreenThrustPrecise",
     "Rebuke" => "SimonGreenStanceRebuke",
     "Silencing Strike" => "SimonGreenThrustSilencing",
-    "SS heal component" => "SimonGreenHealHealing",
+    "SS heal component" => {
+      picture: "SimonGreenHealHealing",
+      instant_gray: true,
+    },
     "Stunning Strike" => "SimonGreenThrustStunning",
     "Suppress Lust" => "SimonGreenDefSurpressLust",
     "Unified Strike" => "SimonGreenThrustUnified",
     proc: ->(move) {
       if ["Support Allies", "Support Servants", "Support Slaves"].include?(move.c_name)
         return  {
-          picture: "SimonGreenHeal",
+          picture: "SimonGreenHealHealing",
           chained: true,
         }
       end

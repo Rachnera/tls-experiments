@@ -157,6 +157,7 @@ class Scene_Battle < Scene_Base
     # New
     if show_bust?
       display_bust
+      send_bust_to_background if move_config[:instant_gray]
       if can_safely_hide_status_window?(item)
         hide_status_window
       else
