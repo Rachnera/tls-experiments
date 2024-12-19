@@ -8,11 +8,11 @@ Busty::BATTLE_CONFIG.merge!({
       aka_transformed = $game_switches[908]
       aka_confident = $game_switches[217]
 
-      if move.name == "Guard"
+      if move.c_name == "Guard"
         return aka_transformed ? "AkaBlueDefend" : aka_confident ? "AkaRedCoolGuard" : "AkaRedNervousGuard"
       end
 
-      if move.name == "Disabling Assault"
+      if move.c_name == "Disabling Assault"
         return aka_transformed ? "AkaBlueAssaultDisabling" : "AkaRedAssault"
       end
 
@@ -26,7 +26,7 @@ Busty::BATTLE_CONFIG.merge!({
         "Forceful Lunge" => "StabForce",
         "Poisoned Blade" => "StabPoison",
       }.each do |move_name, file_name|
-        if move.name == move_name
+        if move.c_name == move_name
           return "Aka" + (aka_transformed ? "BlueCool" : aka_confident ? "RedCool": "RedNervous") + file_name
         end
       end
@@ -54,12 +54,12 @@ Busty::BATTLE_CONFIG.merge!({
     proc: ->(move) {
       altina_confident = $game_switches[1954]
 
-      if move.name == "Attack"
+      if move.c_name == "Attack"
         return altina_confident ? "AltinaStaffSerious" : "AltinaStaffClumsy"
       end
 
       ["Fire", "Ice", "Lightning", "Poison"].each do |move_name|
-        if move.name == move_name
+        if move.c_name == move_name
           return "AltinaSpell" + (altina_confident ? "Confident": "Nervous") + move_name
         end
       end
@@ -87,20 +87,20 @@ Busty::BATTLE_CONFIG.merge!({
         "Indomitable Will" => "Def1NeutralAura",
         "Shieldwall" => "Def1NeutralShieldwall",
       }.each do |move_name, file_name|
-        if move.name == move_name
+        if move.c_name == move_name
           return "HilstaraNormal" + (serious_hilstara ? file_name.sub("Neutral", "Serious") : file_name)
         end
       end
 
-      if move.name == "Tactical Eye"
+      if move.c_name == "Tactical Eye"
         return general_hilstara ? "HilstaraNormalBuffGeneralEye" : "HilstaraNormalBuffEye"
       end
 
-      if move.name == "Sexy Encouragement"
+      if move.c_name == "Sexy Encouragement"
         return general_hilstara ? "HilstaraNormalBuffGeneralSexy" : "HilstaraNormalBuffSexy"
       end
 
-      if ["Encourage", "Hold the Line!"].include?(move.name)
+      if ["Encourage", "Hold the Line!"].include?(move.c_name)
         return general_hilstara ? "HilstaraNormalBuffGeneral" : "HilstaraNormalBuff"
       end
 
@@ -148,15 +148,15 @@ Busty::BATTLE_CONFIG.merge!({
     proc: ->(move) {
       robin_confident = $game_switches[1564]
 
-      if move.name == "Attack"
+      if move.c_name == "Attack"
         return robin_confident ? "RobinSpellConfidentGeneric" : "RobinSpellNervousGeneric"
       end
 
       ["Fire", "Ice", "Lightning"].each do |move_name|
-        if move.name == move_name
+        if move.c_name == move_name
           return "RobinSpell" + (robin_confident ? "Confident": "Nervous") + move_name
         end
-        if move.name == move_name + " Lance"
+        if move.c_name == move_name + " Lance"
           return "RobinLance" + (robin_confident ? "Composed": "Startled") + move_name
         end
       end
@@ -184,7 +184,7 @@ Busty::BATTLE_CONFIG.merge!({
     "Suppress Lust" => "SimonGreenDefSurpressLust",
     "Unified Strike" => "SimonGreenThrustUnified",
     proc: ->(move) {
-      if ["Support Allies", "Support Servants", "Support Slaves"].include?(move.name)
+      if ["Support Allies", "Support Servants", "Support Slaves"].include?(move.c_name)
         return  {
           picture: "SimonGreenHeal",
           chained: true,

@@ -494,6 +494,15 @@ class Window_BattleStatus < Window_Selectable
   end
 end
 
+module RPG
+  class UsableItem < BaseItem
+    # Circumvent space related issue
+    def c_name
+      name.strip
+    end
+  end
+end
+
 #  Custom skill description
 class Window_BattleHelp < Window_Help
   def set_item(item)
