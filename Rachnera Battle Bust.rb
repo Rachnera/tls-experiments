@@ -34,10 +34,13 @@ module Busty
 
         if BATTLE_CONFIG[base][:proc]
           BATTLE_CONFIG[evolved][:proc] = ->(move) {
-            image = BATTLE_CONFIG[base][:proc].call(move)
-            return nil unless image
+            cf = BATTLE_CONFIG[base][:proc].call(move)
+            return nil unless cf
 
-            rec_gsub(image, search_and_replace)
+            return rec_gsub(cf, search_and_replace) if cf.is_a?(String)
+
+            cf[:picture] = rec_gsub(cf[:picture], search_and_replace)
+            cf
           }
         end
       end
@@ -119,22 +122,12 @@ module SkillHelper
     # A move can be either an instance of https://www.rubydoc.info/gems/rpg-maker-rgss3/RPG/Skill or of https://www.rubydoc.info/gems/rpg-maker-rgss3/RPG/Item
     # In all cases, it has access to all properties of their common parent: https://www.rubydoc.info/gems/rpg-maker-rgss3/RPG/UsableItem
 
-    def is_debuff(move)
-      move.effects.any? do |effect|
-        effect.code == Game_Battler::EFFECT_ADD_DEBUFF
-      end
-    end
-
     def is_item(move)
       move.is_a?(RPG::Item)
     end
 
     def is_skill(move)
       move.is_a?(RPG::Skill)
-    end
-
-    def uses_tp(move)
-      is_skill(move) && move.tp_cost > 0
     end
   end
 end
@@ -350,11 +343,6 @@ class Scene_Battle < Scene_Base
     character_config = Busty::BATTLE_CONFIG[character_name]
 
     return character_config[current_move_name] if character_config.has_key?(current_move_name)
-
-    conditional_config = (character_config[:conditionals] || []).find do |cf|
-      SkillHelper.send(cf[:condition], @subject.current_action.item)
-    end
-    return conditional_config if conditional_config
 
     if SkillHelper.is_item(@subject.current_action.item) && character_config["Item"]
       return character_config["Item"]

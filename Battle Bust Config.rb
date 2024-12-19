@@ -128,16 +128,12 @@ Busty::BATTLE_CONFIG.merge!({
     "Item" => "QumOohItem",
     "Little Death" => "QumSpellSerious",
     "Mass Kiss" => "QumKissMasskiss",
+    "Masturbate" => "QumM",
+    "Masturbate+" => "QumM",
     "Orgasmic Thoughts" => "QumOohCloud",
     "Protective Hug" => "QumHug",
     "Sealing Tech" => "QumSpell",
     "Shiny Thoughts" => "QumOohSparkle",
-    conditionals: [
-      {
-        condition: 'is_any_masturbation_skill',
-        picture: "QumM",
-      },
-    ],
   },
   "Robin blond" => {
     "Ambient Mana" => "RobinAmbientMana",
@@ -187,13 +183,16 @@ Busty::BATTLE_CONFIG.merge!({
     "Stunning Strike" => "SimonGreenThrustStunning",
     "Suppress Lust" => "SimonGreenDefSurpressLust",
     "Unified Strike" => "SimonGreenThrustUnified",
-    conditionals: [
-      {
-        condition: 'is_simon_support_skill',
-        picture: "SimonGreenHeal",
-        chained: true,
-      },
-    ],
+    proc: ->(move) {
+      if ["Support Allies", "Support Servants", "Support Slaves"].include?(move.name)
+        return  {
+          picture: "SimonGreenHeal",
+          chained: true,
+        }
+      end
+
+      nil
+    },
   },
   "Yarra" => {
     "Appreciate Harem" => "YarraMAppreciateHarem",
@@ -209,32 +208,15 @@ Busty::BATTLE_CONFIG.merge!({
     "Ice Whip" => "YarraAttackIce",
     "Incubus King's Emissary" => "YarraSpellEmissary",
     "Item" => "YarraItem",
+    "Masturbate" => "YarraM",
+    "Masturbate+" => "YarraM",
     "Sealing Tech" => "YarraSpell",
     "Sexual Mana" => "YarraMSexualMana",
     "Sexual Torment" => "YarraSpell",
     "Shared Fantasy" => "YarraKissSharedFantasy",
     "Succubus Kiss" => "YarraKiss",
-    conditionals: [
-      {
-        condition: 'is_any_masturbation_skill',
-        picture: "YarraM",
-      },
-    ],
   },
 })
-
-# Custom conditions, in addition to the generic ones defined in Battle Bust
-module SkillHelper
-  class << self
-    def is_simon_support_skill(move)
-      ["Support Allies", "Support Servants", "Support Slaves"].include?(move.name)
-    end
-
-    def is_any_masturbation_skill(move)
-      move.name.include?("Masturbate") || move.name.include?("Masturbation")
-    end
-  end
-end
 
 # Duplicates configuration for characters with alternate forms
 Busty.duplicate_battle_config([
