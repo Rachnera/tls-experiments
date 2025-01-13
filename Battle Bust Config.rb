@@ -228,6 +228,24 @@ Busty::BATTLE_CONFIG.merge!({
       nil
     },
   },
+  "Varia Reshaped" => {
+    "Attack" => "VariaStabReformed",
+    "Blade Dance" => "VariaAssaultReformedBladeDance",
+    "Blood Strike" => "VariaStabReformedBlood",
+    "Channeled Luck" => "VariaChanneledLuck",
+    "Crippling Stab" => "VariStabReformedFCrippling",
+    "Defender's Frenzy" => "VariaFrenzyReformedDefender",
+    "Destined Blood" => "VariaBuffReformed",
+    "Destined Endurance" => "VariaBuffReformed",
+    "Encourage" => "VariaBuffReformed",
+    "Forceful Lunge" => "VariaStabReformedForceful",
+    "Frenzy" => "VariaFrenzyReformed",
+    "Furious Strikes" => "VariaAssaultReformedFurious",
+    "Guard" => "VariaBuffReformed",
+    "Item" => "VariaReformedItem",
+    "Powerful Blow" => "VariaStabReformedPowerful",
+    "Wild Blow" => "VariaStabReformedWild",
+  },
   "Yarra" => {
     "Appreciate Harem" => "YarraMAppreciateHarem",
     "Attack" => "YarraAttack",
@@ -287,6 +305,13 @@ Busty.duplicate_battle_config([
     evolved_character: "Robin grey",
     search_and_replace: {}, # Robin only has a few skills that vary between forms, updated by hand below
   },
+  {
+    base_character: "Varia Reshaped",
+    evolved_character: "Varia Dominated",
+    search_and_replace: {
+      "Reformed" => "Dominated",
+    },
+  },
 ])
 
 # Moves exclusive to transformed Aka
@@ -318,11 +343,34 @@ Busty::BATTLE_CONFIG["Robin grey"].merge!({
   "Ambient Mana" => "RobinDarkAmbientMana",
 })
 
+Busty::BATTLE_CONFIG["Varia Dominated"].merge!({
+  "Earth Bomb" => "VariaThrowDom",
+  "Slave's Frenzy" => "VariaFrenzyDominatedSlave",
+})
+Busty::BATTLE_CONFIG["Varia Reshaped"].merge!({
+  "Earth Bomb" => "VariaThrowRef",
+  "Servant's Frenzy" => "VariaFrenzyReformedServant",
+})
+
+class Scene_Battle < Scene_Base
+  alias original_busty_character_name character_name
+  def character_name
+    character_name = original_busty_character_name
+
+    # Varia variant hack
+    if character_name == "Varia"
+      return Busty::varia_dominated? ? "Varia Dominated" : "Varia Reshaped"
+    end
+
+    character_name
+  end
+end
+
 # Helpful functions I didn't know where to put
 module Busty
   class << self
     # Most in-game code is already of the form "if dominated else"
-    # So not bothering with the explicit switch for reshaped (268)
+    # So not bothering with the explicit switch for reshaped (264)
     def varia_dominated?
       $game_switches[263]
     end
