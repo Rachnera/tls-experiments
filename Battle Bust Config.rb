@@ -67,6 +67,37 @@ Busty::BATTLE_CONFIG.merge!({
       nil
     },
   },
+  "Carina" => {
+    "Anti-Toxin" => "CarinaHealAntiToxin",
+    "Attack" => "CarinaAttack",
+    "Calm" => "CarinahealCompassionateCureLust",
+    "Calming Aura" => "CarinaMassCureLust",
+    "Cleanse" => "CarinahealCompassionateCure",
+    "Cleansing Aura" => "CarinaMassCure",
+    "Divine Intervention" => "CarinaSupport",
+    "Divine Wrath" => "CarinaOffenseWrath",
+    "Guard" => "CarinaDefend",
+    "Holy Burst" => "CarinaOffense",
+    "Mass Heal" => "CarinaMassHeal",
+    "Smite" => "CarinaOffenseSmite",
+    proc: ->(move) {
+      carina_serious = $game_switches[3281]
+
+      if SkillHelper::is_item(move)
+        return "CarinaItem#{carina_serious ? "Serious" : "Benevolent"}"
+      end
+
+      if move.c_name == "Heal" or move.c_name == "Revive" or move.c_name == "Divine Touch"
+        return "Carinaheal#{carina_serious ? "Serious" : "Concerned"}Heal"
+      end
+
+      if move.c_name == "Shield of Purity" or move.c_name == "Shining Banner"
+        return "CarinaBuff#{carina_serious ? "Serious" : "Benevolent"}"
+      end
+
+      nil
+    },
+  },
   "Hilstara" => {
     "Active Defense" => "HilstaraNormalDef2",
     "Aegis Assault" => "HilstaraNormalAegis2",
