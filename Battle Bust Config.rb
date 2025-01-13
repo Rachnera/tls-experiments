@@ -218,6 +218,13 @@ Busty::BATTLE_CONFIG.merge!({
     "Sexual Torment" => "YarraSpell",
     "Shared Fantasy" => "YarraKissSharedFantasy",
     "Succubus Kiss" => "YarraKiss",
+    proc: ->(move) {
+      if move.c_name == "Piercing Whip"
+        return "YarraAttackPiercing-#{Busty::varia_dominated? ? "dom" : "resh" }"
+      end
+
+      nil
+    },
   },
 })
 
@@ -279,3 +286,14 @@ Busty::BATTLE_CONFIG["HilstaraKnight"].merge!({
 Busty::BATTLE_CONFIG["Robin grey"].merge!({
   "Ambient Mana" => "RobinDarkAmbientMana",
 })
+
+# Helpful functions I didn't know where to put
+module Busty
+  class << self
+    # Most in-game code is already of the form "if dominated else"
+    # So not bothering with the explicit switch for reshaped (268)
+    def varia_dominated?
+      $game_switches[263]
+    end
+  end
+end
