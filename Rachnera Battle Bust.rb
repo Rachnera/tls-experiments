@@ -512,14 +512,14 @@ class Window_BattleHelp < Window_Help
       YEA::REGEXP::SKILL::LIMITED_USES,
       YEA::REGEXP::SKILL::WARMUP,
     ].any? {|regexp| regexp.match(item.note) }
-      return set_text(in_battle_skill_description(item))
+      return set_in_battle_skill(item)
     end
 
     set_line_number(2)
     set_text(item ? item.description : "")
   end
 
-  def in_battle_skill_description(item)
+  def set_in_battle_skill(item)
     special = []
 
     if YEA::REGEXP::SKILL::WARMUP.match(item.note)
@@ -575,12 +575,12 @@ class Window_BattleHelp < Window_Help
     set_line_number(2+special.count)
     create_contents
 
-    extra_text = special.join("\n")
-
     # Remove existing (Limited X), (Cooldown Y)... from description
     description = item.description.gsub(/\s+(\(Cooldown [0-9]+\))|(\(Warmup [0-9]+\))|(\(Limited [0-9]+\))/, '')
 
-    description + "\n" + "\\}\\C[8]" + extra_text
+    extra_text = special.join("\n")
+
+    set_text(description + "\n" + "\\}\\C[8]" + extra_text)
   end
 
   def set_line_number(line_number)
