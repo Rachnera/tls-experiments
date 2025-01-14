@@ -512,73 +512,77 @@ class Window_BattleHelp < Window_Help
       YEA::REGEXP::SKILL::LIMITED_USES,
       YEA::REGEXP::SKILL::WARMUP,
     ].any? {|regexp| regexp.match(item.note) }
-      default_text_color = 8
 
-      special = []
 
-      if YEA::REGEXP::SKILL::WARMUP.match(item.note)
-        remaining_time = @actor_window.actor.warmup?(item) - $game_troop.turn_count
-
-        if remaining_time > 0
-          txt =
-            if remaining_time > 1
-              "Warming up, ready in #{remaining_time} turns"
-            else
-              "Warming up, ready next turn"
-            end
-
-          special.push(txt)
-        end
-      end
-
-      if YEA::REGEXP::SKILL::LIMITED_USES.match(item.note)
-        total_uses = $1.to_i
-        remaining_uses = total_uses - @actor_window.actor.times_used?(item)
-
-        txt =
-          if remaining_uses <= 0
-            "\\C[10]Exhausted for this battle\\C[#{default_text_color}]"
-          else
-            if total_uses == 1
-              "Limited to one use per battle"
-            else
-              "Limited to #{total_uses} uses per battle (#{remaining_uses} remaining)"
-            end
-          end
-
-        special.push(txt)
-      end
-
-      if YEA::REGEXP::SKILL::COOLDOWN.match(item.note)
-        total_cooldown = $1.to_i
-        current_cooldown = @actor_window.actor.cooldown?(item)
-
-        txt =
-         if current_cooldown > 0
-          "Cooling down, ready again #{current_cooldown > 1 ? "in #{current_cooldown} turns" : "next turn"}"
-         else
-          "After use: #{total_cooldown} turn#{total_cooldown > 1 ? "s": ""} cooldown"
-         end
-
-        special.push(txt)
-      end
-
-      # Add required number of extra lines
-      set_line_number(2+[special.count, 1].max)
-      create_contents
-
-      extra_text = special.join("\n")
-
-      # Remove existing (Limited X), (Cooldown Y)... from description
-      description = item.description.gsub(/\s+(\(Cooldown [0-9]+\))|(\(Warmup [0-9]+\))|(\(Limited [0-9]+\))/, '')
-
-      text = description + "\n" + "\\}\\C[#{default_text_color}]" + extra_text + "\\C[0]\\{"
-
-      return set_text(text)
+      return set_text(in_battle_skill_description(item))
     end
 
     set_line_number(2)
     set_text(item ? item.description : "")
+  end
+
+  def in_battle_skill_description(item)
+    default_text_color = 8
+
+    special = []
+
+    if YEA::REGEXP::SKILL::WARMUP.match(item.note)
+      remaining_time = @actor_window.actor.warmup?(item) - $game_troop.turn_count
+
+      if remaining_time > 0
+        txt =
+          if remaining_time > 1
+            "Warming up, ready in #{remaining_time} turns"
+          else
+            "Warming up, ready next turn"
+          end
+
+        special.push(txt)
+      end
+    end
+
+    if YEA::REGEXP::SKILL::LIMITED_USES.match(item.note)
+      total_uses = $1.to_i
+      remaining_uses = total_uses - @actor_window.actor.times_used?(item)
+
+      txt =
+        if remaining_uses <= 0
+          "\\C[10]Exhausted for this battle\\C[#{default_text_color}]"
+        else
+          if total_uses == 1
+            "Limited to one use per battle"
+          else
+            "Limited to #{total_uses} uses per battle (#{remaining_uses} remaining)"
+          end
+        end
+
+      special.push(txt)
+    end
+
+    if YEA::REGEXP::SKILL::COOLDOWN.match(item.note)
+      total_cooldown = $1.to_i
+      current_cooldown = @actor_window.actor.cooldown?(item)
+
+      txt =
+       if current_cooldown > 0
+        "Cooling down, ready again #{current_cooldown > 1 ? "in #{current_cooldown} turns" : "next turn"}"
+       else
+        "After use: #{total_cooldown} turn#{total_cooldown > 1 ? "s": ""} cooldown"
+       end
+
+      special.push(txt)
+    end
+
+    # Add required number of extra lines
+    set_line_number(2+[special.count, 1].max)
+    create_contents
+
+    extra_text = special.join("\n")
+
+    # Remove existing (Limited X), (Cooldown Y)... from description
+    description = item.description.gsub(/\s+(\(Cooldown [0-9]+\))|(\(Warmup [0-9]+\))|(\(Limited [0-9]+\))/, '')
+
+    description + "\n" + "\\}\\C[#{default_text_color}]" + extra_text + "\\C[0]\\{"
   end
 
   def set_line_number(line_number)
