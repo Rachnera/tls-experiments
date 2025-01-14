@@ -577,7 +577,7 @@ class Window_BattleHelp < Window_Help
     # RPGMaker doesn't do automated line breaks for skills, so this is somewhat reliable
     guessed_description_lines_count = 1 + description.scan(/\n/).count
 
-    set_line_number(guessed_description_lines_count + special.count)
+    set_line_number([guessed_description_lines_count + special.count, 2].max)
     create_contents
 
     set_text(description + "\n" + "\\}\\C[8]" + special.join("\n"))
