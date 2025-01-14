@@ -571,16 +571,16 @@ class Window_BattleHelp < Window_Help
       end
     end
 
-    # Add required number of extra lines
-    set_line_number(2+special.count)
+    # Remove existing (Limited X), (Cooldown Y)... from description, as well as eventual now unnecessary line breaks at the end
+    description = item.description.gsub(/\s+(\(Cooldown [0-9]+\))|(\(Warmup [0-9]+\))|(\(Limited [0-9]+\))/, '').strip
+
+    # RPGMaker doesn't do automated line breaks for skills, so this is somewhat reliable
+    guessed_description_lines_count = 1 + description.scan(/\n/).count
+
+    set_line_number(guessed_description_lines_count + special.count)
     create_contents
 
-    # Remove existing (Limited X), (Cooldown Y)... from description
-    description = item.description.gsub(/\s+(\(Cooldown [0-9]+\))|(\(Warmup [0-9]+\))|(\(Limited [0-9]+\))/, '')
-
-    extra_text = special.join("\n")
-
-    set_text(description + "\n" + "\\}\\C[8]" + extra_text)
+    set_text(description + "\n" + "\\}\\C[8]" + special.join("\n"))
   end
 
   def set_line_number(line_number)
