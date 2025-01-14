@@ -513,41 +513,52 @@ class Window_BattleHelp < Window_Help
       YEA::REGEXP::SKILL::LIMITED_USES,
       YEA::REGEXP::SKILL::WARMUP,
     ].any? {|regexp| regexp.match(item.note) }
+      default_text_color = 8
+
       special = []
 
       if YEA::REGEXP::SKILL::WARMUP.match(item.note)
         remaining_time = @actor_window.actor.warmup?(item) - $game_troop.turn_count
 
-        txt = "\\I[4063]\\C[18]"
-        txt +=
-          if remaining_time > 1
-            "Warming up, ready in #{remaining_time} turns"
-          elsif remaining_time == 1
-            "Warming up, ready next turn"
-          else
-            "Ready!"
-          end
+        if remaining_time > 0
+          txt =
+            if remaining_time > 1
+              "Warming up, ready in #{remaining_time} turns"
+            else
+              "Warming up, ready next turn"
+            end
 
-        special.push(txt)
+          special.push(txt)
+        end
       end
 
       if YEA::REGEXP::SKILL::LIMITED_USES.match(item.note)
         total_uses = $1.to_i
         remaining_uses = total_uses - @actor_window.actor.times_used?(item)
 
-        special.push("\\I[4090]\\C[8]Remaining uses (this battle): #{remaining_uses}/#{total_uses}")
+        txt =
+          if remaining_uses <= 0
+            "\\C[10]Exhausted for this battle\\C[#{default_text_color}]"
+          else
+            if total_uses == 1
+              "Limited to one use per battle"
+            else
+              "Limited to #{total_uses} uses per battle (#{remaining_uses} remaining)"
+            end
+          end
+
+        special.push(txt)
       end
 
       if YEA::REGEXP::SKILL::COOLDOWN.match(item.note)
         total_cooldown = $1.to_i
         current_cooldown = @actor_window.actor.cooldown?(item)
 
-        txt = "\\I[4023]"
-        txt += 
+        txt =
          if current_cooldown > 0
-          "\\C[13]Cooling down, ready again #{current_cooldown > 1 ? "in #{current_cooldown} turns" : "next turn"}"
+          "Cooling down, ready again #{current_cooldown > 1 ? "in #{current_cooldown} turns" : "next turn"}"
          else
-          "\\C[8]#{total_cooldown} turn#{total_cooldown > 1 ? "s": ""} cooldown after use"
+          "After use: #{total_cooldown} turn#{total_cooldown > 1 ? "s": ""} cooldown"
          end
 
         special.push(txt)
@@ -561,13 +572,13 @@ class Window_BattleHelp < Window_Help
 
       # Instant is small enough that we can sneak in at the start of another line
       if YEA::REGEXP::USABLEITEM::INSTANT.match(item.note)
-        extra_text = "\\I[4085]\\C[14]Instant" + extra_text
+        extra_text = "\\C[21]Instant\\C[#{default_text_color}] " + extra_text
       end
 
       # Remove existing (Limited X), (Cooldown Y)... from description
       description = item.description.gsub(/\s+(\(Instant\)|(\(Cooldown [0-9]+\))|(\(Warmup [0-9]+\))|(\(Limited [0-9]+\)))/, '')
 
-      text = description + "\n" + extra_text
+      text = description + "\n" + "\\}\\C[#{default_text_color}]" + extra_text + "\\C[0]\\{"
 
       return set_text(text)
     end
