@@ -508,7 +508,6 @@ end
 class Window_BattleHelp < Window_Help
   def set_item(item)
     if SkillHelper::is_skill(item) && [
-      YEA::REGEXP::USABLEITEM::INSTANT,
       YEA::REGEXP::SKILL::COOLDOWN,
       YEA::REGEXP::SKILL::LIMITED_USES,
       YEA::REGEXP::SKILL::WARMUP,
@@ -570,13 +569,8 @@ class Window_BattleHelp < Window_Help
 
       extra_text = special.join("\n")
 
-      # Instant is small enough that we can sneak in at the start of another line
-      if YEA::REGEXP::USABLEITEM::INSTANT.match(item.note)
-        extra_text = "\\C[21]Instant\\C[#{default_text_color}] " + extra_text
-      end
-
       # Remove existing (Limited X), (Cooldown Y)... from description
-      description = item.description.gsub(/\s+(\(Instant\)|(\(Cooldown [0-9]+\))|(\(Warmup [0-9]+\))|(\(Limited [0-9]+\)))/, '')
+      description = item.description.gsub(/\s+(\(Cooldown [0-9]+\))|(\(Warmup [0-9]+\))|(\(Limited [0-9]+\))/, '')
 
       text = description + "\n" + "\\}\\C[#{default_text_color}]" + extra_text + "\\C[0]\\{"
 
