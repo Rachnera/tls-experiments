@@ -505,25 +505,27 @@ module RPG
 end
 
 #  Custom skill description
-class Window_BattleHelp < Window_Help
-  def set_item(item)
+class Window_SkillList < Window_Selectable
+  alias original_828_update_help update_help
+  def update_help
+    original_828_update_help
+
     if SkillHelper::is_skill(item) && [
       YEA::REGEXP::SKILL::COOLDOWN,
       YEA::REGEXP::SKILL::LIMITED_USES,
       YEA::REGEXP::SKILL::WARMUP,
     ].any? {|regexp| regexp.match(item.note) }
-      return set_in_battle_skill(item)
+      @help_window.set_dynamic_text_for_restricted_skills(item, @actor)
     end
-
-    set_line_number(2)
-    set_text(item ? item.description : "")
   end
+end
 
-  def set_in_battle_skill(item)
+class Window_BattleHelp < Window_Help
+  def set_dynamic_text_for_restricted_skills(item, actor)
     special = []
 
     if YEA::REGEXP::SKILL::WARMUP.match(item.note)
-      remaining_time = @actor_window.actor.warmup?(item) - $game_troop.turn_count
+      remaining_time = actor.warmup?(item) - $game_troop.turn_count
 
       if remaining_time > 0
         txt =
@@ -539,7 +541,7 @@ class Window_BattleHelp < Window_Help
 
     if YEA::REGEXP::SKILL::COOLDOWN.match(item.note)
       total_cooldown = $1.to_i
-      current_cooldown = @actor_window.actor.cooldown?(item)
+      current_cooldown = actor.cooldown?(item)
 
       txt =
        if current_cooldown > 0
@@ -553,7 +555,7 @@ class Window_BattleHelp < Window_Help
 
     if YEA::REGEXP::SKILL::LIMITED_USES.match(item.note)
       total_uses = $1.to_i
-      remaining_uses = total_uses - @actor_window.actor.times_used?(item)
+      remaining_uses = total_uses - actor.times_used?(item)
 
       if remaining_uses > 0
         txt =
@@ -578,8 +580,6 @@ class Window_BattleHelp < Window_Help
     guessed_description_lines_count = 1 + description.scan(/\n/).count
 
     set_line_number([guessed_description_lines_count + special.count, 2].max)
-    create_contents
-
     set_text(description + "\n" + "\\}\\C[8]" + special.join("\n"))
   end
 
