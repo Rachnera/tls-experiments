@@ -512,8 +512,6 @@ class Window_BattleHelp < Window_Help
       YEA::REGEXP::SKILL::LIMITED_USES,
       YEA::REGEXP::SKILL::WARMUP,
     ].any? {|regexp| regexp.match(item.note) }
-
-
       return set_text(in_battle_skill_description(item))
     end
 
@@ -522,8 +520,6 @@ class Window_BattleHelp < Window_Help
   end
 
   def in_battle_skill_description(item)
-    default_text_color = 8
-
     special = []
 
     if YEA::REGEXP::SKILL::WARMUP.match(item.note)
@@ -541,24 +537,6 @@ class Window_BattleHelp < Window_Help
       end
     end
 
-    if YEA::REGEXP::SKILL::LIMITED_USES.match(item.note)
-      total_uses = $1.to_i
-      remaining_uses = total_uses - @actor_window.actor.times_used?(item)
-
-      txt =
-        if remaining_uses <= 0
-          "\\C[10]Exhausted for this battle\\C[#{default_text_color}]"
-        else
-          if total_uses == 1
-            "Limited to one use per battle"
-          else
-            "Limited to #{total_uses} uses per battle (#{remaining_uses} remaining)"
-          end
-        end
-
-      special.push(txt)
-    end
-
     if YEA::REGEXP::SKILL::COOLDOWN.match(item.note)
       total_cooldown = $1.to_i
       current_cooldown = @actor_window.actor.cooldown?(item)
@@ -573,8 +551,28 @@ class Window_BattleHelp < Window_Help
       special.push(txt)
     end
 
+    if YEA::REGEXP::SKILL::LIMITED_USES.match(item.note)
+      total_uses = $1.to_i
+      remaining_uses = total_uses - @actor_window.actor.times_used?(item)
+
+      if remaining_uses > 0
+        txt =
+          if total_uses == 1
+            "Limited to one use per battle"
+          else
+            "Limited to #{total_uses} uses per battle (#{remaining_uses} remaining)"
+          end
+        special.push(txt)
+      else
+        # Special: If the skill is fully exhausted, overwrite all now useless data about cooldown/warmup
+        special = [
+          "\\C[10]Cannot be used any more this battle"
+        ]
+      end
+    end
+
     # Add required number of extra lines
-    set_line_number(2+[special.count, 1].max)
+    set_line_number(2+special.count)
     create_contents
 
     extra_text = special.join("\n")
@@ -582,7 +580,7 @@ class Window_BattleHelp < Window_Help
     # Remove existing (Limited X), (Cooldown Y)... from description
     description = item.description.gsub(/\s+(\(Cooldown [0-9]+\))|(\(Warmup [0-9]+\))|(\(Limited [0-9]+\))/, '')
 
-    description + "\n" + "\\}\\C[#{default_text_color}]" + extra_text + "\\C[0]\\{"
+    description + "\n" + "\\}\\C[8]" + extra_text
   end
 
   def set_line_number(line_number)
