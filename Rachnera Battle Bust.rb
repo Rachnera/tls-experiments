@@ -537,7 +537,7 @@ class Window_BattleHelp < Window_Help
             "Warming up, ready next turn"
           end
 
-        special.push(txt)
+        special.push("\\C[20]" + txt)
       end
     end
 
@@ -547,9 +547,9 @@ class Window_BattleHelp < Window_Help
 
       txt =
        if current_cooldown > 0
-        "Cooling down, ready again #{current_cooldown > 1 ? "in #{current_cooldown} turns" : "next turn"}"
+        "\\C[20]Cooling down, ready again #{current_cooldown > 1 ? "in #{current_cooldown} turns" : "next turn"}"
        else
-        "After use: #{total_cooldown} turn#{total_cooldown > 1 ? "s": ""} cooldown"
+        "\\C[8]After use: #{total_cooldown} turn#{total_cooldown > 1 ? "s": ""} cooldown"
        end
 
       special.push(txt)
@@ -566,7 +566,7 @@ class Window_BattleHelp < Window_Help
           else
             "Limited to #{total_uses} uses per battle (#{remaining_uses} remaining)"
           end
-        special.push(txt)
+        special.push("\\C[8]" + txt)
       else
         # Special: If the skill is fully exhausted, overwrite all now useless data about cooldown/warmup
         special = [
@@ -582,7 +582,7 @@ class Window_BattleHelp < Window_Help
     guessed_description_lines_count = 1 + description.scan(/\n/).count
 
     set_line_number([guessed_description_lines_count + special.count, 2].max)
-    set_text(description + "\n" + "\\}\\C[8]" + special.join("\n"))
+    set_text(description + "\n" + "\\}" + special.join("\n"))
   end
 
   def set_line_number(line_number)
