@@ -74,11 +74,14 @@ Busty::BATTLE_CONFIG.merge!({
     "Calming Aura" => "CarinaMassCureLust",
     "Cleanse" => "CarinahealCompassionateCure",
     "Cleansing Aura" => "CarinaMassCure",
-    "Divine Intervention" => "CarinaSupport",
+    "Divine Intervention" => "CarinaMassDivineIntervention",
+    "Divine Touch" => "CarinaBuffDvineTouch",
     "Divine Wrath" => "CarinaOffenseWrath",
     "Guard" => "CarinaDefend",
     "Holy Burst" => "CarinaOffense",
     "Mass Heal" => "CarinaMassHeal",
+    "Revive" => "CarinaMassRevive",
+    "Shining Banner" => "CarinaBuffShiningBanner",
     "Smite" => "CarinaOffenseSmite",
     proc: ->(move) {
       carina_serious = $game_switches[3281]
@@ -87,11 +90,11 @@ Busty::BATTLE_CONFIG.merge!({
         return "CarinaItem#{carina_serious ? "Serious" : "Benevolent"}"
       end
 
-      if move.c_name == "Heal" or move.c_name == "Revive" or move.c_name == "Divine Touch"
+      if move.c_name == "Heal"
         return "Carinaheal#{carina_serious ? "Serious" : "Concerned"}Heal"
       end
 
-      if move.c_name == "Shield of Purity" or move.c_name == "Shining Banner"
+      if move.c_name == "Shield of Purity"
         return "CarinaBuff#{carina_serious ? "Serious" : "Benevolent"}"
       end
 
