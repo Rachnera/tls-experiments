@@ -508,6 +508,8 @@ end
 class Window_SkillList < Window_Selectable
   alias original_828_update_help update_help
   def update_help
+    return original_828_update_help unless SceneManager.scene.is_a?(Scene_Battle)
+
     @help_window.set_line_number(2) # Restore default
 
     original_828_update_help
