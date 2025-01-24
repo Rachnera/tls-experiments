@@ -528,6 +528,10 @@ class Window_BattleHelp < Window_Help
   def set_dynamic_text_for_restricted_skills(item, actor)
     special = []
 
+    info_prefix = "\\C[8]‣ "
+    warning_prefix = "\\C[20]◦ "
+    danger_prefix = "\\C[10]⁃ "
+
     if YEA::REGEXP::SKILL::WARMUP.match(item.note)
       remaining_time = actor.warmup?(item) - $game_troop.turn_count
 
@@ -539,7 +543,7 @@ class Window_BattleHelp < Window_Help
             "Warming up, ready next turn"
           end
 
-        special.push("\\C[20]" + txt)
+        special.push(warning_prefix + txt)
       end
     end
 
@@ -548,11 +552,11 @@ class Window_BattleHelp < Window_Help
       current_cooldown = actor.cooldown?(item)
 
       txt =
-       if current_cooldown > 0
-        "\\C[20]Cooling down, ready again #{current_cooldown > 1 ? "in #{current_cooldown} turns" : "next turn"}"
-       else
-        "\\C[8]After use: #{total_cooldown} turn#{total_cooldown > 1 ? "s": ""} cooldown"
-       end
+        if current_cooldown > 0
+          warning_prefix + "Cooling down, ready again #{current_cooldown > 1 ? "in #{current_cooldown} turns" : "next turn"}"
+        else
+          info_prefix + "After use: #{total_cooldown} turn#{total_cooldown > 1 ? "s": ""} cooldown"
+        end
 
       special.push(txt)
     end
@@ -568,11 +572,11 @@ class Window_BattleHelp < Window_Help
           else
             "Limited to #{total_uses} uses per battle (#{remaining_uses} remaining)"
           end
-        special.push("\\C[8]" + txt)
+        special.push(info_prefix + txt)
       else
         # Special: If the skill is fully exhausted, overwrite all now useless data about cooldown/warmup
         special = [
-          "\\C[10]Cannot be used any more this battle"
+          danger_prefix + "Cannot be used any more this battle"
         ]
       end
     end
