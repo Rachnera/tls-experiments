@@ -162,8 +162,8 @@ class Scene_Battle < Scene_Base
         hide_status_window
       else
         @status_window.show
-        instant_skill_custom_offset if item.instant
       end
+      instant_skill_custom_offset if item.instant
     else
       @status_window.show
       display_enemy_bust if @subject.is_a?(Game_Enemy)
