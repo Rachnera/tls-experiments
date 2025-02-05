@@ -149,6 +149,44 @@ Busty::BATTLE_CONFIG.merge!({
     "Heroic Blow" => "ChosenAttackShout",
     "Item" => "ChosenItem",
   },
+  "Nalili" => {
+    "Bash" => "NaliliBackBash",
+    "Blade of Lust" => "NaliliBackBladeOfLust",
+    "Cautious Swipes" => "NaliliBackCautiousSwipes",
+    "Cleavage" => "NaliliOverheadCleavage",
+    "Flaming Thrust" => "NaliliThrustFlamingStab",
+    "Guard" => "NaliliBackDefend",
+    "Healing Masturbation" => "NaliliMHealing",
+    "Hip Check"=> "NaliliHipSlam",
+    "Item" => "NaliliHipItem",
+    "Kiss of Steel" => "NaliliThrustKissOfSteel",
+    "Martial Masturbation" => "NaliliMMartial",
+    "Mother's Lust" => "NaliliMMothersLust",
+    "Orgy of Blows" => "NaliliThrustOrgyOfBlows",
+    "Piercing Stab" => "NaliliThrustPierce",
+    "Sex Appeal" => "NaliliSexAppeal",
+    "Sexual Aegis" => "NaliliBackSexualAegis",
+    "Swift Stab" => "NaliliThrustSwiftStab",
+    "True Cleavage" => "NaliliOverheadTrueCleavage",
+    "Wild Blow" => "NaliliOverheadWildBlow",
+    proc: ->(move) {
+      mature_nalili = $game_switches[857]
+
+      if move.c_name == "Attack"
+        return mature_nalili ? "NaliliThrustAttackMature" : "NaliliThrustAttackSilly"
+      end
+
+      if ["Combat Masturbation", "Masturbate+"].include?(move.c_name)
+        return mature_nalili ? "NaliliMMature" : "NaliliMSilly"
+      end
+
+      if move.c_name == "Desperate Masturbation"
+        return Busty::varia_dominated? ? "NaliliMDesperateDominated" : "NaliliMDesperateReformed"
+      end
+
+      nil
+    },
+  },
   "Qum D'umpe" => {
     "Arousing Kiss" => "QumKissArousingKiss",
     "Arousing Aura" => "QumKissArousingAura",
@@ -263,6 +301,7 @@ Busty::BATTLE_CONFIG.merge!({
     "Ice Whip" => "YarraAttackIce",
     "Incubus King's Emissary" => "YarraSpellEmissary",
     "Item" => "YarraItem",
+    "Lash of Torment" => "YarraAttackSexualEnergy",
     "Masturbate" => "YarraM",
     "Masturbate+" => "YarraM",
     "Sealing Tech" => "YarraSpell",
@@ -290,13 +329,6 @@ Busty.duplicate_battle_config([
     },
   },
   {
-    base_character: "Simon1",
-    evolved_character: "Simon2",
-    search_and_replace: {
-      "SimonGreen" => "SimonBlack",
-    },
-  },
-  {
     base_character: "Hilstara",
     evolved_character: "HilstaraKnight",
     search_and_replace: {
@@ -304,9 +336,21 @@ Busty.duplicate_battle_config([
     },
   },
   {
+    base_character: "Nalili",
+    evolved_character: "Nalili2",
+    search_and_replace: {}, # No changes
+  },
+  {
     base_character: "Robin blond",
     evolved_character: "Robin grey",
     search_and_replace: {}, # Robin only has a few skills that vary between forms, updated by hand below
+  },
+  {
+    base_character: "Simon1",
+    evolved_character: "Simon2",
+    search_and_replace: {
+      "SimonGreen" => "SimonBlack",
+    },
   },
   {
     base_character: "Varia Reshaped",
