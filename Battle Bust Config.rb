@@ -305,6 +305,7 @@ Busty::BATTLE_CONFIG.merge!({
     "Lash of Torment" => "YarraAttackSexualEnergy",
     "Masturbate" => "YarraM",
     "Masturbate+" => "YarraM",
+    "Pure Whip" => "YarraAttackPure",
     "Sealing Tech" => "YarraSpell",
     "Sexual Mana" => "YarraMSexualMana",
     "Sexual Torment" => "YarraSpell",
@@ -367,6 +368,7 @@ Busty::BATTLE_CONFIG["Aka2"].merge!({
   "Bloody Ecstatic Strike" => "AkaBlueAssaultBloody",
   "Ecstatic Strike" => "AkaBlueAssaultEcstatic",
   "Lethal Intent" => "AkaBlueLethalIntent",
+  "Pure Stab" => "AkaBlueCoolStabPure",
   "Sexual Stab" => "AkaBlueSexualStab",
   "Unite the Harem" => "AkaBlueStanceUnite",
 })
