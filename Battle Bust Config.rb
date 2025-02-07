@@ -162,6 +162,7 @@ Busty::BATTLE_CONFIG.merge!({
     "Kiss of Steel" => "NaliliThrustKissOfSteel",
     "Martial Masturbation" => "NaliliMMartial",
     "Mother's Lust" => "NaliliMMothersLust",
+    "Orgasmic Strike" => "NaliliOverheadOrgasmicStrike",
     "Orgy of Blows" => "NaliliThrustOrgyOfBlows",
     "Piercing Stab" => "NaliliThrustPierce",
     "Sex Appeal" => "NaliliSexAppeal",
