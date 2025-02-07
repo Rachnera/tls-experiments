@@ -288,6 +288,31 @@ Busty::BATTLE_CONFIG.merge!({
     "Powerful Blow" => "VariaStabReformedPowerful",
     "Wild Blow" => "VariaStabReformedWild",
   },
+  "Vhala" => {
+    "Anak's Rain" => "VhalaRainAnak",
+    "Arrow of Abstinence" => "VhalaAttackAbstinence",
+    "Arrow of Ice" => "VhalaAttackIce",
+    "Arrow of Lust" => "VhalaAttackLust",
+    "Arrow of Purity" => "VhalaAttackPurity",
+    "Attack" => "VhalaAttack",
+    "Balanced Nature" => "VhalaGuardBalancedNature",
+    "Blinding Rain" => "VhalaRainBlinding",
+    "Defensive Rain" => "VhalaRainOffensive",
+    "Guard" => "VhalaGuard",
+    "Item" => "VhalaSupportItem",
+    "Offensive Rain" => "VhalaRainOffensive",
+    "Targeted Shot" => "VhalaAttackTarget",
+    "Triple Shot" => "VhalaAttackTriple",
+    "Unhand" => "VhalaHandUnhand",
+    proc: ->(move) {
+      if move.c_name == "Unperson Aura"
+        improved_version = move.id === 68
+        return improved_version ? "VhalaHandAuraKind" : "VhalaHandAuraSerious"
+      end
+
+      nil
+    },
+  },
   "Yarra" => {
     "Appreciate Harem" => "YarraMAppreciateHarem",
     "Attack" => "YarraAttack",
