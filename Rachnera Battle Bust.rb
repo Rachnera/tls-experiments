@@ -620,6 +620,27 @@ class Sprite_Battler < Sprite_Base
   end
 end
 
+# Larger skill window so numbers don't get atop words
+class Scene_Battle < Scene_Base
+  alias original_522_create_skill_window create_skill_window
+  def create_skill_window
+    original_522_create_skill_window
+    @skill_window.width = Graphics.width
+  end
+
+  alias original_522_create_battle_status_aid_window create_battle_status_aid_window
+  def create_battle_status_aid_window
+    original_522_create_battle_status_aid_window
+    @status_aid_window.x = 9999 # Just move offscreen, will you?
+  end
+
+  alias original_522_create_actor_window create_actor_window
+  def create_actor_window
+    original_522_create_actor_window
+    @actor_window.x = (Graphics.width - @actor_window.width)/2
+  end
+end
+
 YEA::SYSTEM::CUSTOM_SWITCHES.merge!({
   hide_battle_bust: [
     14, # Switch Number; make sure it's not used for something else
