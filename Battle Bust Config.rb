@@ -328,6 +328,7 @@ Busty::BATTLE_CONFIG.merge!({
     "Incubus King's Emissary" => "YarraSpellEmissary",
     "Item" => "YarraItem",
     "Lash of Torment" => "YarraAttackSexualEnergy",
+    "Lustful Emissaries" => "YarraSpellEmissary",
     "Masturbate" => "YarraM",
     "Masturbate+" => "YarraM",
     "Pure Whip" => "YarraAttackPure",
