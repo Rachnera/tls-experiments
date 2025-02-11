@@ -6,7 +6,9 @@ Busty::BATTLE_CONFIG.merge!({
     "Weakening Stab" => "AkaRedPierceWeakening",
     proc: ->(move) {
       aka_transformed = $game_switches[908]
-      aka_confident = $game_switches[217]
+      # In a normal playthrough, 908 cannot be enabled without 217.
+      # So taking for granted 908 on means we should behave like 217 is on even if the save is in a weird (hacked?) state.
+      aka_confident = $game_switches[217] || aka_transformed
 
       if move.c_name == "Guard"
         return aka_transformed ? "AkaBlueDefend" : aka_confident ? "AkaRedCoolGuard" : "AkaRedNervousGuard"
@@ -27,7 +29,7 @@ Busty::BATTLE_CONFIG.merge!({
         "Poisoned Blade" => "StabPoison",
       }.each do |move_name, file_name|
         if move.c_name == move_name
-          return "Aka" + (aka_transformed ? "BlueCool" : aka_confident ? "RedCool": "RedNervous") + file_name
+          return "Aka" + (aka_confident ? "RedCool": "RedNervous") + file_name
         end
       end
 
