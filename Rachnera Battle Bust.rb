@@ -456,10 +456,8 @@ class Window_BattleStatus < Window_Selectable
   def item_rect(index)
     rect = yanfly_478_item_rect(index)
 
-    if $game_party.members.size < $game_party.max_battle_members
-      spacing = (contents.width - $game_party.members.size * rect.width) / ($game_party.members.size + 1)
-      rect.x = spacing + index * (rect.width + spacing)
-    end
+    spacing = (contents.width - $game_party.members.size * rect.width) / ($game_party.members.size + 1)
+    rect.x = spacing + index * (rect.width + spacing)
 
     rect
   end
