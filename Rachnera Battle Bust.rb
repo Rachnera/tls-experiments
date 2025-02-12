@@ -133,15 +133,26 @@ module SkillHelper
 end
 
 class Scene_Battle < Scene_Base
+  # Affix the status window on the right of the screen
+  alias original_478_update_info_viewport update_info_viewport
+  def update_info_viewport
+    return original_478_update_info_viewport if bust_feature_disabled?
+
+    move_info_viewport(0)
+  end
+  alias original_667_create_actor_command_window create_actor_command_window
+  def create_actor_command_window
+    original_667_create_actor_command_window
+    return if bust_feature_disabled?
+
+    @actor_command_window.x = 0
+  end
+
   # See Yanfly Engine Ace - Ace Battle Engine
   # Note: TLS does not apparently use any of YEA-CastAnimations, YEA-LunaticObjects, YEA-TargetManager. Left their code in nonetheless for simpler diff  with original.
   alias original_478_use_item use_item
   def use_item
     return original_478_use_item if bust_feature_disabled?
-
-    # New: Ensure status_window position is right even if we skip turn_start
-    # (case of actions happening outside of turns)
-    offset_right_status_window
 
     # Original, no change
     item = @subject.current_action.item
@@ -163,7 +174,7 @@ class Scene_Battle < Scene_Base
       else
         @status_window.show
       end
-      instant_skill_custom_offset if item.instant
+      @actor_command_window.hide if item.instant
     else
       @status_window.show
       display_enemy_bust if @subject.is_a?(Game_Enemy)
@@ -188,7 +199,7 @@ class Scene_Battle < Scene_Base
     # New
     # Is a noop if everything was already cleaned in show_animation
     cleanup_bust
-    instant_skill_custom_reset
+    @actor_command_window.show if item.instant
   end
 
   alias original_478_show_animation show_animation
@@ -280,20 +291,11 @@ class Scene_Battle < Scene_Base
     end
   end
 
-  alias original_478_turn_start turn_start
-  def turn_start
-    return original_478_turn_start if bust_feature_disabled?
-
-    offset_right_status_window
-
-    original_478_turn_start
-  end
-
   alias original_478_turn_end turn_end
   def turn_end
     return original_478_turn_end if bust_feature_disabled?
 
-    reset_status_window
+    @status_window.show
 
     original_478_turn_end
   end
@@ -376,38 +378,6 @@ class Scene_Battle < Scene_Base
 
   def bust_config
     Busty::BATTLE_CONFIG[character_name] || {}
-  end
-
-  def offset_right_status_window
-    @status_window.x = 128+16*4
-  end
-
-  def reset_status_window
-    @status_window.show
-    @status_window.x = 128
-  end
-
-  def instant_skill_custom_offset
-    @original_info_viewport_ox = @info_viewport.ox
-    @info_viewport.ox = 64
-    @actor_command_window.hide
-  end
-
-  def instant_skill_custom_reset
-    return unless @original_info_viewport_ox
-
-    @info_viewport.ox = @original_info_viewport_ox
-    @original_info_viewport_ox = nil
-    @actor_command_window.show
-  end
-
-  alias original_478_update_info_viewport update_info_viewport
-  def update_info_viewport
-    # Ensure we reset even if we skip turn_end
-    # (case of actions happening outside of turns)
-    reset_status_window if @actor_command_window.active
-
-    original_478_update_info_viewport
   end
 
   def hide_status_window
