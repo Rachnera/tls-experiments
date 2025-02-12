@@ -605,7 +605,7 @@ class Scene_Battle < Scene_Base
   alias original_522_create_actor_window create_actor_window
   def create_actor_window
     original_522_create_actor_window
-    @actor_window.width = Graphics.width
+    @actor_window.x = 128/2
   end
 end
 
