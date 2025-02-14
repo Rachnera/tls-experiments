@@ -294,6 +294,14 @@ class Scene_Battle < Scene_Base
     end
   end
 
+  alias original_478_turn_start turn_start
+  def turn_start
+    return original_478_turn_start if bust_feature_disabled?
+
+    @status_window.hide
+    original_478_turn_start
+  end
+
   alias original_478_turn_end turn_end
   def turn_end
     return original_478_turn_end if bust_feature_disabled?
