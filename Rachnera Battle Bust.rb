@@ -199,7 +199,10 @@ class Scene_Battle < Scene_Base
     # New
     # Is a noop if everything was already cleaned in show_animation
     cleanup_bust
-    @actor_command_window.show if item.instant
+    if item.instant
+      @actor_command_window.show
+      @status_window.show
+    end
   end
 
   alias original_478_show_animation show_animation
