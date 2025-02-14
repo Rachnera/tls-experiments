@@ -609,6 +609,14 @@ class Scene_Battle < Scene_Base
   def create_actor_window
     original_522_create_actor_window
     @actor_window.x = 128/2
+    @actor_window.y = Graphics.height - @skill_window.height - @actor_window.height
+  end
+
+  alias original_522_select_actor_selection_abe select_actor_selection
+  def select_actor_selection
+    scene_battle_select_actor_selection_abe
+    @skill_window.show if $game_temp.battle_aid.is_a?(RPG::Skill)
+    @item_window.show  if $game_temp.battle_aid.is_a?(RPG::Item)
   end
 end
 
