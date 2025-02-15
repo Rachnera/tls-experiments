@@ -298,7 +298,7 @@ class Scene_Battle < Scene_Base
   def turn_start
     return original_478_turn_start if bust_feature_disabled?
 
-    @status_window.hide
+    @status_window.close
     original_478_turn_start
   end
 
