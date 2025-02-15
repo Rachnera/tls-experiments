@@ -560,8 +560,11 @@ class Window_BattleHelp < Window_Help
       end
     end
 
-    # Remove existing (Limited X), (Cooldown Y)... from description, as well as eventual now unnecessary line breaks at the end
-    description = item.description.gsub(/\s+(\(Cooldown [0-9]+\))|(\(Warmup [0-9]+\))|(\(Limited [0-9]+\))/, '').strip
+    # Remove existing (Limited X), (Cooldown Y)... from description, trying to end on as few line breaks as possible
+    description = item.description
+      .gsub(/\s+(\(Cooldown [0-9]+\))|(\(Warmup [0-9]+\))|(\(Limited [0-9]+\))/, "\n")
+      .gsub(/\s*[\r\n]+\s*/, "\n") # Too old a version of Ruby for \R
+      .strip
 
     # RPGMaker doesn't do automated line breaks for skills, so this is somewhat reliable
     guessed_description_lines_count = 1 + description.scan(/\n/).count
