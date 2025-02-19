@@ -33,6 +33,14 @@ Busty::BATTLE_CONFIG.merge!({
         end
       end
 
+      if move.c_name == "Healing Hilt"
+        return "AkaBlueDefHeal#{Busty::uyae_clothes_version}"
+      end
+
+      if move.c_name == "Ferocious Flurry"
+        return "AkaBlueAssaultFlurry#{Busty::uyae_clothes_version}"
+      end
+
       nil
     },
   },
@@ -74,6 +82,7 @@ Busty::BATTLE_CONFIG.merge!({
     "Attack" => "CarinaAttack",
     "Calm" => "CarinahealCompassionateCureLust",
     "Calming Aura" => "CarinaMassCureLust",
+    "Channeled Smite" => "CarinaOffenseSmite",
     "Cleanse" => "CarinahealCompassionateCure",
     "Cleansing Aura" => "CarinaMassCure",
     "Divine Intervention" => "CarinaMassDivineIntervention",
@@ -111,7 +120,6 @@ Busty::BATTLE_CONFIG.merge!({
     # TODO Enable after an animation is configured for the skill
     # "Harem Tactics" => "HilstaraNormalBuffHaremTactics",
     "Item" => "HilstaraNormalItem",
-    "Mighty Bash" => "HilstaraNormalAxeMightyBash",
     "Powerful Blow" => "HilstaraNormalAxeBlow",
     "Vanguard" => "HilstaraNormalDef2",
     proc: ->(move) {
@@ -140,6 +148,10 @@ Busty::BATTLE_CONFIG.merge!({
 
       if ["Encourage", "Hold the Line!"].include?(move.c_name)
         return general_hilstara ? "HilstaraNormalBuffGeneral" : "HilstaraNormalBuff"
+      end
+
+      if move.c_name == "Mighty Bash"
+        return "HilstaraNormalAxeMightyBash#{Busty::uyae_clothes_version}"
       end
 
       nil
@@ -367,6 +379,7 @@ Busty::BATTLE_CONFIG.merge!({
     "Sexual Torment" => "YarraSpell",
     "Shared Fantasy" => "YarraKissSharedFantasy",
     "Succubus Kiss" => "YarraKiss",
+    "Wild Lashing" => "YarraAttackWildLashing",
     proc: ->(move) {
       if move.c_name == "Piercing Whip"
         return "YarraAttackPiercing-#{Busty::varia_dominated? ? "dom" : "resh" }"
@@ -441,6 +454,7 @@ Busty::BATTLE_CONFIG["Simon2"].merge!({
 # Config specific to Hilstara the White
 Busty::BATTLE_CONFIG["HilstaraKnight"].merge!({
   "Guard" => "HilstaraHeroDef2",
+  "Mighty Bash" => "HilstaraHeroAxeMightyBash",
   "Wall of Silence" => "HilstaraHeroDef1SeriousSilence",
 })
 
@@ -479,6 +493,17 @@ module Busty
     # So not bothering with the explicit switch for reshaped (264)
     def varia_dominated?
       $game_switches[263]
+    end
+
+    def uyae_clothes_version
+      # Boob Window
+      return 3 if $game_switches[2081]
+
+      # Clean
+      return 2 if $game_switches[1481]
+
+      # Tattered
+      1
     end
   end
 end
