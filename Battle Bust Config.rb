@@ -313,6 +313,25 @@ Busty::BATTLE_CONFIG.merge!({
       nil
     },
   },
+  "Uyae 1" => {
+    "Attack" => "UyaeFist1",
+    "Aura of Might" => "UyaeStanceMighty1",
+    "Aura of Spirit" => "UyaeStanceSpirit1",
+    "Explosive Palm" => "UyaePalmFire1",
+    "Guard" => "UyaeSpellGuard1",
+    "Heal" => "UyaeSpellHeal1",
+    "Healing Aura" => "UyaeSpellAuraHeal1",
+    "Healing Burst" => "UyaePoseBurstHealing1",
+    "Item" => "UyaeFistItem1",
+    "Magical Burst" => "UyaePoseBurstMagical1",
+    "Mana Palm" => "UyaePalmMana1",
+    "Meditate" => "UyaeSpellMeditate1",
+    "Physical Burst" => "UyaePoseBurstPhysical1",
+    "Raw Magic Heal" => "UyaeSpellRawMagic1",
+    "Reviving Aura" => "UyaeSpellAuraRevive1",
+    "Shockwave" => "UyaePalmShowckwave1",
+    "Takedown" => "UyaeFistTakedown1",
+  },
   "Varia Reshaped" => {
     "Attack" => "VariaStabReformed",
     "Blade Dance" => "VariaAssaultReformedBladeDance",
@@ -424,6 +443,20 @@ Busty.duplicate_battle_config([
     },
   },
   {
+    base_character: "Uyae 1",
+    evolved_character: "Uyae 2",
+    search_and_replace: {
+      "1" => "2",
+    },
+  },
+  {
+    base_character: "Uyae 1",
+    evolved_character: "Uyae 3",
+    search_and_replace: {
+      "1" => "3",
+    },
+  },
+  {
     base_character: "Varia Reshaped",
     evolved_character: "Varia Dominated",
     search_and_replace: {
@@ -472,6 +505,11 @@ Busty::BATTLE_CONFIG["Varia Reshaped"].merge!({
   "Servant's Frenzy" => "VariaFrenzyReformedServant",
 })
 
+Busty::BATTLE_CONFIG["Uyae 3"].merge!({
+  "Aura of Agility" => "UyaeStanceAgility",
+  "Divine Aura" => "UyaeStanceDivine",
+})
+
 class Scene_Battle < Scene_Base
   alias original_busty_character_name character_name
   def character_name
@@ -480,6 +518,10 @@ class Scene_Battle < Scene_Base
     # Varia variant hack
     if character_name == "Varia"
       return Busty::varia_dominated? ? "Varia Dominated" : "Varia Reshaped"
+    end
+
+    if character_name.start_with?('Uyae')
+      return "Uyae #{Busty::uyae_clothes_version}"
     end
 
     character_name
