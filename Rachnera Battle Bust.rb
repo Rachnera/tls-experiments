@@ -168,7 +168,6 @@ class Scene_Battle < Scene_Base
     # New
     if show_bust?
       display_bust
-      send_bust_to_background if move_config[:instant_gray]
       if can_safely_hide_status_window?(item)
         hide_status_window
       else
@@ -207,6 +206,8 @@ class Scene_Battle < Scene_Base
 
   alias original_478_show_animation show_animation
   def show_animation(targets, animation_id)
+    display_bust if show_bust? # For repeating skills, like Uyae's Takedown
+
     original_478_show_animation(targets, animation_id)
 
     return if bust_feature_disabled?
@@ -234,6 +235,8 @@ class Scene_Battle < Scene_Base
     @bust_picture.z = 999
     @bust_picture.x = bust_offset_x
     @bust_picture.y = Graphics.height - @bust_picture.height + bust_offset_y
+
+    send_bust_to_background if move_config[:instant_gray]
   end
 
   def display_enemy_bust
