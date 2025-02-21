@@ -314,7 +314,7 @@ Busty::BATTLE_CONFIG.merge!({
     },
   },
   "Uyae 1" => {
-    "Attack" => "UyaeFist1",
+    "Attack" => "UyaeFistClaw1",
     "Aura of Might" => "UyaeStanceMighty1",
     "Aura of Spirit" => "UyaeStanceSpirit1",
     "Explosive Palm" => "UyaePalmFire1",
