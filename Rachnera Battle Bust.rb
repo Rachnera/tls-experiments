@@ -57,7 +57,7 @@ module Busty
     end
 
     def show_enemy_face_window(bitmap, offset_x = 0, offset_y = 0)
-      unless defined?(@@enemy_face_window) && @@enemy_face_window
+      unless enemy_face_window_available?
         @@enemy_face_window = Enemy_Face_Window.new
       end
       @@enemy_face_window.set_bitmap(bitmap, offset_x, offset_y)
@@ -65,17 +65,29 @@ module Busty
     end
 
     def hide_enemy_face_window
-      return unless defined?(@@enemy_face_window) && @@enemy_face_window
+      return unless enemy_face_window_available?
 
       @@enemy_face_window.clear_bitmap
       @@enemy_face_window.hide
     end
 
     def dispose_enemy_face_window
-      return unless defined?(@@enemy_face_window) && @@enemy_face_window
+      return unless enemy_face_window_available?
 
       @@enemy_face_window.dispose
       @@enemy_face_window = nil
+    end
+
+    def enemy_face_window_available?
+      return false unless defined?(@@enemy_face_window) && @@enemy_face_window
+
+      if @@enemy_face_window.disposed?
+        # Emergency cleanup if in a weird state
+        @@enemy_face_window = nil
+        return false
+      end
+
+      true
     end
   end
 
