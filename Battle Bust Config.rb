@@ -157,6 +157,29 @@ Busty::BATTLE_CONFIG.merge!({
       nil
     },
   },
+  "Lilith" => {
+    "Attack" => "LilithSwordAttack",
+    "Bloodwine" => "LilithPotionBlood",
+    "Boring McBoring" => "LilithSwordBoring",
+    "Breeding Dreams" => "LilithHeartBreedingDreams",
+    "Chaotic Vigor" => "LilithSpikesVigor",
+    "Edges of Darkness" => "LilithSpikesEdges",
+    "Fart of the Gods" => "LilithSpikesFart",
+    "Flurry of Flurries" => "LilithSwordFlurry",
+    "Fuckluck" => "LilithSwordFuckluck",
+    "Guard" => "LilithShieldGuard",
+    "Headbutt the Planet" => "LilithShieldHeadbutt",
+    "Item" => "LilithPotionItem",
+    "Kiss of Chaos" => "LilithHeartKiss",
+    "Lustful Disruption" => "LilithHeartLust",
+    "Piercing Wit" => "LilithSwordPiercing",
+    "Randomness" => "LilithChaos",
+    "Self Control Self" => "LilithShieldSelfControl",
+    "Sexpocalypse" => "LilithHeartSexpocalypse",
+    "Sparkly Chaos" => "LilithPotionSparkly",
+    "Thunder Thighs" => "LilithShieldThunderThighs",
+    "Thrust of Restoration" => "LilithSwordThrust",
+  },
   "MainActor1-3" => { # Chosen
     "Attack" => "ChosenAttack",
     "Guard" => "ChosenGuard",
@@ -424,6 +447,10 @@ Busty.duplicate_battle_config([
     search_and_replace: {
       "HilstaraNormal" => "HilstaraHero",
     },
+  },
+  {
+    base_character: "Lilith",
+    evolved_character: "Lilith grey",
   },
   {
     base_character: "Nalili",
