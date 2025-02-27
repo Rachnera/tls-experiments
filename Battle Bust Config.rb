@@ -166,7 +166,6 @@ Busty::BATTLE_CONFIG.merge!({
     "Edges of Darkness" => "LilithSpikesEdges",
     "Fart of the Gods" => "LilithSpikesFart",
     "Flurry of Flurries" => "LilithSwordFlurry",
-    "Fuckluck" => "LilithSwordFuckluck",
     "Guard" => "LilithShieldGuard",
     "Headbutt the Planet" => "LilithShieldHeadbutt",
     "Item" => "LilithPotionItem",
@@ -179,6 +178,13 @@ Busty::BATTLE_CONFIG.merge!({
     "Sparkly Chaos" => "LilithPotionSparkly",
     "Thunder Thighs" => "LilithShieldThunderThighs",
     "Thrust of Restoration" => "LilithSwordThrust",
+    proc: ->(move) {
+      if move.c_name == "Fuckluck"
+        return Busty::varia_dominated? ? "LilithSwordFuckluckDominated" : "LilithSwordFuckluckReformed"
+      end
+
+      nil
+    },
   },
   "MainActor1-3" => { # Chosen
     "Attack" => "ChosenAttack",
