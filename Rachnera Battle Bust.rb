@@ -180,14 +180,8 @@ class Scene_Battle < Scene_Base
     # New
     if show_bust?
       display_bust
-      if can_safely_hide_status_window?(item)
-        hide_status_window
-      else
-        @status_window.show
-      end
       @actor_command_window.hide if item.instant
     else
-      @status_window.show
       display_enemy_bust if @subject.is_a?(Game_Enemy)
       if @subject.is_a?(Game_Actor)
         if @actor_command_window.openness == 0 # Don't show anything if we are in the skill menu (i.e. this is an instant skill)
@@ -212,7 +206,6 @@ class Scene_Battle < Scene_Base
     cleanup_bust
     if item.instant
       @actor_command_window.show
-      @status_window.show
     end
   end
 
@@ -227,10 +220,6 @@ class Scene_Battle < Scene_Base
     if show_bust? && !keep_bust_around?
       # Make the image less obstrusive but don't remove it entirely for smoother transition
       send_bust_to_background
-    end
-
-    if move_effects_require_showing_status_window?(@subject.current_action.item)
-      @status_window.show
     end
   end
 
@@ -307,23 +296,6 @@ class Scene_Battle < Scene_Base
     if @bust_picture
       @bust_picture.bitmap = nil unless show_bust? && keep_bust_around?
     end
-  end
-
-  alias original_478_turn_start turn_start
-  def turn_start
-    return original_478_turn_start if bust_feature_disabled?
-
-    @status_window.close
-    original_478_turn_start
-  end
-
-  alias original_478_turn_end turn_end
-  def turn_end
-    return original_478_turn_end if bust_feature_disabled?
-
-    @status_window.show
-
-    original_478_turn_end
   end
 
   alias original_478_terminate terminate
@@ -404,32 +376,6 @@ class Scene_Battle < Scene_Base
 
   def bust_config
     Busty::BATTLE_CONFIG[character_name] || {}
-  end
-
-  def hide_status_window
-    @status_window.hide
-
-    # Clean popus lying around where the window was
-    @spriteset.actor_sprites.each do |battler_sprite|
-      (battler_sprite.popups || []).each do |popup|
-        popup.force_fade
-      end
-    end
-  end
-
-  def can_safely_hide_status_window?(move)
-    return false unless $game_system.animations?
-
-    # Healing/buff have animations centered on characters
-    return false unless move.for_opponent?
-
-    true
-  end
-
-  def move_effects_require_showing_status_window?(move)
-    return true unless move.damage.type == 1 # Standard HP damage
-
-    false
   end
 
   def send_bust_to_background
