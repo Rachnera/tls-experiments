@@ -415,7 +415,7 @@ Busty::BATTLE_CONFIG.merge!({
     "Guard" => "YarraGuard",
     "Haze of Sex" => "YarraSpell",
     "Ice Whip" => "YarraAttackIce",
-    "Incubus King's Emissary" => "YarraSpellEmissary",
+    "Incubus King's Emissary" => "YarraSpellIncubusEmissary",
     "Item" => "YarraItem",
     "Lash of Torment" => "YarraAttackSexualEnergy",
     "Lustful Emissaries" => "YarraSpellEmissary",
