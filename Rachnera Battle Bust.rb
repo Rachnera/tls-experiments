@@ -226,7 +226,7 @@ class Scene_Battle < Scene_Base
   def display_bust
     @bust_picture = Sprite.new if !@bust_picture
 
-    @bust_picture.bitmap = Cache.picture('battle/' + move_config[:picture])
+    @bust_picture.bitmap = bust_bitmap
     @bust_picture.visible = true
     @bust_picture.tone.red = 0
     @bust_picture.tone.green = 0
@@ -238,6 +238,21 @@ class Scene_Battle < Scene_Base
     @bust_picture.y = Graphics.height - @bust_picture.height + bust_offset_y
 
     send_bust_to_background if move_config[:instant_gray]
+  end
+
+  def bust_bitmap
+    Cache.picture('battle/' + move_config[:picture])
+  end
+
+  def has_bust_image?
+    return false unless move_config && move_config[:picture]
+
+    begin
+      bust_bitmap
+      true
+    rescue Errno::ENOENT
+      false
+    end
   end
 
   def display_enemy_bust
@@ -323,7 +338,7 @@ class Scene_Battle < Scene_Base
     # Commit to the bit by showing Simon as a NPC at first (25 is the "Window Break" switch)
     return false if character_name == "Simon1" and not $game_switches[25]
 
-    !!move_config
+    has_bust_image?
   end
 
   def move_config
