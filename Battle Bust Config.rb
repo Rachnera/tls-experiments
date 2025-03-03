@@ -280,6 +280,7 @@ Busty::BATTLE_CONFIG.merge!({
     "Shiny Thoughts" => "QumOohSparkle",
   },
   "Riala" => {
+    "Anti-Tyrant Essence" => "RialaSpellAntiTyrant",
     "Attack" => "RialaSpellLust",
     "Aura Masturbation" => "RialaMAura",
     "Bolt of Lust" => "RialaStormLust",
