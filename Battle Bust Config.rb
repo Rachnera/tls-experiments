@@ -506,6 +506,7 @@ Busty::BATTLE_CONFIG["Aka2"].merge!({
   "Pure Stab" => "AkaBlueCoolStabPure",
   "Sexual Stab" => "AkaBlueSexualStab",
   "Unite the Harem" => "AkaBlueStanceUnite",
+  "Weakenig Assault" => "AkaBluePierceWeakeningAssault",
 })
 
 # Moves exclusive to Simon the Black
