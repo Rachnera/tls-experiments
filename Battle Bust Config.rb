@@ -25,6 +25,7 @@ Busty::BATTLE_CONFIG.merge!({
       {
         "Attack" => "Stab",
         "Deathblow" => "StabDeathblow",
+        "Flaming Stab" => "StabFire",
         "Forceful Lunge" => "StabForce",
         "Poisoned Blade" => "StabPoison",
       }.each do |move_name, file_name|
