@@ -559,25 +559,6 @@ class Window_BattleHelp < Window_Help
   end
 end
 
-# See Yanfly core engine - Adjust Animation Speed for equivalence in FPS
-class Sprite_Battler < Sprite_Base
-  alias yanfly_478_set_animation_rate set_animation_rate
-  def set_animation_rate
-    if !SceneManager.scene.is_a?(Scene_Battle) || SceneManager.scene.bust_feature_disabled?
-      return yanfly_478_set_animation_rate
-    end
-
-    # Max animation speed for enemies
-    # FIXME Remove before release?
-    if SceneManager.scene.subject.is_a?(Game_Enemy)
-      @ani_rate = 1
-      return
-    end
-
-    @ani_rate = 4
-  end
-end
-
 # Larger skill window so numbers don't get atop words
 class Scene_Battle < Scene_Base
   alias original_522_create_skill_window create_skill_window

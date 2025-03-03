@@ -141,8 +141,7 @@ Busty::BATTLE_CONFIG.merge!({
     "Aegis Assault" => "HilstaraNormalAegis2",
     "Attack" => "HilstaraNormalAxe",
     "Bash" => "HilstaraNormalAxeBash",
-    # TODO Enable after an animation is configured for the skill
-    # "Harem Tactics" => "HilstaraNormalBuffHaremTactics",
+    "Harem Tactics" => "HilstaraNormalBuffHaremTactics",
     "Item" => "HilstaraNormalItem",
     "Powerful Blow" => "HilstaraNormalAxeBlow",
     "Vanguard" => "HilstaraNormalDef2",
