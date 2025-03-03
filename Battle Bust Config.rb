@@ -192,6 +192,8 @@ Busty::BATTLE_CONFIG.merge!({
     "Heroic Assault" => "ChosenSpecial",
     "Heroic Aura" => "ChosenGuardAura",
     "Heroic Blow" => "ChosenAttackShout",
+    "Heroic Command" => "ChosenHeroicCommand",
+    "Heroic Pose" => "ChosenHeroicPose",
     "Item" => "ChosenItem",
   },
   "Nalili" => {
