@@ -273,7 +273,6 @@ Busty::BATTLE_CONFIG.merge!({
     "Illusory Orgy" => "QumSpellCloud",
     "Item" => "QumOohItem",
     "Little Death" => "QumSpellSerious",
-    "Mass Kiss" => "QumKissMasskiss",
     "Masturbate" => "QumM",
     "Masturbate+" => "QumM",
     "Orgasmic Thoughts" => "QumOohCloud",
@@ -281,6 +280,15 @@ Busty::BATTLE_CONFIG.merge!({
     "Protective Hug" => "QumHug",
     "Sealing Tech" => "QumSpell",
     "Shiny Thoughts" => "QumOohSparkle",
+    # Skills that are actually two skills below
+    "Mass Kiss" => {
+      picture: "QumKissMasskiss",
+      chained: true,
+    },
+    "QY heal component" => {
+      picture: "QumKissMasskiss",
+      instant_gray: true,
+    },
   },
   "Riala" => {
     "Anti-Tyrant Essence" => "RialaSpellAntiTyrant",
