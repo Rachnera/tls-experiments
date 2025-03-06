@@ -478,6 +478,34 @@ Busty::BATTLE_CONFIG.merge!({
   },
 })
 
+
+Busty::BATTLE_CONFIG["Simon Dream 1"] = {
+  "Blinding Pierce" => "BlindingPierce",
+  "Defending Wall" => "DefendingWall",
+  "Familial Flame" => "Familial",
+  "Healing Surge" => "Healing",
+  "Poison Dart" => "Poison",
+  "Sexual Impact" => "SexualImpact",
+  "Sexual Strike" => "SexualStrike",
+  "Shielded Stance" => "Shielded",
+  "Shockwave Strike" => "ShockwaveStrike",
+  "Silent Shard" => "SilentShard",
+  "Weakening Slash" => "Weakening",
+}
+Busty::BATTLE_CONFIG["Simon Dream 1"].each do |key, str|
+  Busty::BATTLE_CONFIG["Simon Dream 1"][key] = "DreamSimon/1-supported/DreamSimon-1-#{str}"
+end
+Busty::BATTLE_CONFIG["Simon Dream 1"][:proc] = ->(move) {
+  version = Busty::simon_prison_version
+
+  if move.c_name == "Furious Strike"
+    return "DreamSimon/#{version}-supported/DreamSimon-#{version}-Furious#{Busty::varia_dominated? ? "Dominated" : "Reformed"}"
+  end
+
+  # Catch all for all skills not explicitly configured by name above
+  "DreamSimon/DreamSimon-#{version}"
+}
+
 # Duplicates configuration for characters with alternate forms
 Busty.duplicate_battle_config([
   {
@@ -513,6 +541,20 @@ Busty.duplicate_battle_config([
     evolved_character: "Simon2",
     search_and_replace: {
       "SimonGreen" => "SimonBlack",
+    },
+  },
+  {
+    base_character: "Simon Dream 1",
+    evolved_character: "Simon Dream 2",
+    search_and_replace: {
+      "1" => "2",
+    },
+  },
+  {
+    base_character: "Simon Dream 1",
+    evolved_character: "Simon Dream 3",
+    search_and_replace: {
+      "1" => "3",
     },
   },
   {
@@ -598,6 +640,10 @@ class Scene_Battle < Scene_Base
       return "Uyae #{Busty::uyae_clothes_version}"
     end
 
+    if Busty::simon_in_prison? && character_name.start_with?('Simon')
+      return "Simon Dream #{Busty::simon_prison_version}"
+    end
+
     character_name
   end
 end
@@ -619,6 +665,21 @@ module Busty
       return 2 if $game_switches[1481]
 
       # Tattered
+      1
+    end
+
+    def simon_in_prison?
+      # Switches at the beginning (arrival crater) and end (after Nyst fight) of the prison
+      $game_switches[4361] && !$game_switches[4381]
+    end
+
+    def simon_prison_version
+      # Gentle path done
+      return 3 if $game_switches[4367]
+
+      # Flickering path done
+      return 2 if $game_switches[4364]
+
       1
     end
   end
