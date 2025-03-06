@@ -211,11 +211,11 @@ class Scene_Battle < Scene_Base
 
   alias original_478_show_animation show_animation
   def show_animation(targets, animation_id)
+    return original_478_show_animation(targets, animation_id) if bust_feature_disabled?
+
     display_bust if show_bust? # For repeating skills, like Uyae's Takedown
 
     original_478_show_animation(targets, animation_id)
-
-    return if bust_feature_disabled?
 
     if show_bust? && !keep_bust_around?
       # Make the image less obstrusive but don't remove it entirely for smoother transition
