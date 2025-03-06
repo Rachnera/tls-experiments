@@ -177,6 +177,12 @@ class Scene_Battle < Scene_Base
     process_casting_animation if $imported["YEA-CastAnimations"]
     targets = @subject.current_action.make_targets.compact rescue []
 
+    # The Support X skills are weirdly slow because they first loop on all characters to do nothing, then trigger the formula code
+    # As a first quick fix, reducing that lag by looping (still for nothing) only on the first character
+    if ["Support Allies", "Support Servants", "Support Slaves"].include?(item.c_name)
+      targets = [targets[0]]
+    end
+
     # New
     if show_bust?
       display_bust
@@ -192,11 +198,12 @@ class Scene_Battle < Scene_Base
 
     # Original, no change
     show_animation(targets, item.animation_id) if show_all_animation?(item)
-    targets.each {|target|
-    if $imported["YEA-TargetManager"]
-      target = alive_random_target(target, item) if item.for_random?
+    targets.each do |target|
+      if $imported["YEA-TargetManager"]
+        target = alive_random_target(target, item) if item.for_random?
+      end
+      item.repeats.times { invoke_item(target, item) }
     end
-    item.repeats.times { invoke_item(target, item) } }
     if $imported["YEA-LunaticObjects"]
       lunatic_object_effect(:after, item, @subject, @subject)
     end
