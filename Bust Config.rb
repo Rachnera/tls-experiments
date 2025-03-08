@@ -435,6 +435,13 @@ Busty::CONFIG.merge!({
     face_offset_x: 59,
     face_offset_y: 63,
   },
+  "Entila" => {
+    face_offset_x: 56,
+    face_offset_y: 42,
+    
+    bust_offset_x: -35,
+    fade: false,
+  },
   "Esmera" => {
     face_offset_x: 67,
     face_offset_y: 49,
