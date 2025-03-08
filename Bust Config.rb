@@ -27,6 +27,7 @@ Busty::FACE_TO_BUST = {
   "Z Andra emo" => nil, # To only allow face 4, see below
   "Z Andra emoN" => "AndraN", # post-debauchment
   "Z Orcent" => "Orcent1",
+  "Z Commander Geoff emo" => "Commander Geoff",
   "Z Elven ambassador" => "Elven Ambassador",
   "Z Zirantian ambassador" => "Uolian",
 }
@@ -367,6 +368,12 @@ Busty::CONFIG.merge!({
     face_offset_y: 47,
 
     bust_offset_y: 15,
+  },
+  "Commander Geoff" => {
+    face_offset_x: 51,
+    face_offset_y: 26,
+
+    bust_offset_x: -33,
   },
   "Death" => {
     face_offset_x: 56,
