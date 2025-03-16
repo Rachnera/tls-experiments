@@ -188,6 +188,7 @@ class Scene_Battle < Scene_Base
       display_bust
       @actor_command_window.hide if item.instant
     else
+      cleanup_bust # In case we reach this point wuth a "stick around" bust
       display_enemy_bust if @subject.is_a?(Game_Enemy)
       if @subject.is_a?(Game_Actor)
         if @actor_command_window.openness == 0 # Don't show anything if we are in the skill menu (i.e. this is an instant skill)
@@ -420,6 +421,9 @@ class Scene_Battle < Scene_Base
 
   # Used for skills that are made of several skills chained together
   def keep_bust_around?
+    # Hackish way to have the Guard pictures show up on screen longer without adding an animation
+    return true if current_move_name == "Guard"
+
     move_config[:chained]
   end
 end
