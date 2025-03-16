@@ -626,6 +626,10 @@ Busty::BATTLE_CONFIG["Uyae 3"].merge!({
   "Divine Aura" => "UyaeStanceDivine",
 })
 
+Busty::BATTLE_CONFIG["Varia Dominated"].merge!({
+  "Crippling Stab" => "VariaStabDominatedCrippling",
+})
+
 class Scene_Battle < Scene_Base
   alias original_busty_character_name character_name
   def character_name
