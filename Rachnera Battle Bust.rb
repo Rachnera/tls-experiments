@@ -1,3 +1,5 @@
+# FIXME Hack for specific skills (Support, Guard) should be reworked, or at the very least moved to config
+
 module Busty
   BATTLE_CONFIG = {} # Placeholder, actual values in "Battle Bust Config"
 
