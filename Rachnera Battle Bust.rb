@@ -526,27 +526,28 @@ class Window_BattleHelp < Window_Help
       end
     end
 
-    # While SKILL_COOLDOWN is, in practice, only used for skills all sharing the same cooldown,
-    # So we treat it the same as a standard cooldown
-    total_cooldown =
-      if YEA::REGEXP::SKILL::COOLDOWN.match(item.note)
-        $1.to_i
-      elsif YEA::REGEXP::ITEM::SKILL_COOLDOWN.match(item.note)
-        $2.to_i
-      else
-        nil
-      end
+    current_cooldown = actor.cooldown?(item)
+    if current_cooldown && current_cooldown > 0
+      special.push(warning_prefix + "Cooling down, ready again #{current_cooldown > 1 ? "in #{current_cooldown} turns" : "next turn"}")
+    elsif YEA::REGEXP::SKILL::COOLDOWN.match(item.note)
+      total_cooldown = $1.to_i
+      special.push(info_prefix + "After use: #{total_cooldown} turn#{total_cooldown > 1 ? "s": ""} cooldown")
+    elsif YEA::REGEXP::ITEM::SKILL_COOLDOWN.match(item.note)
+      # SKILL_COOLDOWN is, in practice, only used for skills all sharing the same cooldown
+      total_cooldown = $2.to_i
 
-    if total_cooldown
-      current_cooldown = actor.cooldown?(item)
-
-      txt =
-        if current_cooldown > 0
-          warning_prefix + "Cooling down, ready again #{current_cooldown > 1 ? "in #{current_cooldown} turns" : "next turn"}"
-        else
-          info_prefix + "After use: #{total_cooldown} turn#{total_cooldown > 1 ? "s": ""} cooldown"
+      other_affected_skills = []
+      item.note.split(/[\r\n]+/).each do |line|
+        if YEA::REGEXP::ITEM::SKILL_COOLDOWN.match(line)
+          sk = $data_skills[$1.to_i]
+          if item.id != sk.id && actor.skills.include?(sk)
+            other_affected_skills.push(sk.c_name)
+          end
         end
-
+      end
+      txt = info_prefix + "After use: #{total_cooldown} turn#{total_cooldown > 1 ? "s": ""} cooldown"
+      txt += "\n"
+      txt += "Shared cooldown with: #{other_affected_skills.join(", ")}"
       special.push(txt)
     end
 
@@ -576,11 +577,13 @@ class Window_BattleHelp < Window_Help
       .gsub(/\s*[\r\n]+\s*/, "\n") # Too old a version of Ruby for \R
       .strip
 
+    description += "\n" + "\\}" + special.join("\n")
+
     # RPGMaker doesn't do automated line breaks for skills, so this is somewhat reliable
     guessed_description_lines_count = 1 + description.scan(/\n/).count
 
-    set_line_number([guessed_description_lines_count + special.count, 2].max)
-    set_text(description + "\n" + "\\}" + special.join("\n"))
+    set_line_number([guessed_description_lines_count, 2].max)
+    set_text(description)
   end
 
   def set_line_number(line_number)
