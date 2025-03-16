@@ -496,6 +496,7 @@ class Window_SkillList < Window_Selectable
       YEA::REGEXP::SKILL::COOLDOWN,
       YEA::REGEXP::SKILL::LIMITED_USES,
       YEA::REGEXP::SKILL::WARMUP,
+      YEA::REGEXP::ITEM::SKILL_COOLDOWN,
     ].any? {|regexp| regexp.match(item.note) }
       @help_window.set_dynamic_text_for_restricted_skills(item, @actor)
     end
@@ -525,8 +526,18 @@ class Window_BattleHelp < Window_Help
       end
     end
 
-    if YEA::REGEXP::SKILL::COOLDOWN.match(item.note)
-      total_cooldown = $1.to_i
+    # While SKILL_COOLDOWN is, in practice, only used for skills all sharing the same cooldown,
+    # So we treat it the same as a standard cooldown
+    total_cooldown =
+      if YEA::REGEXP::SKILL::COOLDOWN.match(item.note)
+        $1.to_i
+      elsif YEA::REGEXP::ITEM::SKILL_COOLDOWN.match(item.note)
+        $2.to_i
+      else
+        nil
+      end
+
+    if total_cooldown
       current_cooldown = actor.cooldown?(item)
 
       txt =
