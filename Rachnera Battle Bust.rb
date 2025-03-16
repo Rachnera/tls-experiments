@@ -224,10 +224,16 @@ class Scene_Battle < Scene_Base
 
     original_478_show_animation(targets, animation_id)
 
-    if show_bust? && !keep_bust_around?
-      # Make the image less obstrusive but don't remove it entirely for smoother transition
-      send_bust_to_background
-    end
+    # Make the image less obstrusive but don't remove it entirely for smoother transition
+    send_bust_to_background
+  end
+
+  alias original_478_apply_item_effects apply_item_effects
+  def apply_item_effects(target, item)
+    # Make sure bust is (partially) dealt it at this point, even with no animation
+    send_bust_to_background
+
+    original_478_apply_item_effects(target, item)
   end
 
   def display_bust
@@ -401,6 +407,10 @@ class Scene_Battle < Scene_Base
   end
 
   def send_bust_to_background
+    return unless show_bust?
+
+    return if keep_bust_around?
+
     @bust_picture.z = 2
     @bust_picture.tone.red = -64
     @bust_picture.tone.green = -64
