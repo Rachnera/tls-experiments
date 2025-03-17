@@ -403,7 +403,6 @@ Busty::BATTLE_CONFIG.merge!({
     "Blade Dance" => "VariaAssaultReformedBladeDance",
     "Blood Strike" => "VariaStabReformedBlood",
     "Channeled Luck" => "VariaChanneledLuck",
-    "Crippling Stab" => "VariStabReformedFCrippling",
     "Defender's Frenzy" => "VariaFrenzyReformedDefender",
     "Destined Blood" => "VariaBuffReformed",
     "Destined Endurance" => "VariaBuffReformed",
@@ -613,10 +612,12 @@ Busty::BATTLE_CONFIG["Robin grey"].merge!({
 })
 
 Busty::BATTLE_CONFIG["Varia Dominated"].merge!({
+  "Crippling Stab" => "VariaStabDominatedCrippling",
   "Earth Bomb" => "VariaThrowDom",
   "Slave's Frenzy" => "VariaFrenzyDominatedSlave",
 })
 Busty::BATTLE_CONFIG["Varia Reshaped"].merge!({
+  "Crippling Stab" => "VariStabReformedFCrippling",
   "Earth Bomb" => "VariaThrowRef",
   "Servant's Frenzy" => "VariaFrenzyReformedServant",
 })
@@ -624,10 +625,6 @@ Busty::BATTLE_CONFIG["Varia Reshaped"].merge!({
 Busty::BATTLE_CONFIG["Uyae 3"].merge!({
   "Aura of Agility" => "UyaeStanceAgility",
   "Divine Aura" => "UyaeStanceDivine",
-})
-
-Busty::BATTLE_CONFIG["Varia Dominated"].merge!({
-  "Crippling Stab" => "VariaStabDominatedCrippling",
 })
 
 class Scene_Battle < Scene_Base
