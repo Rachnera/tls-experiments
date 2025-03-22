@@ -205,7 +205,11 @@ class Scene_Battle < Scene_Base
       if $imported["YEA-TargetManager"]
         target = alive_random_target(target, item) if item.for_random?
       end
-      item.repeats.times { invoke_item(target, item) }
+      @skill_loop = 1
+      item.repeats.times {
+        invoke_item(target, item)
+        @skill_loop += 1
+      }
     end
     if $imported["YEA-LunaticObjects"]
       lunatic_object_effect(:after, item, @subject, @subject)
@@ -223,7 +227,13 @@ class Scene_Battle < Scene_Base
   def show_animation(targets, animation_id)
     return original_478_show_animation(targets, animation_id) if bust_feature_disabled?
 
-    display_bust if show_bust? # For repeating skills, like Uyae's Takedown
+    # For repeating skills, like Uyae's Takedown
+    # Compromise: Alternate between the bright and grayed version of the picture to keep things dynamic
+    # But ensure all images are behind damage numbers and other similar information nonetheless
+    if show_bust? && @skill_loop && @skill_loop > 1
+      display_bust
+      @bust_picture.z = 2
+    end
 
     original_478_show_animation(targets, animation_id)
 
