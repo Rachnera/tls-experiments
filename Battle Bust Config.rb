@@ -582,6 +582,7 @@ Busty.duplicate_battle_config([
 # Moves exclusive to transformed Aka
 Busty::BATTLE_CONFIG["Aka2"].merge!({
   "Bloody Ecstatic Strike" => "AkaBlueAssaultBloody",
+  "Bloody Lunge" => "AkaBlueCoolStabBloody",
   "Ecstatic Strike" => "AkaBlueAssaultEcstatic",
   "Lethal Intent" => "AkaBlueLethalIntent",
   "Pure Stab" => "AkaBlueCoolStabPure",
