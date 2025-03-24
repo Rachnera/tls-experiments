@@ -83,7 +83,7 @@ Busty::BATTLE_CONFIG.merge!({
     "Attack" => "CarinaAttack",
     "Calm" => "CarinahealCompassionateCureLust",
     "Calming Aura" => "CarinaMassCureLust",
-    "Channeled Smite" => "CarinaOffenseSmite",
+    "Channeled Smite" => "CarinaOffenseChanneledSmite",
     "Cleanse" => "CarinahealCompassionateCure",
     "Cleansing Aura" => "CarinaMassCure",
     "Divine Intervention" => "CarinaMassDivineIntervention",
