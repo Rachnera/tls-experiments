@@ -78,6 +78,16 @@ Busty::BATTLE_CONFIG.merge!({
       nil
     },
   },
+  "Antarion" => {
+    "Attack" => "AntarionSword",
+    "Blinding Strike" => "AntarionSwordPlus",
+    "Drink Potion" => "AntarionPotion",
+    "Flashy Strike" => "AntarionSwordPlus",
+    "Guard" => "AntarionSword",
+    "Item" => "AntarionPotion",
+    "Silencing Strike" => "AntarionSwordPlus",
+    "Stunning Strike" => "AntarionSwordPlus",
+  },
   "Carina" => {
     "Anti-Toxin" => "CarinaHealAntiToxin",
     "Attack" => "CarinaAttack",
