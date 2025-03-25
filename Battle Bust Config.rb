@@ -373,6 +373,15 @@ Busty::BATTLE_CONFIG.merge!({
       nil
     },
   },
+  "Sho" => {
+    proc: ->(move) {
+      if SkillHelper::is_skill(move) && move.mp_cost > 0
+        return "ShoSpell"
+      end
+
+      "ShoWand"
+    },
+  },
   "Uyae 1" => {
     "Attack" => "UyaeFistClaw1",
     "Aura of Might" => "UyaeStanceMighty1",
