@@ -635,6 +635,21 @@ class Scene_Battle < Scene_Base
   end
 end
 
+# Move down log_window
+class Scene_Battle < Scene_Base
+  alias original_522_create_all_windows create_all_windows
+  def create_all_windows
+    original_522_create_all_windows
+
+    unless bust_feature_disabled?
+      @log_window.x = 128
+      @log_window.z = 9999
+      # FIXME As is, graphic glitch if the message is too long or on several lines
+      @log_window.y = Graphics.height - @status_window.height - 32 - 8
+    end
+  end
+end
+
 YEA::SYSTEM::CUSTOM_SWITCHES.merge!({
   hide_battle_bust: [
     14, # Switch Number; make sure it's not used for something else
