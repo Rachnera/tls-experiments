@@ -243,8 +243,10 @@ class Scene_Battle < Scene_Base
 
   alias original_478_apply_item_effects apply_item_effects
   def apply_item_effects(target, item)
-    # Make sure bust is (partially) dealt it at this point, even with no animation
-    send_bust_to_background
+    unless bust_feature_disabled?
+      # Make sure bust is (partially) dealt it at this point, even with no animation
+      send_bust_to_background
+    end
 
     original_478_apply_item_effects(target, item)
   end
