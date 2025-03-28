@@ -82,6 +82,16 @@ Busty::BATTLE_CONFIG.merge!({
       nil
     },
   },
+  "Antarion" => {
+    "Attack" => "AntarionSword",
+    "Blinding Strike" => "AntarionSwordPlus",
+    "Drink Potion" => "AntarionPotion",
+    "Flashy Strike" => "AntarionSwordPlus",
+    "Guard" => "AntarionSword",
+    "Item" => "AntarionPotion",
+    "Silencing Strike" => "AntarionSwordPlus",
+    "Stunning Strike" => "AntarionSwordPlus",
+  },
   "Carina" => {
     "Anti-Toxin" => "CarinaHealAntiToxin",
     "Attack" => "CarinaAttack",
@@ -381,6 +391,15 @@ Busty::BATTLE_CONFIG.merge!({
       end
 
       nil
+    },
+  },
+  "Sho" => {
+    proc: ->(move) {
+      if SkillHelper::is_skill(move) && move.mp_cost > 0
+        return "ShoSpell"
+      end
+
+      "ShoWand"
     },
   },
   "Uyae 1" => {
