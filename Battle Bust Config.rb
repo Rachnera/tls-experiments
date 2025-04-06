@@ -648,6 +648,14 @@ class Scene_Battle < Scene_Base
 
     character_name
   end
+
+  alias original_keep_bust_around? keep_bust_around?
+  def keep_bust_around?
+    # Allow all Guard images to persist as much as possible (otherwise they are quite blinky)
+    return true if current_move_name == "Guard"
+
+    original_keep_bust_around?
+  end
 end
 
 # Helpful functions I didn't know where to put

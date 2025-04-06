@@ -1,4 +1,4 @@
-# FIXME Hack for specific skills (Support, Guard) should be reworked, or at the very least moved to config
+# FIXME Hack for specific skills (namely Simon's Support) should be reworked, or at the very least moved to config
 
 module Busty
   BATTLE_CONFIG = {} # Placeholder, actual values in "Battle Bust Config"
@@ -190,7 +190,7 @@ class Scene_Battle < Scene_Base
       display_bust
       @actor_command_window.hide if item.instant
     else
-      cleanup_bust # In case we reach this point wuth a "stick around" bust
+      cleanup_pc_bust # In case we reach this point with a "stick around" bust
       display_enemy_bust if @subject.is_a?(Game_Enemy)
       if @subject.is_a?(Game_Actor)
         if @actor_command_window.openness == 0 # Don't show anything if we are in the skill menu (i.e. this is an instant skill)
@@ -336,6 +336,10 @@ class Scene_Battle < Scene_Base
   def cleanup_bust
     Busty::hide_enemy_face_window
 
+    cleanup_pc_bust
+  end
+
+  def cleanup_pc_bust
     if @bust_picture
       @bust_picture.bitmap = nil unless show_bust? && keep_bust_around?
     end
@@ -435,9 +439,6 @@ class Scene_Battle < Scene_Base
 
   # Used for skills that are made of several skills chained together
   def keep_bust_around?
-    # Hackish way to have the Guard pictures show up on screen longer without adding an animation
-    return true if current_move_name == "Guard"
-
     move_config[:chained]
   end
 end
