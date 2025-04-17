@@ -186,17 +186,15 @@ class Scene_Battle < Scene_Base
     end
 
     # New
+    # Check that also, contrary to a simple item.instant, works for "pseudo-instant" skills, like skills called by an instant skill
+    instant_skill = @actor_command_window.openness > 0
+    @actor_command_window.hide if instant_skill
     if show_bust?
       display_bust
-      @actor_command_window.hide if item.instant
     else
       cleanup_pc_bust # In case we reach this point with a "stick around" bust
       display_enemy_bust if @subject.is_a?(Game_Enemy)
-      if @subject.is_a?(Game_Actor)
-        if @actor_command_window.openness == 0 # Don't show anything if we are in the skill menu (i.e. this is an instant skill)
-          display_npc_face
-        end
-      end
+      display_npc_face if @subject.is_a?(Game_Actor)
     end
 
     # Original, no change
@@ -218,8 +216,8 @@ class Scene_Battle < Scene_Base
     # New
     # Is a noop if everything was already cleaned in show_animation
     cleanup_bust
-    if item.instant
-      @actor_command_window.show
+    if instant_skill
+      @actor_command_window.show unless keep_bust_around?
     end
   end
 
@@ -437,9 +435,17 @@ class Scene_Battle < Scene_Base
     @bust_picture.tone.gray = 128
   end
 
-  # Used for skills that are made of several skills chained together
+  # Mainly used for skills that are made of several skills chained together
+  # But can be overridden in config to cover other edge cases
   def keep_bust_around?
-    move_config[:chained]
+    move_is_calling_another_move?
+  end
+
+  # For now, seems good enough to just check if is a configured move calling a common event
+  def move_is_calling_another_move?
+    return false unless show_bust? && !!move_config
+
+    @subject.current_action.item.effects.any? { |effect| effect.code == Game_Battler::EFFECT_COMMON_EVENT }
   end
 end
 

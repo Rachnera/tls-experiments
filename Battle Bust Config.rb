@@ -281,10 +281,7 @@ Busty::BATTLE_CONFIG.merge!({
     "Sealing Tech" => "QumSpell",
     "Shiny Thoughts" => "QumOohSparkle",
     # Skills that are actually two skills below
-    "Mass Kiss" => {
-      picture: "QumKissMasskiss",
-      chained: true,
-    },
+    "Mass Kiss" => "QumKissMasskiss",
     "QY heal component" => {
       picture: "QumKissMasskiss",
       instant_gray: true,
@@ -370,10 +367,7 @@ Busty::BATTLE_CONFIG.merge!({
     "Unified Strike" => "SimonGreenThrustUnified",
     proc: ->(move) {
       if ["Support Allies", "Support Servants", "Support Slaves"].include?(move.c_name)
-        return  {
-          picture: "SimonGreenHealHealing",
-          chained: true,
-        }
+        return "SimonGreenHealHealing",
       end
 
       nil
