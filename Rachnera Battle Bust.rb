@@ -426,9 +426,10 @@ class Scene_Battle < Scene_Base
   def send_bust_to_background
     return unless show_bust?
 
+    @bust_picture.z = 2
+
     return if keep_bust_around?
 
-    @bust_picture.z = 2
     @bust_picture.tone.red = -64
     @bust_picture.tone.green = -64
     @bust_picture.tone.blue = -64
