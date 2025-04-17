@@ -652,6 +652,16 @@ class Scene_Battle < Scene_Base
   end
 end
 
+class Game_BattlerBase
+  alias original_558_make_miss_popups make_miss_popups
+  def make_miss_popups(user, item)
+    # Don't show "Failed" on skills that are just calling another skill
+    return if user.name == "Lilith" && item.c_name == "Randomness"
+
+    original_558_make_miss_popups(user, item)
+  end
+end
+
 # Helpful functions I didn't know where to put
 module Busty
   class << self
