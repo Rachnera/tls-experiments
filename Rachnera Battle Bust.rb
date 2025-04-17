@@ -445,7 +445,8 @@ class Scene_Battle < Scene_Base
   def move_is_calling_another_move?
     return false unless show_bust? && !!move_config
 
-    @subject.current_action.item.effects.any? { |effect| effect.code == Game_Battler::EFFECT_COMMON_EVENT }
+    item = @subject.current_action.item
+    item.effects.any? { |effect| effect.code == Game_Battler::EFFECT_COMMON_EVENT } || item.note.include?("$game_temp.reserve_common_event")
   end
 end
 
