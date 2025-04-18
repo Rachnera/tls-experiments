@@ -188,6 +188,8 @@ class Scene_Battle < Scene_Base
     # New
     # Check that also, contrary to a simple item.instant, works for "pseudo-instant" skills, like skills called by an instant skill
     instant_skill = @actor_command_window.openness > 0
+    @skill_loop = 1
+
     @actor_command_window.hide if instant_skill
     if show_bust?
       display_bust
