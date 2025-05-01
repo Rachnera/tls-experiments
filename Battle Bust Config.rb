@@ -434,6 +434,15 @@ Busty::BATTLE_CONFIG.merge!({
       nil
     },
   },
+  "Wynn" => {
+    proc: ->(move) {
+      if SkillHelper::is_skill(move) && move.mp_cost > 0
+        return "WynnSpell"
+      end
+
+      "WynnRod"
+    },
+  },
   "Yarra" => {
     "Appreciate Harem" => "YarraMAppreciateHarem",
     "Attack" => "YarraAttack",
