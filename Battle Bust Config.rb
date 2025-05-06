@@ -85,6 +85,7 @@ Busty::BATTLE_CONFIG.merge!({
     "Flashy Strike" => "AntarionSwordPlus",
     "Guard" => "AntarionSword",
     "Item" => "AntarionPotion",
+    "Showboat" => "AntarionSwordPlus",
     "Silencing Strike" => "AntarionSwordPlus",
     "Stunning Strike" => "AntarionSwordPlus",
   },
