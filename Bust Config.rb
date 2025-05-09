@@ -243,6 +243,14 @@ class Window_Message < Window_Base
       if $game_message.face_name == '1 Simon dark2'
         return max_weariness ? 'Simon 4 2' : 'Simon 3 2'
       end
+
+      if $game_message.face_name == '1 Simon dark eyes'
+        return max_weariness ? 'Simon 4 3' : 'Simon 3 3'
+      end
+
+      if $game_message.face_name == '1 Simon dark eyes2'
+        return max_weariness ? 'Simon 4 4' : 'Simon 3 4'
+      end
     end
 
     $game_message.face_name
@@ -1086,12 +1094,12 @@ Busty::replicate_config_for_alternate_forms([
   },
   {
     original: "Simon2",
-    faces: ["Simon 3 1", "Simon 3 2"],
+    faces: ["Simon 3 1", "Simon 3 2", "Simon 3 3", "Simon 3 4"],
     bust: "Simon3",
   },
   {
     original: "Simon2",
-    faces: ["Simon 4 1", "Simon 4 2"],
+    faces: ["Simon 4 1", "Simon 4 2", "Simon 4 3", "Simon 4 4"],
     bust: "Simon4",
   },
   {
