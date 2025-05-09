@@ -22,6 +22,8 @@ Busty::FACE_TO_BUST = {
   "Prologue emo" => "Ivala",
   "Riala emo2" => "Riala2",
   "Sabitha H emo" => "SabithaH",
+  "Simon 3 1" => "Simon2",
+  "Simon 3 2" => "Simon2",
   "Ulrissa emo3" => "Ulrissa2",
   "Uyae emo2d" => "Uyae God Flip",
   "Z Andra emo" => nil, # To only allow face 4, see below
@@ -227,6 +229,20 @@ class Window_Message < Window_Base
     # Vera has the same expressions on different sheets, but with a different zoom level. Ensure we use the configured one.
     if $game_message.face_name == 'Y DS_Actor17' && $game_message.face_index == 7
       return 'Vera emo'
+    end
+
+    # Simon in Incubus prison, after the Flickering Path (second zone or more) and before the ritual to summon him back
+    # Second boundary chosen so that Simon still uses his tired face when interacting with Tanurak
+    if $game_switches[4364] && !$game_switches[4534]
+      max_weariness = $game_switches[4367] # After the Gentle Path
+
+      if $game_message.face_name == '1 Simon dark'
+        return max_weariness ? 'Simon 4 1' : 'Simon 3 1'
+      end
+
+      if $game_message.face_name == '1 Simon dark2'
+        return max_weariness ? 'Simon 4 2' : 'Simon 3 2'
+      end
     end
 
     $game_message.face_name
@@ -1067,6 +1083,16 @@ Busty::replicate_config_for_alternate_forms([
     original: "Qum D'umpe",
     faces: ["Qum D'umpe emo2"],
     bust: "Qum D'umpe2",
+  },
+  {
+    original: "Simon2",
+    faces: ["Simon 3 1", "Simon 3 2"],
+    bust: "Simon3",
+  },
+  {
+    original: "Simon2",
+    faces: ["Simon 4 1", "Simon 4 2"],
+    bust: "Simon4",
   },
   {
     original: "Trin",
