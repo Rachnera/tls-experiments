@@ -629,6 +629,20 @@ Busty.duplicate_battle_config([
   },
 ])
 
+# Orcs
+Busty::BATTLE_CONFIG.merge!({
+  "Balia Orc - Mage" => "OrcsBaliaMage",
+  "Balia Orc - Rogue" => "OrcsBaliaRogue",
+  "Balia Orc - Warrior" => "OrcsBaliaWarrior",
+  "Grubbak" => "OrcsGrubbak",
+  "Impaler" => "OrcsImpaler",
+  "Implevon" => "OrcsImplevon",
+  "Orcent1" => "OrcsOrcentBandit",
+  "Orcent2" => "OrcsOrcentYhilin",
+  "Pure Orc" => "OrcsBaliaBase",
+  "Ralke" => "OrcsRalke",
+})
+
 # Moves exclusive to transformed Aka
 Busty::BATTLE_CONFIG["Aka2"].merge!({
   "Bloody Ecstatic Strike" => "AkaBlueAssaultBloody",
@@ -699,6 +713,10 @@ class Scene_Battle < Scene_Base
     if character_name.start_with?("Doomed King")
       under_the_armor = @subject.id == 29 ? "Simon" : "Robin"
       return "Doom King - #{under_the_armor}"
+    end
+
+    if ["Orcford", "Orcroft", "Orcton"].include?(character_name)
+      return "Balia Orc - #{$data_classes[@subject.class_id].name}"
     end
 
     character_name

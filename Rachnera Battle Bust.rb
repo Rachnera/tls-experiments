@@ -376,6 +376,9 @@ class Scene_Battle < Scene_Base
   def move_config
     return nil if character_name.nil? or current_move_name.nil? or Busty::BATTLE_CONFIG[character_name].nil?
 
+    # For characters who are assigned a single image, with no per skill details
+    return { picture: Busty::BATTLE_CONFIG[character_name] } if Busty::BATTLE_CONFIG[character_name].is_a?(String)
+
     raw_config = raw_move_config
 
     return nil unless raw_config
@@ -410,7 +413,12 @@ class Scene_Battle < Scene_Base
   end
 
   def character_name
+    # Attempt to guess name from face (like "Is Robin blond or grey?")
+    # Relic from the very first version of the feature, hence the weird references to the dialogue busts
     character_name = Busty::character_from_face(@subject.face_name, @subject.face_index)
+    return character_name if character_name && Busty::CONFIG[character_name]
+
+    @subject.name
   end
 
   def send_bust_to_background
