@@ -515,17 +515,17 @@ Busty::BATTLE_CONFIG["Simon Dream 1"] = {
   "Weakening Slash" => "Weakening",
 }
 Busty::BATTLE_CONFIG["Simon Dream 1"].each do |key, str|
-  Busty::BATTLE_CONFIG["Simon Dream 1"][key] = "DreamSimon/1-supported/DreamSimon-1-#{str}"
+  Busty::BATTLE_CONFIG["Simon Dream 1"][key] = "DreamSimon-1-#{str}"
 end
 Busty::BATTLE_CONFIG["Simon Dream 1"][:proc] = ->(move) {
   version = Busty::simon_prison_version
 
   if move.c_name == "Furious Strike"
-    return "DreamSimon/#{version}-supported/DreamSimon-#{version}-Furious#{Busty::varia_dominated? ? "Dominated" : "Reformed"}"
+    return "DreamSimon-#{version}-Furious#{Busty::varia_dominated? ? "Dominated" : "Reformed"}"
   end
 
   # Catch all for all skills not explicitly configured by name above
-  "DreamSimon/DreamSimon-#{version}"
+  "DreamSimon-#{version}"
 }
 
 # Duplicates configuration for characters with alternate forms
