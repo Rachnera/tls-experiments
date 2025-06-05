@@ -124,6 +124,33 @@ Busty::BATTLE_CONFIG.merge!({
       nil
     },
   },
+  "Doom King - Robin" => {
+    "Attack" => "DKBaseAttack",
+    "Cure" => "DKDefenseRobin",
+    "Doom Heal" => "DKDefenseRobin",
+    "Doom Lance" => "DKOffenseRobin",
+    "Fire" => "DKOffenseRobin",
+    "Fire Lance" => "DKOffenseRobin",
+    "Gather Lust" => "DKDefenseRobin",
+    "Guard" => "DKDefense",
+    "Heal" => "DKDefenseRobin",
+    "Ice" => "DKOffenseRobin",
+    "Ice Lance" => "DKOffenseRobin",
+    "Item" => "DKBaseItem",
+    "Lightning" => "DKOffenseRobin",
+    "Lightning Lance" => "DKOffenseRobin",
+  },
+  "Doom King - Simon" => {
+    "Attack" => "DKBaseAttack",
+    "Commanding Presence" => "DKDefenseSimon",
+    "Doom Lance" => "DKOffenseSimon",
+    "Guard" => "DKDefense",
+    "Incubus Strike" => "DKOffenseSimon",
+    "Item" => "DKBaseItem",
+    "King's Rebuke" => "DKDefenseSimon",
+    "Precise Strike" => "DKOffenseSimon",
+    "Shared Endurance" => "DKDefenseSimon",
+  },
   "Ginasta" => {
     "Agile Guard" => "GinastaDefAgileGuard",
     "Attack" => "GinastaOffAttack",
@@ -667,6 +694,11 @@ class Scene_Battle < Scene_Base
 
     if Busty::simon_in_prison? && character_name.start_with?('Simon')
       return "Simon Dream #{Busty::simon_prison_version}"
+    end
+
+    if character_name.start_with?("Doomed King")
+      under_the_armor = @subject.id == 29 ? "Simon" : "Robin"
+      return "Doom King - #{under_the_armor}"
     end
 
     character_name
