@@ -262,8 +262,8 @@ class Scene_Battle < Scene_Base
     @bust_picture.tone.gray = 0
 
     @bust_picture.z = 999
-    @bust_picture.x = bust_offset_x
-    @bust_picture.y = Graphics.height - @bust_picture.height + bust_offset_y
+    @bust_picture.x = 0
+    @bust_picture.y = Graphics.height - @bust_picture.height
 
     send_bust_to_background if move_config[:instant_gray]
   end
@@ -411,18 +411,6 @@ class Scene_Battle < Scene_Base
 
   def character_name
     character_name = Busty::character_from_face(@subject.face_name, @subject.face_index)
-  end
-
-  def bust_offset_x
-    move_config[:bust_offset_x] || bust_config[:bust_offset_x] || 0
-  end
-
-  def bust_offset_y
-    move_config[:bust_offset_y] || bust_config[:bust_offset_y] || 0
-  end
-
-  def bust_config
-    Busty::BATTLE_CONFIG[character_name] || {}
   end
 
   def send_bust_to_background
