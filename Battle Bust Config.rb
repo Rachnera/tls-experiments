@@ -662,6 +662,9 @@ Busty::BATTLE_CONFIG["Simon2"].merge!({
   "Incubus Strike" => "SimonBlackThrustIncubus",
   "King's Aura" => "SimonBlackHealKingsAura",
   "King's Rebuke" => "SimonBlackStanceKingsRebuke",
+  "Sovereign's Aura" => "SimonBlackHealKingsAura",
+  "Sovereign Strike" => "SimonBlackThrustIncubus",
+  "Sovereign's Presence" => "SimonBlackStanceIncubusPresence",
 })
 
 # Config specific to Hilstara the White
