@@ -321,6 +321,21 @@ module Busty
   end
 end
 
+# Use a different map sprite for not Lunaell
+# Yes, this is getting way out of scope for that file
+class Game_Event < Game_Character
+  alias_method :original_528_setup_page_settings, :setup_page_settings
+  def setup_page_settings
+    original_528_setup_page_settings
+
+    if @page.graphic.character_name == "Givini female"
+      if Busty::NOT_LUNAELL.any? { |ids| @map_id == ids[0] && @id == ids[1] }
+        @character_name = "Givini_female2-Two-anell_v6"
+      end
+    end
+  end
+end
+
 Busty::CONFIG.merge!({
   "Andra" => {
     face_offset_x: 68,
