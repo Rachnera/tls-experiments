@@ -272,23 +272,16 @@ class Window_Message < Window_Base
       end
     end
 
-    $game_message.face_name
-  end
-
-  def bust_face_config
     # Luanell
     if $game_message.face_name == 'Z Givini emo' && $game_message.face_index == 1
       if $game_map && $game_map.interpreter
         if Busty::NOT_LUNAELL.any? { |ids| $game_map.interpreter.map_id == ids[0] && $game_map.interpreter.event_id == ids[1] }
-          return ["Z Givini NPCs 3", 0]
+          return "Z_Givini_emo-Two-anell2"
         end
       end
     end
 
-    [
-      bust_face_name,
-      bust_face_index,
-    ]
+    $game_message.face_name
   end
 end
 
