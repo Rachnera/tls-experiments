@@ -209,6 +209,25 @@ end
 # young Simon does not support disrobing
 Busty::SIMON_YOUNG_FACES = ["face002b","face002b dark"]
 
+Busty::NOT_LUNAELL = [
+  # [MapId, EventId]
+  [56, 20], # Stineford bank
+  [226, 8], # Ardford royal district
+  [485, 13], # 3AW conference chamber
+  [602, 13], # Gawnfall succubi vote
+  # Givino Vinai
+  [545, 49], # Square
+  [546, 9], # Court
+  [572, 46], [572, 53], # Courtly chambers
+  [574, 22], [574, 18], # Ballroom
+  [547, 3], # Equipment shop
+  [549, 5], # Teahouse
+  [550, 2], # King's abode
+  [417, 6], [417, 7], [417, 25], [417, 18], # Camps
+  [552, 5], [552, 3], # Camps office
+  [416, 5], # Mage guild
+]
+
 # Automatically swap certain facesets depending on certain conditions.
 # NB this comes before face-to-bust mapping in character_from_face.
 class Window_Message < Window_Base
@@ -255,6 +274,22 @@ class Window_Message < Window_Base
 
     $game_message.face_name
   end
+
+  def bust_face_config
+    # Luanell
+    if $game_message.face_name == 'Z Givini emo' && $game_message.face_index == 1
+      if $game_map && $game_map.interpreter
+        if Busty::NOT_LUNAELL.any? { |ids| $game_map.interpreter.map_id == ids[0] && $game_map.interpreter.event_id == ids[1] }
+          return ["Z Givini NPCs 3", 0]
+        end
+      end
+    end
+
+    [
+      bust_face_name,
+      bust_face_index,
+    ]
+  end
 end
 
 # Automatically swap busts depending on certain conditions.
@@ -276,9 +311,6 @@ end
 # You can disable a character from that feature by passing "CharacterName" => "never" here
 Busty::MESSAGE_AUTODISPLAY_SPECIAL = {
   "Simon1" => "show_simon_the_green",
-
-  # Luanall shares her face with nameless NPC, and there's not really a good way to differentiate them right now
-  "Luanell" => "never",
 }
 module Busty
   class << self
