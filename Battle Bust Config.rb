@@ -62,6 +62,7 @@ Busty::BATTLE_CONFIG.merge!({
     "Lightning Storm" => "AltinaStormLightning",
     "Poison Storm" => "AltinaStormPoison",
     "Quake" => "AltinaStormEarth",
+    "Rekindled Light" => "AltinaStaffHope",
     proc: ->(move) {
       altina_confident = $game_switches[1954]
 
