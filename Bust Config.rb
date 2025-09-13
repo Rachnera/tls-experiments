@@ -793,10 +793,10 @@ Busty::CONFIG.merge!({
     bust_offset_y: 15,
   },
   "Tertia" => {
-    face_offset_x: 84,
-    face_offset_y: 50,
+    face_offset_x: 44,
+    face_offset_y: 49,
 
-    bust_offset_x: -65,
+    bust_offset_x: -25,
     bust_offset_y: 27,
   },
   "Trin" => {
