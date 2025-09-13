@@ -209,23 +209,23 @@ end
 # young Simon does not support disrobing
 Busty::SIMON_YOUNG_FACES = ["face002b","face002b dark"]
 
-Busty::NOT_LUNAELL = [
+Busty::NOT_LUANELL = [
   # [MapId, EventId]
   [56, 20], # Stineford bank
   [226, 8], # Ardford royal district
+  [416, 5], # Givini Mage guild
+  [417, 6], [417, 7], [417, 18], [417, 25], # Givini Camps
   [485, 13], # 3AW conference chamber
+  [545, 49], # Givino Vinai Square
+  [546, 9], # Givino Vinai Court
+  [547, 3], # Givino Vinai Equipment shop
+  [549, 5], # Givino Vinai Teahouse
+  [550, 2], # Givino Vinai King's abode
+  [552, 3], [552, 5], # Givini Camps office
+  [572, 46], [572, 53], # Givino Vinai Courtly chambers
+  [574, 18], [574, 22], # Givino Vinai Ballroom
   [602, 13], # Gawnfall succubi vote
-  # Givino Vinai
-  [545, 49], # Square
-  [546, 9], # Court
-  [572, 46], [572, 53], # Courtly chambers
-  [574, 22], [574, 18], # Ballroom
-  [547, 3], # Equipment shop
-  [549, 5], # Teahouse
-  [550, 2], # King's abode
-  [417, 6], [417, 7], [417, 25], [417, 18], # Camps
-  [552, 5], [552, 3], # Camps office
-  [416, 5], # Mage guild
+  [966, 6], [966, 7], [966, 25] # Givino Ritai (postgame Givini Camps)
 ]
 
 # Automatically swap certain facesets depending on certain conditions.
@@ -275,7 +275,7 @@ class Window_Message < Window_Base
     # Luanell
     if $game_message.face_name == 'Z Givini emo' && $game_message.face_index == 1
       if $game_map && $game_map.interpreter
-        if Busty::NOT_LUNAELL.any? { |ids| $game_map.interpreter.map_id == ids[0] && $game_map.interpreter.event_id == ids[1] }
+        if Busty::NOT_LUANELL.any? { |ids| $game_map.interpreter.map_id == ids[0] && $game_map.interpreter.event_id == ids[1] }
           return "Z_Givini_emo-Two-anell2"
         end
       end
@@ -329,7 +329,7 @@ class Game_Event < Game_Character
     original_528_setup_page_settings
 
     if @page.graphic.character_name == "Givini female"
-      if Busty::NOT_LUNAELL.any? { |ids| @map_id == ids[0] && @id == ids[1] }
+      if Busty::NOT_LUANELL.any? { |ids| @map_id == ids[0] && @id == ids[1] }
         @character_name = "Givini_female2-Two-anell_v6"
       end
     end
