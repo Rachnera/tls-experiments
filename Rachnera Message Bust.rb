@@ -328,6 +328,11 @@ class Window_Message < Window_Base
       bust_face_index,
     ]
   end
+  
+  # also apply face remapping to backlog
+  def face_config_for_log
+    return bust_face_config()
+  end
 
   def show_bust?
     return false unless valid_context?
